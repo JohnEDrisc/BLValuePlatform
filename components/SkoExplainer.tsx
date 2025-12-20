@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { SKO_DATA } from '../constants';
 import { UIStrings, SkoDriverDetail, SkoPovContent } from '../types';
@@ -113,12 +112,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <p className="text-2xl md:text-3xl text-zinc-200 font-light max-w-2xl mx-auto px-6 mb-12">
                The definitive playbook for pivoting from <span className="text-white font-bold">feature-led discovery</span> to <span className="text-white font-bold italic">strategic certainty</span>.
             </p>
-            
-            <div className="flex justify-center gap-4 no-print">
-               <button onClick={() => setViewMode('grid')} className="px-8 py-4 bg-white text-black font-black rounded-full hover:bg-blackline-yellow transition-all flex items-center gap-3 uppercase tracking-tighter italic shadow-2xl">
-                  <LayoutGrid size={20} /> Explore Drivers
-               </button>
-            </div>
          </div>
 
          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full pb-24 px-6">
@@ -139,7 +132,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-6 border border-white/20 group-hover:bg-blue-500 group-hover:text-black group-hover:border-blue-500 transition-all">
                       <LayoutGrid size={32} />
                    </div>
-                   <h3 className="text-3xl font-bold text-white mb-2 tracking-tight uppercase italic">The Framework</h3>
+                   {/* CHANGED HERE: Replaced "The Framework" with "Explore Drivers" */}
+                   <h3 className="text-3xl font-bold text-white mb-2 tracking-tight uppercase italic">Explore Drivers</h3>
                 </div>
              </div>
          </div>
@@ -171,34 +165,34 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl relative overflow-hidden shadow-2xl transition-all hover:border-blackline-yellow/30 flex flex-col text-left">
                   <div className="h-2 w-full bg-gradient-to-r from-red-600 via-blue-600 to-red-600"></div>
                   <div className="p-10 flex-grow">
-                     <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
-                        <Quote size={120} className="text-white" />
-                     </div>
-                     <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
-                        <div className="flex items-center gap-4">
-                           <div className="p-3 bg-white rounded-xl shadow-lg flex items-center justify-center">
-                              <span className="text-black font-black text-xl tracking-tighter uppercase italic">Exxon</span>
-                           </div>
-                           <div>
-                              <h4 className="text-xl font-black text-white uppercase italic tracking-tighter leading-none">Customer Voice</h4>
-                              <p className="text-blackline-yellow text-[10px] font-bold uppercase tracking-[0.2em] mt-1">ExxonMobil Corporation</p>
-                           </div>
-                        </div>
-                     </div>
-                     <p className="text-xl md:text-3xl text-gray-100 leading-relaxed font-light italic mb-10 relative px-2">
-                        <span className="text-blackline-yellow font-serif text-5xl absolute -left-8 -top-4 opacity-50">"</span>
-                        We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong> that we use in the accounting space, and it's <strong>literally enabled us to save tens of thousands of hours</strong>... we can get both more efficient and more effective.
-                        <span className="text-blackline-yellow font-serif text-5xl absolute -bottom-10 opacity-50">"</span>
-                     </p>
+                      <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
+                         <Quote size={120} className="text-white" />
+                      </div>
+                      <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
+                         <div className="flex items-center gap-4">
+                            <div className="p-3 bg-white rounded-xl shadow-lg flex items-center justify-center">
+                               <span className="text-black font-black text-xl tracking-tighter uppercase italic">Exxon</span>
+                            </div>
+                            <div>
+                               <h4 className="text-xl font-black text-white uppercase italic tracking-tighter leading-none">Customer Voice</h4>
+                               <p className="text-blackline-yellow text-[10px] font-bold uppercase tracking-[0.2em] mt-1">ExxonMobil Corporation</p>
+                            </div>
+                         </div>
+                      </div>
+                      <p className="text-xl md:text-3xl text-gray-100 leading-relaxed font-light italic mb-10 relative px-2">
+                         <span className="text-blackline-yellow font-serif text-5xl absolute -left-8 -top-4 opacity-50">"</span>
+                         We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong> that we use in the accounting space, and it's <strong>literally enabled us to save tens of thousands of hours</strong>... we can get both more efficient and more effective.
+                         <span className="text-blackline-yellow font-serif text-5xl absolute -bottom-10 opacity-50">"</span>
+                      </p>
                   </div>
                   <div className="p-10 pt-0 mt-auto border-t border-zinc-800/50 bg-black/20">
-                     <div className="flex items-center gap-4 pt-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-xl flex items-center justify-center font-black text-white border border-zinc-600">KM</div>
-                        <div>
-                           <p className="text-white font-black text-base tracking-tight">Kathryn Mikells</p>
-                           <p className="text-gray-300 text-[10px] font-bold uppercase tracking-widest">Chief Financial Officer, ExxonMobil</p>
-                        </div>
-                     </div>
+                      <div className="flex items-center gap-4 pt-6">
+                         <div className="w-12 h-12 bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-xl flex items-center justify-center font-black text-white border border-zinc-600">KM</div>
+                         <div>
+                            <p className="text-white font-black text-base tracking-tight">Kathryn Mikells</p>
+                            <p className="text-gray-300 text-[10px] font-bold uppercase tracking-widest">Chief Financial Officer, ExxonMobil</p>
+                         </div>
+                      </div>
                   </div>
                </div>
 
@@ -206,40 +200,40 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl relative overflow-hidden shadow-2xl transition-all hover:border-blue-500/30 flex flex-col text-left">
                   <div className="h-2 w-full bg-blackline-yellow"></div>
                   <div className="p-10 flex-grow relative overflow-hidden">
-                     <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-10 pointer-events-none"></div>
-                     <div className="relative z-10">
-                        <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
-                           <div className="flex items-center gap-4">
-                              <div className="p-3 bg-blackline-yellow rounded-xl shadow-lg flex items-center justify-center text-black">
-                                 <Video size={24} />
-                              </div>
-                              <div>
-                                 <h4 className="text-xl font-black text-white uppercase italic tracking-tighter leading-none">Strategic Vision</h4>
-                                 <p className="text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">Organizational Leadership</p>
-                              </div>
-                           </div>
-                        </div>
-                        
-                        <div className="aspect-video bg-black/60 rounded-2xl border border-zinc-700 mb-8 flex flex-col items-center justify-center group/vid cursor-pointer">
-                           <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 border border-white/20 group-hover/vid:bg-blackline-yellow group-hover/vid:text-black transition-all">
-                              <Play size={32} fill="currentColor" className="ml-1" />
-                           </div>
-                           <span className="text-[12px] font-black uppercase tracking-widest text-gray-400 group-hover/vid:text-white transition-colors">Hear from BL Execs</span>
-                        </div>
+                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-10 pointer-events-none"></div>
+                      <div className="relative z-10">
+                         <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
+                            <div className="flex items-center gap-4">
+                               <div className="p-3 bg-blackline-yellow rounded-xl shadow-lg flex items-center justify-center text-black">
+                                  <Video size={24} />
+                               </div>
+                               <div>
+                                  <h4 className="text-xl font-black text-white uppercase italic tracking-tighter leading-none">Strategic Vision</h4>
+                                  <p className="text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">Organizational Leadership</p>
+                               </div>
+                            </div>
+                         </div>
+                         
+                         <div className="aspect-video bg-black/60 rounded-2xl border border-zinc-700 mb-8 flex flex-col items-center justify-center group/vid cursor-pointer">
+                            <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 border border-white/20 group-hover/vid:bg-blackline-yellow group-hover/vid:text-black transition-all">
+                               <Play size={32} fill="currentColor" className="ml-1" />
+                            </div>
+                            <span className="text-[12px] font-black uppercase tracking-widest text-gray-400 group-hover/vid:text-white transition-colors">Hear from BL Execs</span>
+                         </div>
 
-                        <p className="text-xl text-gray-200 leading-relaxed font-light italic mb-6">
-                           The transition from manual financial operations to strategic value-creation is the single largest opportunity for the modern CFO.
-                        </p>
-                     </div>
+                         <p className="text-xl text-gray-200 leading-relaxed font-light italic mb-6">
+                            The transition from manual financial operations to strategic value-creation is the single largest opportunity for the modern CFO.
+                         </p>
+                      </div>
                   </div>
                   <div className="p-10 pt-0 mt-auto border-t border-zinc-800/50 bg-black/20">
-                     <div className="flex items-center gap-4 pt-6">
-                        <div className="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center font-black text-gray-400 border border-zinc-700">POV</div>
-                        <div>
-                           <p className="text-white font-black text-base tracking-tight">Executive Leadership</p>
-                           <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Internal Strategic Commentary</p>
-                        </div>
-                     </div>
+                      <div className="flex items-center gap-4 pt-6">
+                         <div className="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center font-black text-gray-400 border border-zinc-700">POV</div>
+                         <div>
+                            <p className="text-white font-black text-base tracking-tight">Executive Leadership</p>
+                            <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Internal Strategic Commentary</p>
+                         </div>
+                      </div>
                   </div>
                </div>
             </div>
@@ -258,7 +252,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <ArrowLeft size={16} /> Back to Menu
                </button>
                <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4 uppercase italic">
-                 Value Drivers <span className="text-zinc-600">Framework</span>
+                  Value Drivers <span className="text-zinc-600">Framework</span>
                </h2>
             </div>
          </div>
