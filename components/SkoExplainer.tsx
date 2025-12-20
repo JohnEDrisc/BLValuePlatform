@@ -224,7 +224,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                            <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 border border-white/20 group-hover/vid:bg-blackline-yellow group-hover/vid:text-black transition-all">
                               <Play size={32} fill="currentColor" className="ml-1" />
                            </div>
-                           <span className="text-[12px] font-black uppercase tracking-widest text-gray-400 group-hover/vid:text-white transition-colors">Watch Strategy Briefing</span>
+                           <span className="text-[12px] font-black uppercase tracking-widest text-gray-400 group-hover/vid:text-white transition-colors">Hear from BL Execs</span>
                         </div>
 
                         <p className="text-xl text-gray-200 leading-relaxed font-light italic mb-6">
