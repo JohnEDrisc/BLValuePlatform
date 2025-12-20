@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Excellence Quantified | BlackLine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              blackline: {
+                yellow: '#F9B734',
+                black: '#000000',
+                dark: '#1A1A1A',
+                gray: '#F5F5F5',
+                text: '#333333'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html, body {
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        touch-action: pan-y; /* Prevent horizontal swipe gestures */
+      }
+      #root {
+        overflow-x: hidden;
+        width: 100%;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      @media print {
+        @page { margin: 0.5cm; size: auto; }
+        body { 
+          background: white !important; 
+          color: black !important; 
+          -webkit-print-color-adjust: exact !important; 
+          print-color-adjust: exact !important; 
+          overflow: visible !important;
+        }
+        header, footer, .no-print { display: none !important; }
+        .print-container { 
+          margin: 0 !important; 
+          padding: 0 !important; 
+          width: 100% !important; 
+          max-width: none !important; 
+          overflow: visible !important;
+          height: auto !important;
+        }
+        /* Ensure background colors for charts/bars print */
+        .bg-zinc-900 { background-color: #f3f4f6 !important; border-color: #e5e7eb !important; color: black !important; }
+        .bg-black { background-color: white !important; color: black !important; }
+        .text-white { color: black !important; }
+        .text-gray-400 { color: #4b5563 !important; }
+        .border-zinc-800 { border-color: #d1d5db !important; }
+        .print-break-inside { break-inside: avoid; }
+        
+        /* Specific overrides for chart bars to ensure they are visible */
+        .bg-red-400 { background-color: #f87171 !important; -webkit-print-color-adjust: exact; }
+        .bg-green-500 { background-color: #22c55e !important; -webkit-print-color-adjust: exact; }
+        .bg-blue-600 { background-color: #2563eb !important; -webkit-print-color-adjust: exact; }
+        .bg-blackline-yellow { background-color: #F9B734 !important; -webkit-print-color-adjust: exact; }
+        .bg-orange-50 { background-color: #fff7ed !important; -webkit-print-color-adjust: exact; }
+        .bg-yellow-100 { background-color: #fef9c3 !important; -webkit-print-color-adjust: exact; }
+        .bg-yellow-200 { background-color: #fde047 !important; -webkit-print-color-adjust: exact; }
+        .bg-yellow-300 { background-color: #fcd34d !important; -webkit-print-color-adjust: exact; }
+        .bg-blue-100 { background-color: #dbeafe !important; -webkit-print-color-adjust: exact; }
+        .bg-blue-900 { background-color: #1e3a8a !important; color: white !important; -webkit-print-color-adjust: exact; }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-50 text-blackline-text">
+    <div id="root"></div>
+  </body>
+</html>
