@@ -8,7 +8,7 @@ import { PlatformHub } from './components/PlatformHub';
 import { OutsideInGenerator } from './components/OutsideInGenerator';
 import { SkoExplainer } from './components/SkoExplainer';
 import { Tooltip } from './components/Tooltip';
-import { RightRail } from './components/RightRail';
+// RightRail import removed
 import { generateValueAnalysis } from './services/geminiService';
 import { AnalysisResult, DealContext } from './types';
 import { SUPPORTED_LANGUAGES, UI_STRINGS } from './constants';
@@ -47,7 +47,7 @@ function App() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  // Panel Control (Controlled from Header or Rail)
+  // Panel Control (Controlled from Header)
   const [activePanel, setActivePanel] = useState<'chat' | 'pivot' | null>(null);
   const [showGuidance, setShowGuidance] = useState(false);
 
@@ -149,7 +149,8 @@ function App() {
     <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-blackline-yellow selection:text-black">
       
       {/* Header */}
-      <header className="bg-black/80 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-50 pr-[60px]">
+      {/* Removed pr-[60px] to center layout since rail is gone */}
+      <header className="bg-black/80 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-50">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer group" onClick={goHome}>
             <div className="flex items-center justify-center w-10 h-10 bg-blackline-yellow rounded-sm group-hover:bg-white transition-colors duration-300">
@@ -227,7 +228,8 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow container mx-auto px-4 pt-12 pb-20 relative pr-[60px]">
+      {/* Removed pr-[60px] to center layout */}
+      <main className="flex-grow container mx-auto px-4 pt-12 pb-20 relative">
         {!hasSearched && (activeTab === 'discovery' || activeTab === 'sko') && (
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blackline-yellow/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
         )}
@@ -263,20 +265,20 @@ function App() {
             </p>
             
             <div className="flex flex-col items-center mt-10 mb-8 gap-4">
-                 
-                 {/* Main Focused SKO Button */}
-                 <div className="w-full max-w-md">
-                    <button 
-                      onClick={() => { setActiveTab('sko'); setShowDiscoveryMenu(false); }}
-                      className="w-full flex items-center justify-center gap-3 px-6 py-5 rounded-2xl text-xl font-bold transition-all bg-zinc-900 border border-zinc-700 text-white hover:border-blackline-yellow hover:text-blackline-yellow active:scale-95 group shadow-xl"
-                    >
-                      <Trophy size={24} className="text-blackline-yellow" /> 
-                      <span>{t.tab_sko}</span>
-                      <ArrowRight size={20} className="opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1" />
-                    </button>
-                 </div>
+                  
+                  {/* Main Focused SKO Button */}
+                  <div className="w-full max-w-md">
+                     <button 
+                       onClick={() => { setActiveTab('sko'); setShowDiscoveryMenu(false); }}
+                       className="w-full flex items-center justify-center gap-3 px-6 py-5 rounded-2xl text-xl font-bold transition-all bg-zinc-900 border border-zinc-700 text-white hover:border-blackline-yellow hover:text-blackline-yellow active:scale-95 group shadow-xl"
+                     >
+                       <Trophy size={24} className="text-blackline-yellow" /> 
+                       <span>{t.tab_sko}</span>
+                       <ArrowRight size={20} className="opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1" />
+                     </button>
+                  </div>
 
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
                     {/* Value Narratives */}
                     <button 
                       onClick={() => { setActiveTab('discovery'); setShowDiscoveryMenu(true); }}
@@ -291,9 +293,9 @@ function App() {
                     >
                       <Zap size={20} /> {t.tab_outside_in}
                     </button>
-                 </div>
+                  </div>
 
-                 <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl">
+                  <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl">
                     <button 
                       onClick={() => { setActiveTab('calculator'); setShowDiscoveryMenu(false); }}
                       className={`flex-1 min-w-[150px] flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800`}
@@ -312,7 +314,7 @@ function App() {
                     >
                       <Video size={16} /> {t.tab_hub}
                     </button>
-                 </div>
+                  </div>
               </div>
           </div>
         </div>
@@ -375,24 +377,24 @@ function App() {
 
             {!isLoading && result && (
               <div className="animate-fade-in">
-                 <div className="max-w-[1400px] mx-auto flex justify-between items-center mb-6 px-6 no-print">
-                   <div className="flex items-center gap-3">
-                     <BarChart2 size={20} className="text-blackline-yellow" />
-                     <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
-                       Generated Enablement Brief
-                     </h3>
-                   </div>
-                   <button onClick={handleBackToDiscovery} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
-                     <X size={24} />
-                   </button>
-                 </div>
-                 <AnalysisResults 
-                   data={result} 
-                   query={query}
-                   onBack={handleBackToDiscovery}
-                   onNavigateToCalculator={() => setActiveTab('calculator')}
-                   t={t}
-                 />
+                  <div className="max-w-[1400px] mx-auto flex justify-between items-center mb-6 px-6 no-print">
+                    <div className="flex items-center gap-3">
+                      <BarChart2 size={20} className="text-blackline-yellow" />
+                      <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                        Generated Enablement Brief
+                      </h3>
+                    </div>
+                    <button onClick={handleBackToDiscovery} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
+                      <X size={24} />
+                    </button>
+                  </div>
+                  <AnalysisResults 
+                    data={result} 
+                    query={query}
+                    onBack={handleBackToDiscovery}
+                    onNavigateToCalculator={() => setActiveTab('calculator')}
+                    t={t}
+                  />
               </div>
             )}
           </>
@@ -460,16 +462,11 @@ function App() {
 
       </main>
 
-      <RightRail 
-        contextString={getContextString()}
-        dealContext={dealContext}
-        onPivot={handlePivot}
-        activePanelProp={activePanel}
-        onPanelChange={(p) => setActivePanel(p)}
-      />
+      {/* RightRail Component Removed Here */}
 
       {/* Footer */}
-      <footer className="bg-black border-t border-zinc-900 py-10 mt-auto pr-[60px] no-print">
+      {/* Removed pr-[60px] to center layout */}
+      <footer className="bg-black border-t border-zinc-900 py-10 mt-auto no-print">
         <div className="container mx-auto px-4 text-center">
           <div className="flex justify-center items-center gap-2 mb-4 opacity-70">
              <div className="w-6 h-6 bg-blackline-yellow rounded-sm flex items-center justify-center">
