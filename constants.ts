@@ -62,14 +62,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     isPlImpact: true,
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Fund strategic growth organically.", nightmare: "Missing earnings due to cash flow." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Free Cash Flow to fund M&A.", nightmare: "Drawing on expensive credit lines." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Clean, reconciled balance sheet.", nightmare: "Unexplained cash variances." },
             { role: "CIO", icon: 'Cpu', aspiration: "Automated banking integrations.", nightmare: "Fragile FTP scripts failing." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Zero unapplied cash at month-end.", nightmare: "3 days of manual matching." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Team analyzing variances, not data.", nightmare: "Reviewing 5,000 transaction rows." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Learning cash flow analysis.", nightmare: "Downloading bank PDFs at 7 AM." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Touchless volume scaling.", nightmare: " throwing bodies at unapplied cash." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Team analyzing variances, not data.", nightmare: "Reviewing 5,000 transaction rows." },
+            { role: "End User", icon: 'User', aspiration: "Learning cash flow analysis.", nightmare: "Downloading bank PDFs at 7 AM." }
         ]
     },
     executivePov: {
@@ -179,14 +180,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     isPlImpact: true,
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Operational excellence & speed.", nightmare: "Data lag slowing decisions." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Velocity and cost efficiency.", nightmare: "Slow close delays guidance." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Audit-ready at all times.", nightmare: "Restatement due to manual error." },
             { role: "CIO", icon: 'Cpu', aspiration: "System consolidation.", nightmare: "Tech debt from legacy tools." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Global process standardization.", nightmare: "Cowboy accounting in Excel." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Capacity planning accuracy.", nightmare: "Burnout and high turnover." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Strategic analysis work.", nightmare: "Manual data entry." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Standardized global processes.", nightmare: "Cowboy accounting in Excel." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Capacity planning accuracy.", nightmare: "Burnout and high turnover." },
+            { role: "End User", icon: 'User', aspiration: "Strategic analysis work.", nightmare: "Manual data entry." }
         ]
     },
     executivePov: {
@@ -284,14 +286,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'Modern finance talent refuses to perform robotic work. By automating the mundane, you retain top-tier CPAs and analysts who demand engaging, strategic work environments.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Employer of Choice brand.", nightmare: "Brain drain to competitors." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Building organizational capability.", nightmare: "Recruiting fees & knowledge loss." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Retaining institutional knowledge.", nightmare: "Brain drain of top performers." },
             { role: "CIO", icon: 'Cpu', aspiration: "Modern tech stack.", nightmare: "Supporting legacy attrition." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Upskilling the team.", nightmare: "Constant training of new hires." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Engaged, happy team.", nightmare: "Managing constant churn." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Clear career path.", nightmare: "Dead-end data entry job." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Upskilling the team.", nightmare: "Constant training of new hires." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Engaged, happy team.", nightmare: "Managing constant churn." },
+            { role: "End User", icon: 'User', aspiration: "Clear career path.", nightmare: "Dead-end data entry job." }
         ]
     },
     executivePov: {
@@ -389,14 +392,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'Decouple financial integration from ERP consolidation. Gain immediate visibility and control over acquired entities without waiting for a multi-year IT migration project.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Rapid deal accretion.", nightmare: "Failed PMI (Post Merger Integration)." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Synergy capture.", nightmare: "Deal dilution." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Integration control.", nightmare: "Unknown acquired liabilities." },
             { role: "CIO", icon: 'Cpu', aspiration: "Data unification.", nightmare: "ERP fragmentation." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Process unity.", nightmare: "Shadow systems." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Onboarding speed.", nightmare: "Culture clash." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Unified data access.", nightmare: "Manual consolidation." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Process unity.", nightmare: "Shadow systems." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Onboarding speed.", nightmare: "Culture clash." },
+            { role: "End User", icon: 'User', aspiration: "Unified data access.", nightmare: "Manual consolidation." }
         ]
     },
     executivePov: {
@@ -494,14 +498,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'Finance should be a business partner, not a scorecard keeper. Free up capacity to model new business lines, pricing strategies, and market expansion instead of fixing historical data.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Market agility.", nightmare: "Being disrupted." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Business partnership.", nightmare: "Back office cost center." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Scalable control.", nightmare: "Process bottlenecks." },
             { role: "CIO", icon: 'Cpu', aspiration: "AI Readiness.", nightmare: "Unstructured data." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Change management.", nightmare: "Stagnation." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Project leadership.", nightmare: "Firefighting." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Modeling & analysis.", nightmare: "Copy-paste." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Change management.", nightmare: "Stagnation." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Project leadership.", nightmare: "Firefighting." },
+            { role: "End User", icon: 'User', aspiration: "Modeling & analysis.", nightmare: "Copy-paste." }
         ]
     },
     executivePov: {
@@ -599,14 +604,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'Transform compliance from a periodic scramble to a continuous state. Ensure segregation of duties, automated audit trails, and key control testing happen in real-time.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Brand reputation.", nightmare: "Public scandal." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Risk adjusted return.", nightmare: "Stock price drop." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Clean opinion.", nightmare: "Material weakness." },
             { role: "CIO", icon: 'Cpu', aspiration: "Cyber security.", nightmare: "Data breach." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Strong control environment.", nightmare: "Audit findings." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Audit efficiency.", nightmare: "PBC scramble." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Clear documentation.", nightmare: "Auditor questions." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Standardized controls.", nightmare: "Regional non-compliance." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Audit efficiency.", nightmare: "PBC scramble." },
+            { role: "End User", icon: 'User', aspiration: "Clear documentation.", nightmare: "Auditor questions." }
         ]
     },
     executivePov: {
@@ -704,14 +710,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'Shift from "reporting the news" to "making the news." Provide leadership with accurate, real-time financial data mid-period to adjust tactics before the quarter ends.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "First-mover advantage.", nightmare: "Blind decision making." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Agile guidance.", nightmare: "Missing the quarter." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Integrity of actuals.", nightmare: "Surprise adjustments." },
             { role: "CIO", icon: 'Cpu', aspiration: "Real-time data.", nightmare: "Batch latency." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Fast close.", nightmare: "Variance explanations." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Intra-month analysis.", nightmare: "Post-mortem only." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Daily insights.", nightmare: "Month-end crunch." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "SLA attainment.", nightmare: "Data bottlenecks." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Intra-month analysis.", nightmare: "Post-mortem only." },
+            { role: "End User", icon: 'User', aspiration: "Daily insights.", nightmare: "Month-end crunch." }
         ]
     },
     executivePov: {
@@ -809,14 +816,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'In an era of scrutiny, financial integrity is a valuation driver. Establish an unimpeachable foundation of verified data that builds confidence with investors, boards, and regulators.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "Investor confidence.", nightmare: "Restatement." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Lower cost of capital.", nightmare: "Investor doubt." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Strong governance.", nightmare: "Reputational damage." },
             { role: "CIO", icon: 'Cpu', aspiration: "Data lineage.", nightmare: "Black box systems." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Policy adherence.", nightmare: "Rogue entries." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Review confidence.", nightmare: "Rubber stamping." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Accuracy.", nightmare: "Formula errors." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Global consistency.", nightmare: "Exceptions." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Review confidence.", nightmare: "Rubber stamping." },
+            { role: "End User", icon: 'User', aspiration: "Accuracy.", nightmare: "Formula errors." }
         ]
     },
     executivePov: {
@@ -914,14 +922,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
     summary: 'AI is only as good as the data it feeds on. BlackLine standardizes and cleanses financial data, creating the necessary foundation for predictive AI and generative insights.',
     personas: {
         executive: [
+            { role: "CEO", icon: 'Target', aspiration: "AI-driven company.", nightmare: "Falling behind." },
             { role: "CFO", icon: 'TrendingUp', aspiration: "Productivity multiplier.", nightmare: "Headcount growth." },
             { role: "CAO", icon: 'ShieldCheck', aspiration: "Precision.", nightmare: "Human error." },
             { role: "CIO", icon: 'Cpu', aspiration: "GenAI strategy.", nightmare: "Obsolescence." }
         ],
         operational: [
-            { role: "Controller", icon: 'Briefcase', aspiration: "Augmented team.", nightmare: "Manual grunt work." },
-            { role: "Acct Manager", icon: 'Users', aspiration: "Exception management.", nightmare: "Transaction processing." },
-            { role: "Sr Accountant", icon: 'User', aspiration: "Prompt engineering.", nightmare: "Data entry." }
+            { role: "Shared Service Leader", icon: 'Globe', aspiration: "Scale without bodies.", nightmare: "Linear cost growth." },
+            { role: "Accounting Manager", icon: 'Users', aspiration: "Exception management.", nightmare: "Transaction processing." },
+            { role: "End User", icon: 'User', aspiration: "Prompt engineering.", nightmare: "Data entry." }
         ]
     },
     executivePov: {
@@ -1016,14 +1025,13 @@ export const SKO_DATA: SkoDriverDetail[] = [
 // --- OTHER CONSTANTS ---
 
 export const PERSONAS: Persona[] = [
-  { id: 'cfo', name: 'Chief Financial Officer', icon: 'Briefcase', group: 'Executive' },
+  { id: 'ceo', name: 'Chief Executive Officer', icon: 'Target', group: 'Executive' },
+  { id: 'cfo', name: 'Chief Financial Officer', icon: 'TrendingUp', group: 'Executive' },
   { id: 'cao', name: 'Chief Accounting Officer', icon: 'ShieldCheck', group: 'Executive' },
-  { id: 'controller', name: 'Corporate Controller', icon: 'ClipboardList', group: 'Accounting' },
-  { id: 'vp_finance', name: 'VP of Finance', icon: 'TrendingUp', group: 'Executive' },
-  { id: 'cio', name: 'Chief Information Officer', icon: 'Server', group: 'Executive' },
-  { id: 'it_director', name: 'IT Director', icon: 'Cpu', group: 'IT' },
-  { id: 'fpa_director', name: 'FP&A Director', icon: 'BarChart2', group: 'Finance' },
-  { id: 'accounting_manager', name: 'Accounting Manager', icon: 'Users', group: 'Accounting' },
+  { id: 'cio', name: 'Chief Information Officer', icon: 'Cpu', group: 'Executive' },
+  { id: 'ssc_leader', name: 'Shared Service Center Leader', icon: 'Globe', group: 'Operational' },
+  { id: 'accounting_manager', name: 'Accounting Manager', icon: 'Users', group: 'Operational' },
+  { id: 'end_user', name: 'End User', icon: 'User', group: 'Operational' },
 ];
 
 export const MOCK_BENCHMARK_DATA: BenchmarkCase[] = [
