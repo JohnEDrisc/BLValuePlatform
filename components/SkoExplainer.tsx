@@ -158,6 +158,109 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
   }
 
+  // --- VIDEO VIEW (RESTORED) ---
+  if (viewMode === 'video') {
+    return (
+      <div className="min-h-screen bg-black flex flex-col animate-fade-in relative pb-32">
+         <div className="flex justify-between items-center px-4 md:px-8 py-6">
+            <button onClick={() => setViewMode('landing')} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-bold uppercase tracking-wider text-xs">
+               <ArrowLeft size={16} /> Back
+            </button>
+            <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors">
+               <X size={24} />
+            </button>
+         </div>
+         
+         <div className="max-w-4xl mx-auto w-full px-4 md:px-6 flex flex-col gap-8 md:gap-12 pt-4 md:pt-8">
+            <div className="text-center mb-4 md:mb-6">
+               <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter mb-2 md:mb-4">Executive Commentary</h2>
+               <p className="text-gray-300 font-medium uppercase tracking-widest text-xs">Voices of Value & Vision</p>
+            </div>
+
+            <div className="flex flex-col gap-8 md:gap-12">
+               {/* Exxon Section */}
+               <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl relative overflow-hidden shadow-2xl transition-all hover:border-blackline-yellow/30 flex flex-col text-left">
+                  <div className="h-2 w-full bg-gradient-to-r from-red-600 via-blue-600 to-red-600"></div>
+                  <div className="p-6 md:p-10 flex-grow relative">
+                      <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
+                         <div className="flex items-center gap-4">
+                            <div className="p-2 md:p-3 bg-white rounded-xl shadow-lg flex items-center justify-center">
+                               <span className="text-black font-black text-lg md:text-xl tracking-tighter uppercase italic">Exxon</span>
+                            </div>
+                            <div>
+                               <h4 className="text-lg md:text-xl font-black text-white uppercase italic tracking-tighter leading-none">Customer Voice</h4>
+                               <p className="text-blackline-yellow text-[10px] font-bold uppercase tracking-[0.2em] mt-1">ExxonMobil Corporation</p>
+                            </div>
+                         </div>
+                      </div>
+
+                      <div className="relative px-2 md:px-4">
+                          <span className="text-blackline-yellow font-serif text-6xl md:text-7xl absolute -left-4 md:-left-8 -top-8 opacity-40">"</span>
+                          <div className="space-y-6 md:space-y-8 relative z-10">
+                            
+                            {/* Implementation */}
+                            <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
+                               "We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>.
+                            </p>
+                            
+                            {/* Complexity */}
+                            <div className="border-l-4 border-zinc-700 pl-6 py-1">
+                                <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
+                                   If you think about an organization the size of ExxonMobil...
+                                </p>
+                            </div>
+
+                            {/* Capacity / Impact */}
+                            <div className="relative bg-black/40 p-6 md:p-8 rounded-2xl border border-blackline-yellow/20">
+                                <p className="text-xl md:text-3xl text-white font-black italic leading-tight uppercase tracking-tight">
+                                   Moving to a platform [like this] <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time."
+                                </p>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="p-6 md:p-10 pt-0 mt-auto border-t border-zinc-800/50 bg-black/20">
+                      <div className="flex items-center gap-4 pt-4 md:pt-6">
+                         <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-xl flex items-center justify-center font-black text-white border border-zinc-600 text-sm md:text-base">KM</div>
+                         <div>
+                            <p className="text-white font-black text-sm md:text-base tracking-tight">Kathryn Mikells</p>
+                            <p className="text-gray-300 text-[10px] font-bold uppercase tracking-widest">CFO, ExxonMobil</p>
+                         </div>
+                      </div>
+                  </div>
+               </div>
+
+               {/* Video Section */}
+               <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl relative overflow-hidden shadow-2xl transition-all hover:border-blue-500/30 flex flex-col text-left">
+                  <div className="h-2 w-full bg-blackline-yellow"></div>
+                  <div className="p-6 md:p-10 flex-grow relative overflow-hidden">
+                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-10 pointer-events-none"></div>
+                      <div className="relative z-10">
+                         <div className="flex items-center justify-between mb-6 md:mb-8 pb-6 border-b border-zinc-800">
+                            <div className="flex items-center gap-4">
+                               <div className="p-2 md:p-3 bg-blackline-yellow rounded-xl shadow-lg flex items-center justify-center text-black">
+                                  <Video size={20} className="md:w-6 md:h-6" />
+                               </div>
+                               <div>
+                                  <h4 className="text-lg md:text-xl font-black text-white uppercase italic tracking-tighter leading-none">Strategic Vision</h4>
+                               </div>
+                            </div>
+                         </div>
+                         <div className="aspect-video bg-black/60 rounded-2xl border border-zinc-700 mb-6 md:mb-8 flex flex-col items-center justify-center group/vid cursor-pointer">
+                            <div className="w-16 h-16 md:w-24 md:h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 border border-white/20 group-hover/vid:bg-blackline-yellow group-hover/vid:text-black transition-all">
+                               <Play size={24} className="md:w-8 md:h-8" fill="currentColor" />
+                            </div>
+                            <span className="text-[10px] md:text-[12px] font-black uppercase tracking-widest text-gray-400 group-hover/vid:text-white transition-colors">Hear from BL Execs</span>
+                         </div>
+                      </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+    );
+  }
+
   // --- GRID VIEW ---
   if (viewMode === 'grid') {
     return (
@@ -173,7 +276,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             </div>
          </div>
 
+         {/* Layout: 3 Columns. Middle Column uses a special grid for X shape */}
          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-16 items-start">
+            
             {/* Column 1: P&L Impact */}
             <div className="space-y-8">
                 <GridSectionHeader title="P&L Bottom Line Impact" subtitle="Directly influencing profitability" />
@@ -182,7 +287,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 </div>
             </div>
 
-            {/* Column 2: Acceleration */}
+            {/* Column 2: Acceleration (X-Shape Layout) */}
             <div className="space-y-8">
                <div className="flex flex-col items-center text-center gap-2">
                   <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
@@ -191,14 +296,31 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <p className="text-xs md:text-sm font-bold text-zinc-200 uppercase tracking-widest px-4">Driving speed & risk mitigation</p>
                </div>
                
+               {/* X SHAPE GRID */}
                <div className="grid grid-cols-2 gap-4">
-                   {accelerationDrivers.map((driver) => (
-                       <div key={driver.id} className={driver.id === 'innovation' ? "col-span-2 flex justify-center py-2" : "col-span-1"}>
-                           <div className={driver.id === 'innovation' ? "w-[calc(50%-0.5rem)]" : "w-full"}>
-                               <DriverCardHorizontal driver={driver} onSelect={handleDriverSelect} />
-                           </div>
+                   {/* Top Row: Talent & M&A */}
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[0]} onSelect={handleDriverSelect} />
+                   </div>
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[1]} onSelect={handleDriverSelect} />
+                   </div>
+
+                   {/* Middle Row: Innovation (Centered) */}
+                   <div className="col-span-2 flex justify-center py-2">
+                       {/* Constrain width to approx 50% + gap to make the X shape clear */}
+                       <div className="w-[calc(50%-0.5rem)]">
+                           <DriverCardHorizontal driver={accelerationDrivers[2]} onSelect={handleDriverSelect} />
                        </div>
-                   ))}
+                   </div>
+
+                   {/* Bottom Row: Compliance & Decision */}
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[3]} onSelect={handleDriverSelect} />
+                   </div>
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[4]} onSelect={handleDriverSelect} />
+                   </div>
                </div>
             </div>
 
@@ -209,13 +331,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     {valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
                 </div>
             </div>
+
          </div>
 
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button 
                onClick={() => {
                   setActivePov('executive');
-                  setActiveDriverId(sortedDrivers[0]?.id || 'working_cap');
+                  // Start tour with the first driver in our sorted list
+                  setActiveDriverId(sortedDrivers[0]?.id || null);
                   setViewMode('persona_explain');
                }}
                className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"
@@ -247,6 +371,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            </div>
 
            <div className="space-y-16 md:space-y-24">
+              {/* Executive Tier */}
               <div>
                  <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center gap-6">
                     Strategic Executive Tier <div className="h-px bg-zinc-800 flex-grow"></div>
@@ -258,6 +383,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                  </div>
               </div>
 
+              {/* Operational Tier */}
               <div>
                  <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center gap-6">
                     Tactical Operational Tier <div className="h-px bg-zinc-800 flex-grow"></div>
@@ -352,11 +478,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   // --- DETAIL VIEW ---
   if (viewMode === 'detail' && activeDriver) {
     const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
-    
-    if (!pov) {
-        return <div className="min-h-screen flex items-center justify-center text-white">Loading data...</div>;
-    }
+    // Safe icon lookup
+    const IconComponent = (Icons as any)[activeDriver.icon] || Zap;
 
+    // ROI Data Logic
     const roiData = pov.roiCalculations || { executive: [], operational: [] };
     const roiItems = activePov === 'executive' ? roiData.executive : roiData.operational;
 
@@ -554,76 +679,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <button onClick={handlePrevDriver} className="flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-6 px-6 md:px-14 py-4 md:py-8 bg-zinc-900 border border-zinc-800 text-white rounded-full font-black uppercase tracking-tighter italic hover:bg-zinc-800 transition-all shadow-2xl text-xs md:text-sm"><ChevronLeft size={16} className="md:w-8 md:h-8" /> Prev</button>
             <button onClick={handleNextDriver} className="flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-6 px-6 md:px-16 py-4 md:py-8 bg-blackline-yellow text-black rounded-full font-black uppercase tracking-tighter italic hover:scale-105 transition-all shadow-2xl border-4 border-black text-xs md:text-sm">Next <ChevronRight size={16} className="md:w-8 md:h-8" /></button>
         </div>
-      </div>
-    );
-  }
-
-  // --- VIDEO & NEXT STEPS VIEWS (No Changes) ---
-  if (viewMode === 'video') {
-    return (
-      <div className="min-h-screen bg-black flex flex-col animate-fade-in relative pb-32">
-         <div className="flex justify-between items-center px-4 md:px-8 py-6">
-            <button onClick={() => setViewMode('landing')} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-bold uppercase tracking-wider text-xs">
-               <ArrowLeft size={16} /> Back
-            </button>
-            <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors">
-               <X size={24} />
-            </button>
-         </div>
-         
-         <div className="max-w-4xl mx-auto w-full px-4 md:px-6 flex flex-col gap-8 md:gap-12 pt-4 md:pt-8">
-            <div className="text-center mb-4 md:mb-6">
-               <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter mb-2 md:mb-4">Executive Commentary</h2>
-               <p className="text-gray-300 font-medium uppercase tracking-widest text-xs">Voices of Value & Vision</p>
-            </div>
-
-            <div className="flex flex-col gap-8 md:gap-12">
-               <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl relative overflow-hidden shadow-2xl transition-all hover:border-blackline-yellow/30 flex flex-col text-left">
-                  <div className="h-2 w-full bg-gradient-to-r from-red-600 via-blue-600 to-red-600"></div>
-                  <div className="p-6 md:p-10 flex-grow relative">
-                      <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
-                         <div className="flex items-center gap-4">
-                            <div className="p-2 md:p-3 bg-white rounded-xl shadow-lg flex items-center justify-center">
-                               <span className="text-black font-black text-lg md:text-xl tracking-tighter uppercase italic">Exxon</span>
-                            </div>
-                            <div>
-                               <h4 className="text-lg md:text-xl font-black text-white uppercase italic tracking-tighter leading-none">Customer Voice</h4>
-                               <p className="text-blackline-yellow text-[10px] font-bold uppercase tracking-[0.2em] mt-1">ExxonMobil Corporation</p>
-                            </div>
-                         </div>
-                      </div>
-
-                      <div className="relative px-2 md:px-4">
-                          <span className="text-blackline-yellow font-serif text-6xl md:text-7xl absolute -left-4 md:-left-8 -top-8 opacity-40">"</span>
-                          <div className="space-y-6 md:space-y-8 relative z-10">
-                            <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
-                               "We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>.
-                            </p>
-                            <div className="border-l-4 border-zinc-700 pl-6 py-1">
-                                <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
-                                   If you think about an organization the size of ExxonMobil...
-                                </p>
-                            </div>
-                            <div className="relative bg-black/40 p-6 md:p-8 rounded-2xl border border-blackline-yellow/20">
-                                <p className="text-xl md:text-3xl text-white font-black italic leading-tight uppercase tracking-tight">
-                                   Moving to a platform [like this] <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time."
-                                </p>
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="p-6 md:p-10 pt-0 mt-auto border-t border-zinc-800/50 bg-black/20">
-                      <div className="flex items-center gap-4 pt-4 md:pt-6">
-                         <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-xl flex items-center justify-center font-black text-white border border-zinc-600 text-sm md:text-base">KM</div>
-                         <div>
-                            <p className="text-white font-black text-sm md:text-base tracking-tight">Kathryn Mikells</p>
-                            <p className="text-gray-300 text-[10px] font-bold uppercase tracking-widest">CFO, ExxonMobil</p>
-                         </div>
-                      </div>
-                  </div>
-               </div>
-            </div>
-         </div>
       </div>
     );
   }
