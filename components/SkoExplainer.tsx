@@ -40,6 +40,8 @@ import {
   Equal,
   Plus,
   Minus,
+  MessageCircle,
+  AlertTriangle,
   X as Multiply
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
@@ -1287,27 +1289,42 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               Master the pivot from <span className="text-white font-bold italic underline decoration-blackline-yellow">feature-led discovery</span> to <span className="text-white font-bold italic">strategic certainty</span>.
            </p>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-12 md:mb-24 text-left">
-              <LargeFrameworkBox 
-                step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap"
-                formula='Create Value → The Problem'
-                desc={"Move conversation from features to objectives. Define macro-level pains."} 
-              />
-              <LargeFrameworkBox 
-                step="2" color="blue-500" title="Capture Value" subtitle="Expose the Quantified Reality"
-                formula='Capture Value → The Questions'
-                desc={"Execute high-gain discovery to uncover hidden costs of inertia."} 
-              />
-              <LargeFrameworkBox 
-                step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform"
-                formula='Deliver Value → The Capabilities'
-                desc={"Align platform capabilities to specific business outcomes."} 
-              />
-              <LargeFrameworkBox 
-                step="4" color="green-500" title="Justify Value" subtitle="Build the Economic Case"
-                formula='Justify Value → The Business Case'
-                desc={"Construct a CFO-ready business case with ROI modeling."} 
-              />
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 mb-12 md:mb-24 text-left">
+              <div className="col-span-1 md:col-span-3">
+                  <LargeFrameworkBox 
+                    step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap"
+                    formula='Create Value → The Problem'
+                    desc={"Move conversation from features to objectives. Define macro-level pains."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-3">
+                  <LargeFrameworkBox 
+                    step="2" color="blue-500" title="Capture Value" subtitle="Expose the Quantified Reality"
+                    formula='Capture Value → The Questions'
+                    desc={"Execute high-gain discovery to uncover hidden costs of inertia."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                  <LargeFrameworkBox 
+                    step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform"
+                    formula='Deliver Value → The Capabilities'
+                    desc={"Align platform capabilities to specific business outcomes."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                  <LargeFrameworkBox 
+                    step="4" color="green-500" title="Justify Value" subtitle="Build the Economic Case"
+                    formula='Justify Value → The Business Case'
+                    desc={"Construct a CFO-ready business case with ROI modeling."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                  <LargeFrameworkBox 
+                    step="5" color="purple-500" title="Quantify Value" subtitle="Validate the Win"
+                    formula='Quantify Value → The ROI'
+                    desc={"Translate operational improvements into hard financial calculations for the CFO."} 
+                  />
+              </div>
            </div>
 
            <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
@@ -1375,47 +1392,57 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
         {/* Vertical Focused Content Stack */}
         <div className="max-w-6xl mx-auto px-4 md:px-10 space-y-16 md:space-y-32 pb-20">
            
-           {/* Phase 01: Create */}
+           {/* Phase 01: Create - Updated to Cards Layout */}
            <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
               <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Layout size={200} className="md:w-[400px] md:h-[400px]" /></div>
               <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
                  <div className="w-2 h-2 md:w-3 md:h-3 bg-red-500 rounded-full animate-pulse"></div> Phase 01: Create Value
               </h4>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.createValue.title}</h5>
-              <div className="mb-8 md:mb-10 py-2 md:py-3 px-4 md:px-6 bg-black/40 rounded-xl border border-red-500/20 inline-block w-fit">
+              <div className="mb-12 md:mb-16 py-2 md:py-3 px-4 md:px-6 bg-black/40 rounded-xl border border-red-500/20 inline-block w-fit">
                  <span className="text-sm md:text-xl font-mono text-zinc-300">The Problem ("Why change?")</span>
               </div>
-              <div className="space-y-6 md:space-y-12 mb-10 md:mb-16">
+              
+              {/* REPLACED BULLETS WITH CARDS */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-16">
                  {pov.createValue.pains.map((p: string, i: number) => (
-                    <div key={i} className="flex gap-4 md:gap-8 items-start text-zinc-200 text-lg md:text-3xl leading-relaxed">
-                       <span className="text-red-500 font-black text-2xl md:text-5xl mt-1">•</span>
-                       <p className="font-light">{p}</p>
+                    <div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl hover:border-red-500/50 transition-all group/card">
+                       <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center mb-4 group-hover/card:bg-red-500 group-hover/card:text-white transition-all text-red-500">
+                          <AlertTriangle size={20} />
+                       </div>
+                       <p className="text-zinc-200 text-lg md:text-xl font-medium leading-relaxed">{p}</p>
                     </div>
                  ))}
               </div>
+
               <div className="pt-8 md:pt-12 border-t border-zinc-800/50">
                  <p className="text-[10px] md:text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-4 md:mb-6">Strategic Focus Point</p>
                  <p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov.createValue.focus}"</p>
               </div>
            </div>
 
-           {/* Phase 02: Capture */}
+           {/* Phase 02: Capture - Updated to Chat Bubbles */}
            <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
               <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Search size={200} className="md:w-[400px] md:h-[400px]" /></div>
               <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
                  <div className="w-2 h-2 md:w-3 md:h-3 bg-blue-500 rounded-full animate-pulse"></div> Phase 02: Capture Value
               </h4>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-8 md:mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov.captureValue.title}</h5>
-              <div className="space-y-6 md:space-y-12 mb-10 md:mb-16">
+              
+              {/* REPLACED LIST WITH BUBBLES */}
+              <div className="space-y-6 md:space-y-8 mb-10 md:mb-16">
                  {pov.captureValue.questions.map((q: string, i: number) => (
-                    <div key={i} className="bg-black/30 border-l-4 md:border-l-8 border-blue-500/50 p-6 md:p-12 rounded-r-2xl md:rounded-r-3xl">
-                       <p className="text-xl md:text-4xl text-zinc-100 font-medium italic leading-relaxed">"{q}"</p>
+                    <div key={i} className={`flex gap-6 ${i % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                       <div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none'}`}>
+                          <div className="absolute -top-4 -left-2 bg-black border border-zinc-700 rounded-full p-2"><MessageCircle size={16} /></div>
+                          <p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p>
+                       </div>
                     </div>
                  ))}
               </div>
            </div>
 
-           {/* Phase 03: Deliver */}
+           {/* Phase 03: Deliver - Updated Capabilities to Pills */}
            <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
               <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Zap size={200} className="md:w-[400px] md:h-[400px]" /></div>
               <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
@@ -1426,18 +1453,25 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 md:gap-20 mt-8">
                  <div>
                     <span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-6 md:mb-10">Platform Activation</span>
-                    <div className="flex flex-wrap gap-3 md:gap-6">
+                    {/* UPDATED TO PILLS */}
+                    <div className="flex flex-wrap gap-3 md:gap-4">
                        {pov.deliverValue.capabilities.map((c: string) => (
-                          <span key={c} className="px-4 md:px-8 py-2 md:py-4 bg-black rounded-xl md:rounded-2xl border border-zinc-800 text-sm md:text-xl font-bold text-white shadow-lg">{c}</span>
+                          <div key={c} className="px-6 py-4 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold shadow-lg flex items-center gap-3">
+                             <div className="w-2 h-2 bg-blackline-yellow rounded-full"></div>
+                             {c}
+                          </div>
                        ))}
                     </div>
                  </div>
                  <div>
                     <span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-6 md:mb-10">Validated Proof Points</span>
-                    <div className="space-y-4 md:space-y-8">
+                    <div className="space-y-4 md:space-y-6">
                        {pov.deliverValue.proofPoints.map((p: string, i: number) => (
-                          <div key={i} className="flex items-center gap-4 md:gap-8 text-xl md:text-3xl font-black text-green-400 italic tracking-tighter uppercase leading-[0.9]">
-                             <CheckCircle2 size={24} className="shrink-0 md:w-10 md:h-10" /> <span>{p}</span>
+                          <div key={i} className="flex items-center gap-4 md:gap-6 p-4 rounded-2xl hover:bg-white/5 transition-colors">
+                             <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0">
+                                <CheckCircle2 size={20} />
+                             </div>
+                             <span className="text-xl md:text-2xl font-bold text-white">{p}</span>
                           </div>
                        ))}
                     </div>
@@ -1455,7 +1489,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-10 mt-8">
                  {pov.justifyValue.metrics.slice(0, 4).map((m: string, i: number) => (
-                    <div key={i} className="p-8 md:p-12 bg-black/50 rounded-[2rem] md:rounded-[3rem] border border-zinc-800 hover:border-green-500/40 transition-all shadow-xl group/metric">
+                    <div key={i} className="p-8 md:p-12 bg-black/50 rounded-[2rem] md:rounded-[3rem] border border-zinc-800 hover:border-green-500/40 transition-all shadow-xl group/metric flex items-center gap-6">
+                       <TrendingUp className="text-green-500 w-8 h-8 shrink-0 opacity-50 group-hover/metric:opacity-100 transition-opacity" />
                        <p className="text-2xl md:text-4xl font-black text-white tracking-tight leading-[1.1] group-hover/metric:text-green-400 transition-colors italic">{m}</p>
                     </div>
                  ))}
@@ -1475,8 +1510,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     roiItems.map((item: any, i: number) => (
                         <div key={i} className={`bg-zinc-800/50 border-l-4 ${activePov === 'executive' ? 'border-purple-500' : 'border-zinc-500'} p-8 md:p-12 rounded-r-[2rem] flex flex-col justify-between`}>
                             <div>
-                                {/* Removed the subtext heading (item.label) as requested */}
-                                {/* <h6 className={`${activePov === 'executive' ? 'text-purple-400' : 'text-zinc-400'} font-black text-xs md:text-sm uppercase tracking-[0.2em] mb-6`}>{item.label}</h6> */}
                                 <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-8 font-mono text-lg md:text-2xl text-white">
                                     {item.formula.map((part: string, idx: number) => (
                                         <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-zinc-500 font-bold" : "bg-black/40 px-3 py-1 rounded-lg border border-zinc-700"}>
