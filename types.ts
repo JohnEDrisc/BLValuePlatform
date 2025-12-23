@@ -80,12 +80,12 @@ export interface Objection {
   rebuttal: string;
 }
 
-// *** UPDATED INTERFACE ***
+// *** UPDATED INTERFACE FOR PRESALES ENABLEMENT ***
 export interface DriverImpact {
   message: string;
   metric: string;
   relevance: 'High' | 'Medium' | 'Low';
-  // New Presales Enablement Fields
+  // New Optional Fields
   powerMessage?: string;       // The "Power Message"
   objectionHandling?: string;  // The "Rebuttal"
   competitorDiff?: string;     // The "Kill Point"
