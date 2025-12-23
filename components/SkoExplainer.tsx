@@ -531,10 +531,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                  <IconComponent size={48} className="md:w-20 md:h-20" strokeWidth={1} />
               </div>
               <h1 className="text-5xl md:text-[10rem] font-black tracking-tighter mb-8 md:mb-10 leading-[0.9] md:leading-[0.8] italic uppercase">{activeDriver.title}</h1>
-              <div className="inline-block px-8 md:px-14 py-4 md:py-6 border-2 border-zinc-700 rounded-full bg-black/60 mb-10 md:mb-14 backdrop-blur-xl">
-                 <span className="text-xl md:text-4xl font-black text-green-400 tracking-tighter italic uppercase">{activeDriver.heroMetric}</span>
-              </div>
               
+              {/* REMOVED GREEN HERO METRIC TEXT HERE */}
+
               <div className="flex justify-center mb-16 md:mb-24">
                  <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)] w-full md:w-auto">
                     <button onClick={() => setActivePov('executive')} className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-6 rounded-2xl text-xs md:text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black shadow-2xl scale-105' : 'text-zinc-400 hover:text-zinc-200'}`}>Executive</button>
