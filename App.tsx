@@ -7,8 +7,8 @@ import { CustomerBenchmarks } from './components/CustomerBenchmarks';
 import { PlatformHub } from './components/PlatformHub';
 import { OutsideInGenerator } from './components/OutsideInGenerator';
 import { SkoExplainer } from './components/SkoExplainer';
+import { PivotPanel } from './components/PivotPanel';
 import { Tooltip } from './components/Tooltip';
-// RightRail import removed
 import { generateValueAnalysis } from './services/geminiService';
 import { AnalysisResult, DealContext } from './types';
 import { SUPPORTED_LANGUAGES, UI_STRINGS } from './constants';
@@ -47,7 +47,7 @@ function App() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  // Panel Control (Controlled from Header)
+  // Panel Control
   const [activePanel, setActivePanel] = useState<'chat' | 'pivot' | null>(null);
   const [showGuidance, setShowGuidance] = useState(false);
 
@@ -149,7 +149,6 @@ function App() {
     <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-blackline-yellow selection:text-black">
       
       {/* Header */}
-      {/* Removed pr-[60px] to center layout since rail is gone */}
       <header className="bg-black/80 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-50">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer group" onClick={goHome}>
@@ -173,7 +172,7 @@ function App() {
 
             {/* Top Rail Tools */}
             <div className="flex items-center gap-2 md:gap-3">
-              {/* HELP BUTTON - MORE OBVIOUS */}
+              {/* HELP BUTTON */}
               <button 
                 onClick={() => setShowGuidance(!showGuidance)}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 border ${showGuidance ? 'bg-blackline-yellow border-blackline-yellow text-black scale-105 shadow-[0_0_15px_rgba(249,183,52,0.4)]' : 'bg-zinc-900/50 border-zinc-800 text-gray-300 hover:text-white hover:bg-zinc-800'}`}
@@ -183,6 +182,7 @@ function App() {
                 <span className="text-[10px] font-black uppercase tracking-widest">Help</span>
               </button>
 
+              {/* PIVOT CUBE BUTTON */}
               <button 
                 onClick={() => setActivePanel(activePanel === 'pivot' ? null : 'pivot')}
                 className={`p-2 rounded-xl transition-all duration-300 border ${activePanel === 'pivot' ? 'bg-zinc-100 border-white text-black scale-105 shadow-lg' : 'bg-zinc-900/50 border-zinc-800 text-gray-400 hover:text-white hover:bg-zinc-800'}`}
@@ -228,7 +228,6 @@ function App() {
       </header>
 
       {/* Main Content */}
-      {/* Removed pr-[60px] to center layout */}
       <main className="flex-grow container mx-auto px-4 pt-12 pb-20 relative">
         {!hasSearched && (activeTab === 'discovery' || activeTab === 'sko') && (
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blackline-yellow/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
@@ -265,7 +264,6 @@ function App() {
             </p>
             
             <div className="flex flex-col items-center mt-10 mb-8 gap-4">
-                  
                   {/* Main Focused SKO Button */}
                   <div className="w-full max-w-md">
                      <button 
@@ -277,16 +275,14 @@ function App() {
                        <ArrowRight size={20} className="opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1" />
                      </button>
                   </div>
-
+                  {/* Rest of buttons ... */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
-                    {/* Value Narratives */}
                     <button 
                       onClick={() => { setActiveTab('discovery'); setShowDiscoveryMenu(true); }}
                       className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-lg font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800 shadow-md"
                     >
                       <BarChart2 size={20} /> {t.tab_discovery}
                     </button>
-                    {/* Outside-In */}
                     <button 
                       onClick={() => { setActiveTab('outside_in'); setShowDiscoveryMenu(false); }}
                       className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-lg font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800 shadow-md"
@@ -319,15 +315,14 @@ function App() {
           </div>
         </div>
 
-        {/* Content Area */}
-        {activeTab === 'sko' && (
-           <SkoExplainer onClose={goHome} t={t} />
-        )}
+        {/* Content Area Rendering Logic */}
+        {activeTab === 'sko' && ( <SkoExplainer onClose={goHome} t={t} /> )}
         
         {activeTab === 'discovery' && (
           <>
             {!hasSearched && showDiscoveryMenu && (
               <div className="animate-fade-in-up delay-200">
+                {/* ... Discovery Headers ... */}
                 <div className="max-w-[1000px] mx-auto flex justify-between items-center mb-6 px-6">
                   <div className="flex flex-col">
                     <h3 className="text-2xl font-black text-white flex items-center gap-3 uppercase italic tracking-tighter">
@@ -340,7 +335,6 @@ function App() {
                   </button>
                 </div>
                 
-                {/* Explanatory Header for Browse - UPDATED FOR EDUCATION FOCUS */}
                 <div className="max-w-[1000px] mx-auto mb-10 px-6">
                    <div className="bg-gradient-to-r from-zinc-900 to-black border border-zinc-800 p-8 rounded-3xl shadow-xl relative overflow-hidden group">
                       <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -401,71 +395,32 @@ function App() {
         )}
 
         {activeTab === 'outside_in' && (
-          <>
-            <div className="max-w-[900px] mx-auto flex justify-between items-center px-4 mb-4">
-               <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
-                 <Zap size={20} className="text-blackline-yellow" /> Outside-In Generator
-               </h3>
-               <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
-                  <X size={24} />
-               </button>
-            </div>
-            <OutsideInGenerator 
-              t={t} 
-              onSetDealContext={setDealContext} 
-              dealContext={dealContext}
-            />
-          </>
+          <OutsideInGenerator t={t} onSetDealContext={setDealContext} dealContext={dealContext} />
         )}
-
         {activeTab === 'calculator' && (
-           <>
-             <div className="max-w-[1000px] mx-auto flex justify-between items-center px-4 mb-4">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
-                  <Calculator size={20} className="text-blackline-yellow" /> {t.tab_calculator}
-                </h3>
-                <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
-                   <X size={24} />
-                </button>
-             </div>
-             <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
-           </>
+           <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
         )}
-
-        {activeTab === 'benchmarks' && (
-          <>
-            <div className="max-w-[1400px] mx-auto flex justify-between items-center px-4 mb-4">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
-                  <Users size={20} className="text-blackline-yellow" /> {t.tab_benchmarks}
-                </h3>
-                <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
-                   <X size={24} />
-                </button>
-            </div>
-            <CustomerBenchmarks t={t} />
-          </>
-        )}
-
+        {activeTab === 'benchmarks' && ( <CustomerBenchmarks t={t} /> )}
         {activeTab === 'hub' && (
-          <>
-            <div className="max-w-[1200px] mx-auto flex justify-between items-center px-4 mb-4">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
-                  <Video size={20} className="text-blackline-yellow" /> {t.tab_hub}
-                </h3>
-                <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
-                   <X size={24} />
-                </button>
-            </div>
-            <PlatformHub t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
-          </>
+           <PlatformHub t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
         )}
 
       </main>
 
-      {/* RightRail Component Removed Here */}
+      {/* ================================================================
+        PIVOT PANEL - TOP DRAWER CONFIGURATION
+        ================================================================
+      */}
+      {activePanel === 'pivot' && (
+        <div className="fixed top-[73px] left-0 right-0 z-40 border-b border-zinc-800 bg-black/95 backdrop-blur-xl shadow-2xl animate-in slide-in-from-top duration-300">
+           {/* Added max-h constraint with scrolling in case screen is short */}
+           <div className="max-h-[85vh] overflow-y-auto">
+             <PivotPanel currentContext={dealContext} onPivot={handlePivot} />
+           </div>
+        </div>
+      )}
 
       {/* Footer */}
-      {/* Removed pr-[60px] to center layout */}
       <footer className="bg-black border-t border-zinc-900 py-10 mt-auto no-print">
         <div className="container mx-auto px-4 text-center">
           <div className="flex justify-center items-center gap-2 mb-4 opacity-70">
