@@ -164,8 +164,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                {/* Exxon Section */}
                <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl relative overflow-hidden shadow-2xl transition-all hover:border-blackline-yellow/30 flex flex-col text-left">
                   <div className="h-2 w-full bg-gradient-to-r from-red-600 via-blue-600 to-red-600"></div>
-                  <div className="p-6 md:p-10 flex-grow">
-                      <div className="flex items-center justify-between mb-6 md:mb-8 pb-6 border-b border-zinc-800">
+                  <div className="p-6 md:p-10 flex-grow relative">
+                      <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
                          <div className="flex items-center gap-4">
                             <div className="p-2 md:p-3 bg-white rounded-xl shadow-lg flex items-center justify-center">
                                <span className="text-black font-black text-lg md:text-xl tracking-tighter uppercase italic">Exxon</span>
@@ -176,11 +176,30 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                             </div>
                          </div>
                       </div>
-                      <p className="text-lg md:text-3xl text-gray-100 leading-relaxed font-light italic mb-6 md:mb-10 relative px-2">
-                         <span className="text-blackline-yellow font-serif text-4xl md:text-5xl absolute -left-4 md:-left-8 -top-4 opacity-50">"</span>
-                         We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>... literally enabled us to save tens of thousands of hours.
-                         <span className="text-blackline-yellow font-serif text-4xl md:text-5xl absolute -bottom-6 md:-bottom-10 opacity-50">"</span>
-                      </p>
+
+                      {/* Expanded Quote Section */}
+                      <div className="relative px-2 md:px-4">
+                          <span className="text-blackline-yellow font-serif text-6xl md:text-7xl absolute -left-4 md:-left-8 -top-8 opacity-40">"</span>
+                          
+                          <div className="space-y-6 md:space-y-8 relative z-10">
+                            <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
+                               We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>. It automates the account reconciliation process.
+                            </p>
+                            
+                            <div className="border-l-4 border-zinc-700 pl-6 py-1">
+                                <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
+                                   If you think about an organization the size of ExxonMobil, the number of bank accounts that we have around the world is just <span className="text-white font-bold">massive</span>.
+                                </p>
+                            </div>
+
+                            <div className="relative bg-black/40 p-6 md:p-8 rounded-2xl border border-blackline-yellow/20">
+                                <p className="text-xl md:text-3xl text-white font-black italic leading-tight uppercase tracking-tight">
+                                   Moving to a platform that <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time.
+                                </p>
+                            </div>
+                          </div>
+                      </div>
+
                   </div>
                   <div className="p-6 md:p-10 pt-0 mt-auto border-t border-zinc-800/50 bg-black/20">
                       <div className="flex items-center gap-4 pt-4 md:pt-6">
