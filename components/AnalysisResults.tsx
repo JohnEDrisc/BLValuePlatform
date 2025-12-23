@@ -10,12 +10,12 @@ import {
   Target,
   FileText,
   BarChart2,
-  Calculator
+  Calculator,
+  ArrowLeft
 } from 'lucide-react';
 import { AnalysisResult, ValueDriverSelection, UIStrings, Persona } from '../types';
 import { SKO_DATA } from '../constants'; 
 
-// Combined Props Interface to support both Legacy (Search) and Hub (Persona) modes
 interface AnalysisResultsProps {
   // --- Hub Mode Props ---
   selectedDrivers?: ValueDriverSelection[];
@@ -33,26 +33,30 @@ interface AnalysisResultsProps {
 }
 
 export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
-  selectedDrivers = [],
+  selectedDrivers = [], // Default to [] to prevent .map crash
   selectedIndustry = "Unknown",
-  selectedPersona,
-  data,
-  query,
+  selectedPersona = null,
+  data = null,
+  query = "",
   onNavigateToCalculator,
   t,
   onBack
 }) => {
   
-  // --- RENDER MODE DETECTION ---
-  const isLegacyMode = !!data; // If 'data' prop exists, we are in Search/Legacy mode
+  // 1. DETERMINE MODE
+  // If 'data' is present, we are in Legacy Search Mode.
+  const isLegacyMode = !!data; 
 
   // --- STATE FOR HUB MODE ---
   const [hubResults, setHubResults] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Effect for HUB MODE generation
+  // 2. EFFECT: Generate Hub Results (Only runs if NOT in Legacy Mode)
   useEffect(() => {
-    if (isLegacyMode) return; // Skip if in legacy mode
+    if (isLegacyMode) {
+      setLoading(false); // No loading needed for legacy, data is passed in
+      return; 
+    }
 
     const generateHubResults = async () => {
       setLoading(true);
@@ -61,6 +65,8 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
 
       const newResults: AnalysisResult[] = selectedDrivers.map(driver => {
         const driverDetail = SKO_DATA.find(d => d.id === driver.id);
+        
+        // Fallback if driver data missing
         if (!driverDetail) {
           return {
             driverId: driver.id,
@@ -98,7 +104,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
     generateHubResults();
   }, [selectedDrivers, selectedPersona, isLegacyMode]);
 
-  // --- VIEW: LEGACY SEARCH RESULTS (Value Narrative) ---
+  // --- VIEW 1: LEGACY SEARCH RESULTS (Value Narrative) ---
   if (isLegacyMode && data) {
     return (
       <div className="w-full max-w-5xl mx-auto px-4 md:px-6 pb-24 animate-fade-in">
@@ -112,7 +118,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
              </h2>
              <p className="text-zinc-400 text-lg">AI-Generated Value Narrative</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-3 mt-4 md:mt-0">
              {onNavigateToCalculator && (
                 <button onClick={onNavigateToCalculator} className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl text-sm font-bold transition-all">
                    <Calculator size={16} /> ROI Calc
@@ -136,7 +142,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                        {data.summary || "Analysis complete. Based on your query, BlackLine can significantly improve operational efficiency and reduce risk."}
                     </p>
                  </div>
-                 {/* Fallback Metrics if available in data, else placeholders */}
                  <div className="grid grid-cols-2 gap-4">
                     <div className="bg-black/40 p-5 rounded-2xl border border-zinc-800">
                        <p className="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-1">Potential ROI</p>
@@ -178,7 +183,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
     );
   }
 
-  // --- VIEW: HUB/SKO RESULTS (Persona & Drivers) ---
+  // --- VIEW 2: HUB/SKO RESULTS (Persona & Drivers) ---
   if (loading) {
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center animate-fade-in p-6">
@@ -226,14 +231,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
           // Look up static driver info for titles/icons
           const driverInfo = SKO_DATA.find(d => d.id === result.driverId);
           if (!driverInfo) return null;
-
-          // Determine Persona data for display (safe access)
-          const pGroup = selectedPersona?.group || 'Executive';
-          const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona?.id || '') || pGroup === 'Executive';
-          const personaList = isExecutive ? driverInfo.personas?.executive : driverInfo.personas?.operational;
-          const matchedPersona = personaList?.find(p => 
-            p.role && selectedPersona?.name.toLowerCase().includes(p.role.toLowerCase())
-          ) || personaList?.[0];
 
           return (
             <div key={result.driverId} className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl animate-slide-up" style={{ animationDelay: `${index * 150}ms` }}>
@@ -283,7 +280,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                              <AlertTriangle size={14} className="text-red-500" /> Key Risk
                           </h5>
                           <p className="text-zinc-300 font-medium">
-                             {matchedPersona?.nightmare || "Operational inefficiency impacting margin."}
+                             Operational inefficiency impacting margin.
                           </p>
                        </div>
                        <div className="bg-black/40 p-6 rounded-2xl border border-zinc-800/50">
@@ -291,7 +288,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                              <TrendingUp size={14} className="text-green-500" /> Opportunity
                           </h5>
                           <p className="text-zinc-300 font-medium">
-                             {matchedPersona?.aspiration || "Scalable growth without headcount."}
+                             Scalable growth without headcount.
                           </p>
                        </div>
                     </div>
