@@ -256,7 +256,7 @@ export const PlatformHub: React.FC<PlatformHubProps> = ({ t, dealContext, onSetD
                                        <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-blackline-yellow"/>
                                     </div>
                                     <p className="text-xs text-gray-500 mb-4 leading-relaxed">
-                                       "We recently did a larger implementation of a software platform called <strong>BlackLine</strong> that we use in the accounting space, and it's literally enabled us to save tens of thousands of hours of what was very manually intensive work because we can now automate it."
+                                       "We recently did a large implementation of a software platform called <strong>BlackLine</strong> that we use in the accounting space, and it's literally enabled us to save tens of thousands of hours of what was very manually intensive work because we can now automate it."
                                     </p>
                                     <div className="flex gap-2">
                                        <span className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest bg-black px-2 py-1 rounded">Process Efficiency</span>
