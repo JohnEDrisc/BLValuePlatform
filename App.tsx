@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Globe, ChevronDown, BarChart2, Calculator, Users, Zap, 
+  Globe, ChevronDown, BarChart2, Calculator, Users, Layers, Zap, 
   Trophy, ArrowRight, X, HelpCircle, Info, Video, Sparkles 
 } from 'lucide-react';
 
-// --- REAL COMPONENT IMPORTS ---
+// --- COMPONENT IMPORTS ---
 import { VisualNav } from './components/VisualNav';
 import { ValueCalculator } from './components/ValueCalculator';
 import { CustomerBenchmarks } from './components/CustomerBenchmarks';
@@ -16,42 +16,23 @@ import { PlatformHub } from './components/PlatformHub';
 import { AnalysisResults } from './components/AnalysisResults';
 import { SkoExplainer } from './components/SkoExplainer';
 
-import { AnalysisResult, DealContext, ValueDriverSelection, Persona } from './types';
+import { AnalysisResult, DealContext, ValueDriverSelection, Persona, ValueDriver } from './types';
 import { SUPPORTED_LANGUAGES, UI_STRINGS, INDUSTRIES } from './constants';
+import { generateValueAnalysis } from './services/geminiService';
 
-// --- RICH MOCK SERVICE ---
-const generateValueAnalysis = async (query: string, lang: string): Promise<AnalysisResult> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        summary: `Strategic analysis for "${query}". BlackLine unifies data and processes to drive efficiency, visibility, and reduced risk across the financial close.`,
-        recommendations: [
-          "Standardize reconciliation templates globally.",
-          "Automate high-volume transaction matching.",
-          "Implement centralized task management and controls."
-        ],
-        // RICH DATA FOR LEGACY UI
-        talkTrack: "By moving to a unified platform, we eliminate the manual handoffs that create risk. This isn't just about saving hours; it's about shifting the finance team from data aggregators to strategic business partners.",
-        cfoPunchline: "30% reduction in audit costs and 50% faster close cycle time.",
-        personaAnalysis: {
-          role: "CFO / Finance Executive",
-          topConcerns: ["Audit Risk & Compliance Materiality", "Operational Efficiency at Scale", "Talent Burnout & Retention"],
-          keepsThemUpAtNight: "A material weakness finding or a restatement due to manual spreadsheet errors.",
-          personalWins: ["Strategic Advisor Status", "Modern Finance Organization", "Cost Reduction"],
-          businessProblems: ["Lack of visibility into close status", "High cost of compliance", "Slow decision-making data"]
-        },
-        valueDriverImpacts: {
-          "Process Efficiency": { message: "Automates repetitive manual journals and matching.", metric: "50% Time Savings", relevance: "High" },
-          "Trust Premium": { message: "Ensures balance sheet integrity and audit readiness.", metric: "Risk Mitigation", relevance: "High" },
-          "Working Capital Optimization": { message: "Faster close leads to faster cash application.", metric: "DSO Reduction", relevance: "Medium" }
-        }
-      });
-    }, 1500);
-  });
-};
-
+// Custom Rubik's Cube Icon for Pivot
 export const RubiksCube = ({ size = 20, className = "" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
     <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
     <line x1="12" y1="22.08" x2="12" y2="12" />
@@ -64,6 +45,7 @@ export const RubiksCube = ({ size = 20, className = "" }) => (
 );
 
 function App() {
+  // Initial landing state
   const [activeTab, setActiveTab] = useState<'discovery' | 'outside_in' | 'calculator' | 'benchmarks' | 'hub' | 'sko'>('sko');
   const [showDiscoveryMenu, setShowDiscoveryMenu] = useState(false);
   const [query, setQuery] = useState('');
@@ -72,24 +54,32 @@ function App() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  // --- HUB STATE ---
+  // --- HUB STATE (Video Coaching) ---
   const [selectedDrivers, setSelectedDrivers] = useState<ValueDriverSelection[]>([]);
   const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
   const [selectedIndustry, setSelectedIndustry] = useState<string>('manufacturing');
   const [showAnalysis, setShowAnalysis] = useState(false);
 
+  // Panel Control
   const [activePanel, setActivePanel] = useState<'chat' | 'pivot' | null>(null);
   const [showGuidance, setShowGuidance] = useState(false);
+
+  // Deal Context
   const [dealContext, setDealContext] = useState<DealContext>({});
+
+  // Language State
   const [currentLang, setCurrentLang] = useState('EN');
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   
+  // Safe Translation Logic
   const t = { ...UI_STRINGS['EN'], ...(UI_STRINGS[currentLang] || {}) };
 
+  // Scroll to top
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [activeTab, hasSearched, showDiscoveryMenu, showAnalysis]);
 
+  // Function to return to the root landing page (6 buttons)
   const goHome = () => {
     setActiveTab('discovery'); 
     setShowDiscoveryMenu(false);
@@ -98,8 +88,10 @@ function App() {
     setQuery('');
     setShowGuidance(false);
     setActivePanel(null);
-    setShowAnalysis(false); 
+    setShowAnalysis(false); // Reset Hub state
   };
+
+  // --- HANDLERS ---
 
   const handleDriverToggle = (driver: ValueDriverSelection) => {
     setSelectedDrivers(prev => {
@@ -113,8 +105,41 @@ function App() {
 
   const handleAnalyze = () => {
     if (selectedPersona && selectedDrivers.length > 0) {
-      setShowAnalysis(true);
-      window.scrollTo(0, 0);
+        // Construct Hub Results
+        const mockResult: AnalysisResult = {
+            talkTrack: `Strategic analysis for ${selectedPersona.name} focusing on ${selectedDrivers.map(d => d.value).join(', ')}.`,
+            valueDriverImpacts: {}, 
+            cfoPunchline: "Accelerate financial transformation with unified automation.",
+            caoPunchline: "Ensure compliance and accuracy with every close.",
+            cioPunchline: "Simplify the tech stack with a single financial platform.",
+            valueChain: [],
+            businessScenarios: [],
+            objectionHandling: [],
+            discoveryQuestions: ["What are your key bottlenecks today?", "How do you measure success?"],
+            references: [],
+            personaAnalysis: {
+                role: selectedPersona.name,
+                topConcerns: ["Efficiency", "Risk", "Talent"],
+                keepsThemUpAtNight: "Audit failure or missed deadlines.",
+                personalWins: ["Strategic Partner", "Automation Hero"],
+                businessProblems: ["Manual work", "Disconnected systems"]
+            }
+        };
+
+        // Populate dynamic drivers for display
+        selectedDrivers.forEach(d => {
+            mockResult.valueDriverImpacts[d.value] = {
+                message: "High impact strategic capability.",
+                metric: "Significant ROI",
+                relevance: "High"
+            };
+        });
+
+        // Use the same "Result" object but with special flags if needed
+        setResult(mockResult);
+        setQuery(`${selectedPersona.name} Analysis`);
+        setShowAnalysis(true);
+        window.scrollTo(0, 0);
     }
   };
 
@@ -138,6 +163,7 @@ function App() {
       setResult(null);
       setHasSearched(false);
       setQuery('');
+      setShowAnalysis(false);
       setActiveTab('discovery');
       setShowDiscoveryMenu(true);
   };
@@ -145,6 +171,7 @@ function App() {
   const handleLanguageChange = (langCode: string) => {
     setCurrentLang(langCode);
     setIsLangMenuOpen(false);
+    
     if (hasSearched && query && activeTab === 'discovery') {
       handleSearch(query, langCode);
     }
@@ -164,6 +191,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-blackline-yellow selection:text-black">
       
+      {/* Header */}
       <header className="bg-black/80 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-50 pr-[60px]">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer group" onClick={goHome}>
@@ -234,11 +262,13 @@ function App() {
         </div>
       </header>
 
+      {/* Main Content */}
       <main className="flex-grow container mx-auto px-4 pt-12 pb-20 relative pr-[60px]">
         {!hasSearched && (activeTab === 'discovery' || activeTab === 'sko') && (
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blackline-yellow/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
         )}
 
+        {/* Hero Section */}
         <div className={`transition-all duration-700 ease-in-out ${!showHero ? 'hidden' : 'translate-y-0 opacity-100'}`}>
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight drop-shadow-sm">
@@ -249,6 +279,8 @@ function App() {
             </p>
             
             <div className="flex flex-col items-center mt-10 mb-8 gap-4">
+                 
+                 {/* Main Focused SKO Button */}
                  <div className="w-full max-w-md">
                     <button 
                       onClick={() => { setActiveTab('sko'); setShowDiscoveryMenu(false); }}
@@ -298,6 +330,8 @@ function App() {
               </div>
           </div>
         </div>
+
+        {/* --- APP SECTIONS --- */}
 
         {activeTab === 'sko' && (
            <SkoExplainer onClose={goHome} t={t} />
@@ -386,13 +420,14 @@ function App() {
                 </button>
             </div>
             
-            {showAnalysis && selectedPersona ? (
+            {/* The FIX: Properly passing props for Hub Mode */}
+            {showAnalysis && result ? (
                 <AnalysisResults
-                    selectedDrivers={selectedDrivers}
-                    selectedIndustry={INDUSTRIES.find(i => i.id === selectedIndustry)?.nameKey || selectedIndustry}
-                    selectedPersona={selectedPersona}
-                    t={t}
+                    data={result}
+                    query={query}
                     onBack={() => setShowAnalysis(false)}
+                    onNavigateToCalculator={() => setActiveTab('calculator')}
+                    t={t}
                 />
             ) : (
                 <PlatformHub 
