@@ -8,105 +8,158 @@ import {
   TrendingUp,
   AlertTriangle,
   Target,
-  FileText,
-  User
+  FileText
 } from 'lucide-react';
 import { AnalysisResult, ValueDriverSelection, UIStrings, Persona } from '../types';
-import { SKO_DATA } from '../constants'; // Importing the single source of truth
+import { SKO_DATA } from '../constants';
 
 interface AnalysisResultsProps {
   selectedDrivers: ValueDriverSelection[];
   selectedIndustry: string;
-  selectedPersona: Persona; // The persona selected in the onboarding step
+  selectedPersona: Persona;
   t: UIStrings;
   onBack: () => void;
 }
 
 export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
-  selectedDrivers,
-  selectedIndustry,
+  selectedDrivers = [], // Default to empty array
+  selectedIndustry = "Unknown Industry",
   selectedPersona,
   t,
   onBack
 }) => {
   const [results, setResults] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // 1. Safety Check: Ensure critical props exist before processing
+    if (!selectedPersona) {
+        console.error("AnalysisResults: Missing selectedPersona prop");
+        setError("No persona selected.");
+        setLoading(false);
+        return;
+    }
+
+    if (!selectedDrivers || selectedDrivers.length === 0) {
+        console.warn("AnalysisResults: No drivers selected");
+        setError("No value drivers selected.");
+        setLoading(false);
+        return;
+    }
+
     const generateResults = async () => {
       setLoading(true);
-      
-      // Simulate processing time for "AI Analysis"
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      setError(null);
 
-      const newResults: AnalysisResult[] = selectedDrivers.map(driver => {
-        // Find the rich data for this driver from constants
-        const driverDetail = SKO_DATA.find(d => d.id === driver.id);
-        
-        // Default fallbacks if data is missing
-        if (!driverDetail) {
+      try {
+        // Simulate processing time
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        const newResults: AnalysisResult[] = selectedDrivers.map(driver => {
+          // 2. Find Driver Data safely
+          const driverDetail = SKO_DATA.find(d => d.id === driver.id);
+          
+          if (!driverDetail) {
+            console.warn(`AnalysisResults: Data not found for driver ID: ${driver.id}`);
+            return {
+              driverId: driver.id,
+              score: 0,
+              summary: "Content currently unavailable for this value driver.",
+              recommendations: ["Review standard operating procedures", "Assess current toolset"]
+            };
+          }
+
+          // 3. Intelligent Persona Mapping
+          // Check against known IDs or Group property
+          const pid = selectedPersona.id?.toLowerCase() || '';
+          const pGroup = selectedPersona.group || '';
+          const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(pid) || pGroup === 'Executive';
+          
+          // Select correct Point-of-View (POV) content
+          const povContent = isExecutive ? driverDetail.executivePov : driverDetail.operationalPov;
+          const personaList = isExecutive ? driverDetail.personas?.executive : driverDetail.personas?.operational;
+
+          // Match specific persona role (e.g. "CFO" matches "CFO")
+          // Fallback to the first persona in the list if no exact match found
+          const pName = selectedPersona.name || 'Unknown';
+          const matchedPersona = personaList?.find(p => 
+              (p.role && pName.toLowerCase().includes(p.role.toLowerCase())) || 
+              (p.role && p.role.toLowerCase().includes(pName.split(' ')[0].toLowerCase()))
+          ) || personaList?.[0];
+
+          // 4. Construct Narrative safely
+          // Using optional chaining (?) to prevent crashes if 'createValue' is missing
+          const title = povContent?.createValue?.title || "Strategic Alignment";
+          const focus = povContent?.createValue?.focus || "Optimization";
+          
+          let summary = `${title}: ${focus}.`;
+          
+          if (matchedPersona) {
+             const nightmare = matchedPersona.nightmare || "process inefficiency";
+             const aspiration = matchedPersona.aspiration || "strategic growth";
+             summary += ` For a ${pName}, this directly mitigates the risk of ${nightmare} and unlocks capacity for ${aspiration}.`;
+          }
+
+          // 5. Recommendations (Proof Points)
+          // Ensure it is always an array
+          const recs = povContent?.deliverValue?.proofPoints || [
+              "Automate manual workflows", 
+              "Centralize data management"
+          ];
+
           return {
             driverId: driver.id,
-            score: 0,
-            summary: "Data unavailable for this driver.",
-            recommendations: []
+            score: Math.floor(Math.random() * 15) + 85, // Mock score
+            summary: summary,
+            recommendations: recs
           };
-        }
+        });
 
-        // --- INTELLIGENT PERSONA MAPPING ---
-        // Determine if the selected persona is Executive or Operational to pull the right insights
-        // We check the ID or the Group from the persona object
-        const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona.id) || selectedPersona.group === 'Executive';
-        
-        // Get the specific POV content based on the tier
-        const povContent = isExecutive ? driverDetail.executivePov : driverDetail.operationalPov;
-        const personaList = isExecutive ? driverDetail.personas?.executive : driverDetail.personas?.operational;
-
-        // Try to find a specific match for the role (e.g. "CFO") in the driver data, otherwise default to the first one available
-        // This makes the "Aspiration" and "Nightmare" highly specific
-        const matchedPersona = personaList?.find(p => 
-            p.role?.toLowerCase().includes(selectedPersona.name.split(' ')[0].toLowerCase()) || 
-            selectedPersona.name.toLowerCase().includes(p.role?.toLowerCase() || '')
-        ) || personaList?.[0];
-
-        // Build the narrative
-        // We use the "Create Value" title and "Capture Value" questions to build a dynamic summary
-        const summary = `${povContent.createValue.title}: ${povContent.createValue.focus}. ${matchedPersona ? `For a ${selectedPersona.name}, this specifically addresses the nightmare of "${matchedPersona.nightmare}" and aligns with the aspiration of "${matchedPersona.aspiration}".` : ''}`;
-
-        return {
-          driverId: driver.id,
-          score: Math.floor(Math.random() * 20) + 80, // Mock score 80-100
-          summary: summary,
-          // We pull the "Proof Points" from the Deliver phase as recommendations/evidence
-          recommendations: povContent.deliverValue.proofPoints || [
-            "Automate manual workflows",
-            "Centralize data management",
-            "Improve reporting cadence"
-          ]
-        };
-      });
-
-      setResults(newResults);
-      setLoading(false);
+        setResults(newResults);
+      } catch (err) {
+        console.error("AnalysisResults: Critical error during generation", err);
+        setError("An unexpected error occurred while generating results.");
+      } finally {
+        setLoading(false);
+      }
     };
 
     generateResults();
   }, [selectedDrivers, selectedIndustry, selectedPersona]);
 
+  // --- RENDER STATES ---
+
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center animate-fade-in p-6">
+      <div className="min-h-[50vh] flex flex-col items-center justify-center animate-fade-in p-6">
         <div className="w-16 h-16 border-4 border-blackline-yellow border-t-transparent rounded-full animate-spin mb-8"></div>
-        <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-4">
-          Analyzing {selectedDrivers.length} Strategic Drivers...
+        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-4">
+          Analyzing Priorities...
         </h2>
-        <div className="flex flex-col gap-2 text-zinc-400 text-center">
-          <p>Aligning with {selectedPersona.name} priorities...</p>
-          <p>Benchmarking against {selectedIndustry} standards...</p>
+        <div className="flex flex-col gap-2 text-zinc-400 text-center text-sm">
+          <p>Aligning with <span className="text-white">{selectedPersona?.name}</span> goals...</p>
+          <p>Benchmarking <span className="text-white">{selectedDrivers.length}</span> drivers...</p>
         </div>
       </div>
     );
   }
+
+  if (error) {
+    return (
+      <div className="min-h-[50vh] flex flex-col items-center justify-center text-center p-6">
+        <div className="bg-red-500/10 p-6 rounded-2xl border border-red-500/20 mb-6">
+            <h3 className="text-red-500 font-bold mb-2">Analysis Error</h3>
+            <p className="text-zinc-400">{error}</p>
+        </div>
+        <button onClick={onBack} className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-medium transition-colors">
+            Return to Configuration
+        </button>
+      </div>
+    );
+  }
+
+  // --- MAIN CONTENT ---
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 md:px-6 pb-24 animate-fade-in">
@@ -117,7 +170,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blackline-yellow/20 text-blackline-yellow text-xs font-black uppercase tracking-[0.2em] mb-4">
               <Sparkles size={14} /> Value Analysis
            </div>
-           <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-4">
+           <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter mb-4">
               Strategic <span className="text-zinc-500">Assessment</span>
            </h2>
            <p className="text-zinc-400 max-w-xl text-lg">
@@ -129,7 +182,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
               <Share2 size={18} /> Share
            </button>
            <button className="flex items-center gap-2 px-6 py-3 bg-blackline-yellow text-black rounded-xl font-black uppercase tracking-wider hover:scale-105 transition-all shadow-lg">
-              <Download size={18} /> Export PDF
+              <Download size={18} /> Export
            </button>
         </div>
       </div>
@@ -137,16 +190,15 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
       {/* Results Grid */}
       <div className="space-y-12">
         {results.map((result, index) => {
-          // Look up the full detail again to get icons/images
+          // Look up static driver info for titles/icons
           const driverInfo = SKO_DATA.find(d => d.id === result.driverId);
           if (!driverInfo) return null;
 
-          // Determine Persona data for display
+          // Determine Persona data for display (safe access)
           const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona.id) || selectedPersona.group === 'Executive';
           const personaList = isExecutive ? driverInfo.personas?.executive : driverInfo.personas?.operational;
           const matchedPersona = personaList?.find(p => 
-            p.role?.toLowerCase().includes(selectedPersona.name.split(' ')[0].toLowerCase()) || 
-            selectedPersona.name.toLowerCase().includes(p.role?.toLowerCase() || '')
+            p.role && selectedPersona.name.toLowerCase().includes(p.role.toLowerCase())
           ) || personaList?.[0];
 
           return (
@@ -155,8 +207,8 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
               {/* Card Header */}
               <div className="bg-zinc-950 p-8 border-b border-zinc-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                  <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-zinc-900 rounded-2xl flex items-center justify-center border border-zinc-800 shadow-inner">
-                       <span className="text-blackline-yellow font-black text-2xl">{index + 1}</span>
+                    <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center border border-zinc-800 shadow-inner shrink-0">
+                       <span className="text-blackline-yellow font-black text-xl">{index + 1}</span>
                     </div>
                     <div>
                        <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tight mb-2">
@@ -170,7 +222,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                  </div>
                  
                  <div className="text-right">
-                    <div className="text-4xl font-black text-green-400 tracking-tighter mb-1">
+                    <div className="text-3xl md:text-4xl font-black text-green-400 tracking-tighter mb-1">
                        {driverInfo.heroMetric}
                     </div>
                     <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Projected Impact</p>
@@ -186,7 +238,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                        <h4 className="flex items-center gap-3 text-sm font-black text-blue-400 uppercase tracking-widest mb-4">
                           <FileText size={16} /> Contextual Analysis
                        </h4>
-                       <p className="text-xl text-zinc-200 leading-relaxed font-light">
+                       <p className="text-lg md:text-xl text-zinc-200 leading-relaxed font-light">
                           {result.summary}
                        </p>
                     </div>
@@ -219,7 +271,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                     <ul className="space-y-4">
                        {result.recommendations.map((rec, i) => (
                           <li key={i} className="flex gap-4 items-start group">
-                             <div className="mt-1 w-2 h-2 rounded-full bg-zinc-600 group-hover:bg-blackline-yellow transition-colors shrink-0"></div>
+                             <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-blackline-yellow transition-colors shrink-0"></div>
                              <span className="text-zinc-300 font-medium leading-snug group-hover:text-white transition-colors">{rec}</span>
                           </li>
                        ))}
