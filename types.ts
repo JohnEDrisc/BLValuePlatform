@@ -1,4 +1,3 @@
-
 export interface ProductItem {
   id: string;
   name: string;
@@ -81,10 +80,15 @@ export interface Objection {
   rebuttal: string;
 }
 
+// *** UPDATED INTERFACE ***
 export interface DriverImpact {
   message: string;
   metric: string;
   relevance: 'High' | 'Medium' | 'Low';
+  // New Presales Enablement Fields
+  powerMessage?: string;       // The "Power Message"
+  objectionHandling?: string;  // The "Rebuttal"
+  competitorDiff?: string;     // The "Kill Point"
 }
 
 export interface KPIHighlight {
