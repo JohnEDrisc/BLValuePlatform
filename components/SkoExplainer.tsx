@@ -5,37 +5,37 @@ import {
   ArrowLeft, 
   Zap, 
   TrendingUp, 
-  ArrowRight,
-  CheckCircle2,
-  X,
-  Rocket,
-  Play,
-  LayoutGrid,
-  ChevronLeft,
-  ChevronRight,
-  Map,
-  Quote,
-  Video,
-  Sparkles,
-  Search,
-  ShieldAlert,
-  ArrowUpRight,
-  Trophy,
-  Coins,
-  Cpu,
-  Target,
-  BookOpen,
-  HelpCircle,
-  Briefcase,
-  Users,
-  ShieldCheck,
-  User,
-  Activity,
-  Ghost,
-  Stars,
-  Layout,
-  LogOut,
-  ChevronDown
+  ArrowRight, 
+  CheckCircle2, 
+  X, 
+  Rocket, 
+  Play, 
+  LayoutGrid, 
+  ChevronLeft, 
+  ChevronRight, 
+  Map, 
+  Quote, 
+  Video, 
+  Sparkles, 
+  Search, 
+  ShieldAlert, 
+  ArrowUpRight, 
+  Trophy, 
+  Coins, 
+  Cpu, 
+  Target, 
+  BookOpen, 
+  HelpCircle, 
+  Briefcase, 
+  Users, 
+  ShieldCheck, 
+  User, 
+  Activity, 
+  Ghost, 
+  Stars, 
+  Layout, 
+  LogOut, 
+  ChevronDown 
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -203,17 +203,23 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                       <div className="relative px-2 md:px-4">
                           <span className="text-blackline-yellow font-serif text-6xl md:text-7xl absolute -left-4 md:-left-8 -top-8 opacity-40">"</span>
                           <div className="space-y-6 md:space-y-8 relative z-10">
+                            
+                            {/* Implementation */}
                             <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
-                               We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>. It automates the account reconciliation process.
+                               "We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>.
                             </p>
+                            
+                            {/* Complexity */}
                             <div className="border-l-4 border-zinc-700 pl-6 py-1">
                                 <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
-                                   If you think about an organization the size of ExxonMobil, the number of bank accounts that we have around the world is just <span className="text-white font-bold">massive</span>.
+                                   If you think about an organization the size of ExxonMobil...
                                 </p>
                             </div>
+
+                            {/* Capacity / Impact */}
                             <div className="relative bg-black/40 p-6 md:p-8 rounded-2xl border border-blackline-yellow/20">
                                 <p className="text-xl md:text-3xl text-white font-black italic leading-tight uppercase tracking-tight">
-                                   Moving to a platform that <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time.
+                                   Moving to a platform [like this] <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time."
                                 </p>
                             </div>
                           </div>
@@ -711,7 +717,7 @@ const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: s
             </div>
             
             <h3 className="text-xl md:text-2xl font-black text-white mb-2 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">{driver.title}</h3>
-            <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-6 font-medium line-clamp-2">{driver.summary}</p>
+            {/* Removed summary text to save vertical space */}
             
             <button 
                onClick={() => onSelect(driver.id)}
