@@ -131,13 +131,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
     }
   };
 
-  // Helper to get icon for specific driver config
-  const getSelectedDriverIcon = () => {
-    if (!selectedDriverConfig) return <Target size={20} />;
-    const matchedEnum = drivers.find(d => d === selectedDriverConfig.value);
-    return matchedEnum ? getDriverIcon(matchedEnum) : <Target size={20} />;
-  };
-
   const handlePlayAudio = async () => {
     if (isPlayingAudio) {
       if (audioSource) audioSource.stop();
