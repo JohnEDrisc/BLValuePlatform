@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-// IMPORT DATA FROM CONSTANTS INSTEAD OF DEFINING LOCALLY
-import { SKO_DATA } from '../constants'; 
-import { UIStrings, SkoDriverDetail } from '../types';
+import { SKO_DATA as GLOBAL_SKO_DATA } from '../constants'; 
+import { UIStrings, SkoDriverDetail, SkoPovContent } from '../types';
 import { 
   ArrowLeft, 
   Zap, 
@@ -14,10 +13,13 @@ import {
   LayoutGrid, 
   ChevronLeft, 
   ChevronRight, 
+  Map, 
+  Quote, 
   Video, 
   Sparkles, 
   Search, 
   ShieldAlert, 
+  ArrowUpRight, 
   Trophy, 
   Coins, 
   Cpu, 
@@ -33,9 +35,14 @@ import {
   Stars, 
   Layout, 
   LogOut, 
+  ChevronDown,
   Calculator,
+  Equal,
+  Plus,
+  Minus,
   MessageCircle,
-  AlertTriangle
+  AlertTriangle,
+  X as Multiply
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -81,7 +88,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   // Create a sorted version of data based on the new desired UX sequence
   const sortedDrivers = useMemo(() => {
-    return ORDERED_IDS.map(id => SKO_DATA.find(d => d.id === id)).filter(Boolean) as SkoDriverDetail[];
+    return ORDERED_IDS.map(id => GLOBAL_SKO_DATA.find(d => d.id === id)).filter(Boolean) as SkoDriverDetail[];
   }, []);
 
   const activeDriver = sortedDrivers.find(d => d.id === activeDriverId);
@@ -250,7 +257,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                             <div className="flex items-center gap-4">
                                <div className="p-2 md:p-3 bg-blackline-yellow rounded-xl shadow-lg flex items-center justify-center text-black">
                                   <Video size={20} className="md:w-6 md:h-6" />
-                               </div>
+                                </div>
                                <div>
                                   <h4 className="text-lg md:text-xl font-black text-white uppercase italic tracking-tighter leading-none">Strategic Vision</h4>
                                </div>
@@ -521,9 +528,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                  <IconComponent size={48} className="md:w-20 md:h-20" strokeWidth={1} />
               </div>
               <h1 className="text-5xl md:text-[10rem] font-black tracking-tighter mb-8 md:mb-10 leading-[0.9] md:leading-[0.8] italic uppercase">{activeDriver.title}</h1>
-              <div className="inline-block px-8 md:px-14 py-4 md:py-6 border-2 border-zinc-700 rounded-full bg-black/60 mb-10 md:mb-14 backdrop-blur-xl">
-                 <span className="text-xl md:text-4xl font-black text-green-400 tracking-tighter italic uppercase">{activeDriver.heroMetric}</span>
-              </div>
+              {/* REMOVED GREEN TEXT HERO METRIC */}
               
               <div className="flex justify-center mb-16 md:mb-24">
                  <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)] w-full md:w-auto">
@@ -655,6 +660,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     roiItems.map((item: any, i: number) => (
                         <div key={i} className={`bg-zinc-800/50 border-l-4 ${activePov === 'executive' ? 'border-purple-500' : 'border-zinc-500'} p-8 md:p-12 rounded-r-[2rem] flex flex-col justify-between`}>
                             <div>
+                                <h6 className={`${activePov === 'executive' ? 'text-purple-400' : 'text-zinc-400'} font-black text-xs md:text-sm uppercase tracking-[0.2em] mb-6`}>{item.label}</h6>
                                 <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-8 font-mono text-lg md:text-2xl text-white">
                                     {item.formula.map((part: string, idx: number) => (
                                         <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-zinc-500 font-bold" : "bg-black/40 px-3 py-1 rounded-lg border border-zinc-700"}>
@@ -697,136 +703,5 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
   }
 
-  // --- NEXT STEPS VIEW ---
-  if (viewMode === 'letsgo_bva') {
-    return (
-      <div className="min-h-screen bg-black text-white animate-fade-in pb-32">
-        <div className="max-w-5xl mx-auto px-4 md:px-6 pt-10 md:pt-16">
-           <div className="flex justify-between items-center mb-10 md:mb-16">
-              <button onClick={() => setViewMode('grid')} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-bold uppercase tracking-wider text-xs">
-                 <ArrowLeft size={16} /> Back
-              </button>
-              <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors">
-                 <X size={24} />
-              </button>
-           </div>
-           <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter uppercase mb-4 md:mb-6">#LETSGO <span className="text-blackline-yellow">GET</span></h2>
-              <p className="text-lg md:text-2xl text-zinc-200 font-light max-w-2xl mx-auto uppercase tracking-tighter italic">Strategic Next Steps for 2026</p>
-           </div>
-           <div className="space-y-8 md:space-y-12">
-              <PhaseCard step="01" title="Align to and execute golden engagement" label="Strategic Methodology" color="blackline-yellow" desc="Ensure we pivot from technical features to strategic certainty at every turn of the deal cycle." />
-              <PhaseCard step="02" title="Work with management to flag top pursuits" label="Resource Allocation" color="blue-500" desc="Flag top pursuits for 2026 so the presales and value engineering team can start working immediately." />
-              <PhaseCard step="03" title="Engage in follow up enablement in Q1" label="Continuous Mastery" color="green-500" desc="Deep-dive sessions focusing on specific industry narratives arrive in Q1." />
-           </div>
-           <div className="mt-16 md:mt-24 p-8 md:p-12 bg-zinc-900 border border-zinc-800 rounded-[2rem] md:rounded-[3rem] text-center relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10"><Trophy size={160} /></div>
-              <h3 className="text-2xl md:text-4xl font-black text-white mb-6 uppercase italic tracking-tighter">Mission Ready?</h3>
-              <p className="text-zinc-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Talk tracks mastered. Now go get the value.</p>
-              <button onClick={onClose} className="w-full md:w-auto px-12 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 shadow-2xl uppercase tracking-tighter italic border-4 border-black">Return to Analysis Suite</button>
-           </div>
-        </div>
-      </div>
-    );
-  }
-
   return null;
 };
-
-// --- HELPER COMPONENTS ---
-
-const SimplePersonaCard: React.FC<{ role: string, icon: any, nightmare: string, aspiration: string }> = ({ role, icon, nightmare, aspiration }) => {
-  // Safe icon lookup for Persona card
-  const IconComponent = (Icons as any)[icon] || User; 
-  return (
-    <div className="bg-zinc-900 border border-zinc-800 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] hover:border-zinc-500 transition-all flex flex-col h-full group shadow-xl">
-       <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
-          <div className="p-3 md:p-4 bg-black rounded-2xl border border-zinc-800 group-hover:bg-blackline-yellow group-hover:text-black transition-all shrink-0">
-             <IconComponent size={24} className="md:w-9 md:h-9" />
-          </div>
-          <h4 className="text-white font-black text-lg md:text-2xl uppercase tracking-wider leading-tight">{role}</h4>
-       </div>
-       <div className="space-y-6 md:space-y-8 flex-grow">
-          <div className="space-y-2 md:space-y-3">
-             <p className="text-[10px] font-black text-green-500 uppercase tracking-[0.4em] flex items-center gap-3">
-                <Stars size={16} /> Aspiration
-             </p>
-             <p className="text-sm md:text-lg text-zinc-100 leading-relaxed font-bold">"{aspiration}"</p>
-          </div>
-          <div className="space-y-2 md:space-y-3">
-             <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.4em] flex items-center gap-3">
-                <Ghost size={16} /> Nightmare
-             </p>
-             <p className="text-sm md:text-lg text-zinc-100 leading-relaxed font-bold italic">"{nightmare}"</p>
-          </div>
-       </div>
-    </div>
-  );
-};
-
-const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, subtitle: string, formula: string, desc: string }> = ({ step, color, title, subtitle, formula, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-14 rounded-[2.5rem] md:rounded-[3.5rem] flex flex-col hover:border-zinc-500 transition-all shadow-xl group min-h-[300px] md:min-h-[450px]">
-     <div className={`w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-6 md:mb-8 font-black text-2xl md:text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
-     <h4 className="text-2xl md:text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
-     <p className={`text-${color} text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-4`}>{subtitle}</p>
-     
-     <div className="mb-6 md:mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit">
-        <span className="text-xs md:text-sm font-mono text-zinc-200 flex items-center gap-2">
-           {formula}
-        </span>
-     </div>
-
-     <p className="text-lg md:text-2xl text-zinc-100 leading-relaxed font-light whitespace-pre-line">{desc}</p>
-  </div>
-);
-
-// Modified Driver Card for Horizontal Layouts (Shorter height)
-const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => void }> = ({ driver, onSelect }) => {
-   // @ts-ignore
-   const IconComponent = Icons[driver.icon] || Zap;
-   return (
-      <div className="group relative w-full rounded-[2rem] overflow-hidden border border-zinc-800 transition-all duration-500 hover:-translate-y-2 shadow-2xl bg-zinc-900">
-         <div className="absolute inset-0 z-0">
-            <img src={DRIVER_IMAGES[driver.id] || DRIVER_IMAGES.process} alt={driver.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-30 group-hover:opacity-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-         </div>
-         <div className="relative z-10 p-6 md:p-8 flex flex-col text-left h-full">
-            <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 bg-zinc-900/80 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-zinc-700 group-hover:border-blackline-yellow transition-colors shrink-0">
-                  <IconComponent size={24} className="md:w-6 md:h-6" strokeWidth={1.5} />
-               </div>
-            </div>
-            
-            <h3 className="text-xl md:text-2xl font-black text-white mb-2 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">{driver.title}</h3>
-            {/* Removed summary text to save vertical space */}
-            
-            <button 
-               onClick={() => onSelect(driver.id)}
-               className="w-full py-3 bg-white/5 border border-white/10 text-white rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-blackline-yellow hover:text-black hover:border-blackline-yellow transition-all flex items-center justify-center gap-2 mt-auto"
-            >
-               <HelpCircle size={14} /> Explain Driver
-            </button>
-         </div>
-      </div>
-   );
-};
-
-const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ title, subtitle }) => (
-    <div className="flex flex-col items-center text-center gap-2 mb-2">
-       <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
-          <div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>
-       </h3>
-       <p className="text-xs md:text-sm font-bold text-zinc-200 uppercase tracking-widest px-2">{subtitle}</p>
-    </div>
-);
-
-const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-6 md:p-10 rounded-[2rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
-     <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
-     <div className="text-6xl md:text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
-     <h3 className="text-2xl md:text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
-     <p className={`text-${color} text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
-     <div className="h-px bg-zinc-800 w-full mb-6"></div>
-     <p className="text-zinc-100 leading-relaxed text-base md:text-lg font-medium">{desc}</p>
-  </div>
-);
