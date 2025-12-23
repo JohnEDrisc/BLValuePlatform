@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { SKO_DATA as GLOBAL_SKO_DATA } from '../constants'; 
-import { UIStrings, SkoDriverDetail, SkoPovContent } from '../types';
+// IMPORT DATA FROM CONSTANTS INSTEAD OF DEFINING LOCALLY
+import { SKO_DATA } from '../constants'; 
+import { UIStrings, SkoDriverDetail } from '../types';
 import { 
   ArrowLeft, 
   Zap, 
@@ -13,13 +14,10 @@ import {
   LayoutGrid, 
   ChevronLeft, 
   ChevronRight, 
-  Map, 
-  Quote, 
   Video, 
   Sparkles, 
   Search, 
   ShieldAlert, 
-  ArrowUpRight, 
   Trophy, 
   Coins, 
   Cpu, 
@@ -35,14 +33,9 @@ import {
   Stars, 
   Layout, 
   LogOut, 
-  ChevronDown,
   Calculator,
-  Equal,
-  Plus,
-  Minus,
   MessageCircle,
-  AlertTriangle,
-  X as Multiply
+  AlertTriangle
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -88,7 +81,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   // Create a sorted version of data based on the new desired UX sequence
   const sortedDrivers = useMemo(() => {
-    return ORDERED_IDS.map(id => GLOBAL_SKO_DATA.find(d => d.id === id)).filter(Boolean) as any[];
+    return ORDERED_IDS.map(id => SKO_DATA.find(d => d.id === id)).filter(Boolean) as SkoDriverDetail[];
   }, []);
 
   const activeDriver = sortedDrivers.find(d => d.id === activeDriverId);
@@ -497,8 +490,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
     const IconComponent = (Icons as any)[activeDriver.icon] || Zap;
 
-    // Correctly type the ROI data structure
-    const roiData = pov.roiCalculations as any; 
+    // ROI Data Logic
+    const roiData = pov.roiCalculations || { executive: [], operational: [] };
     const roiItems = activePov === 'executive' ? roiData.executive : roiData.operational;
 
     return (
@@ -557,7 +550,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               
               {/* REPLACED BULLETS WITH CARDS */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-16">
-                 {pov.createValue.pains.map((p: string, i: number) => (
+                 {pov.createValue.pains?.map((p: string, i: number) => (
                     <div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl hover:border-red-500/50 transition-all group/card">
                        <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center mb-4 group-hover/card:bg-red-500 group-hover/card:text-white transition-all text-red-500">
                           <AlertTriangle size={20} />
@@ -583,7 +576,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               
               {/* REPLACED LIST WITH BUBBLES */}
               <div className="space-y-6 md:space-y-8 mb-10 md:mb-16">
-                 {pov.captureValue.questions.map((q: string, i: number) => (
+                 {pov.captureValue.questions?.map((q: string, i: number) => (
                     <div key={i} className={`flex gap-6 ${i % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
                        <div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none'}`}>
                           <div className="absolute -top-4 -left-2 bg-black border border-zinc-700 rounded-full p-2"><MessageCircle size={16} /></div>
@@ -607,7 +600,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     <span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-6 md:mb-10">Platform Activation</span>
                     {/* UPDATED TO PILLS */}
                     <div className="flex flex-wrap gap-3 md:gap-4">
-                       {pov.deliverValue.capabilities.map((c: string) => (
+                       {pov.deliverValue.capabilities?.map((c: string) => (
                           <div key={c} className="px-6 py-4 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold shadow-lg flex items-center gap-3">
                              <div className="w-2 h-2 bg-blackline-yellow rounded-full"></div>
                              {c}
@@ -618,7 +611,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                  <div>
                     <span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-6 md:mb-10">Validated Proof Points</span>
                     <div className="space-y-4 md:space-y-6">
-                       {pov.deliverValue.proofPoints.map((p: string, i: number) => (
+                       {pov.deliverValue.proofPoints?.map((p: string, i: number) => (
                           <div key={i} className="flex items-center gap-4 md:gap-6 p-4 rounded-2xl hover:bg-white/5 transition-colors">
                              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0">
                                 <CheckCircle2 size={20} />
@@ -640,7 +633,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.justifyValue.title}</h5>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-10 mt-8">
-                 {pov.justifyValue.metrics.slice(0, 4).map((m: string, i: number) => (
+                 {pov.justifyValue.metrics?.slice(0, 4).map((m: string, i: number) => (
                     <div key={i} className="p-8 md:p-12 bg-black/50 rounded-[2rem] md:rounded-[3rem] border border-zinc-800 hover:border-green-500/40 transition-all shadow-xl group/metric flex items-center gap-6">
                        <TrendingUp className="text-green-500 w-8 h-8 shrink-0 opacity-50 group-hover/metric:opacity-100 transition-opacity" />
                        <p className="text-2xl md:text-4xl font-black text-white tracking-tight leading-[1.1] group-hover/metric:text-green-400 transition-colors italic">{m}</p>
@@ -837,5 +830,3 @@ const PhaseCard: React.FC<{ step: string, title: string, label: string, color: s
      <p className="text-zinc-100 leading-relaxed text-base md:text-lg font-medium">{desc}</p>
   </div>
 );
-
-```
