@@ -2,6 +2,7 @@ import { GoogleGenAI, Modality } from "@google/genai";
 import { SYSTEM_PROMPT, SUPPORTED_LANGUAGES } from '../constants';
 import { AnalysisResult, DealContext } from '../types';
 
+// 1. GENERATE VALUE ANALYSIS (For Value Narratives)
 export const generateValueAnalysis = async (query: string, languageCode: string = 'EN'): Promise<AnalysisResult> => {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -9,12 +10,12 @@ export const generateValueAnalysis = async (query: string, languageCode: string 
     const targetLanguage = langObj ? langObj.promptName : 'English';
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash', // Using standard flash for speed/reliability
+      model: 'gemini-2.0-flash', 
       contents: `Analyze the following scenario: "${query}". 
       
       MANDATORY INSTRUCTIONS:
       1. Every one of the 9 BlackLine Value Drivers in "valueDriverImpacts" must have a detailed, unique "message" and a quantified "metric" (e.g. "$2M savings", "3x velocity"). 
-      2. ZERO "N/A" values allowed.
+      2. ZERO "N/A" values allowed. If a product doesn't directly impact a driver, explain the secondary strategic benefit.
       3. Provide a high-density "valueChain" with 5+ items.
       4. "talkTrack" must be at least 250 words of persuasive executive narrative.
       
@@ -31,6 +32,7 @@ export const generateValueAnalysis = async (query: string, languageCode: string 
     return JSON.parse(text) as AnalysisResult;
   } catch (error) {
     console.error("Gemini API Error:", error);
+    // Return safe fallback data to prevent app crash
     return {
       valueDriverImpacts: {},
       valueChain: [],
@@ -46,14 +48,15 @@ export const generateValueAnalysis = async (query: string, languageCode: string 
   }
 };
 
+// 2. GENERATE AUDIO OVERVIEW (For Executive Briefing Player)
 export const generateAudioOverview = async (text: string): Promise<string | undefined> => {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-exp", // Updated model name for TTS if available, or fallback
+      model: "gemini-2.0-flash-exp", // Use experimental model for TTS capabilities
       contents: [{ parts: [{ text: text }] }],
       config: {
-        responseModalities: ["AUDIO"], // Corrected Enum usage
+        responseModalities: ["AUDIO"], 
         speechConfig: {
           voiceConfig: {
             prebuiltVoiceConfig: { voiceName: 'Kore' },
@@ -65,5 +68,42 @@ export const generateAudioOverview = async (text: string): Promise<string | unde
   } catch (error) {
     console.error("Audio Generation Error:", error);
     return undefined;
+  }
+};
+
+// 3. ASK AI ASSISTANT (For Right Rail Chat)
+export const askAiAssistant = async (context: string, userQuestion: string): Promise<string> => {
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash',
+      contents: `Context of user screen: ${context}. User Question: ${userQuestion}`,
+      config: {
+        systemInstruction: "You are a helpful BlackLine assistant. Concise, professional answers under 50 words.",
+      },
+    });
+    return response.text || "I apologize, I couldn't generate a response.";
+  } catch (error) {
+    console.error("AI Assistant Error:", error);
+    return "I'm having trouble connecting to the knowledge base.";
+  }
+};
+
+// 4. PARSE PIVOT PROMPT (For Right Rail Context Switching)
+export const parsePivotPrompt = async (prompt: string): Promise<Partial<DealContext> & { problem?: string }> => {
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash',
+      contents: `Extract context from: "${prompt}". Return JSON with industry, companyName, annualRevenue, persona, problem.`,
+      config: {
+        responseMimeType: "application/json",
+      },
+    });
+    if (!response.text) return {};
+    return JSON.parse(response.text);
+  } catch (error) {
+    console.error("Pivot Parsing Error:", error);
+    return {};
   }
 };
