@@ -1,7 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 
-// --- CORE INTERFACES ---
-
+// Added ValueDriver to fix AnalysisResults build error
 export interface ValueDriver {
   id: string;
   value: string;
@@ -41,13 +40,13 @@ export interface BenchmarkCase {
   description: string;
 }
 
-// --- SKO EXPLAINER INTERFACES ---
+// --- INTERFACES FOR SKO ---
 
 export interface Persona {
   id?: string;
   name?: string; 
   role?: string; 
-  icon: string; // Stored as string name of Lucide icon
+  icon: string;
   group?: string;
   aspiration?: string; 
   nightmare?: string;  
@@ -87,7 +86,7 @@ export interface SkoPovContent {
 export interface SkoDriverDetail {
   id: string;
   title: string;
-  icon: string; // Stored as string name of Lucide icon
+  icon: string;
   heroMetric: string;
   summary: string;
   isPlImpact?: boolean;
@@ -100,34 +99,11 @@ export interface SkoDriverDetail {
   operationalPov: SkoPovContent;
 }
 
-// --- ANALYSIS RESULTS INTERFACES ---
-
 export interface AnalysisResult {
   driverId: string;
   score: number;
   summary: string;
   recommendations: string[];
-}
-
-// --- DEAL / COACHING HUB INTERFACES (Added to fix build error) ---
-
-export type DealStage = 'discovery' | 'validation' | 'business_case' | 'negotiation' | 'closed';
-
-export const DEAL_STAGES: { id: DealStage; label: string }[] = [
-  { id: 'discovery', label: 'Discovery' },
-  { id: 'validation', label: 'Validation' },
-  { id: 'business_case', label: 'Business Case' },
-  { id: 'negotiation', label: 'Negotiation' },
-  { id: 'closed', label: 'Closed / Won' }
-];
-
-export interface DealContext {
-  stage: DealStage;
-  probability: number;
-  closeDate: string;
-  nextSteps: string;
-  dealSize?: string;
-  competitors?: string[];
 }
 
 export interface UIStrings {
