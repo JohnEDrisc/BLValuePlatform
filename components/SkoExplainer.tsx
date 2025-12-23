@@ -113,7 +113,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     setActiveDriverId(sortedDrivers[prevIndex].id);
   };
 
-  // Filter groups based on the sorted list to ensure display order matches logic
+  // Filter groups based on the sorted list
   const plImpactDrivers = sortedDrivers.filter(d => ['working_cap', 'process'].includes(d.id));
   const accelerationDrivers = sortedDrivers.filter(d => ['talent', 'ma', 'innovation', 'compliance', 'decision'].includes(d.id));
   const valueDrivers = sortedDrivers.filter(d => ['trust', 'ai_ops'].includes(d.id));
@@ -264,7 +264,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   // --- GRID VIEW ---
   if (viewMode === 'grid') {
     return (
-      <div className="w-full max-w-[1800px] mx-auto pb-32 animate-fade-in px-4 md:px-6 pt-6 md:pt-10">
+      <div className="w-full max-w-[2000px] mx-auto pb-32 animate-fade-in px-4 md:px-6 pt-6 md:pt-10">
          <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 gap-4 md:gap-8">
             <div className="text-left">
                <button onClick={() => setViewMode('landing')} className="flex items-center gap-2 mb-4 md:mb-6 text-xs font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">
@@ -276,8 +276,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             </div>
          </div>
 
-         {/* CHANGED: Horizontal Layout using Grid with 3 Columns on XL screens */}
-         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 md:gap-12 items-start">
+         {/* Layout: 3 Columns. Middle Column uses a special grid for X shape */}
+         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-16 items-start">
             
             {/* Column 1: P&L Impact */}
             <div className="space-y-8">
@@ -287,7 +287,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 </div>
             </div>
 
-            {/* Column 2: Acceleration (Middle) */}
+            {/* Column 2: Acceleration (X-Shape Layout) */}
             <div className="space-y-8">
                <div className="flex flex-col items-center text-center gap-2">
                   <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
@@ -295,8 +295,32 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   </h3>
                   <p className="text-xs md:text-sm font-bold text-zinc-200 uppercase tracking-widest px-4">Driving speed & risk mitigation</p>
                </div>
-               <div className="flex flex-col gap-6">
-                  {accelerationDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
+               
+               {/* X SHAPE GRID */}
+               <div className="grid grid-cols-2 gap-4">
+                   {/* Top Row: Talent & M&A */}
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[0]} onSelect={handleDriverSelect} />
+                   </div>
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[1]} onSelect={handleDriverSelect} />
+                   </div>
+
+                   {/* Middle Row: Innovation (Centered) */}
+                   <div className="col-span-2 flex justify-center py-2">
+                       {/* Constrain width to approx 50% + gap to make the X shape clear */}
+                       <div className="w-[calc(50%-0.5rem)]">
+                           <DriverCardHorizontal driver={accelerationDrivers[2]} onSelect={handleDriverSelect} />
+                       </div>
+                   </div>
+
+                   {/* Bottom Row: Compliance & Decision */}
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[3]} onSelect={handleDriverSelect} />
+                   </div>
+                   <div className="col-span-1">
+                       <DriverCardHorizontal driver={accelerationDrivers[4]} onSelect={handleDriverSelect} />
+                   </div>
                </div>
             </div>
 
