@@ -4,17 +4,15 @@ import {
   Trophy, ArrowRight, X, HelpCircle, Info, Video, Sparkles 
 } from 'lucide-react';
 
-// --- IMPORTS ---
-// I have commented out imports for components I don't have code for to prevent build errors.
-// If you have these files, please uncomment them.
-// import { VisualNav } from './components/VisualNav';
-// import { ValueCalculator } from './components/ValueCalculator';
-// import { CustomerBenchmarks } from './components/CustomerBenchmarks';
-// import { OutsideInGenerator } from './components/OutsideInGenerator';
-// import { Tooltip } from './components/Tooltip';
-// import { RightRail } from './components/RightRail';
+// --- REAL COMPONENT IMPORTS ---
+import { VisualNav } from './components/VisualNav';
+import { ValueCalculator } from './components/ValueCalculator';
+import { CustomerBenchmarks } from './components/CustomerBenchmarks';
+import { OutsideInGenerator } from './components/OutsideInGenerator';
+import { Tooltip } from './components/Tooltip';
+import { RightRail } from './components/RightRail';
 
-// These are the working components we built:
+// Our new/updated components
 import { PlatformHub } from './components/PlatformHub';
 import { AnalysisResults } from './components/AnalysisResults';
 import { SkoExplainer } from './components/SkoExplainer';
@@ -22,20 +20,8 @@ import { SkoExplainer } from './components/SkoExplainer';
 // Types & Constants
 import { AnalysisResult, DealContext, ValueDriverSelection, Persona } from './types';
 import { SUPPORTED_LANGUAGES, UI_STRINGS, INDUSTRIES } from './constants';
-
-// --- PLACEHOLDER COMPONENTS (To prevent crash if files are missing) ---
-const Placeholder = ({ title }: { title: string }) => (
-  <div className="p-10 border border-zinc-800 rounded-3xl bg-zinc-900 text-center">
-    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-    <p className="text-zinc-500">Component pending integration.</p>
-  </div>
-);
-const VisualNav = ({ onSelect }: any) => <Placeholder title="Visual Nav" />;
-const ValueCalculator = ({ t }: any) => <Placeholder title="Value Calculator" />;
-const CustomerBenchmarks = ({ t }: any) => <Placeholder title="Customer Benchmarks" />;
-const OutsideInGenerator = ({ t }: any) => <Placeholder title="Outside-In Generator" />;
-const Tooltip = ({ text }: any) => <div className="text-xs text-zinc-500">{text}</div>;
-const RightRail = (props: any) => null; // Hidden for now
+// Note: You may need to uncomment/restore generateValueAnalysis if you have that service file
+// import { generateValueAnalysis } from './services/geminiService';
 
 // Custom Rubik's Cube Icon for Pivot
 export const RubiksCube = ({ size = 20, className = "" }) => (
@@ -62,7 +48,7 @@ export const RubiksCube = ({ size = 20, className = "" }) => (
 );
 
 function App() {
-  // Initial landing state (Defaults to SKO as requested)
+  // Initial landing state
   const [activeTab, setActiveTab] = useState<'discovery' | 'outside_in' | 'calculator' | 'benchmarks' | 'hub' | 'sko'>('sko');
   const [showDiscoveryMenu, setShowDiscoveryMenu] = useState(false);
   const [query, setQuery] = useState('');
@@ -71,13 +57,13 @@ function App() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  // --- NEW STATE FOR NARRATIVE EXPLAINER (HUB) ---
+  // --- HUB STATE ---
   const [selectedDrivers, setSelectedDrivers] = useState<ValueDriverSelection[]>([]);
   const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
   const [selectedIndustry, setSelectedIndustry] = useState<string>('manufacturing');
   const [showAnalysis, setShowAnalysis] = useState(false);
 
-  // Panel Control (Controlled from Header or Rail)
+  // Panel Control
   const [activePanel, setActivePanel] = useState<'chat' | 'pivot' | null>(null);
   const [showGuidance, setShowGuidance] = useState(false);
 
@@ -91,12 +77,12 @@ function App() {
   // Safe Translation Logic
   const t = { ...UI_STRINGS['EN'], ...(UI_STRINGS[currentLang] || {}) };
 
-  // Scroll to top whenever tab changes or search state changes
+  // Scroll to top
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [activeTab, hasSearched, showDiscoveryMenu, showAnalysis]);
 
-  // Function to return to the root landing page (6 buttons)
+  // Reset function
   const goHome = () => {
     setActiveTab('discovery'); 
     setShowDiscoveryMenu(false);
@@ -105,11 +91,11 @@ function App() {
     setQuery('');
     setShowGuidance(false);
     setActivePanel(null);
-    // Reset Hub State
     setShowAnalysis(false); 
   };
 
-  // --- HANDLERS FOR NARRATIVE EXPLAINER ---
+  // --- HANDLERS ---
+
   const handleDriverToggle = (driver: ValueDriverSelection) => {
     setSelectedDrivers(prev => {
       const exists = prev.find(d => d.id === driver.id);
@@ -130,19 +116,17 @@ function App() {
   const handleSearch = (searchQuery: string = query, lang: string = currentLang) => {
     if (!searchQuery.trim()) return;
     
-    // Reset States
     setHasSearched(true);
     setQuery(searchQuery);
     setIsLoading(true);
 
-    // Mock Search simulation if service is missing
+    // Placeholder for search logic
     setTimeout(() => {
         setIsLoading(false);
-        // Fallback result
         setResult({
             driverId: 'gen',
             score: 85,
-            summary: "Analysis Generated.",
+            summary: "Analysis Generated via Search.",
             recommendations: ["Next Step 1", "Next Step 2"]
         });
     }, 1000);
@@ -166,23 +150,19 @@ function App() {
   };
 
   const getContextString = () => {
-    if (activeTab === 'discovery') {
-      if (hasSearched && query) return `Value Analysis results for "${query}".`;
-      return "Main Discovery / Home Page.";
-    }
-    if (activeTab === 'outside_in') return "Outside-In Value Generator tool.";
-    if (activeTab === 'calculator') return "ROI and Business Value Calculator.";
-    if (activeTab === 'benchmarks') return "Customer Benchmarks Database.";
-    if (activeTab === 'hub') return "AI Video Coaching and call intelligence resources.";
-    if (activeTab === 'sko') return "SKO 26 #LETSGO GET Explainer hub.";
-    return "BlackLine Value Engineering Tool";
+    if (activeTab === 'discovery') return hasSearched ? `Results for "${query}".` : "Discovery.";
+    if (activeTab === 'outside_in') return "Outside-In Tool.";
+    if (activeTab === 'calculator') return "ROI Calculator.";
+    if (activeTab === 'benchmarks') return "Benchmarks.";
+    if (activeTab === 'hub') return "Hub.";
+    if (activeTab === 'sko') return "SKO.";
+    return "BlackLine Value";
   };
 
   const handlePivot = (newContext: Partial<DealContext> & { problem?: string }) => {
     setDealContext(prev => ({ ...prev, ...newContext }));
   };
 
-  // Hero is shown when on discovery tab AND not in the midst of a multi-select search or results view
   const showHero = activeTab === 'discovery' && !hasSearched && !showDiscoveryMenu;
 
   return (
@@ -210,12 +190,10 @@ function App() {
                </div>
             )}
 
-            {/* Top Rail Tools */}
             <div className="flex items-center gap-2 md:gap-3">
               <button 
                 onClick={() => setShowGuidance(!showGuidance)}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 border ${showGuidance ? 'bg-blackline-yellow border-blackline-yellow text-black scale-105 shadow-[0_0_15px_rgba(249,183,52,0.4)]' : 'bg-zinc-900/50 border-zinc-800 text-gray-300 hover:text-white hover:bg-zinc-800'}`}
-                title="Get Help & Navigation"
               >
                 <HelpCircle size={18} className={!showGuidance ? "text-blackline-yellow animate-pulse" : ""} />
                 <span className="text-[10px] font-black uppercase tracking-widest">Help</span>
@@ -224,7 +202,6 @@ function App() {
               <button 
                 onClick={() => setActivePanel(activePanel === 'pivot' ? null : 'pivot')}
                 className={`p-2 rounded-xl transition-all duration-300 border ${activePanel === 'pivot' ? 'bg-zinc-100 border-white text-black scale-105 shadow-lg' : 'bg-zinc-900/50 border-zinc-800 text-gray-400 hover:text-white hover:bg-zinc-800'}`}
-                title="Pivot Context"
               >
                 <RubiksCube size={20} />
               </button>
@@ -244,9 +221,6 @@ function App() {
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setIsLangMenuOpen(false)}></div>
                   <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-xl py-2 z-50 border border-zinc-800 animate-fade-in">
-                    <div className="px-4 py-2 border-b border-zinc-800 mb-2">
-                      <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Select Region</p>
-                    </div>
                     {SUPPORTED_LANGUAGES.map((lang) => (
                       <button
                         key={lang.code}
@@ -271,27 +245,7 @@ function App() {
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blackline-yellow/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
         )}
 
-        {/* Global Help Guidance Toast */}
-        {showGuidance && (
-          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-full max-w-lg px-4 animate-fade-in-down">
-            <div className="bg-blackline-yellow text-black p-5 rounded-2xl shadow-2xl border border-white/20 flex gap-4 ring-4 ring-black/10">
-              <div className="bg-black/10 p-2.5 rounded-full h-fit flex-shrink-0">
-                <Info size={24} />
-              </div>
-              <div className="flex-grow">
-                <p className="font-black text-base mb-1 uppercase tracking-tight italic">System Overview</p>
-                <p className="text-sm font-semibold opacity-95 leading-relaxed">
-                  Welcome to the Sales Enablement Hub. Use <strong>Value Narratives</strong> to master talking points, or <strong>Video Coaching</strong> to refine your pitch. The <strong>Rubik's Cube icon</strong> (Pivot) allows you to re-configure the AI context for any industry or deal size.
-                </p>
-              </div>
-              <button onClick={() => setShowGuidance(false)} className="p-2 hover:bg-black/10 rounded-full h-fit transition-colors">
-                <X size={20} />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Hero Section - The Main Hub */}
+        {/* Hero Section */}
         <div className={`transition-all duration-700 ease-in-out ${!showHero ? 'hidden' : 'translate-y-0 opacity-100'}`}>
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight drop-shadow-sm">
@@ -302,8 +256,6 @@ function App() {
             </p>
             
             <div className="flex flex-col items-center mt-10 mb-8 gap-4">
-                 
-                 {/* Main Focused SKO Button */}
                  <div className="w-full max-w-md">
                     <button 
                       onClick={() => { setActiveTab('sko'); setShowDiscoveryMenu(false); }}
@@ -316,14 +268,12 @@ function App() {
                  </div>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
-                    {/* Value Narratives */}
                     <button 
                       onClick={() => { setActiveTab('discovery'); setShowDiscoveryMenu(true); }}
                       className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-lg font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800 shadow-md"
                     >
                       <BarChart2 size={20} /> {t.tab_discovery}
                     </button>
-                    {/* Outside-In */}
                     <button 
                       onClick={() => { setActiveTab('outside_in'); setShowDiscoveryMenu(false); }}
                       className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-lg font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800 shadow-md"
@@ -356,12 +306,12 @@ function App() {
           </div>
         </div>
 
-        {/* Content Area */}
+        {/* --- APP SECTIONS --- */}
+
         {activeTab === 'sko' && (
            <SkoExplainer onClose={goHome} t={t} />
         )}
         
-        {/* EXISTING "DISCOVERY" / TEXT SEARCH TAB */}
         {activeTab === 'discovery' && (
           <>
             {!hasSearched && showDiscoveryMenu && (
@@ -410,11 +360,11 @@ function App() {
 
             {!isLoading && result && (
               <div className="animate-fade-in">
-                  {/* Reuse AnalysisResults for Text Search flow too, OR keep original */}
+                  {/* Reuse AnalysisResults for Text Search flow using mock data to prevent crashes */}
                   <AnalysisResults 
-                    selectedDrivers={[{ id: 'gen', value: 'Generated', nameKey: 'gen' }]} // Mock
+                    selectedDrivers={[{ id: 'gen', value: 'Generated', nameKey: 'gen' }]} 
                     selectedIndustry={selectedIndustry}
-                    selectedPersona={{ id: 'gen', name: 'General', icon: 'User', group: 'Executive' }} // Mock
+                    selectedPersona={{ id: 'gen', name: 'General', icon: 'User', group: 'Executive' }} 
                     t={t}
                     onBack={handleBackToDiscovery}
                   />
@@ -451,7 +401,6 @@ function App() {
                 </button>
             </div>
             
-            {/* Conditional Rendering: Selection or Results */}
             {showAnalysis && selectedPersona ? (
                 <AnalysisResults
                     selectedDrivers={selectedDrivers}
