@@ -3,6 +3,8 @@ import { SKO_DATA as GLOBAL_SKO_DATA } from '../constants';
 import { UIStrings, SkoDriverDetail } from '../types';
 import { 
   ArrowLeft, 
+  Zap, 
+  TrendingUp, 
   ArrowRight, 
   CheckCircle2, 
   X, 
@@ -14,7 +16,6 @@ import {
   Video, 
   Sparkles, 
   Search, 
-  TrendingUp,
   ShieldAlert, 
   Trophy, 
   Coins, 
@@ -28,8 +29,7 @@ import {
   LogOut, 
   Calculator,
   MessageCircle,
-  AlertTriangle,
-  Zap
+  AlertTriangle
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -60,7 +60,6 @@ const ORDERED_IDS = [
 const SafeIcon = ({ name, className }: { name: string; className?: string }) => {
   const IconComponent = (Icons as any)[name];
   if (!IconComponent) {
-    // Fallback if icon name is not found in Lucide
     return <Zap className={className} />;
   }
   return <IconComponent className={className} />;
@@ -77,7 +76,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
       console.error("CRITICAL: GLOBAL_SKO_DATA is missing or not an array!");
       return [];
     }
-    // Filter to ensure only valid drivers are included
     return ORDERED_IDS.map(id => GLOBAL_SKO_DATA.find(d => d.id === id)).filter(Boolean) as SkoDriverDetail[];
   }, []);
 
@@ -176,7 +174,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
          </div>
 
          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-16 items-start">
-            
             {/* Column 1: P&L Impact */}
             <div className="space-y-8">
                 <GridSectionHeader title="P&L Bottom Line Impact" subtitle="Directly influencing profitability" />
@@ -212,14 +209,12 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     {valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
                 </div>
             </div>
-
          </div>
 
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button 
                onClick={() => {
                   setActivePov('executive');
-                  // Use first available driver for tour start
                   setActiveDriverId(sortedDrivers[0]?.id || 'working_cap');
                   setViewMode('persona_explain');
                }}
@@ -234,7 +229,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   // --- PERSONA EXPLAIN VIEW ---
   if (viewMode === 'persona_explain' && activeDriver) {
-    // SAFEGUARD: Ensure personas exist
     const personas = activeDriver.personas || { executive: [], operational: [] };
 
     return (
@@ -253,7 +247,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            </div>
 
            <div className="space-y-16 md:space-y-24">
-              {/* Executive Tier */}
               <div>
                  <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center gap-6">
                     Strategic Executive Tier <div className="h-px bg-zinc-800 flex-grow"></div>
@@ -265,7 +258,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                  </div>
               </div>
 
-              {/* Operational Tier */}
               <div>
                  <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center gap-6">
                     Tactical Operational Tier <div className="h-px bg-zinc-800 flex-grow"></div>
@@ -291,11 +283,76 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
   }
 
+  // --- FRAMEWORK EXPLANATION VIEW ---
+  if (viewMode === 'framework_explain' && activeDriver) {
+    return (
+      <div className="min-h-screen bg-black text-white animate-fade-in flex flex-col items-center justify-center py-12 md:py-24 px-4 md:px-6">
+        <div className="max-w-7xl w-full text-center">
+           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-black uppercase tracking-[0.2em] mb-8 md:mb-14">
+              <HelpCircle size={14} /> Methodology Briefing
+           </div>
+           <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-8 md:mb-12 leading-tight">
+              The Teaching <span className="text-blackline-yellow">System</span>
+           </h2>
+           <p className="text-xl md:text-4xl text-zinc-200 font-light mb-12 md:mb-24 leading-relaxed max-w-5xl mx-auto">
+              Master the pivot from <span className="text-white font-bold italic underline decoration-blackline-yellow">feature-led discovery</span> to <span className="text-white font-bold italic">strategic certainty</span>.
+           </p>
+
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 mb-12 md:mb-24 text-left">
+              <div className="col-span-1 md:col-span-3">
+                  <LargeFrameworkBox 
+                    step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap"
+                    formula='Create Value → The Problem'
+                    desc={"Move conversation from features to objectives. Define macro-level pains."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-3">
+                  <LargeFrameworkBox 
+                    step="2" color="blue-500" title="Capture Value" subtitle="Expose the Quantified Reality"
+                    formula='Capture Value → The Questions'
+                    desc={"Execute high-gain discovery to uncover hidden costs of inertia."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                  <LargeFrameworkBox 
+                    step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform"
+                    formula='Deliver Value → The Capabilities'
+                    desc={"Align platform capabilities to specific business outcomes."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                  <LargeFrameworkBox 
+                    step="4" color="green-500" title="Justify Value" subtitle="Build the Economic Case"
+                    formula='Justify Value → The Business Case'
+                    desc={"Construct a CFO-ready business case with ROI modeling."} 
+                  />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                  <LargeFrameworkBox 
+                    step="5" color="purple-500" title="Quantify Value" subtitle="Validate the Win"
+                    formula='Quantify Value → The ROI'
+                    desc={"Translate operational improvements into hard financial calculations for the CFO."} 
+                  />
+              </div>
+           </div>
+
+           <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+              <button onClick={() => setViewMode('persona_explain')} className="w-full md:w-auto px-8 md:px-12 py-4 md:py-6 bg-zinc-900 text-white text-lg font-black rounded-full hover:bg-zinc-800 transition-all uppercase tracking-tighter italic border border-zinc-700">
+                 Back to Personas
+              </button>
+              <button onClick={() => { setActivePov('executive'); setViewMode('detail'); }} className="w-full md:w-auto px-10 md:px-20 py-6 md:py-8 bg-blackline-yellow text-black text-lg md:text-xl font-black rounded-full hover:scale-105 transition-all shadow-xl flex items-center justify-center gap-4 uppercase tracking-tighter italic">
+                 Start Driver Tour <ArrowRight size={24} />
+              </button>
+           </div>
+        </div>
+      </div>
+    );
+  }
+
   // --- DETAIL VIEW ---
   if (viewMode === 'detail' && activeDriver) {
     const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
     
-    // SAFEGUARD: Ensure POV data exists
     if (!pov) {
         return <div className="min-h-screen flex items-center justify-center text-white">Loading data...</div>;
     }
@@ -362,7 +419,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                  ))}
               </div>
 
-              <div className="pt-8 md:pt-12 border-t border-zinc-800/50">
+              <div className="pt-8 md:pt-12 border-t border-zinc-800/50 text-center">
                  <p className="text-[10px] md:text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-4 md:mb-6">Strategic Focus Point</p>
                  <p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov.createValue.focus}"</p>
               </div>
@@ -434,7 +491,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-10 mt-8">
                  {pov.justifyValue.metrics?.slice(0, 4).map((m: string, i: number) => (
-                    <div key={i} className="p-8 md:p-12 bg-black/50 rounded-[2rem] md:rounded-[3rem] border border-zinc-800 hover:border-green-500/40 transition-all shadow-xl group/metric flex items-center gap-6">
+                    <div 
+                      key={i} 
+                      className={`p-8 md:p-12 bg-black/50 rounded-[2rem] md:rounded-[3rem] border border-zinc-800 hover:border-green-500/40 transition-all shadow-xl group/metric flex items-center gap-6 ${i === 2 ? 'md:col-span-2 md:mx-auto md:w-2/3' : ''}`}
+                    >
                        <TrendingUp className="text-green-500 w-8 h-8 shrink-0 opacity-50 group-hover/metric:opacity-100 transition-opacity" />
                        <p className="text-2xl md:text-4xl font-black text-white tracking-tight leading-[1.1] group-hover/metric:text-green-400 transition-colors italic">{m}</p>
                     </div>
@@ -493,72 +553,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
         <div className="fixed bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-50 flex gap-4 md:gap-8 no-print w-full px-4 justify-center">
             <button onClick={handlePrevDriver} className="flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-6 px-6 md:px-14 py-4 md:py-8 bg-zinc-900 border border-zinc-800 text-white rounded-full font-black uppercase tracking-tighter italic hover:bg-zinc-800 transition-all shadow-2xl text-xs md:text-sm"><ChevronLeft size={16} className="md:w-8 md:h-8" /> Prev</button>
             <button onClick={handleNextDriver} className="flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-6 px-6 md:px-16 py-4 md:py-8 bg-blackline-yellow text-black rounded-full font-black uppercase tracking-tighter italic hover:scale-105 transition-all shadow-2xl border-4 border-black text-xs md:text-sm">Next <ChevronRight size={16} className="md:w-8 md:h-8" /></button>
-        </div>
-      </div>
-    );
-  }
-
-  // --- FRAMEWORK EXPLANATION VIEW (Added for Phase 5) ---
-  if (viewMode === 'framework_explain' && activeDriver) {
-    return (
-      <div className="min-h-screen bg-black text-white animate-fade-in flex flex-col items-center justify-center py-12 md:py-24 px-4 md:px-6">
-        <div className="max-w-7xl w-full text-center">
-           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-black uppercase tracking-[0.2em] mb-8 md:mb-14">
-              <HelpCircle size={14} /> Methodology Briefing
-           </div>
-           <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-8 md:mb-12 leading-tight">
-              The Teaching <span className="text-blackline-yellow">System</span>
-           </h2>
-           <p className="text-xl md:text-4xl text-zinc-200 font-light mb-12 md:mb-24 leading-relaxed max-w-5xl mx-auto">
-              Master the pivot from <span className="text-white font-bold italic underline decoration-blackline-yellow">feature-led discovery</span> to <span className="text-white font-bold italic">strategic certainty</span>.
-           </p>
-
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 mb-12 md:mb-24 text-left">
-              <div className="col-span-1 md:col-span-3">
-                  <LargeFrameworkBox 
-                    step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap"
-                    formula='Create Value → The Problem'
-                    desc={"Move conversation from features to objectives. Define macro-level pains."} 
-                  />
-              </div>
-              <div className="col-span-1 md:col-span-3">
-                  <LargeFrameworkBox 
-                    step="2" color="blue-500" title="Capture Value" subtitle="Expose the Quantified Reality"
-                    formula='Capture Value → The Questions'
-                    desc={"Execute high-gain discovery to uncover hidden costs of inertia."} 
-                  />
-              </div>
-              <div className="col-span-1 md:col-span-2">
-                  <LargeFrameworkBox 
-                    step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform"
-                    formula='Deliver Value → The Capabilities'
-                    desc={"Align platform capabilities to specific business outcomes."} 
-                  />
-              </div>
-              <div className="col-span-1 md:col-span-2">
-                  <LargeFrameworkBox 
-                    step="4" color="green-500" title="Justify Value" subtitle="Build the Economic Case"
-                    formula='Justify Value → The Business Case'
-                    desc={"Construct a CFO-ready business case with ROI modeling."} 
-                  />
-              </div>
-              <div className="col-span-1 md:col-span-2">
-                  <LargeFrameworkBox 
-                    step="5" color="purple-500" title="Quantify Value" subtitle="Validate the Win"
-                    formula='Quantify Value → The ROI'
-                    desc={"Translate operational improvements into hard financial calculations for the CFO."} 
-                  />
-              </div>
-           </div>
-
-           <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
-              <button onClick={() => setViewMode('persona_explain')} className="w-full md:w-auto px-8 md:px-12 py-4 md:py-6 bg-zinc-900 text-white text-lg font-black rounded-full hover:bg-zinc-800 transition-all uppercase tracking-tighter italic border border-zinc-700">
-                 Back to Personas
-              </button>
-              <button onClick={() => { setActivePov('executive'); setViewMode('detail'); }} className="w-full md:w-auto px-10 md:px-20 py-6 md:py-8 bg-blackline-yellow text-black text-lg md:text-xl font-black rounded-full hover:scale-105 transition-all shadow-xl flex items-center justify-center gap-4 uppercase tracking-tighter italic">
-                 Start Driver Tour <ArrowRight size={24} />
-              </button>
-           </div>
         </div>
       </div>
     );
