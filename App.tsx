@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Globe, ChevronDown, BarChart2, Calculator, Users, Layers, Zap, 
+  Globe, ChevronDown, BarChart2, Calculator, Users, Zap, 
   Trophy, ArrowRight, X, HelpCircle, Info, Video, Sparkles 
 } from 'lucide-react';
 
@@ -135,7 +135,6 @@ function App() {
             };
         });
 
-        // Use the same "Result" object but with special flags if needed
         setResult(mockResult);
         setQuery(`${selectedPersona.name} Analysis`);
         setShowAnalysis(true);
@@ -320,12 +319,15 @@ function App() {
                     >
                       <Users size={16} /> {t.tab_benchmarks}
                     </button>
+                    
+                    {/* HIDDEN COACHING HUB 
                     <button 
                       onClick={() => { setActiveTab('hub'); setShowDiscoveryMenu(false); }}
                       className={`flex-1 min-w-[150px] flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800`}
                     >
                       <Video size={16} /> {t.tab_hub}
                     </button>
+                    */}
                  </div>
               </div>
           </div>
@@ -409,6 +411,7 @@ function App() {
            <CustomerBenchmarks t={t} />
         )}
 
+        {/* HIDDEN COACHING HUB
         {activeTab === 'hub' && (
           <>
             <div className="max-w-[1200px] mx-auto flex justify-between items-center px-4 mb-4">
@@ -419,8 +422,6 @@ function App() {
                    <X size={24} />
                 </button>
             </div>
-            
-            {/* The FIX: Properly passing props for Hub Mode */}
             {showAnalysis && result ? (
                 <AnalysisResults
                     data={result}
@@ -443,6 +444,7 @@ function App() {
             )}
           </>
         )}
+        */}
 
       </main>
 
