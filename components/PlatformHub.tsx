@@ -249,14 +249,22 @@ export const PlatformHub: React.FC<PlatformHubProps> = ({ t, dealContext, onSetD
                                 <BookOpen size={20} className="text-purple-400"/> Strategic Proof Points
                              </h4>
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                 {/* EXXONMOBIL CARD ADDED HERE */}
                                  <div className="p-5 bg-zinc-900 rounded-2xl border border-zinc-800 hover:border-blackline-yellow/50 transition-all group">
                                     <div className="flex justify-between items-start mb-3">
-                                       <span className="font-black text-white text-sm uppercase italic tracking-tighter">Global Auto Mfg</span>
+                                       <span className="font-black text-white text-sm uppercase italic tracking-tighter">ExxonMobil</span>
                                        <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-blackline-yellow"/>
                                     </div>
-                                    <p className="text-xs text-gray-500 mb-4 line-clamp-2">"Automated 85% of bank recs, cutting 4 days from the close window."</p>
-                                    <span className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest bg-black px-2 py-1 rounded">Process Efficiency</span>
+                                    <p className="text-xs text-gray-500 mb-4 leading-relaxed">
+                                       "We recently did a larger implementation of a software platform called <strong>BlackLine</strong> that we use in the accounting space, and it's literally enabled us to save tens of thousands of hours of what was very manually intensive work because we can now automate it."
+                                    </p>
+                                    <div className="flex gap-2">
+                                       <span className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest bg-black px-2 py-1 rounded">Process Efficiency</span>
+                                       <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest bg-black px-2 py-1 rounded">CFO Quote</span>
+                                    </div>
                                  </div>
+                                 {/* END EXXONMOBIL CARD */}
+
                                  <div className="p-5 bg-zinc-900 rounded-2xl border border-zinc-800 hover:border-green-500/50 transition-all group">
                                     <div className="flex justify-between items-start mb-3">
                                        <span className="font-black text-white text-sm uppercase italic tracking-tighter">MedTech Innovations</span>
@@ -279,27 +287,4 @@ export const PlatformHub: React.FC<PlatformHubProps> = ({ t, dealContext, onSetD
                              <div className="bg-black/40 p-6 rounded-2xl border border-zinc-800">
                                 <h5 className="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-2">Value Articulation</h5>
                                 <div className="text-2xl font-black text-yellow-500 italic uppercase tracking-tighter">Needs Refinement</div>
-                                <p className="text-sm text-gray-400 mt-2 font-medium">Missed the opportunity to bridge 'Transaction Matching' to 'Operational Resilience'.</p>
-                             </div>
-                          </div>
-                          <div className="bg-black/40 p-8 rounded-3xl border border-zinc-800 relative group">
-                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <GraduationCap size={64} className="text-purple-400" />
-                             </div>
-                             <h4 className="text-lg font-black text-white mb-6 flex items-center gap-3 uppercase italic tracking-tighter">
-                                <GraduationCap size={20} className="text-purple-400"/> AI Coaching Suggestion
-                             </h4>
-                             <p className="text-lg text-gray-300 leading-relaxed font-light italic">
-                                "You spent 12 minutes of the call discussing <strong>Account Reconciliation</strong> features. In the <strong>{selectedStage}</strong> stage, the goal is to validate the <strong>Business Case</strong>. Shift your focus to the $2M potential P&L impact to secure executive buy-in faster."
-                             </p>
-                          </div>
-                       </div>
-                    )}
-                 </div>
-              </div>
-           )}
-        </div>
-      </div>
-    </div>
-  );
-};
+                                <p className="text-sm text-gray-400 mt-2 font-medium">Missed the opportunity to bridge 'Transaction Matching' to 'Operational Resilience'.</p> </div> </div> <div className="bg-black/40 p-8 rounded-3xl border border-zinc-800 relative group"> <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity"> <GraduationCap size={64} className="text-purple-400" /> </div> <h4 className="text-lg font-black text-white mb-6 flex items-center gap-3 uppercase italic tracking-tighter"> <GraduationCap size={20} className="text-purple-400"/> AI Coaching Suggestion </h4> <p className="text-lg text-gray-300 leading-relaxed font-light italic"> "You spent 12 minutes of the call discussing <strong>Account Reconciliation</strong> features. In the <strong>{selectedStage}</strong> stage, the goal is to validate the <strong>Business Case</strong>. Shift your focus to the $2M potential P&L impact to secure executive buy-in faster." </p> </div> </div> )} </div> </div> </div> ); };
