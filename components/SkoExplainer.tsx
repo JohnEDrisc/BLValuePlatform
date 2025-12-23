@@ -1,15 +1,3 @@
-The error indicates a build failure likely caused by a mismatch between how icons are defined in your data (strings) versus how they are used in the component (expecting components), or a syntax issue in the large constants file.
-
-Since we moved the data to `constants.ts` with **string identifiers** for icons (e.g., `'TrendingUp'`), we must update `SkoExplainer.tsx` to:
-
-1. **Import** the data from `constants.ts` (instead of defining it locally).
-2. **Convert** the string icon names back into actual Lucide components before rendering.
-
-Here is the fixed **`src/components/SkoExplainer.tsx`**.
-
-### **File: `src/components/SkoExplainer.tsx**`
-
-```tsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { SKO_DATA as GLOBAL_SKO_DATA } from '../constants'; 
 import { UIStrings, SkoDriverDetail, SkoPovContent } from '../types';
