@@ -32,7 +32,7 @@ import { SKO_DATA, VALUE_DRIVERS_SELECTION, PERSONAS } from '../constants';
 import { generateAudioOverview } from '../services/geminiService';
 import { exportToWord, generateAnalysisHtml } from '../services/exportService';
 
-// Combined Props Interface to support both Legacy (Search) and Hub (Persona) modes
+// Combined Props Interface
 interface AnalysisResultsProps {
   // --- Hub Mode Props ---
   selectedDrivers?: ValueDriverSelection[];
@@ -91,7 +91,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
 }) => {
   
   // 1. DETERMINE MODE
-  // If 'data' is present, we are in Legacy Search Mode.
   const isLegacyMode = !!data; 
 
   // --- STATE FOR HUB MODE ---
@@ -132,19 +131,17 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
   // 2. EFFECT: Generate Hub Results (Only runs if NOT in Legacy Mode)
   useEffect(() => {
     if (isLegacyMode) {
-      setLoading(false); // No loading needed for legacy, data is passed in
+      setLoading(false); 
       return; 
     }
 
     const generateHubResults = async () => {
       setLoading(true);
-      // Simulate processing
       await new Promise(resolve => setTimeout(resolve, 600));
 
       const newResults: AnalysisResult[] = selectedDrivers.map(driver => {
         const driverDetail = SKO_DATA.find(d => d.id === driver.id);
         
-        // Fallback if driver data missing
         if (!driverDetail) {
           return {
             driverId: driver.id,
@@ -154,7 +151,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
           };
         }
 
-        // Persona Logic
         const pGroup = selectedPersona?.group || 'Executive';
         const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona?.id || '') || pGroup === 'Executive';
         const povContent = isExecutive ? driverDetail.executivePov : driverDetail.operationalPov;
@@ -164,7 +160,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
             (p.role && selectedPersona?.name.toLowerCase().includes(p.role.toLowerCase()))
         ) || personaList?.[0];
 
-        // Narrative Construction
         const summary = `${povContent.createValue.title}: ${povContent.createValue.focus}. ${matchedPersona ? `For a ${selectedPersona?.name}, this addresses "${matchedPersona.nightmare}" and enables "${matchedPersona.aspiration}".` : ''}`;
 
         return {
@@ -191,7 +186,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
 
     setIsGeneratingAudio(true);
 
-    // Build script based on mode
     let script = "";
     if (isLegacyMode && data) {
        script = `Executive briefing for ${query}. ${data.summary || ''} ${data.talkTrack || ''}`.trim();
@@ -222,29 +216,25 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
     }
   };
 
-  // --- VIEW: LEGACY SEARCH RESULTS (Value Narrative) ---
+  // --- VIEW: LEGACY SEARCH RESULTS ---
   if (isLegacyMode && data) {
-    // Check if it's a Persona Search to show the Lens
     const isPersonaSearch = PERSONAS.some(p => 
         query.toLowerCase().includes(p.name.toLowerCase()) || 
         query.toLowerCase().includes(p.id.toLowerCase())
     );
 
-    // Determine if this is a specific Value Driver Analysis
     const isValueDriverAnalysis = VALUE_DRIVERS_SELECTION.some(d => d.value === query);
     const drivers = Object.values(ValueDriver);
 
     return (
       <div className="w-full max-w-[1400px] mx-auto space-y-24 animate-fade-in pb-32 px-6 md:px-12 print-container text-lg">
         
-        {/* Header & Navigation */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative border-b border-zinc-800 pb-10 gap-8 no-print">
             <div className="flex flex-col gap-6 max-w-full md:max-w-[70%]">
                 <div className="flex items-center gap-3 text-zinc-400">
                   <Search size={20} className="text-blackline-yellow" />
                   <span className="text-sm font-bold uppercase tracking-widest">{t.selected_scope || "Selected Scope"}</span>
                 </div>
-                
                 <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl px-8 py-6 inline-block backdrop-blur-sm shadow-sm">
                   <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight break-words leading-[1.1]">
                     {query}
@@ -253,8 +243,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
             </div>
 
             <div className="relative group shrink-0 self-start md:self-center mt-6 md:mt-0 flex flex-wrap gap-4">
-              
-              {/* AUDIO BUTTON */}
               <button 
                 onClick={handlePlayAudio}
                 disabled={isGeneratingAudio}
@@ -282,7 +270,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                 )}
               </button>
 
-              {/* EXPORT DROPDOWN */}
               <div className="relative">
                 <button
                   onClick={() => setShowExportMenu(!showExportMenu)}
@@ -301,7 +288,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                  {showExportMenu && <div className="fixed inset-0 z-40" onClick={() => setShowExportMenu(false)}></div>}
               </div>
 
-              {/* BACK BUTTON */}
               <button 
                 onClick={onBack}
                 className="flex items-center gap-2 px-6 py-4 bg-white text-black rounded-xl hover:bg-blackline-yellow hover:text-black transition-all shadow-md font-bold uppercase text-xs tracking-wider"
@@ -312,7 +298,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
             </div>
         </div>
 
-        {/* --- PERSONA LENS SECTION --- */}
         {data.personaAnalysis && isPersonaSearch && (
             <div className="bg-gradient-to-br from-zinc-900 via-zinc-950 to-black border border-purple-500/30 rounded-3xl p-10 md:p-14 relative overflow-hidden shadow-2xl mb-16 scroll-mt-24" id="persona-lens">
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none"></div>
@@ -386,7 +371,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
             </div>
         )}
 
-        {/* 1. Strategic Value Matrix (Only show if NOT a specific driver analysis, to avoid duplication) */}
         {!isValueDriverAnalysis && (
             <div className="space-y-8 scroll-mt-24" id="value-matrix">
               <h3 className="text-2xl font-bold text-white uppercase tracking-widest flex items-center gap-4">
@@ -435,7 +419,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
     );
   }
 
-  // --- VIEW 2: HUB/SKO RESULTS (Persona & Drivers) ---
+  // --- VIEW 2: HUB/SKO RESULTS ---
   if (loading) {
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center animate-fade-in p-6">
@@ -454,7 +438,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
   return (
     <div className="w-full max-w-5xl mx-auto px-4 md:px-6 pb-24 animate-fade-in">
       
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-zinc-800 pb-8">
         <div>
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blackline-yellow/20 text-blackline-yellow text-xs font-black uppercase tracking-[0.2em] mb-4">
@@ -468,11 +451,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
            </p>
         </div>
         <div className="flex gap-4 mt-6 md:mt-0">
-           <button className="flex items-center gap-2 px-6 py-3 bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-white rounded-xl font-bold transition-all">
-              <Share2 size={18} /> Share
-           </button>
-           
-           {/* Hub Mode Audio Button */}
            <button 
                 onClick={handlePlayAudio}
                 disabled={isGeneratingAudio}
@@ -488,18 +466,10 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
         </div>
       </div>
 
-      {/* Results Grid */}
       <div className="space-y-12">
         {hubResults.map((result, index) => {
           const driverInfo = SKO_DATA.find(d => d.id === result.driverId);
           if (!driverInfo) return null;
-
-          const pGroup = selectedPersona?.group || 'Executive';
-          const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona?.id || '') || pGroup === 'Executive';
-          const personaList = isExecutive ? driverInfo.personas?.executive : driverInfo.personas?.operational;
-          const matchedPersona = personaList?.find(p => 
-            p.role && selectedPersona?.name.toLowerCase().includes(p.role.toLowerCase())
-          ) || personaList?.[0];
 
           return (
             <div key={result.driverId} className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl animate-slide-up" style={{ animationDelay: `${index * 150}ms` }}>
@@ -536,25 +506,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                        <p className="text-lg md:text-xl text-zinc-200 leading-relaxed font-light">
                           {result.summary}
                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                       <div className="bg-black/40 p-6 rounded-2xl border border-zinc-800/50">
-                          <h5 className="text-xs font-black text-zinc-500 uppercase tracking-widest mb-3 flex items-center gap-2">
-                             <AlertTriangle size={14} className="text-red-500" /> Key Risk
-                          </h5>
-                          <p className="text-zinc-300 font-medium">
-                             {matchedPersona?.nightmare || "Operational inefficiency impacting margin."}
-                          </p>
-                       </div>
-                       <div className="bg-black/40 p-6 rounded-2xl border border-zinc-800/50">
-                          <h5 className="text-xs font-black text-zinc-500 uppercase tracking-widest mb-3 flex items-center gap-2">
-                             <TrendingUp size={14} className="text-green-500" /> Opportunity
-                          </h5>
-                          <p className="text-zinc-300 font-medium">
-                             {matchedPersona?.aspiration || "Scalable growth without headcount."}
-                          </p>
-                       </div>
                     </div>
                  </div>
 
