@@ -5,9 +5,8 @@ import {
   Persona 
 } from './types';
 import { 
-  VALUE_DRIVERS_SELECTION, 
-  INDUSTRIES, 
-  UI_STRINGS 
+  UI_STRINGS,
+  INDUSTRIES 
 } from './constants';
 
 // Import Components
@@ -17,7 +16,8 @@ import { SkoExplainer } from './components/SkoExplainer';
 
 function App() {
   // --- STATE MANAGEMENT ---
-  const [currentView, setCurrentView] = useState<'hub' | 'analysis' | 'sko'>('hub');
+  // Default to 'sko' to make it the Landing Page
+  const [currentView, setCurrentView] = useState<'hub' | 'analysis' | 'sko'>('sko');
   
   // Data State
   const [selectedDrivers, setSelectedDrivers] = useState<ValueDriverSelection[]>([]);
@@ -42,7 +42,7 @@ function App() {
 
   // Safe Analysis Handler
   const handleAnalyze = () => {
-    // Only proceed if we have valid data
+    // Only proceed if we have valid data to prevent the "No Persona" error
     if (selectedPersona && selectedDrivers.length > 0) {
       setCurrentView('analysis');
       window.scrollTo(0, 0);
@@ -56,11 +56,11 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white selection:bg-blackline-yellow selection:text-black font-sans">
       
-      {/* Simple Header (Original Style) */}
+      {/* Simple Header (Legacy UX Restored) */}
       <header className="pt-8 pb-4 px-6 text-center">
         <div 
           className="inline-flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-          onClick={() => setCurrentView('hub')}
+          onClick={() => setCurrentView('sko')} // Logo clicks go to Landing (SKO)
         >
           <div className="w-8 h-8 bg-blackline-yellow rounded flex items-center justify-center text-black font-bold text-xl">
             BL
@@ -70,6 +70,16 @@ function App() {
       </header>
 
       <main className="py-8">
+        {/* VIEW 1: SKO PLAYBOOK (LANDING) */}
+        {currentView === 'sko' && (
+          <SkoExplainer 
+            // Closing the explainer takes you to the "Legacy Menu" (Hub)
+            onClose={() => setCurrentView('hub')} 
+            t={t}
+          />
+        )}
+
+        {/* VIEW 2: LEGACY MULTI-SELECT MENU (HUB) */}
         {currentView === 'hub' && (
           <>
             <PlatformHub
@@ -83,18 +93,19 @@ function App() {
               t={t}
             />
             
-            {/* SKO Link Footer */}
+            {/* Footer Link back to Landing */}
             <div className="text-center mt-12 pb-8">
               <button 
                 onClick={() => setCurrentView('sko')}
                 className="text-zinc-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors border-b border-transparent hover:border-zinc-500 pb-1"
               >
-                View SKO 26 Playbook
+                Replay SKO Experience
               </button>
             </div>
           </>
         )}
 
+        {/* VIEW 3: ANALYSIS RESULTS (NARRATIVE EXPLAINER) */}
         {currentView === 'analysis' && selectedPersona && (
           <AnalysisResults
             selectedDrivers={selectedDrivers}
@@ -102,13 +113,6 @@ function App() {
             selectedPersona={selectedPersona}
             t={t}
             onBack={() => setCurrentView('hub')}
-          />
-        )}
-
-        {currentView === 'sko' && (
-          <SkoExplainer 
-            onClose={() => setCurrentView('hub')} 
-            t={t}
           />
         )}
       </main>
