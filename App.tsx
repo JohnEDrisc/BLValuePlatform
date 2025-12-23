@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Globe, ChevronDown, BarChart2, Calculator, Users, Layers, Zap, 
-  Trophy, ArrowRight, X, HelpCircle, Info, Video, Sparkles 
-} from 'lucide-react';
-
-// --- REAL COMPONENT IMPORTS ---
+import { Globe, ChevronDown, BarChart2, Calculator, Users, Layers, Zap, Trophy, ArrowRight, X, HelpCircle, Info, Video, Sparkles } from 'lucide-react';
 import { VisualNav } from './components/VisualNav';
 import { ValueCalculator } from './components/ValueCalculator';
+import { AnalysisResults } from './components/AnalysisResults';
 import { CustomerBenchmarks } from './components/CustomerBenchmarks';
+import { PlatformHub } from './components/PlatformHub';
 import { OutsideInGenerator } from './components/OutsideInGenerator';
+import { SkoExplainer } from './components/SkoExplainer';
 import { Tooltip } from './components/Tooltip';
 import { RightRail } from './components/RightRail';
-
-// Our new/updated components
-import { PlatformHub } from './components/PlatformHub';
-import { AnalysisResults } from './components/AnalysisResults';
-import { SkoExplainer } from './components/SkoExplainer';
-
-// Types & Constants
-import { AnalysisResult, DealContext, ValueDriverSelection, Persona } from './types';
+import { AnalysisResult, DealContext } from './types';
 import { SUPPORTED_LANGUAGES, UI_STRINGS, INDUSTRIES } from './constants';
-// Note: You may need to uncomment/restore generateValueAnalysis if you have that service file
-// import { generateValueAnalysis } from './services/geminiService';
+
+// --- MOCK SERVICE (Prevents crash if service file is missing/broken) ---
+const generateValueAnalysis = async (query: string, lang: string): Promise<AnalysisResult> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        driverId: 'gen',
+        score: 92,
+        summary: `Analysis for "${query}". BlackLine automates complex financial close processes, reducing risk and increasing visibility. This aligns with strategic goals for operational efficiency.`,
+        recommendations: [
+          "Implement Account Reconciliations to reduce manual effort.",
+          "Deploy Transaction Matching for high-volume data.",
+          "Utilize Task Management for close visibility."
+        ]
+      });
+    }, 1500);
+  });
+};
 
 // Custom Rubik's Cube Icon for Pivot
 export const RubiksCube = ({ size = 20, className = "" }) => (
@@ -57,13 +64,7 @@ function App() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  // --- HUB STATE ---
-  const [selectedDrivers, setSelectedDrivers] = useState<ValueDriverSelection[]>([]);
-  const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
-  const [selectedIndustry, setSelectedIndustry] = useState<string>('manufacturing');
-  const [showAnalysis, setShowAnalysis] = useState(false);
-
-  // Panel Control
+  // Panel Control (Controlled from Header or Rail)
   const [activePanel, setActivePanel] = useState<'chat' | 'pivot' | null>(null);
   const [showGuidance, setShowGuidance] = useState(false);
 
@@ -77,12 +78,12 @@ function App() {
   // Safe Translation Logic
   const t = { ...UI_STRINGS['EN'], ...(UI_STRINGS[currentLang] || {}) };
 
-  // Scroll to top
+  // Scroll to top whenever tab changes or search state changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [activeTab, hasSearched, showDiscoveryMenu, showAnalysis]);
+  }, [activeTab, hasSearched, showDiscoveryMenu]);
 
-  // Reset function
+  // Function to return to the root landing page (6 buttons)
   const goHome = () => {
     setActiveTab('discovery'); 
     setShowDiscoveryMenu(false);
@@ -91,45 +92,24 @@ function App() {
     setQuery('');
     setShowGuidance(false);
     setActivePanel(null);
-    setShowAnalysis(false); 
-  };
-
-  // --- HANDLERS ---
-
-  const handleDriverToggle = (driver: ValueDriverSelection) => {
-    setSelectedDrivers(prev => {
-      const exists = prev.find(d => d.id === driver.id);
-      if (exists) {
-        return prev.filter(d => d.id !== driver.id);
-      }
-      return [...prev, driver];
-    });
-  };
-
-  const handleAnalyze = () => {
-    if (selectedPersona && selectedDrivers.length > 0) {
-      setShowAnalysis(true);
-      window.scrollTo(0, 0);
-    }
   };
 
   const handleSearch = (searchQuery: string = query, lang: string = currentLang) => {
     if (!searchQuery.trim()) return;
     
+    // Reset States
     setHasSearched(true);
     setQuery(searchQuery);
     setIsLoading(true);
 
-    // Placeholder for search logic
-    setTimeout(() => {
-        setIsLoading(false);
-        setResult({
-            driverId: 'gen',
-            score: 85,
-            summary: "Analysis Generated via Search.",
-            recommendations: ["Next Step 1", "Next Step 2"]
-        });
-    }, 1000);
+    // Fetch Text Analysis with Language Context
+    generateValueAnalysis(searchQuery, lang).then((data) => {
+      setResult(data);
+      setIsLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setIsLoading(false);
+    });
   };
   
   const handleBackToDiscovery = () => {
@@ -150,19 +130,36 @@ function App() {
   };
 
   const getContextString = () => {
-    if (activeTab === 'discovery') return hasSearched ? `Results for "${query}".` : "Discovery.";
-    if (activeTab === 'outside_in') return "Outside-In Tool.";
-    if (activeTab === 'calculator') return "ROI Calculator.";
-    if (activeTab === 'benchmarks') return "Benchmarks.";
-    if (activeTab === 'hub') return "Hub.";
-    if (activeTab === 'sko') return "SKO.";
-    return "BlackLine Value";
+    if (activeTab === 'discovery') {
+      if (hasSearched && query) return `Value Analysis results for "${query}".`;
+      return "Main Discovery / Home Page.";
+    }
+    if (activeTab === 'outside_in') return "Outside-In Value Generator tool.";
+    if (activeTab === 'calculator') return "ROI and Business Value Calculator.";
+    if (activeTab === 'benchmarks') return "Customer Benchmarks Database.";
+    if (activeTab === 'hub') return "AI Video Coaching and call intelligence resources.";
+    if (activeTab === 'sko') return "SKO 26 #LETSGO GET Explainer hub.";
+    return "BlackLine Value Engineering Tool";
   };
 
   const handlePivot = (newContext: Partial<DealContext> & { problem?: string }) => {
     setDealContext(prev => ({ ...prev, ...newContext }));
+
+    if (activeTab === 'discovery') {
+      let pivotQuery = query || "Financial Close Transformation";
+      const pivotParts = [];
+      if (newContext.persona) pivotParts.push(`${newContext.persona}`);
+      if (newContext.industry) pivotParts.push(`${newContext.industry}`);
+      if (newContext.problem) pivotParts.push(`Solving for ${newContext.problem}`);
+
+      if (pivotParts.length > 0) {
+        pivotQuery = pivotParts.join(', ');
+        handleSearch(pivotQuery);
+      }
+    }
   };
 
+  // Hero is shown when on discovery tab AND not in the midst of a multi-select search or results view
   const showHero = activeTab === 'discovery' && !hasSearched && !showDiscoveryMenu;
 
   return (
@@ -190,10 +187,12 @@ function App() {
                </div>
             )}
 
+            {/* Top Rail Tools */}
             <div className="flex items-center gap-2 md:gap-3">
               <button 
                 onClick={() => setShowGuidance(!showGuidance)}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 border ${showGuidance ? 'bg-blackline-yellow border-blackline-yellow text-black scale-105 shadow-[0_0_15px_rgba(249,183,52,0.4)]' : 'bg-zinc-900/50 border-zinc-800 text-gray-300 hover:text-white hover:bg-zinc-800'}`}
+                title="Get Help & Navigation"
               >
                 <HelpCircle size={18} className={!showGuidance ? "text-blackline-yellow animate-pulse" : ""} />
                 <span className="text-[10px] font-black uppercase tracking-widest">Help</span>
@@ -202,6 +201,7 @@ function App() {
               <button 
                 onClick={() => setActivePanel(activePanel === 'pivot' ? null : 'pivot')}
                 className={`p-2 rounded-xl transition-all duration-300 border ${activePanel === 'pivot' ? 'bg-zinc-100 border-white text-black scale-105 shadow-lg' : 'bg-zinc-900/50 border-zinc-800 text-gray-400 hover:text-white hover:bg-zinc-800'}`}
+                title="Pivot Context"
               >
                 <RubiksCube size={20} />
               </button>
@@ -221,6 +221,9 @@ function App() {
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setIsLangMenuOpen(false)}></div>
                   <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-xl py-2 z-50 border border-zinc-800 animate-fade-in">
+                    <div className="px-4 py-2 border-b border-zinc-800 mb-2">
+                      <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Select Region</p>
+                    </div>
                     {SUPPORTED_LANGUAGES.map((lang) => (
                       <button
                         key={lang.code}
@@ -245,7 +248,27 @@ function App() {
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blackline-yellow/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
         )}
 
-        {/* Hero Section */}
+        {/* Global Help Guidance Toast */}
+        {showGuidance && (
+          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-full max-w-lg px-4 animate-fade-in-down">
+            <div className="bg-blackline-yellow text-black p-5 rounded-2xl shadow-2xl border border-white/20 flex gap-4 ring-4 ring-black/10">
+              <div className="bg-black/10 p-2.5 rounded-full h-fit flex-shrink-0">
+                <Info size={24} />
+              </div>
+              <div className="flex-grow">
+                <p className="font-black text-base mb-1 uppercase tracking-tight italic">System Overview</p>
+                <p className="text-sm font-semibold opacity-95 leading-relaxed">
+                  Welcome to the Sales Enablement Hub. Use <strong>Value Narratives</strong> to master talking points, or <strong>Video Coaching</strong> to refine your pitch. The <strong>Rubik's Cube icon</strong> (Pivot) allows you to re-configure the AI context for any industry or deal size.
+                </p>
+              </div>
+              <button onClick={() => setShowGuidance(false)} className="p-2 hover:bg-black/10 rounded-full h-fit transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Hero Section - The Main Hub */}
         <div className={`transition-all duration-700 ease-in-out ${!showHero ? 'hidden' : 'translate-y-0 opacity-100'}`}>
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight drop-shadow-sm">
@@ -256,6 +279,8 @@ function App() {
             </p>
             
             <div className="flex flex-col items-center mt-10 mb-8 gap-4">
+                 
+                 {/* Main Focused SKO Button */}
                  <div className="w-full max-w-md">
                     <button 
                       onClick={() => { setActiveTab('sko'); setShowDiscoveryMenu(false); }}
@@ -268,12 +293,14 @@ function App() {
                  </div>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
+                    {/* Value Narratives */}
                     <button 
                       onClick={() => { setActiveTab('discovery'); setShowDiscoveryMenu(true); }}
                       className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-lg font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800 shadow-md"
                     >
                       <BarChart2 size={20} /> {t.tab_discovery}
                     </button>
+                    {/* Outside-In */}
                     <button 
                       onClick={() => { setActiveTab('outside_in'); setShowDiscoveryMenu(false); }}
                       className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-lg font-bold transition-all bg-zinc-900 text-gray-300 hover:text-white hover:bg-zinc-800 border border-zinc-800 shadow-md"
@@ -306,8 +333,7 @@ function App() {
           </div>
         </div>
 
-        {/* --- APP SECTIONS --- */}
-
+        {/* Content Area */}
         {activeTab === 'sko' && (
            <SkoExplainer onClose={goHome} t={t} />
         )}
@@ -328,7 +354,7 @@ function App() {
                   </button>
                 </div>
                 
-                {/* Visual Nav from Legacy Code */}
+                {/* Visual Nav */}
                 <div className="max-w-[1000px] mx-auto mb-10 px-6">
                    <div className="bg-gradient-to-r from-zinc-900 to-black border border-zinc-800 p-8 rounded-3xl shadow-xl relative overflow-hidden group">
                       <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -360,13 +386,24 @@ function App() {
 
             {!isLoading && result && (
               <div className="animate-fade-in">
-                  {/* Reuse AnalysisResults for Text Search flow using mock data to prevent crashes */}
+                  <div className="max-w-[1400px] mx-auto flex justify-between items-center mb-6 px-6 no-print">
+                    <div className="flex items-center gap-3">
+                      <BarChart2 size={20} className="text-blackline-yellow" />
+                      <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                        Generated Enablement Brief
+                      </h3>
+                    </div>
+                    <button onClick={handleBackToDiscovery} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
+                      <X size={24} />
+                    </button>
+                  </div>
+                  {/* Reuse Hybrid AnalysisResults Component for Search Results */}
                   <AnalysisResults 
-                    selectedDrivers={[{ id: 'gen', value: 'Generated', nameKey: 'gen' }]} 
-                    selectedIndustry={selectedIndustry}
-                    selectedPersona={{ id: 'gen', name: 'General', icon: 'User', group: 'Executive' }} 
-                    t={t}
+                    data={result}
+                    query={query}
                     onBack={handleBackToDiscovery}
+                    onNavigateToCalculator={() => setActiveTab('calculator')}
+                    t={t}
                   />
               </div>
             )}
@@ -374,22 +411,51 @@ function App() {
         )}
 
         {activeTab === 'outside_in' && (
-          <OutsideInGenerator 
-            t={t} 
-            onSetDealContext={setDealContext} 
-            dealContext={dealContext}
-          />
+          <>
+            <div className="max-w-[900px] mx-auto flex justify-between items-center px-4 mb-4">
+               <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
+                 <Zap size={20} className="text-blackline-yellow" /> Outside-In Generator
+               </h3>
+               <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
+                  <X size={24} />
+               </button>
+            </div>
+            <OutsideInGenerator 
+              t={t} 
+              onSetDealContext={setDealContext} 
+              dealContext={dealContext}
+            />
+          </>
         )}
 
         {activeTab === 'calculator' && (
-           <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
+           <>
+             <div className="max-w-[1000px] mx-auto flex justify-between items-center px-4 mb-4">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
+                  <Calculator size={20} className="text-blackline-yellow" /> {t.tab_calculator}
+                </h3>
+                <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
+                   <X size={24} />
+                </button>
+             </div>
+             <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
+           </>
         )}
 
         {activeTab === 'benchmarks' && (
-           <CustomerBenchmarks t={t} />
+           <>
+             <div className="max-w-[1400px] mx-auto flex justify-between items-center px-4 mb-4">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2 uppercase italic tracking-tighter">
+                  <Users size={20} className="text-blackline-yellow" /> {t.tab_benchmarks}
+                </h3>
+                <button onClick={goHome} className="p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:bg-zinc-800 text-gray-500 hover:text-white transition-all">
+                   <X size={24} />
+                </button>
+             </div>
+             <CustomerBenchmarks t={t} />
+           </>
         )}
 
-        {/* --- THE NARRATIVE EXPLAINER (PLATFORM HUB) --- */}
         {activeTab === 'hub' && (
           <>
             <div className="max-w-[1200px] mx-auto flex justify-between items-center px-4 mb-4">
@@ -400,27 +466,7 @@ function App() {
                    <X size={24} />
                 </button>
             </div>
-            
-            {showAnalysis && selectedPersona ? (
-                <AnalysisResults
-                    selectedDrivers={selectedDrivers}
-                    selectedIndustry={INDUSTRIES.find(i => i.id === selectedIndustry)?.nameKey || selectedIndustry}
-                    selectedPersona={selectedPersona}
-                    t={t}
-                    onBack={() => setShowAnalysis(false)}
-                />
-            ) : (
-                <PlatformHub 
-                    onAnalyze={handleAnalyze}
-                    selectedDrivers={selectedDrivers}
-                    onDriverToggle={handleDriverToggle}
-                    selectedPersona={selectedPersona}
-                    onPersonaSelect={setSelectedPersona}
-                    selectedIndustry={selectedIndustry}
-                    onIndustrySelect={setSelectedIndustry}
-                    t={t}
-                />
-            )}
+            <PlatformHub t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
           </>
         )}
 
