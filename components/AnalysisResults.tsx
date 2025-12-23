@@ -9,9 +9,6 @@ import {
   ArrowLeft,
   RotateCcw,
   X,
-  HelpCircle,
-  Briefcase,
-  AlertCircle,
   Zap,
   DollarSign,
   Lock,
@@ -21,12 +18,8 @@ import {
   Lightbulb,
   Activity,
   Search,
-  TrendingUp,
-  Server,
-  BookOpen,
   Target,
   Download,
-  ClipboardList,
   AlertTriangle,
   Trophy,
   Moon,
@@ -34,7 +27,9 @@ import {
   StopCircle,
   Loader2,
   Brain,
-  Cpu
+  Quote,
+  ListChecks,
+  Briefcase
 } from 'lucide-react';
 import { exportToWord, generateAnalysisHtml } from '../services/exportService';
 
@@ -112,9 +107,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
     query.toLowerCase().includes(p.id.toLowerCase())
   );
 
-  // Find the selected driver configuration if applicable
-  const selectedDriverConfig = VALUE_DRIVERS_SELECTION.find(d => d.value === query);
-
   // Icon mapping for value drivers
   const getDriverIcon = (driver: ValueDriver) => {
     switch(driver) {
@@ -170,9 +162,9 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
   };
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto space-y-24 animate-fade-in pb-32 px-6 md:px-12 print-container text-lg">
+    <div className="w-full max-w-[1400px] mx-auto space-y-16 animate-fade-in pb-32 px-6 md:px-12 print-container text-lg">
        
-      {/* Header & Navigation */}
+      {/* ---------------- HEADER & NAV ---------------- */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative border-b border-zinc-800 pb-10 gap-8 no-print">
         <div className="flex flex-col gap-6 max-w-full md:max-w-[70%]">
            <div className="flex items-center gap-3 text-zinc-400">
@@ -188,8 +180,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
         </div>
 
         <div className="relative group shrink-0 self-start md:self-center mt-6 md:mt-0 flex flex-wrap gap-4">
-           
-          {/* AUDIO BUTTON */}
           <button 
             onClick={handlePlayAudio}
             disabled={isGeneratingAudio}
@@ -207,17 +197,16 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
             ) : isPlayingAudio ? (
               <>
                 <StopCircle size={18} />
-                <span>Stop Audio</span>
+                <span>Stop</span>
               </>
             ) : (
               <>
                 <Volume2 size={18} className={isGeneratingAudio ? "" : "text-blackline-yellow"} />
-                <span>Listen to Brief</span>
+                <span>Listen</span>
               </>
             )}
           </button>
 
-          {/* EXPORT DROPDOWN */}
           <div className="relative">
             <button
                onClick={() => setShowExportMenu(!showExportMenu)}
@@ -236,7 +225,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
              {showExportMenu && <div className="fixed inset-0 z-40" onClick={() => setShowExportMenu(false)}></div>}
           </div>
 
-          {/* BACK BUTTON */}
           <button 
             onClick={onBack}
             className="flex items-center gap-2 px-6 py-4 bg-white text-black rounded-xl hover:bg-blackline-yellow hover:text-black transition-all shadow-md font-bold uppercase text-xs tracking-wider"
@@ -245,34 +233,39 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
             <span className="hidden sm:inline">{t.new_analysis}</span>
             <span className="sm:hidden">{t.new_btn_mobile}</span>
           </button>
-           
-          {/* Discovery Tooltip for Navigation */}
-          {showNavTooltip && (
-            <div className="absolute top-full right-0 mt-4 w-80 p-5 bg-blackline-yellow text-black text-sm rounded-xl shadow-2xl animate-bounce-slow z-50">
-              <div className="absolute -top-2 right-10 w-4 h-4 bg-blackline-yellow transform rotate-45"></div>
-              <div className="flex gap-4">
-                <div className="bg-black/10 p-2 rounded-full h-fit mt-0.5">
-                  <ArrowLeft size={18} className="text-black" />
-                </div>
-                <div>
-                  <p className="font-bold mb-1 text-base">{t.nav_help_title}</p>
-                  <p className="leading-snug opacity-90 font-medium">{t.nav_help_text}</p>
-                </div>
-              </div>
-              <button 
-                onClick={(e) => { e.stopPropagation(); setShowNavTooltip(false); }}
-                className="absolute top-2 right-2 p-1 text-black/50 hover:text-black"
-              >
-                <X size={14} />
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
-      {/* --- PERSONA LENS SECTION --- */}
+      {/* ---------------- 1. EXECUTIVE NARRATIVE (ELEVATOR PITCH) ---------------- */}
+      {!isValueDriverAnalysis && (data.talkTrack || data.cfoPunchline) && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 bg-gradient-to-r from-zinc-900 to-zinc-900/50 border border-zinc-800 rounded-3xl p-8 shadow-xl">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-blackline-yellow rounded-lg text-black">
+                        <MessageSquare size={20} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white uppercase tracking-wider">Executive Talk Track</h3>
+                </div>
+                <p className="text-gray-200 text-lg leading-relaxed whitespace-pre-line">
+                    "{data.talkTrack}"
+                </p>
+            </div>
+
+            <div className="lg:col-span-1 bg-blackline-yellow text-black border border-yellow-500 rounded-3xl p-8 shadow-xl flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-4 opacity-75">
+                    <Quote size={24} />
+                    <h3 className="text-sm font-black uppercase tracking-widest">The "Punchline"</h3>
+                </div>
+                <p className="text-2xl md:text-3xl font-black leading-tight">
+                    "{data.cfoPunchline || data.cioPunchline}"
+                </p>
+            </div>
+        </div>
+      )}
+
+      {/* ---------------- 2. PERSONA LENS (IF APPLICABLE) ---------------- */}
       {data.personaAnalysis && isPersonaSearch && (
-        <div className="bg-gradient-to-br from-zinc-900 via-zinc-950 to-black border border-purple-500/30 rounded-3xl p-10 md:p-14 relative overflow-hidden shadow-2xl mb-16 scroll-mt-24" id="persona-lens">
+        <div className="bg-gradient-to-br from-zinc-900 via-zinc-950 to-black border border-purple-500/30 rounded-3xl p-10 md:p-14 relative overflow-hidden shadow-2xl scroll-mt-24" id="persona-lens">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none"></div>
            
           <div className="relative z-10">
@@ -299,7 +292,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
                          ))}
                       </ul>
                    </div>
-
                    <div className="bg-black/40 rounded-2xl p-8 border border-indigo-900/30">
                       <h4 className="text-indigo-400 font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
                          <Moon size={18} /> What Keeps Them Up At Night?
@@ -309,7 +301,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
                       </p>
                    </div>
                 </div>
-
                 <div className="space-y-8">
                    <div className="bg-black/40 rounded-2xl p-8 border border-green-900/30">
                       <h4 className="text-green-500 font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
@@ -324,7 +315,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
                          ))}
                       </ul>
                    </div>
-
                    <div className="bg-black/40 rounded-2xl p-8 border border-zinc-700">
                       <h4 className="text-gray-300 font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
                          <Target size={18} /> Real Business Problems Solving
@@ -344,16 +334,16 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
         </div>
       )}
 
-      {/* 1. Strategic Value Matrix (UPDATED FOR PRESALES ENABLEMENT) */}
+      {/* ---------------- 3. STRATEGIC VALUE MATRIX (The Cards) ---------------- */}
       {!isValueDriverAnalysis && (
         <div className="space-y-8 scroll-mt-24" id="value-matrix">
           <h3 className="text-2xl font-bold text-white uppercase tracking-widest flex items-center gap-4">
             <div className="w-12 h-1.5 bg-blackline-yellow"></div> {t.strategic_drivers}
           </h3>
            
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-6">
             {drivers.map((driver) => {
-              // *** UPDATED LOGIC: Prioritize Presales Enablement Data ***
+              // Graceful Fallback Logic
               const impact = data.valueDriverImpacts?.[driver] || { 
                 message: "Standard platform benefit.", 
                 metric: "N/A", 
@@ -363,65 +353,51 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
               return (
                 <div 
                   key={driver} 
-                  className="relative p-6 rounded-2xl flex flex-col h-full transition-all duration-300 group bg-zinc-900 border border-zinc-800 hover:border-blackline-yellow/50 hover:shadow-2xl hover:shadow-blackline-yellow/5 print-break-inside hover:-translate-y-1"
+                  className="relative p-6 rounded-2xl flex flex-col h-full transition-all duration-300 group bg-zinc-900 border border-zinc-800 hover:border-blackline-yellow/50 hover:shadow-2xl hover:shadow-blackline-yellow/5"
                 >
-                  {/* HEADER: Icon & Title */}
-                  <div className="flex items-center gap-3 mb-5 border-b border-zinc-800 pb-4">
-                    <div className="p-2.5 rounded-xl bg-black text-blackline-yellow border border-zinc-800 group-hover:bg-blackline-yellow group-hover:text-black transition-colors shrink-0">
+                  <div className="flex items-center gap-3 mb-6 border-b border-zinc-800 pb-4">
+                    <div className="p-2 rounded-lg bg-black text-blackline-yellow border border-zinc-800 group-hover:bg-blackline-yellow group-hover:text-black transition-colors shrink-0">
                       {getDriverIcon(driver)}
                     </div>
-                    <h4 className="text-[11px] font-black uppercase leading-tight text-gray-100 group-hover:text-blackline-yellow transition-colors pt-1 text-left tracking-tighter italic">
+                    <h4 className="text-xs font-black uppercase leading-tight text-gray-100 group-hover:text-blackline-yellow transition-colors pt-1">
                       {driver.replace(/_/g, ' ')}
                     </h4>
                   </div>
 
-                  <div className="flex-grow space-y-5">
-                    
-                    {/* 1. POWER MESSAGE (The "Hook") */}
+                  <div className="flex-grow space-y-6">
+                    {/* Power Message */}
                     <div>
-                      <h5 className="text-[10px] uppercase font-bold text-blackline-yellow mb-2 flex items-center gap-2 tracking-wider">
-                         <Zap size={14} /> Power Message
+                      <h5 className="text-[10px] uppercase font-bold text-blackline-yellow mb-2 flex items-center gap-2">
+                         <Zap size={12} /> Power Message
                       </h5>
-                      <p className="text-[13px] leading-relaxed text-gray-200 font-medium text-left">
-                        {/* Logic: Show Power Message if exists, otherwise fallback to standard message */}
+                      <p className="text-sm leading-relaxed text-gray-200 font-medium">
                         {impact.powerMessage || impact.message}
                       </p>
                     </div>
 
-                    {/* 2. OBJECTION HANDLING (The "Defense") */}
+                    {/* Objection Handling */}
                     {impact.objectionHandling && (
-                      <div className="pl-3 border-l-2 border-zinc-700">
-                        <h5 className="text-[10px] uppercase font-bold text-red-400 mb-1 flex items-center gap-2 tracking-wider">
-                           <ShieldCheck size={14} /> Rebuttal
+                      <div className="pl-3 border-l-2 border-zinc-700 py-1">
+                        <h5 className="text-[10px] uppercase font-bold text-red-400 mb-1 flex items-center gap-2">
+                           <ShieldCheck size={12} /> Rebuttal
                         </h5>
-                        <p className="text-[12px] leading-relaxed text-gray-400 italic text-left">
+                        <p className="text-xs leading-relaxed text-gray-400 italic">
                           "{impact.objectionHandling}"
                         </p>
                       </div>
                     )}
 
-                    {/* 3. COMPETITOR DIFF (The "Kill Point") */}
+                    {/* Competitor Diff */}
                     {impact.competitorDiff && (
-                      <div className="bg-zinc-950 p-3 rounded-lg border border-zinc-800 mt-2">
-                        <h5 className="text-[9px] uppercase font-bold text-blue-400 mb-1 tracking-wider">
+                      <div className="bg-zinc-950 p-3 rounded-lg border border-zinc-800">
+                        <h5 className="text-[9px] uppercase font-bold text-blue-400 mb-1">
                            Competitive Edge
                         </h5>
-                        <p className="text-[11px] text-gray-500 leading-snug">
+                        <p className="text-[11px] text-gray-500">
                           {impact.competitorDiff}
                         </p>
                       </div>
                     )}
-
-                    {/* Fallback for "ROI" view if no enablement data exists */}
-                    {!impact.powerMessage && !impact.objectionHandling && (
-                       <div className="pt-4 mt-auto border-t border-zinc-800">
-                         <span className="text-[10px] uppercase font-black block mb-1 text-zinc-400 tracking-widest">{t.projected_impact}</span>
-                         <span className="text-xl font-black text-white block leading-tight text-left italic tracking-tighter">
-                           {impact.metric}
-                         </span>
-                       </div>
-                    )}
-
                   </div>
                 </div>
               );
@@ -429,6 +405,85 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
           </div>
         </div>
       )}
+
+      {/* ---------------- 4. DISCOVERY & QUALIFICATION (New!) ---------------- */}
+      {data.discoveryQuestions && data.discoveryQuestions.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-blue-500/20 text-blue-400 rounded-lg">
+                        <ListChecks size={20} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white uppercase tracking-wider">Discovery Questions</h3>
+                  </div>
+                  <ul className="space-y-4">
+                      {data.discoveryQuestions.map((q, idx) => (
+                          <li key={idx} className="flex gap-4 p-4 bg-black/40 rounded-xl border border-zinc-800/50">
+                              <span className="text-blue-500 font-bold">{idx + 1}.</span>
+                              <span className="text-gray-200 font-medium">{q}</span>
+                          </li>
+                      ))}
+                  </ul>
+              </div>
+
+              {/* ---------------- 5. BUSINESS SCENARIOS (New!) ---------------- */}
+              {data.businessScenarios && data.businessScenarios.length > 0 && (
+                <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="p-2 bg-green-500/20 text-green-400 rounded-lg">
+                            <Briefcase size={20} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white uppercase tracking-wider">Business Scenarios</h3>
+                    </div>
+                    <div className="space-y-4">
+                        {data.businessScenarios.slice(0, 3).map((scenario, idx) => (
+                            <div key={idx} className="p-5 bg-black/40 rounded-xl border border-zinc-800/50">
+                                <h5 className="text-xs font-bold text-red-400 uppercase mb-2">The Problem</h5>
+                                <p className="text-sm text-gray-300 mb-3">{scenario.scenario}</p>
+                                <div className="h-px bg-zinc-800 w-full mb-3"></div>
+                                <h5 className="text-xs font-bold text-green-400 uppercase mb-2">The Solution</h5>
+                                <p className="text-sm text-gray-100 font-medium">{scenario.solution}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+              )}
+          </div>
+      )}
+
+      {/* ---------------- 6. VALUE CHAIN (CAPABILITIES) (New!) ---------------- */}
+      {data.valueChain && data.valueChain.length > 0 && (
+        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 overflow-hidden">
+             <div className="flex items-center gap-3 mb-8">
+                <div className="p-2 bg-purple-500/20 text-purple-400 rounded-lg">
+                    <GitMerge size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-white uppercase tracking-wider">Capabilities to Value Map</h3>
+            </div>
+            
+            <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                    <thead>
+                        <tr className="border-b border-zinc-700">
+                            <th className="py-4 px-4 text-xs font-bold text-zinc-400 uppercase tracking-widest">Feature / Capability</th>
+                            <th className="py-4 px-4 text-xs font-bold text-zinc-400 uppercase tracking-widest">Business Benefit</th>
+                            <th className="py-4 px-4 text-xs font-bold text-zinc-400 uppercase tracking-widest">Financial Value</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800">
+                        {data.valueChain.map((item, idx) => (
+                            <tr key={idx} className="hover:bg-zinc-800/30 transition-colors">
+                                <td className="py-4 px-4 text-white font-bold">{item.feature}</td>
+                                <td className="py-4 px-4 text-gray-300">{item.benefit}</td>
+                                <td className="py-4 px-4 text-blackline-yellow font-mono text-sm">{item.value}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      )}
+
     </div>
   );
 };
