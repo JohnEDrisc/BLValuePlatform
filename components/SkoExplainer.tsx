@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { SKO_DATA } from '../constants';
 import { UIStrings, SkoDriverDetail, SkoPovContent } from '../types';
 import { 
@@ -56,12 +56,35 @@ const DRIVER_IMAGES: Record<string, string> = {
   'ai_ops': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
 };
 
+// Define the precise order for the UX sequence here
+const ORDERED_IDS = [
+  // Cluster 1: P&L (Working Cap first, then Process)
+  'working_cap', 
+  'process',
+  
+  // Cluster 2: Acceleration (Innovation is 3rd)
+  'talent',
+  'ma',
+  'innovation', 
+  'compliance',
+  'decision',
+  
+  // Cluster 3: Enterprise Value
+  'trust',
+  'ai_ops'
+];
+
 export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   const [viewMode, setViewMode] = useState<'landing' | 'grid' | 'persona_explain' | 'framework_explain' | 'detail' | 'video' | 'letsgo_bva'>('landing');
   const [activeDriverId, setActiveDriverId] = useState<string | null>(null);
   const [activePov, setActivePov] = useState<'executive' | 'operational'>('executive');
 
-  const activeDriver = SKO_DATA.find(d => d.id === activeDriverId);
+  // Create a sorted version of data based on the new desired UX sequence
+  const sortedDrivers = useMemo(() => {
+    return ORDERED_IDS.map(id => SKO_DATA.find(d => d.id === id)).filter(Boolean) as any[];
+  }, []);
+
+  const activeDriver = sortedDrivers.find(d => d.id === activeDriverId);
 
   // Scroll to top when view mode or narrative changes
   useEffect(() => {
@@ -76,23 +99,24 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   const handleNextDriver = () => {
     if (!activeDriverId) return;
-    const currentIndex = SKO_DATA.findIndex(d => d.id === activeDriverId);
-    const nextIndex = (currentIndex + 1) % SKO_DATA.length;
+    const currentIndex = sortedDrivers.findIndex(d => d.id === activeDriverId);
+    const nextIndex = (currentIndex + 1) % sortedDrivers.length;
     setActivePov('executive'); 
-    setActiveDriverId(SKO_DATA[nextIndex].id);
+    setActiveDriverId(sortedDrivers[nextIndex].id);
   };
 
   const handlePrevDriver = () => {
     if (!activeDriverId) return;
-    const currentIndex = SKO_DATA.findIndex(d => d.id === activeDriverId);
-    const prevIndex = (currentIndex - 1 + SKO_DATA.length) % SKO_DATA.length;
+    const currentIndex = sortedDrivers.findIndex(d => d.id === activeDriverId);
+    const prevIndex = (currentIndex - 1 + sortedDrivers.length) % sortedDrivers.length;
     setActivePov('executive');
-    setActiveDriverId(SKO_DATA[prevIndex].id);
+    setActiveDriverId(sortedDrivers[prevIndex].id);
   };
 
-  const plImpactDrivers = SKO_DATA.filter(d => ['process', 'working_cap'].includes(d.id));
-  const accelerationDrivers = SKO_DATA.filter(d => ['innovation', 'talent', 'ma', 'compliance', 'decision'].includes(d.id));
-  const valueDrivers = SKO_DATA.filter(d => ['trust', 'ai_ops'].includes(d.id));
+  // Filter groups based on the sorted list to ensure display order matches logic
+  const plImpactDrivers = sortedDrivers.filter(d => ['working_cap', 'process'].includes(d.id));
+  const accelerationDrivers = sortedDrivers.filter(d => ['talent', 'ma', 'innovation', 'compliance', 'decision'].includes(d.id));
+  const valueDrivers = sortedDrivers.filter(d => ['trust', 'ai_ops'].includes(d.id));
 
   // --- LANDING VIEW ---
   if (viewMode === 'landing') {
@@ -106,7 +130,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blackline-yellow/20 border border-blackline-yellow/50 text-blackline-yellow text-[10px] md:text-xs font-bold uppercase tracking-wider mb-6 md:mb-8 animate-pulse">
                <Rocket size={12} /> SKO 26 Sales Playbook
             </div>
-            {/* RESPONSIVE TEXT FIX: text-5xl on mobile, text-9xl on desktop */}
             <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter text-white mb-6 md:mb-8 leading-[0.9] md:leading-[0.85]">
               #LETSGO <span className="text-blackline-yellow">GET</span>
             </h1>
@@ -141,7 +164,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
   }
 
-  // --- VIDEO VIEW (VERTICAL ORIENTED) ---
+  // --- VIDEO VIEW ---
   if (viewMode === 'video') {
     return (
       <div className="min-h-screen bg-black flex flex-col animate-fade-in relative pb-32">
@@ -177,21 +200,17 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                          </div>
                       </div>
 
-                      {/* Expanded Quote Section */}
                       <div className="relative px-2 md:px-4">
                           <span className="text-blackline-yellow font-serif text-6xl md:text-7xl absolute -left-4 md:-left-8 -top-8 opacity-40">"</span>
-                          
                           <div className="space-y-6 md:space-y-8 relative z-10">
                             <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
                                We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>. It automates the account reconciliation process.
                             </p>
-                            
                             <div className="border-l-4 border-zinc-700 pl-6 py-1">
                                 <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed font-light italic">
                                    If you think about an organization the size of ExxonMobil, the number of bank accounts that we have around the world is just <span className="text-white font-bold">massive</span>.
                                 </p>
                             </div>
-
                             <div className="relative bg-black/40 p-6 md:p-8 rounded-2xl border border-blackline-yellow/20">
                                 <p className="text-xl md:text-3xl text-white font-black italic leading-tight uppercase tracking-tight">
                                    Moving to a platform that <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time.
@@ -199,7 +218,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                             </div>
                           </div>
                       </div>
-
                   </div>
                   <div className="p-6 md:p-10 pt-0 mt-auto border-t border-zinc-800/50 bg-black/20">
                       <div className="flex items-center gap-4 pt-4 md:pt-6">
@@ -228,7 +246,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                                </div>
                             </div>
                          </div>
-                         
                          <div className="aspect-video bg-black/60 rounded-2xl border border-zinc-700 mb-6 md:mb-8 flex flex-col items-center justify-center group/vid cursor-pointer">
                             <div className="w-16 h-16 md:w-24 md:h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 border border-white/20 group-hover/vid:bg-blackline-yellow group-hover/vid:text-black transition-all">
                                <Play size={24} className="md:w-8 md:h-8" fill="currentColor" />
@@ -247,40 +264,58 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   // --- GRID VIEW ---
   if (viewMode === 'grid') {
     return (
-      <div className="w-full max-w-[1400px] mx-auto pb-32 animate-fade-in px-4 md:px-6 pt-6 md:pt-10">
-         <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-16 gap-4 md:gap-8">
+      <div className="w-full max-w-[1800px] mx-auto pb-32 animate-fade-in px-4 md:px-6 pt-6 md:pt-10">
+         <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 gap-4 md:gap-8">
             <div className="text-left">
                <button onClick={() => setViewMode('landing')} className="flex items-center gap-2 mb-4 md:mb-6 text-xs font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">
                   <ArrowLeft size={16} /> Back to Menu
                </button>
-               <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-2 md:mb-4 uppercase italic">
+               <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-2 md:mb-4 uppercase italic">
                   Value Drivers <span className="text-zinc-600">Framework</span>
                </h2>
             </div>
          </div>
 
-         <div className="space-y-16 md:space-y-24">
-            <GridSection title="P&L Bottom Line Impact" subtitle="Directly influencing profitability" drivers={plImpactDrivers} onSelect={handleDriverSelect} centered={true} />
-            <div className="space-y-8 md:space-y-10">
+         {/* CHANGED: Horizontal Layout using Grid with 3 Columns on XL screens */}
+         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 md:gap-12 items-start">
+            
+            {/* Column 1: P&L Impact */}
+            <div className="space-y-8">
+                <GridSectionHeader title="P&L Bottom Line Impact" subtitle="Directly influencing profitability" />
+                <div className="flex flex-col gap-6">
+                    {plImpactDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
+                </div>
+            </div>
+
+            {/* Column 2: Acceleration (Middle) */}
+            <div className="space-y-8">
                <div className="flex flex-col items-center text-center gap-2">
-                  <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-[0.3em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
-                     <div className="hidden md:block h-1 w-12 bg-blackline-yellow shrink-0"></div>Acceleration & Resilience<div className="hidden md:block h-1 w-12 bg-blackline-yellow shrink-0"></div>
+                  <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
+                     <div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>Acceleration & Resilience<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>
                   </h3>
-                  <p className="text-sm md:text-xl font-bold text-zinc-200 uppercase tracking-widest px-4">Driving organizational speed and risk mitigation</p>
+                  <p className="text-xs md:text-sm font-bold text-zinc-200 uppercase tracking-widest px-4">Driving speed & risk mitigation</p>
                </div>
-               {/* RESPONSIVE GRID: Single col on mobile, multi on desktop */}
-               <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-                  {accelerationDrivers.map((driver) => <DriverCard key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
+               <div className="flex flex-col gap-6">
+                  {accelerationDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
                </div>
             </div>
-            <GridSection title="Enhancing Enterprise Value" subtitle="Boosting valuation foundations" drivers={valueDrivers} onSelect={handleDriverSelect} centered={true} />
+
+            {/* Column 3: Enterprise Value */}
+            <div className="space-y-8">
+                <GridSectionHeader title="Enhancing Enterprise Value" subtitle="Boosting valuation foundations" />
+                <div className="flex flex-col gap-6">
+                    {valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}
+                </div>
+            </div>
+
          </div>
 
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button 
                onClick={() => {
                   setActivePov('executive');
-                  setActiveDriverId(SKO_DATA[0].id);
+                  // Start tour with the first driver in our sorted list
+                  setActiveDriverId(sortedDrivers[0].id);
                   setViewMode('persona_explain');
                }}
                className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"
@@ -354,7 +389,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-black uppercase tracking-[0.2em] mb-8 md:mb-14">
               <HelpCircle size={14} /> Methodology Briefing
            </div>
-           {/* RESPONSIVE FONT SIZE */}
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-8 md:mb-12 leading-tight">
               The Teaching <span className="text-blackline-yellow">System</span>
            </h2>
@@ -404,7 +438,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const IconComponent = (Icons as any)[activeDriver.icon] || Zap;
 
     return (
-      // RESPONSIVE CONTAINER: Removed scale-[0.75] for mobile to use full width
       <div className="min-h-screen bg-black text-white animate-fade-in pb-40 md:scale-[0.8] md:origin-top overflow-visible">
         {/* Navigation Header */}
         <div className="fixed top-0 left-0 w-full bg-black/95 backdrop-blur-xl z-50 border-b border-zinc-800 px-4 md:px-10 py-4 md:py-6 flex justify-between items-center no-print">
@@ -430,13 +463,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <div className="inline-flex items-center justify-center p-6 md:p-10 bg-blackline-yellow rounded-[2rem] md:rounded-[2.5rem] text-black mb-8 md:mb-14 shadow-2xl border-4 md:border-8 border-black">
                  <IconComponent size={48} className="md:w-20 md:h-20" strokeWidth={1} />
               </div>
-              {/* RESPONSIVE H1 */}
               <h1 className="text-5xl md:text-[10rem] font-black tracking-tighter mb-8 md:mb-10 leading-[0.9] md:leading-[0.8] italic uppercase">{activeDriver.title}</h1>
               <div className="inline-block px-8 md:px-14 py-4 md:py-6 border-2 border-zinc-700 rounded-full bg-black/60 mb-10 md:mb-14 backdrop-blur-xl">
                  <span className="text-xl md:text-4xl font-black text-green-400 tracking-tighter italic uppercase">{activeDriver.heroMetric}</span>
               </div>
               
-              {/* TOP TOGGLE */}
               <div className="flex justify-center mb-16 md:mb-24">
                  <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)] w-full md:w-auto">
                     <button onClick={() => setActivePov('executive')} className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-6 rounded-2xl text-xs md:text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black shadow-2xl scale-105' : 'text-zinc-400 hover:text-zinc-200'}`}>Executive</button>
@@ -638,27 +669,29 @@ const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, 
   </div>
 );
 
-const DriverCard: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => void }> = ({ driver, onSelect }) => {
+// Modified Driver Card for Horizontal Layouts (Shorter height)
+const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => void }> = ({ driver, onSelect }) => {
    // @ts-ignore
    const IconComponent = Icons[driver.icon] || Zap;
    return (
-      <div className="group relative h-[350px] md:h-[450px] w-full md:w-[calc(50%-2rem)] lg:w-[calc(30%-2rem)] min-w-0 md:min-w-[320px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-zinc-800 transition-all duration-500 hover:-translate-y-2 shadow-2xl bg-zinc-900">
+      <div className="group relative w-full rounded-[2rem] overflow-hidden border border-zinc-800 transition-all duration-500 hover:-translate-y-2 shadow-2xl bg-zinc-900">
          <div className="absolute inset-0 z-0">
             <img src={DRIVER_IMAGES[driver.id] || DRIVER_IMAGES.process} alt={driver.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-30 group-hover:opacity-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
          </div>
-         <div className="absolute inset-0 z-10 p-6 md:p-10 flex flex-col justify-end text-left">
-            <div className="mb-auto">
-               <div className="w-12 h-12 md:w-16 md:h-16 bg-zinc-900/80 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-zinc-700 group-hover:border-blackline-yellow transition-colors">
-                  <IconComponent size={24} className="md:w-8 md:h-8" strokeWidth={1.5} />
+         <div className="relative z-10 p-6 md:p-8 flex flex-col text-left h-full">
+            <div className="flex items-start justify-between mb-4">
+                <div className="w-12 h-12 bg-zinc-900/80 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-zinc-700 group-hover:border-blackline-yellow transition-colors shrink-0">
+                  <IconComponent size={24} className="md:w-6 md:h-6" strokeWidth={1.5} />
                </div>
             </div>
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-2 md:mb-3 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter h-12 md:h-16 flex items-end">{driver.title}</h3>
-            <p className="text-zinc-100 text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-medium line-clamp-3">{driver.summary}</p>
+            
+            <h3 className="text-xl md:text-2xl font-black text-white mb-2 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">{driver.title}</h3>
+            <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-6 font-medium line-clamp-2">{driver.summary}</p>
             
             <button 
                onClick={() => onSelect(driver.id)}
-               className="w-full py-3 md:py-4 bg-white/5 border border-white/10 text-white rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-blackline-yellow hover:text-black hover:border-blackline-yellow transition-all flex items-center justify-center gap-2"
+               className="w-full py-3 bg-white/5 border border-white/10 text-white rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-blackline-yellow hover:text-black hover:border-blackline-yellow transition-all flex items-center justify-center gap-2 mt-auto"
             >
                <HelpCircle size={14} /> Explain Driver
             </button>
@@ -667,20 +700,13 @@ const DriverCard: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => 
    );
 };
 
-const GridSection: React.FC<{ title: string, subtitle: string, drivers: SkoDriverDetail[], onSelect: (id: string) => void, centered: boolean }> = ({ title, subtitle, drivers, onSelect, centered }) => (
-  <div className="space-y-8 md:space-y-12">
-     <div className="flex flex-col items-center text-center gap-2">
-        <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-[0.3em] flex items-center gap-4 italic text-center leading-tight">
-          <div className="hidden md:block h-1 w-16 bg-blackline-yellow shrink-0"></div>
-          {title}
-          <div className="hidden md:block h-1 w-16 bg-blackline-yellow shrink-0"></div>
-        </h3>
-        <p className="text-sm md:text-xl font-bold text-zinc-200 uppercase tracking-widest">{subtitle}</p>
-     </div>
-     <div className={`flex flex-wrap ${centered ? 'justify-center' : 'justify-start'} gap-6 md:gap-10`}>
-        {drivers.map((driver) => <DriverCard key={driver.id} driver={driver} onSelect={onSelect} />)}
-     </div>
-  </div>
+const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ title, subtitle }) => (
+    <div className="flex flex-col items-center text-center gap-2 mb-2">
+       <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
+          <div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>
+       </h3>
+       <p className="text-xs md:text-sm font-bold text-zinc-200 uppercase tracking-widest px-2">{subtitle}</p>
+    </div>
 );
 
 const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
