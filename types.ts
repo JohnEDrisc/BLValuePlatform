@@ -1,6 +1,5 @@
 import { LucideIcon } from 'lucide-react';
 
-// --- CORE ENUMS ---
 export enum ValueDriver {
   PROCESS_EFFICIENCY = "Process Efficiency",
   WORKING_CAPITAL = "Working Capital Optimization",
@@ -13,7 +12,6 @@ export enum ValueDriver {
   SCALING_TRUSTWORTHY_AI = "Scaling Trustworthy AI"
 }
 
-// --- CORE INTERFACES ---
 export interface ProductItem {
   id: string;
   name: string;
@@ -32,6 +30,9 @@ export interface Persona {
   name: string;
   icon: string;
   group?: string;
+  role?: string;
+  nightmare?: string;
+  aspiration?: string;
 }
 
 export interface DealContext {
@@ -104,6 +105,12 @@ export interface AnalysisResult {
   
   // Deep Dive
   personaAnalysis?: PersonaAnalysis;
+  
+  // Hub specific
+  driverId?: string;
+  score?: number;
+  summary?: string;
+  recommendations?: string[];
 }
 
 export type UIStrings = Record<string, string>;
@@ -128,6 +135,10 @@ export interface SkoPovContent {
     title: string;
     metrics: string[];
   };
+  roiCalculations?: {
+    executive: any[];
+    operational: any[];
+  }
 }
 
 export interface SkoDriverDetail {
