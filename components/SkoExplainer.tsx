@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-// import { SKO_DATA } from '../constants'; // Replaced with local enriched data below
+// import { SKO_DATA } from '../constants'; // Replaced with local enriched data
 import { UIStrings, SkoDriverDetail, SkoPovContent } from '../types';
 import { 
   ArrowLeft, 
@@ -36,11 +36,18 @@ import {
   Layout, 
   LogOut, 
   ChevronDown,
-  Calculator
+  Calculator,
+  Equal,
+  Plus,
+  Minus,
+  X as Multiply
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
-// --- ENRICHED DATA STRUCTURE (Based on P6 Output, Aramco ROI, & C-Suite Scripts) ---
+interface SkoExplainerProps {
+  onClose: () => void;
+  t: UIStrings;
+}
 
 const DRIVER_IMAGES: Record<string, string> = {
   'process': 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=1200',
@@ -54,7 +61,7 @@ const DRIVER_IMAGES: Record<string, string> = {
   'ai_ops': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
 };
 
-// Expanded Data Structure with ROI Content
+// --- DATA STRUCTURE WITH ENRICHED CONTENT & ROI ---
 const SKO_DATA = [
   {
     id: 'working_cap',
@@ -90,26 +97,48 @@ const SKO_DATA = [
             metrics: ["$2M Annual Interest Savings", "40% Faster Cycle Time", "Zero Unallocated Cash"]
         },
         roiCalculations: {
-            executive: "Working Capital Savings = (Annual Revenue / 365) × (Current DSO - Target DSO) × Cost of Capital",
-            operational: "FTE Reallocation = (Total Transaction Volume × Manual Match Time per Item) / Annual Working Hours"
+            executive: [
+                {
+                    label: "Working Capital Unlock",
+                    formula: ["( Annual Revenue / 365 )", "×", "( Current DSO - Target DSO )", "×", "Cost of Capital"],
+                    desc: "Calculates the pure cash value of accelerating collections by reducing Day Sales Outstanding."
+                },
+                {
+                    label: "Unapplied Cash Interest Savings",
+                    formula: ["Average Unapplied Cash Balance", "×", "Annual Interest Rate (Cost of Debt)"],
+                    desc: "Savings realized by applying cash faster and reducing reliance on short-term credit lines."
+                }
+            ],
+            operational: [
+                {
+                    label: "FTE Reallocation (Cash Apps)",
+                    formula: ["( Total Transaction Volume × Manual Match Time )", "÷", "Annual Working Hours per FTE"],
+                    desc: "Determines how many full-time employees can be shifted from data matching to collections analysis."
+                },
+                {
+                    label: "Dispute Resolution Efficiency",
+                    formula: ["Avg Dispute Resolution Hours", "×", "Hourly Rate", "×", "Total Disputes"],
+                    desc: "Hard cost savings from faster dispute workflow and reduced manual email chasing."
+                }
+            ]
         }
     },
     operationalPov: {
         createValue: {
-            title: "Manual Matching Grind",
+            title: "The Manual Matching Grind",
             focus: "Operational Speed",
             pains: [
-                "Spending 3-4 days per month manually ticking and tying bank data to invoices.",
-                "High stress during close due to unidentified payments and mystery transactions.",
-                "Constant friction with collections teams regarding customer account status."
+                "The team loses 3-4 days every month manually downloading bank files and 'ticking and tying' thousands of transactions in Excel just to see who paid us.",
+                "High stress levels spike during close because unidentified payments (mystery cash) create massive variances that must be investigated under tight deadlines.",
+                "Constant friction with the collections team, who are chasing customers for money that has already been paid but hasn't been posted to the ledger yet."
             ]
         },
         captureValue: {
             title: "Operational Drag",
             questions: [
-                "How many hours does your team spend manually downloading and formatting bank statements?",
-                "What percentage of your transactions are auto-matched today vs. manual intervention?",
-                "How often do you have to restate cash positions due to timing errors?"
+                "Walk me through your morning routine—how many banking portals do you log into just to get the data to start your day?",
+                "What is the actual percentage of transactions that auto-match in your ERP today versus those you have to touch manually?",
+                "How frequently do you have to reopen a closed period or restate cash positions because of timing errors in cash application?"
             ]
         },
         deliverValue: {
@@ -122,8 +151,19 @@ const SKO_DATA = [
             metrics: ["3,000+ Hours Saved/Year", "99.9% Accuracy", "Shift to Analysis"]
         },
         roiCalculations: {
-             executive: "Cost of Error = (Frequency of Cash Restatements × Avg Correction Time × Rate) + Penalty Risks",
-             operational: "Productivity Gain = ((Manual Mins - Auto Mins) × Volume) / 60 mins"
+             executive: [],
+             operational: [
+                {
+                    label: "Productivity Gain",
+                    formula: ["( (Manual Mins - Auto Mins) × Volume )", "÷", "60 mins"],
+                    desc: "Total hours returned to the team by automating the high-volume transactional matching."
+                },
+                {
+                    label: "Error Remediation Savings",
+                    formula: ["Errors per Month", "×", "Avg Time to Investigate & Fix", "×", "Hourly Rate"],
+                    desc: "Cost avoidance of fixing manual data entry errors and misapplied cash."
+                }
+             ]
         }
     }
   },
@@ -161,26 +201,37 @@ const SKO_DATA = [
             metrics: ["10-Day Close to 4-Day Close", "70% Auto-Certification", "Audit Fee Reduction"]
         },
         roiCalculations: {
-            executive: "Period Close Savings = (Days Reduced × Daily Burn Rate of Finance Dept) + (Audit Fee Reduction %)",
-            operational: "Automation ROI = (Total JEs × % Auto-Certifiable × Mins per JE) × Hourly Rate"
+            executive: [
+                {
+                    label: "Period Close Hard Savings",
+                    formula: ["Days Reduced", "×", "Daily Burn Rate of Finance Dept"],
+                    desc: "Direct savings from reducing the number of days the entire department is locked in 'close mode'."
+                },
+                {
+                    label: "Audit Fee Reduction",
+                    formula: ["Total External Audit Fees", "×", "% Reduction (Typically 10-20%)"],
+                    desc: "Negotiated savings derived from providing auditors self-service access and cleaner data."
+                }
+            ],
+            operational: []
         }
     },
     operationalPov: {
         createValue: {
-            title: "Late Nights & Spreadsheets",
+            title: "Late Nights & Broken Spreadsheets",
             focus: "Work-Life Balance",
             pains: [
-                "Chronic overtime during month-end close leading to burnout and fatigue.",
-                "Dependency on fragile, version-controlled spreadsheets that break easily.",
-                "Fear of failing audits due to missing documentation or broken links."
+                "The month-end close involves chronic overtime, late nights, and weekends, leading to exhaustion and low morale across the team.",
+                "Heavy dependency on fragile, massive Excel files linked to other workbooks that break easily when a shared drive is moved or a file is renamed.",
+                "A pervasive fear of failing audits due to missing support documentation or broken links in the reconciliation files."
             ]
         },
         captureValue: {
             title: "Manual Fatigue",
             questions: [
-                "How many individual spreadsheets are required to close the books each month?",
-                "How much time do you spend chasing approvals via email?",
-                "What happens if the 'owner' of the master spreadsheet leaves the company?"
+                "Can you estimate how many individual spreadsheets are currently required just to close the books each month?",
+                "How much time do you spend emailing people to ask 'Are you done yet?' or chasing approvals for journal entries?",
+                "What typically happens to the process if the 'owner' of the master checklist calls in sick or leaves the company?"
             ]
         },
         deliverValue: {
@@ -193,8 +244,19 @@ const SKO_DATA = [
             metrics: ["Zero Overtime Close", "100% On-Time Completion", "Happy Teams"]
         },
         roiCalculations: {
-            executive: "Retention Savings = (Reduction in Burnout Turnover × Replacement Cost per FTE)",
-            operational: "Flux Analysis Savings = (Hours spent compiling variance reports) × Frequency × Hourly Rate"
+            executive: [],
+            operational: [
+                {
+                    label: "JE Automation ROI",
+                    formula: ["( Total JEs × % Auto-Certifiable )", "×", "Mins per JE", "×", "Hourly Rate"],
+                    desc: "Time savings from journals that are created and posted automatically without human touch."
+                },
+                {
+                    label: "Flux Analysis Speed",
+                    formula: ["Hours spent compiling variance reports", "×", "Frequency", "×", "Hourly Rate"],
+                    desc: "Savings from system-generated variance explanations vs. manual data aggregation."
+                }
+            ]
         }
     }
   },
@@ -232,8 +294,19 @@ const SKO_DATA = [
             metrics: ["$150k Saved per Retained CPA", "Higher Engagement Scores", "Internal Promotion Rate"]
         },
         roiCalculations: {
-            executive: "Attrition Avoidance = (Total Finance Headcount × Reduction in Churn Rate) × (Cost to Hire + Onboarding Time)",
-            operational: "Onboarding Velocity = Reduction in months to full productivity × Monthly Salary"
+            executive: [
+                {
+                    label: "Attrition Avoidance",
+                    formula: ["( Total Finance Headcount × Reduction in Churn Rate )", "×", "Avg Replacement Cost"],
+                    desc: "Direct savings on recruiting fees, temp agencies, and lost productivity during vacancy."
+                },
+                {
+                    label: "Onboarding Efficiency",
+                    formula: ["New Hires per Year", "×", "Reduction in Ramp Time (Months)", "×", "Monthly Salary"],
+                    desc: "Value of getting new accountants to full productivity faster via standardized workflows."
+                }
+            ],
+            operational: []
         }
     },
     operationalPov: {
@@ -241,17 +314,17 @@ const SKO_DATA = [
             title: "Career Stagnation",
             focus: "Professional Growth",
             pains: [
-                "Feeling like a 'data janitor' rather than a financial analyst.",
-                "Lack of visibility into the bigger picture due to siloed spreadsheet work.",
-                "Resume obsolescence by working on legacy manual processes."
+                "Feeling like a 'data janitor' rather than a financial analyst, spending all day cleaning data instead of interpreting it.",
+                "Lack of visibility into the bigger financial picture because you are stuck in siloed spreadsheet work.",
+                "Fear of resume obsolescence because you are mastering manual processes while peers are mastering automation tools."
             ]
         },
         captureValue: {
             title: "Skill Utilization",
             questions: [
-                "How much of your day is spent using the CPA skills you studied for?",
-                "Do you have time to learn the business, or are you just processing transactions?",
-                "Would you recommend this specific role to a peer?"
+                "What percentage of your work week is spent using the actual CPA analysis skills you studied for?",
+                "Do you have time to learn the business operations, or are you just processing transactions to meet a deadline?",
+                "Would you enthusiastically recommend your specific daily role to a peer at another company?"
             ]
         },
         deliverValue: {
@@ -264,8 +337,19 @@ const SKO_DATA = [
             metrics: ["Promotion Velocity", "Skill Acquisition", "Job Satisfaction"]
         },
         roiCalculations: {
-            executive: "Cultural ROI = Improvement in Employee Net Promoter Score (eNPS) mapped to Productivity",
-            operational: "Manual Hours Converted = Total hours shifted from data entry to FP&A support"
+            executive: [],
+            operational: [
+                {
+                    label: "Manual Hours Converted",
+                    formula: ["Total hours shifted from data entry", "→", "FP&A Support Analysis"],
+                    desc: "A qualitative measure of how much capacity is shifted from low-value to high-value work."
+                },
+                {
+                    label: "Overtime Reduction",
+                    formula: ["Avg Overtime Hours per Close", "×", "Overtime Hourly Rate", "×", "12 Months"],
+                    desc: "Direct personal value in terms of work-life balance and reduced burnout."
+                }
+            ]
         }
     }
   },
@@ -303,26 +387,37 @@ const SKO_DATA = [
             metrics: ["Reduced TSA Costs", "Faster Synergy Capture", "Lower Integration Risk"]
         },
         roiCalculations: {
-             executive: "TSA Savings = (Monthly TSA Fee × Months Reduced) + (Risk Mitigation Value)",
-             operational: "Integration Efficiency = Reduction in FTE hours required to map/consolidate external trial balances"
+             executive: [
+                {
+                    label: "TSA Exit Savings",
+                    formula: ["Monthly TSA Fee", "×", "Months Reduced via Early Integration"],
+                    desc: "Hard dollar savings from ending Transition Service Agreements ahead of schedule."
+                },
+                {
+                    label: "Synergy Acceleration",
+                    formula: ["Annual Synergy Value", "×", "( Months Accelerated / 12 )"],
+                    desc: "Cash value of realizing deal synergies (cost cuts/revenue) earlier in the fiscal year."
+                }
+             ],
+             operational: []
         }
     },
     operationalPov: {
         createValue: {
-            title: "Data Chaos",
+            title: "Data Integration Chaos",
             focus: "System Fragmentation",
             pains: [
-                "Manually consolidating trial balances from completely different ERP systems.",
-                "Mapping charts of accounts in massive, crash-prone Excel files.",
-                "Chasing acquired employees for data via email without established relationships."
+                "Manually consolidating trial balances from completely different ERP systems into a master sheet is error-prone and stressful.",
+                "Mapping charts of accounts in massive, crash-prone Excel files that only one person understands.",
+                "Chasing acquired employees for data via email without established relationships or authority."
             ]
         },
         captureValue: {
             title: "Mapping Fatigue",
             questions: [
-                "How many different ERPs are you currently extracting data from?",
-                "How long does the monthly consolidation mapping process take?",
-                "How do you handle historical data from the acquired entity?"
+                "How many different ERPs are you currently extracting data from to build the consolidated pack?",
+                "How long does the monthly consolidation mapping process take you personally?",
+                "How do you currently handle historical data access from the acquired entity?"
             ]
         },
         deliverValue: {
@@ -335,8 +430,19 @@ const SKO_DATA = [
             metrics: ["Unified Close Calendar", "Standardized Reporting", "Reduced Mapping Errors"]
         },
         roiCalculations: {
-            executive: "Synergy Acceleration = Value of synergies realized in Year 1 vs Year 2",
-            operational: "Consolidation Speed = Hours saved per month on intercompany matching and elimination"
+            executive: [],
+            operational: [
+                {
+                    label: "Consolidation Efficiency",
+                    formula: ["( Manual Map Hours - Auto Map Hours )", "×", "Hourly Rate"],
+                    desc: "Hours saved per month on intercompany matching and trial balance mapping."
+                },
+                {
+                    label: "Data Cleanup Avoidance",
+                    formula: ["Historical Data Corrections", "×", "Avg Time per Correction"],
+                    desc: "Time saved by mapping historical data once vs. cleaning it up monthly."
+                }
+            ]
         }
     }
   },
@@ -374,26 +480,37 @@ const SKO_DATA = [
             metrics: ["FP&A Support Ratio", "New Revenue Support", "Scenario Modeling Speed"]
         },
         roiCalculations: {
-            executive: "Strategic Lift = (Hours Shifted to FP&A) × (Value of Strategic Decisions - Cost of Analysis)",
-            operational: "Scalability Factor = % Volume Increase manageable with Zero Headcount Addition"
+            executive: [
+                {
+                    label: "Strategic Lift",
+                    formula: ["Hours Shifted to FP&A", "×", "( Value of Decision - Cost of Analysis )"],
+                    desc: "Economic value generated by shifting finance resources to high-value scenario modeling."
+                },
+                {
+                    label: "Scalability Factor",
+                    formula: ["( Volume Increase % )", "×", "Zero Headcount Cost"],
+                    desc: "Cost avoidance of not hiring additional staff despite transaction volume growth."
+                }
+            ],
+            operational: []
         }
     },
     operationalPov: {
         createValue: {
-            title: "Firefighting Mode",
+            title: "Permanent Firefighting Mode",
             focus: "Proactive vs Reactive",
             pains: [
-                "Constantly fixing broken data leaving no time for improvement projects.",
-                "Saying 'no' to business partners because there is no bandwidth.",
-                "Using 'last year's spreadsheet' because building a new model is too hard."
+                "Constantly fixing broken data from the previous month leaves absolutely no time for process improvement projects.",
+                "Forced to say 'no' to business partners asking for help because there is simply no bandwidth available.",
+                "Relying on 'last year's spreadsheet' because building a new, better model is too hard and time-consuming."
             ]
         },
         captureValue: {
-            title: "Bandwidth constraints",
+            title: "Bandwidth Constraints",
             questions: [
-                "When was the last time you improved a process vs. just executing it?",
-                "Do you understand the commercial drivers behind the numbers you report?",
-                "What analysis would you do if you had an extra day every week?"
+                "When was the last time you successfully improved a process versus just executing the existing one?",
+                "Do you have time to understand the commercial drivers behind the numbers, or just report them?",
+                "What specific analysis or project would you tackle if you were gifted an extra day every week?"
             ]
         },
         deliverValue: {
@@ -406,8 +523,19 @@ const SKO_DATA = [
             metrics: ["Process Optimization Projects", "Revenue Insights Delivered", "Agile Response"]
         },
         roiCalculations: {
-             executive: "Innovation Capacity = Total FTE hours liberated for 'Run the Business' vs 'Change the Business' tasks",
-             operational: "Project Throughput = Number of improvement projects completed per quarter"
+             executive: [],
+             operational: [
+                {
+                    label: "Project Throughput",
+                    formula: ["Improvement Projects Completed", "vs", "Baseline"],
+                    desc: "Increase in the number of optimization projects completed per quarter."
+                },
+                {
+                    label: "Analysis Ratio",
+                    formula: ["Time Analyzing", "÷", "Time Compiling"],
+                    desc: "Shift in ratio from 20/80 (Analysis/Prep) to 80/20."
+                }
+             ]
         }
     }
   },
@@ -445,8 +573,19 @@ const SKO_DATA = [
             metrics: ["Zero Material Weaknesses", "Reduced Audit Hours", "Lower Insurance Premiums"]
         },
         roiCalculations: {
-             executive: "Audit Savings = (Auditor Hourly Rate × Hours Saved) + (Reduction in Internal Control Testing Costs)",
-             operational: "PBC Efficiency = Reduction in hours spent gathering 'Provided by Client' lists"
+             executive: [
+                {
+                    label: "Fine Avoidance Value",
+                    formula: ["Revenue Exposure", "×", "Regulatory Fine Rate", "×", "Probability"],
+                    desc: "Statistical value of avoiding regulatory fines (e.g., GDPR, SOX, Industry Specific)."
+                },
+                {
+                    label: "Audit Savings",
+                    formula: ["( Auditor Rate × Hours Saved )", "+", "Internal Testing Cost Reduction"],
+                    desc: "Reduction in fees paid to external auditors and internal labor for control testing."
+                }
+             ],
+             operational: []
         }
     },
     operationalPov: {
@@ -454,17 +593,17 @@ const SKO_DATA = [
             title: "Audit Season Panic",
             focus: "Documentation Burden",
             pains: [
-                "Scrambling to find supporting documents from 9 months ago.",
-                "Auditors camping out in conference rooms asking the same questions repeatedly.",
-                "Stress of 'proving' work that you know was done correctly."
+                "Scrambling to find supporting documents (invoices, emails, PDFs) from 9 months ago when the auditor asks.",
+                "Auditors camping out in conference rooms asking the same questions repeatedly, distracting you from your day job.",
+                "The intense stress of having to 'prove' work that you know was done correctly but wasn't perfectly documented."
             ]
         },
         captureValue: {
             title: "Evidence Gap",
             questions: [
-                "How do you currently store supporting documentation for journal entries?",
-                "Can you prove who approved a reconciliation and exactly when they did it?",
-                "How painful is the quarterly PBC (Provided by Client) list generation?"
+                "How do you currently store supporting documentation for journal entries? Is it a shared drive or email folder?",
+                "Can you definitively prove who approved a reconciliation and exactly when they did it (time/date stamp)?",
+                "How painful is the quarterly PBC (Provided by Client) list generation process for your team?"
             ]
         },
         deliverValue: {
@@ -477,8 +616,19 @@ const SKO_DATA = [
             metrics: ["No Scramble Close", "Instant Retrieve", "Trust in Data"]
         },
         roiCalculations: {
-            executive: "Risk Avoidance = Value of avoiding stock price drop associated with material weakness (Approx 5-15% market cap)",
-            operational: "Testing Speed = Time to test key controls manually vs. automated testing"
+            executive: [],
+            operational: [
+                {
+                    label: "PBC Efficiency",
+                    formula: ["Hours spent gathering 'Provided by Client' lists", "×", "Hourly Rate"],
+                    desc: "Time saved by auditors self-serving documents instead of asking staff."
+                },
+                {
+                    label: "Control Testing Speed",
+                    formula: ["Manual Test Time", "vs", "Automated Test Time"],
+                    desc: "Reduction in hours spent manually testing key controls for SOX compliance."
+                }
+            ]
         }
     }
   },
@@ -516,8 +666,19 @@ const SKO_DATA = [
             metrics: ["Daily Insights", "Faster Course Correction", "Data Trust Index"]
         },
         roiCalculations: {
-            executive: "Decision Value = (Revenue Impact of Faster Course Correction) + (Avoidance of Bad Spend)",
-            operational: "Reporting Speed = Reduction in days from period-end to management report distribution"
+            executive: [
+                {
+                    label: "Decision Value",
+                    formula: ["Revenue Impact of Course Correction", "+", "Avoidance of Bad Spend"],
+                    desc: "Value of pivoting budget allocation mid-quarter based on real-time actuals."
+                },
+                {
+                    label: "Working Capital Optimization",
+                    formula: ["Avg Daily Cash Balance", "×", "Yield Improvement %"],
+                    desc: "Interest income gained by having accurate daily cash positioning."
+                }
+            ],
+            operational: []
         }
     },
     operationalPov: {
@@ -525,17 +686,17 @@ const SKO_DATA = [
             title: "Black Box Accounting",
             focus: "Visibility",
             pains: [
-                "Waiting until day 5 of the close to see the preliminary results.",
-                "Surprise adjustments that kill variance explanations at the last minute.",
-                "Blind spots in intercompany transactions until consolidation runs."
+                "Waiting until day 5 of the close to see the preliminary results, leaving no time to analyze them.",
+                "Surprise adjustments that kill variance explanations at the very last minute.",
+                "Blind spots in intercompany transactions that remain hidden until the final consolidation run."
             ]
         },
         captureValue: {
             title: "Blind Spots",
             questions: [
-                "How often do you find a material error after the books are 'closed'?",
-                "Can you see the impact of a large transaction on the P&L immediately?",
-                "Do you have to wait for overnight batch jobs to see your results?"
+                "How often do you find a material error after the books are technically 'closed'?",
+                "Can you see the impact of a large transaction on the P&L immediately, or must you wait for a batch job?",
+                "Do you have to wait for overnight processes to see if your work posted correctly?"
             ]
         },
         deliverValue: {
@@ -548,8 +709,19 @@ const SKO_DATA = [
             metrics: ["Zero Post-Close Adjustments", "Confident Reporting", "Trend Spotting"]
         },
         roiCalculations: {
-            executive: "Strategic Agility = Qualitative value of being able to pivot budget allocation mid-quarter",
-            operational: "Analysis Time = % of time spent analyzing trends vs. compiling data"
+            executive: [],
+            operational: [
+                {
+                    label: "Reporting Speed",
+                    formula: ["Days from Period End", "to", "Mgmt Report Distribution"],
+                    desc: "Reduction in lag time between work completion and insight delivery."
+                },
+                {
+                    label: "Ad-Hoc Query Time",
+                    formula: ["Avg Time to Answer CFO Question", "×", "Queries per Month"],
+                    desc: "Time saved by having instant drill-down access to transaction details."
+                }
+            ]
         }
     }
   },
@@ -587,31 +759,42 @@ const SKO_DATA = [
             metrics: ["Lower Cost of Capital", "Investor Premium", "Board Confidence"]
         },
         roiCalculations: {
-            executive: "Valuation Protection = Prevention of market cap erosion (Restatements typically cost 8-15% of value)",
-            operational: "Fraud Loss Prevention = Estimated annual loss (typically 5% of revenue) × % Mitigation"
+            executive: [
+                {
+                    label: "Valuation Protection",
+                    formula: ["Market Cap", "×", "Restatement Risk Factor (8-15%)"],
+                    desc: "Avoidance of shareholder value destruction caused by financial restatements."
+                },
+                {
+                    label: "Cost of Capital",
+                    formula: ["Total Debt", "×", "Basis Point Reduction (Credit Rating)"],
+                    desc: "Lower borrowing costs achieved through higher governance ratings and audit cleanliness."
+                }
+            ],
+            operational: []
         }
     },
     operationalPov: {
         createValue: {
-            title: "Data Anxiety",
+            title: "Data Integrity Anxiety",
             focus: "Accuracy Pressure",
             pains: [
-                "Lying awake at night wondering if a formula error messed up the results.",
-                "Pressure to sign off on numbers without being able to verify the details.",
-                "Fear of being the one who made the mistake that creates a material error."
+                "Lying awake at night wondering if a broken formula in a linked spreadsheet messed up the final results.",
+                "Immense pressure to sign off on numbers without being able to verify the underlying details personally.",
+                "Fear of being the one who made the manual mistake that creates a material error for the company."
             ]
         },
         captureValue: {
             title: "Verification Gap",
             questions: [
-                "Do you manually check every cell in your spreadsheets for broken formulas?",
-                "How do you know if someone changed a number after you approved it?",
-                "Can you verify the source of every number on the balance sheet?"
+                "Do you manually check every cell in your spreadsheets for broken formulas before signing off?",
+                "How do you know if someone changed a number in the file after you approved it?",
+                "Can you verify the source of every number on the balance sheet within 5 minutes?"
             ]
         },
         deliverValue: {
             title: "Systemic Integrity",
-            capabilities: ["Automated flux", "Version Control", "Locked-Down Workflows"],
+            capabilities: ["Automated Flux", "Version Control", "Locked-Down Workflows"],
             proofPoints: ["Audit-Proof Data", "Sign-Off Confidence", "Error Detection"]
         },
         justifyValue: {
@@ -619,8 +802,19 @@ const SKO_DATA = [
             metrics: ["Zero Restatements", "100% Policy Adherence", "Sleep at Night"]
         },
         roiCalculations: {
-            executive: "Cost of Capital = Improvement in credit rating/borrowing costs due to cleaner audits",
-            operational: "Error Correction Costs = Time spent restating financials or correcting period-end errors"
+            executive: [],
+            operational: [
+                {
+                    label: "Fraud Loss Prevention",
+                    formula: ["Est. Annual Loss (5% Rev)", "×", "% Mitigation Factor"],
+                    desc: "Reduction in risk of internal fraud through automated controls and segregation of duties."
+                },
+                {
+                    label: "Error Remediation",
+                    formula: ["Time spent restating financials", "or", "Correcting Period-End Errors"],
+                    desc: "Hours saved by preventing errors at the source rather than fixing them later."
+                }
+            ]
         }
     }
   },
@@ -658,26 +852,37 @@ const SKO_DATA = [
             metrics: ["AI Adoption Rate", "Forecast Accuracy", "Tech Debt Reduction"]
         },
         roiCalculations: {
-            executive: "AI Multiplier = (Value of Predictive Insights) - (Cost of Data Cleaning)",
-            operational: "Automation Scale = Number of processes automated via AI agents vs. manual scripting"
+            executive: [
+                {
+                    label: "AI Multiplier",
+                    formula: ["( Value of Predictive Insights )", "-", "( Cost of Data Cleaning )"],
+                    desc: "Net value of faster, more accurate forecasts enabled by clean, standardized data."
+                },
+                {
+                    label: "Tech Stack Efficiency",
+                    formula: ["Legacy Tool License Costs", "+", "Maintenance Labor Savings"],
+                    desc: "Savings from retiring fragmented point solutions in favor of a unified platform."
+                }
+            ],
+            operational: []
         }
     },
     operationalPov: {
         createValue: {
-            title: "Manual Data Prep",
+            title: "Manual Data Preparation",
             focus: "Data Quality",
             pains: [
-                "Spending 80% of time cleaning data and only 20% analyzing it.",
-                "Dealing with duplicate vendors, inconsistent naming, and dirty data.",
-                "Frustration with 'dumb' systems that don't learn from past corrections."
+                "Spending 80% of time cleaning and formatting data and only 20% actually analyzing it.",
+                "Dealing with duplicate vendors, inconsistent naming conventions, and dirty data from upstream systems.",
+                "Frustration with 'dumb' legacy systems that do not learn from past corrections and repeat errors."
             ]
         },
         captureValue: {
             title: "Garbage In, Garbage Out",
             questions: [
-                "How often do you have to correct the same error month over month?",
-                "Can you trust the automated suggestions from your ERP?",
-                "Are you manually categorizing thousands of transactions?"
+                "How often do you have to correct the exact same error month over month?",
+                "Can you trust the automated suggestions from your ERP, or do you double-check them all?",
+                "Are you manually categorizing thousands of transactions because the system can't figure them out?"
             ]
         },
         deliverValue: {
@@ -690,34 +895,22 @@ const SKO_DATA = [
             metrics: ["95% Prediction Accuracy", "Zero Manual Prep", "Augmented Capacity"]
         },
         roiCalculations: {
-            executive: "Tech Stack Efficiency = Reduction in legacy tools maintained due to AI consolidation",
-            operational: "Learning Curve = Time saved as system accuracy improves month-over-month (e.g. Month 1: 50% auto, Month 6: 90% auto)"
+            executive: [],
+            operational: [
+                {
+                    label: "Manual Class. Savings",
+                    formula: ["( Transactions × Manual Time )", "vs", "( AI Auto-Classification Time )"],
+                    desc: "Time saved by allowing AI to categorize high-volume, low-risk transactions."
+                },
+                {
+                    label: "Learning Curve Gain",
+                    formula: ["Improvement in Auto-Match %", "×", "Volume"],
+                    desc: "Compounding time savings as the system learns and improves accuracy month-over-month."
+                }
+            ]
         }
     }
   }
-];
-
-interface SkoExplainerProps {
-  onClose: () => void;
-  t: UIStrings;
-}
-
-// Define the precise order for the UX sequence here
-const ORDERED_IDS = [
-  // Cluster 1: P&L (Working Cap first, then Process)
-  'working_cap', 
-  'process',
-  
-  // Cluster 2: Acceleration (Innovation is 3rd)
-  'talent',
-  'ma',
-  'innovation', 
-  'compliance',
-  'decision',
-  
-  // Cluster 3: Enterprise Value
-  'trust',
-  'ai_ops'
 ];
 
 export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
@@ -763,6 +956,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   const plImpactDrivers = sortedDrivers.filter(d => ['working_cap', 'process'].includes(d.id));
   const accelerationDrivers = sortedDrivers.filter(d => ['talent', 'ma', 'innovation', 'compliance', 'decision'].includes(d.id));
   const valueDrivers = sortedDrivers.filter(d => ['trust', 'ai_ops'].includes(d.id));
+
+  // Split Acceleration Drivers for the 2-column layout
+  const accelDriversPart1 = accelerationDrivers.slice(0, 3); // Top 3
+  const accelDriversPart2 = accelerationDrivers.slice(3);    // Bottom 2
 
   // --- LANDING VIEW ---
   if (viewMode === 'landing') {
@@ -1113,6 +1310,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
     const IconComponent = (Icons as any)[activeDriver.icon] || Zap;
 
+    // Correctly type the ROI data structure
+    const roiData = pov.roiCalculations as any; 
+    const roiItems = activePov === 'executive' ? roiData.executive : roiData.operational;
+
     return (
       <div className="min-h-screen bg-black text-white animate-fade-in pb-40 md:scale-[0.8] md:origin-top overflow-visible">
         {/* Navigation Header */}
@@ -1145,276 +1346,4 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
               
               <div className="flex justify-center mb-16 md:mb-24">
-                 <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)] w-full md:w-auto">
-                    <button onClick={() => setActivePov('executive')} className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-6 rounded-2xl text-xs md:text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black shadow-2xl scale-105' : 'text-zinc-400 hover:text-zinc-200'}`}>Executive</button>
-                    <button onClick={() => setActivePov('operational')} className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-6 rounded-2xl text-xs md:text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black shadow-2xl scale-105' : 'text-zinc-400 hover:text-zinc-200'}`}>Operational</button>
-                 </div>
-              </div>
-           </div>
-        </div>
-
-        {/* Vertical Focused Content Stack */}
-        <div className="max-w-6xl mx-auto px-4 md:px-10 space-y-16 md:space-y-32 pb-20">
-           
-           {/* Phase 01: Create */}
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Layout size={200} className="md:w-[400px] md:h-[400px]" /></div>
-              <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
-                 <div className="w-2 h-2 md:w-3 md:h-3 bg-red-500 rounded-full animate-pulse"></div> Phase 01: Create Value
-              </h4>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.createValue.title}</h5>
-              <div className="mb-8 md:mb-10 py-2 md:py-3 px-4 md:px-6 bg-black/40 rounded-xl border border-red-500/20 inline-block w-fit">
-                 <span className="text-sm md:text-xl font-mono text-zinc-300">The Problem ("Why change?")</span>
-              </div>
-              <div className="space-y-6 md:space-y-12 mb-10 md:mb-16">
-                 {pov.createValue.pains.map((p, i) => (
-                    <div key={i} className="flex gap-4 md:gap-8 items-start text-zinc-200 text-lg md:text-3xl leading-relaxed">
-                       <span className="text-red-500 font-black text-2xl md:text-5xl mt-1">•</span>
-                       <p className="font-light">{p}</p>
-                    </div>
-                 ))}
-              </div>
-              <div className="pt-8 md:pt-12 border-t border-zinc-800/50">
-                 <p className="text-[10px] md:text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-4 md:mb-6">Strategic Focus Point</p>
-                 <p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov.createValue.focus}"</p>
-              </div>
-           </div>
-
-           {/* Phase 02: Capture */}
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Search size={200} className="md:w-[400px] md:h-[400px]" /></div>
-              <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
-                 <div className="w-2 h-2 md:w-3 md:h-3 bg-blue-500 rounded-full animate-pulse"></div> Phase 02: Capture Value
-              </h4>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-8 md:mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov.captureValue.title}</h5>
-              <div className="space-y-6 md:space-y-12 mb-10 md:mb-16">
-                 {pov.captureValue.questions.map((q, i) => (
-                    <div key={i} className="bg-black/30 border-l-4 md:border-l-8 border-blue-500/50 p-6 md:p-12 rounded-r-2xl md:rounded-r-3xl">
-                       <p className="text-xl md:text-4xl text-zinc-100 font-medium italic leading-relaxed">"{q}"</p>
-                    </div>
-                 ))}
-              </div>
-           </div>
-
-           {/* Phase 03: Deliver */}
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Zap size={200} className="md:w-[400px] md:h-[400px]" /></div>
-              <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
-                 <div className="w-2 h-2 md:w-3 md:h-3 bg-blackline-yellow rounded-full animate-pulse"></div> Phase 03: Deliver Value
-              </h4>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.deliverValue.title}</h5>
-              
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 md:gap-20 mt-8">
-                 <div>
-                    <span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-6 md:mb-10">Platform Activation</span>
-                    <div className="flex flex-wrap gap-3 md:gap-6">
-                       {pov.deliverValue.capabilities.map(c => (
-                          <span key={c} className="px-4 md:px-8 py-2 md:py-4 bg-black rounded-xl md:rounded-2xl border border-zinc-800 text-sm md:text-xl font-bold text-white shadow-lg">{c}</span>
-                       ))}
-                    </div>
-                 </div>
-                 <div>
-                    <span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-6 md:mb-10">Validated Proof Points</span>
-                    <div className="space-y-4 md:space-y-8">
-                       {pov.deliverValue.proofPoints.map((p, i) => (
-                          <div key={i} className="flex items-center gap-4 md:gap-8 text-xl md:text-3xl font-black text-green-400 italic tracking-tighter uppercase leading-[0.9]">
-                             <CheckCircle2 size={24} className="shrink-0 md:w-10 md:h-10" /> <span>{p}</span>
-                          </div>
-                       ))}
-                    </div>
-                 </div>
-              </div>
-           </div>
-
-           {/* Phase 04: Justify */}
-           <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><TrendingUp size={200} className="md:w-[400px] md:h-[400px]" /></div>
-              <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
-                 <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full animate-pulse"></div> Phase 04: Justify Value
-              </h4>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.justifyValue.title}</h5>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-10 mt-8">
-                 {pov.justifyValue.metrics.slice(0, 4).map((m, i) => (
-                    <div key={i} className="p-8 md:p-12 bg-black/50 rounded-[2rem] md:rounded-[3rem] border border-zinc-800 hover:border-green-500/40 transition-all shadow-xl group/metric">
-                       <p className="text-2xl md:text-4xl font-black text-white tracking-tight leading-[1.1] group-hover/metric:text-green-400 transition-colors italic">{m}</p>
-                    </div>
-                 ))}
-              </div>
-           </div>
-
-           {/* Phase 05: ROI & Realization (NEW ADDITION) */}
-           <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden group min-h-[500px] md:min-h-[700px] flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity"><Calculator size={200} className="md:w-[400px] md:h-[400px]" /></div>
-              <h4 className="text-purple-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] mb-8 md:mb-12 flex items-center gap-4 md:gap-6">
-                 <div className="w-2 h-2 md:w-3 md:h-3 bg-purple-500 rounded-full animate-pulse"></div> Phase 05: Quantify the Win
-              </h4>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">ROI & Realization</h5>
-              
-              <div className="grid grid-cols-1 gap-10 mt-8">
-                 {/* Executive Formula */}
-                 <div className="bg-zinc-800/50 border-l-4 border-purple-500 p-8 md:p-12 rounded-r-[2rem]">
-                    <h6 className="text-purple-400 font-black text-xs md:text-sm uppercase tracking-[0.2em] mb-4">Executive Calculation</h6>
-                    <p className="text-xl md:text-3xl text-white font-mono leading-relaxed">{pov.roiCalculations?.executive}</p>
-                 </div>
-                 
-                 {/* Operational Formula */}
-                 <div className="bg-zinc-800/50 border-l-4 border-zinc-500 p-8 md:p-12 rounded-r-[2rem]">
-                    <h6 className="text-zinc-400 font-black text-xs md:text-sm uppercase tracking-[0.2em] mb-4">Operational Calculation</h6>
-                    <p className="text-xl md:text-3xl text-zinc-300 font-mono leading-relaxed">{pov.roiCalculations?.operational}</p>
-                 </div>
-              </div>
-           </div>
-
-        </div>
-
-        {/* BOTTOM POV SWITCHER */}
-        <div className="max-w-6xl mx-auto px-4 md:px-10 pb-20 md:pb-40">
-           <div className="flex flex-col items-center">
-              <div className="h-px bg-zinc-800 w-full mb-10 md:mb-20 opacity-50"></div>
-              <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mb-8">Switch Perspective</p>
-              <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)] w-full md:w-auto">
-                 <button onClick={() => setActivePov('executive')} className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-6 rounded-2xl text-xs md:text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black shadow-2xl scale-105' : 'text-zinc-400 hover:text-zinc-200'}`}>Executive</button>
-                 <button onClick={() => setActivePov('operational')} className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-6 rounded-2xl text-xs md:text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black shadow-2xl scale-105' : 'text-zinc-400 hover:text-zinc-200'}`}>Operational</button>
-              </div>
-           </div>
-        </div>
-
-        {/* Global Floating Controls */}
-        <div className="fixed bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-50 flex gap-4 md:gap-8 no-print w-full px-4 justify-center">
-            <button onClick={handlePrevDriver} className="flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-6 px-6 md:px-14 py-4 md:py-8 bg-zinc-900 border border-zinc-800 text-white rounded-full font-black uppercase tracking-tighter italic hover:bg-zinc-800 transition-all shadow-2xl text-xs md:text-sm"><ChevronLeft size={16} className="md:w-8 md:h-8" /> Prev</button>
-            <button onClick={handleNextDriver} className="flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-6 px-6 md:px-16 py-4 md:py-8 bg-blackline-yellow text-black rounded-full font-black uppercase tracking-tighter italic hover:scale-105 transition-all shadow-2xl border-4 border-black text-xs md:text-sm">Next <ChevronRight size={16} className="md:w-8 md:h-8" /></button>
-        </div>
-      </div>
-    );
-  }
-
-  // --- NEXT STEPS VIEW ---
-  if (viewMode === 'letsgo_bva') {
-    return (
-      <div className="min-h-screen bg-black text-white animate-fade-in pb-32">
-        <div className="max-w-5xl mx-auto px-4 md:px-6 pt-10 md:pt-16">
-           <div className="flex justify-between items-center mb-10 md:mb-16">
-              <button onClick={() => setViewMode('grid')} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-bold uppercase tracking-wider text-xs">
-                 <ArrowLeft size={16} /> Back
-              </button>
-              <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors">
-                 <X size={24} />
-              </button>
-           </div>
-           <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter uppercase mb-4 md:mb-6">#LETSGO <span className="text-blackline-yellow">GET</span></h2>
-              <p className="text-lg md:text-2xl text-zinc-200 font-light max-w-2xl mx-auto uppercase tracking-tighter italic">Strategic Next Steps for 2026</p>
-           </div>
-           <div className="space-y-8 md:space-y-12">
-              <PhaseCard step="01" title="Align to and execute golden engagement" label="Strategic Methodology" color="blackline-yellow" desc="Ensure we pivot from technical features to strategic certainty at every turn of the deal cycle." />
-              <PhaseCard step="02" title="Work with management to flag top pursuits" label="Resource Allocation" color="blue-500" desc="Flag top pursuits for 2026 so the presales and value engineering team can start working immediately." />
-              <PhaseCard step="03" title="Engage in follow up enablement in Q1" label="Continuous Mastery" color="green-500" desc="Deep-dive sessions focusing on specific industry narratives arrive in Q1." />
-           </div>
-           <div className="mt-16 md:mt-24 p-8 md:p-12 bg-zinc-900 border border-zinc-800 rounded-[2rem] md:rounded-[3rem] text-center relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10"><Trophy size={160} /></div>
-              <h3 className="text-2xl md:text-4xl font-black text-white mb-6 uppercase italic tracking-tighter">Mission Ready?</h3>
-              <p className="text-zinc-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Talk tracks mastered. Now go get the value.</p>
-              <button onClick={onClose} className="w-full md:w-auto px-12 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 shadow-2xl uppercase tracking-tighter italic border-4 border-black">Return to Analysis Suite</button>
-           </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
-};
-
-// --- HELPER COMPONENTS ---
-
-const SimplePersonaCard: React.FC<{ role: string, icon: any, nightmare: string, aspiration: string }> = ({ role, icon: Icon, nightmare, aspiration }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] hover:border-zinc-500 transition-all flex flex-col h-full group shadow-xl">
-     <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
-        <div className="p-3 md:p-4 bg-black rounded-2xl border border-zinc-800 group-hover:bg-blackline-yellow group-hover:text-black transition-all shrink-0">
-           <Icon size={24} className="md:w-9 md:h-9" />
-        </div>
-        <h4 className="text-white font-black text-lg md:text-2xl uppercase tracking-wider leading-tight">{role}</h4>
-     </div>
-     <div className="space-y-6 md:space-y-8 flex-grow">
-        <div className="space-y-2 md:space-y-3">
-           <p className="text-[10px] font-black text-green-500 uppercase tracking-[0.4em] flex items-center gap-3">
-              <Stars size={16} /> Aspiration
-           </p>
-           <p className="text-sm md:text-lg text-zinc-100 leading-relaxed font-bold">"{aspiration}"</p>
-        </div>
-        <div className="space-y-2 md:space-y-3">
-           <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.4em] flex items-center gap-3">
-              <Ghost size={16} /> Nightmare
-           </p>
-           <p className="text-sm md:text-lg text-zinc-100 leading-relaxed font-bold italic">"{nightmare}"</p>
-        </div>
-     </div>
-  </div>
-);
-
-const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, subtitle: string, formula: string, desc: string }> = ({ step, color, title, subtitle, formula, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-14 rounded-[2.5rem] md:rounded-[3.5rem] flex flex-col hover:border-zinc-500 transition-all shadow-xl group min-h-[300px] md:min-h-[450px]">
-     <div className={`w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-6 md:mb-8 font-black text-2xl md:text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
-     <h4 className="text-2xl md:text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
-     <p className={`text-${color} text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-4`}>{subtitle}</p>
-     
-     <div className="mb-6 md:mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit">
-        <span className="text-xs md:text-sm font-mono text-zinc-200 flex items-center gap-2">
-           {formula}
-        </span>
-     </div>
-
-     <p className="text-lg md:text-2xl text-zinc-100 leading-relaxed font-light whitespace-pre-line">{desc}</p>
-  </div>
-);
-
-// Modified Driver Card for Horizontal Layouts (Shorter height)
-const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => void }> = ({ driver, onSelect }) => {
-   // @ts-ignore
-   const IconComponent = Icons[driver.icon] || Zap;
-   return (
-      <div className="group relative w-full rounded-[2rem] overflow-hidden border border-zinc-800 transition-all duration-500 hover:-translate-y-2 shadow-2xl bg-zinc-900">
-         <div className="absolute inset-0 z-0">
-            <img src={DRIVER_IMAGES[driver.id] || DRIVER_IMAGES.process} alt={driver.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-30 group-hover:opacity-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-         </div>
-         <div className="relative z-10 p-6 md:p-8 flex flex-col text-left h-full">
-            <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 bg-zinc-900/80 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-zinc-700 group-hover:border-blackline-yellow transition-colors shrink-0">
-                  <IconComponent size={24} className="md:w-6 md:h-6" strokeWidth={1.5} />
-               </div>
-            </div>
-            
-            <h3 className="text-xl md:text-2xl font-black text-white mb-2 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">{driver.title}</h3>
-            {/* Removed summary text to save vertical space */}
-            
-            <button 
-               onClick={() => onSelect(driver.id)}
-               className="w-full py-3 bg-white/5 border border-white/10 text-white rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-blackline-yellow hover:text-black hover:border-blackline-yellow transition-all flex items-center justify-center gap-2 mt-auto"
-            >
-               <HelpCircle size={14} /> Explain Driver
-            </button>
-         </div>
-      </div>
-   );
-};
-
-const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ title, subtitle }) => (
-    <div className="flex flex-col items-center text-center gap-2 mb-2">
-       <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4 italic text-center leading-tight">
-          <div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>
-       </h3>
-       <p className="text-xs md:text-sm font-bold text-zinc-200 uppercase tracking-widest px-2">{subtitle}</p>
-    </div>
-);
-
-const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-6 md:p-10 rounded-[2rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
-     <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
-     <div className="text-6xl md:text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
-     <h3 className="text-2xl md:text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
-     <p className={`text-${color} text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
-     <div className="h-px bg-zinc-800 w-full mb-6"></div>
-     <p className="text-zinc-100 leading-relaxed text-base md:text-lg font-medium">{desc}</p>
-  </div>
-);
+                 <div className="bg-zinc-900 p-2 rounded-
