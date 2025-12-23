@@ -11,7 +11,7 @@ import {
   FileText,
   User
 } from 'lucide-react';
-import { AnalysisResult, ValueDriverSelection, UIStrings, Persona, SkoDriverDetail } from '../types';
+import { AnalysisResult, ValueDriverSelection, UIStrings, Persona } from '../types';
 import { SKO_DATA } from '../constants'; // Importing the single source of truth
 
 interface AnalysisResultsProps {
@@ -55,15 +55,19 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
 
         // --- INTELLIGENT PERSONA MAPPING ---
         // Determine if the selected persona is Executive or Operational to pull the right insights
-        const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona.id);
+        // We check the ID or the Group from the persona object
+        const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona.id) || selectedPersona.group === 'Executive';
         
         // Get the specific POV content based on the tier
         const povContent = isExecutive ? driverDetail.executivePov : driverDetail.operationalPov;
         const personaList = isExecutive ? driverDetail.personas?.executive : driverDetail.personas?.operational;
 
-        // Try to find a specific match for the role (e.g. "CFO") in the driver data, otherwise default to the first one
+        // Try to find a specific match for the role (e.g. "CFO") in the driver data, otherwise default to the first one available
         // This makes the "Aspiration" and "Nightmare" highly specific
-        const matchedPersona = personaList?.find(p => p.role?.toLowerCase().includes(selectedPersona.name.split(' ')[0].toLowerCase())) || personaList?.[0];
+        const matchedPersona = personaList?.find(p => 
+            p.role?.toLowerCase().includes(selectedPersona.name.split(' ')[0].toLowerCase()) || 
+            selectedPersona.name.toLowerCase().includes(p.role?.toLowerCase() || '')
+        ) || personaList?.[0];
 
         // Build the narrative
         // We use the "Create Value" title and "Capture Value" questions to build a dynamic summary
@@ -137,6 +141,14 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
           const driverInfo = SKO_DATA.find(d => d.id === result.driverId);
           if (!driverInfo) return null;
 
+          // Determine Persona data for display
+          const isExecutive = ['cfo', 'cao', 'vp_finance', 'cio'].includes(selectedPersona.id) || selectedPersona.group === 'Executive';
+          const personaList = isExecutive ? driverInfo.personas?.executive : driverInfo.personas?.operational;
+          const matchedPersona = personaList?.find(p => 
+            p.role?.toLowerCase().includes(selectedPersona.name.split(' ')[0].toLowerCase()) || 
+            selectedPersona.name.toLowerCase().includes(p.role?.toLowerCase() || '')
+          ) || personaList?.[0];
+
           return (
             <div key={result.driverId} className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl animate-slide-up" style={{ animationDelay: `${index * 150}ms` }}>
               
@@ -144,10 +156,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
               <div className="bg-zinc-950 p-8 border-b border-zinc-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                  <div className="flex items-center gap-6">
                     <div className="w-16 h-16 bg-zinc-900 rounded-2xl flex items-center justify-center border border-zinc-800 shadow-inner">
-                       {/* Placeholder for Dynamic Icon - mapped in constants */}
-                       <div className="text-blackline-yellow font-black text-2xl">
-                          {index + 1}
-                       </div>
+                       <span className="text-blackline-yellow font-black text-2xl">{index + 1}</span>
                     </div>
                     <div>
                        <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tight mb-2">
@@ -188,8 +197,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                              <AlertTriangle size={14} className="text-red-500" /> Key Risk
                           </h5>
                           <p className="text-zinc-300 font-medium">
-                             {/* Use the Nightmare from the mapped persona, or a fallback */}
-                             {driverInfo.personas?.executive[0]?.nightmare || "Operational inefficiency impacting margin."}
+                             {matchedPersona?.nightmare || "Operational inefficiency impacting margin."}
                           </p>
                        </div>
                        <div className="bg-black/40 p-6 rounded-2xl border border-zinc-800/50">
@@ -197,8 +205,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({
                              <TrendingUp size={14} className="text-green-500" /> Opportunity
                           </h5>
                           <p className="text-zinc-300 font-medium">
-                             {/* Use the Aspiration from the mapped persona, or a fallback */}
-                             {driverInfo.personas?.executive[0]?.aspiration || "Scalable growth without headcount."}
+                             {matchedPersona?.aspiration || "Scalable growth without headcount."}
                           </p>
                        </div>
                     </div>
