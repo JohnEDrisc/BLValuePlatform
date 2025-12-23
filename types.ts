@@ -1,5 +1,12 @@
 import { LucideIcon } from 'lucide-react';
 
+// Added ValueDriver to fix AnalysisResults build error
+export interface ValueDriver {
+  id: string;
+  value: string;
+  nameKey: string;
+}
+
 export interface ProductItem {
   id: string;
   name: string;
@@ -33,16 +40,16 @@ export interface BenchmarkCase {
   description: string;
 }
 
-// --- NEW/UPDATED INTERFACES FOR SKO ---
+// --- INTERFACES FOR SKO ---
 
 export interface Persona {
   id?: string;
-  name?: string; // Used in the global PERSONAS list
-  role?: string; // Used in SKO_DATA specifics
+  name?: string; 
+  role?: string; 
   icon: string;
   group?: string;
-  aspiration?: string; // Added for SKO Persona cards
-  nightmare?: string;  // Added for SKO Persona cards
+  aspiration?: string; 
+  nightmare?: string;  
 }
 
 export interface RoiItem {
@@ -90,6 +97,13 @@ export interface SkoDriverDetail {
   };
   executivePov: SkoPovContent;
   operationalPov: SkoPovContent;
+}
+
+export interface AnalysisResult {
+  driverId: string;
+  score: number;
+  summary: string;
+  recommendations: string[];
 }
 
 export interface UIStrings {
