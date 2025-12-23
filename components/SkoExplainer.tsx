@@ -628,6 +628,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
   }
 
+  // --- NEXT STEPS VIEW ---
   if (viewMode === 'letsgo_bva') {
     return (
       <div className="min-h-screen bg-black text-white animate-fade-in pb-32">
