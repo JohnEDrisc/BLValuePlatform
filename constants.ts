@@ -5,6 +5,24 @@ export const PRODUCTS: ProductItem[] = [
   { id: 'verity', name: 'Verity AI', category: 'Platform', icon: 'Sparkles' },
   { id: 'ar', name: 'Account Reconciliations', category: 'Financial Close', icon: 'FileCheck' },
   { id: 'tm', name: 'Transaction Matching', category: 'Financial Close', icon: 'GitMerge' },
+  { id: 'je', name: 'Journal Entry', category: 'Financial Close', icon: 'PenTool' },
+  { id: 'smart', name: 'Smart Close for SAP', category: 'Financial Close', icon: 'Zap' },
+  { id: 'aa', name: 'Account Analysis', category: 'Financial Close', icon: 'Search' },
+  { id: 'ra', name: 'Reporting & Analysis', category: 'Financial Close', icon: 'PieChart' },
+  { id: 'consol', name: 'Consolidation', category: 'Financial Close', icon: 'Building' },
+  { id: 'task', name: 'Task Management', category: 'Financial Close', icon: 'ListChecks' },
+  { id: 'comp', name: 'Compliance', category: 'Financial Close', icon: 'ShieldCheck' },
+  { id: 'jra', name: 'Journals Risk Analyser', category: 'Financial Close', icon: 'AlertTriangle' },
+  { id: 'ic_create', name: 'Create', category: 'Intercompany', icon: 'PlusSquare' },
+  { id: 'ic_br', name: 'Balance & Resolve', category: 'Intercompany', icon: 'Scale' },
+  { id: 'ic_ns', name: 'Net & Settle', category: 'Intercompany', icon: 'ArrowLeftRight' },
+  { id: 'einvoicing', name: 'eInvoicing & Payments', category: 'Invoice-to-Cash', icon: 'Receipt' },
+  { id: 'cashapp', name: 'Cash Application', category: 'Invoice-to-Cash', icon: 'DollarSign' },
+  { id: 'ai', name: 'AR Intelligence', category: 'Invoice-to-Cash', icon: 'Brain' },
+  { id: 'col', name: 'Collections Management', category: 'Invoice-to-Cash', icon: 'Users' },
+  { id: 'crm', name: 'Credit & Risk Management', category: 'Invoice-to-Cash', icon: 'Activity' },
+  { id: 'ttm', name: 'Team & Task Management', category: 'Invoice-to-Cash', icon: 'ClipboardList' },
+  { id: 'ddm', name: 'Disputes & Deductions Management', category: 'Invoice-to-Cash', icon: 'MessageCircleWarning' },
 ];
 
 export const INDUSTRIES = [
@@ -56,7 +74,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       operational: [{ id: 'controller', name: 'Controller', icon: 'ClipboardList', role: 'Controller', nightmare: 'Audit fire drill', aspiration: 'Zero Overtime Close' }]
     }
   },
-  // ... (Other drivers omitted for brevity)
+  // ... (Other SKO items implied)
 ];
 
 export const PERSONAS: Persona[] = [
@@ -70,6 +88,49 @@ export const PERSONAS: Persona[] = [
   { id: 'accounting_manager', name: 'Accounting Manager', icon: 'Users', group: 'Accounting' },
 ];
 
+// --- MISSING EXPORT RESTORED ---
+export const MOCK_BENCHMARK_DATA: BenchmarkCase[] = [
+  {
+    id: '1',
+    companyName: 'Global Auto Parts',
+    opportunityName: 'Finance Transformation 2025',
+    opportunityId: 'OPP-101',
+    industry: 'Manufacturing',
+    revenueBand: '$5B - $10B',
+    products: ['Account Reconciliations', 'Transaction Matching'],
+    primaryValueDriver: 'Process Efficiency',
+    roiMultiple: 4.5,
+    annualSavings: 2500000,
+    description: 'Automated 85% of bank reconciliations, reducing close cycle by 4 days.'
+  },
+  {
+    id: '2',
+    companyName: 'TechFlow Solutions',
+    opportunityName: 'Continuous Close Initiative',
+    opportunityId: 'OPP-202',
+    industry: 'Technology',
+    revenueBand: '$1B - $5B',
+    products: ['Journal Entry', 'Task Management'],
+    primaryValueDriver: 'Talent Retention',
+    roiMultiple: 3.2,
+    annualSavings: 1200000,
+    description: 'Reduced close-related overtime by 90%, significantly improving team morale.'
+  },
+  {
+    id: '3',
+    companyName: 'Stellar Retail',
+    opportunityName: 'Working Capital Optimization',
+    opportunityId: 'OPP-303',
+    industry: 'Retail',
+    revenueBand: '$10B+',
+    products: ['Cash Application', 'Collections Management'],
+    primaryValueDriver: 'Working Capital Optimization',
+    roiMultiple: 6.8,
+    annualSavings: 15000000,
+    description: 'Reduced DSO by 12 days, unlocking $15M in operational cash flow.'
+  }
+];
+
 export const SYSTEM_PROMPT = `You are a BlackLine Value Engineer.`;
 
 export const SUPPORTED_LANGUAGES = [
@@ -81,7 +142,6 @@ export const SUPPORTED_LANGUAGES = [
 
 export const UI_STRINGS: Record<string, Record<string, string>> = {
   EN: {
-    // --- APP STRINGS ---
     subtitle: 'Excellence',
     subtitle_bold: 'Quantified',
     hero_title: 'Measure What',
@@ -100,8 +160,12 @@ export const UI_STRINGS: Record<string, Record<string, string>> = {
     selected_scope: 'Selected Scope',
     new_analysis: 'New Analysis',
     new_btn_mobile: 'New',
-    
-    // --- CALCULATOR LABELS (These were missing!) ---
+    nav_help_title: 'Navigating results',
+    nav_help_text: 'Use the rail tools to chat with an AI assistant or pivot the industry context.',
+    strategic_drivers: 'Strategic Value Matrix',
+    projected_impact: 'Projected Impact',
+    calc_export: 'Export Report',
+    export_word: 'Download Word',
     calc_title: 'Value Assessment',
     calc_subtitle: 'Quantify the financial impact of transformation.',
     calc_btn: 'Generate Results',
@@ -125,15 +189,10 @@ export const UI_STRINGS: Record<string, Record<string, string>> = {
     journalEntryTimePct: 'Time on Journals (%)',
     financialCloseCycleDays: 'Close Cycle (Days)',
     currentDso: 'Current DSO (Days)',
-    // Add other fields as necessary...
-    
-    // --- BENCHMARKS & HUB ---
     bench_title: 'Customer Benchmarks',
     bench_subtitle: 'Validated outcomes.',
     hub_title: 'Coaching Hub',
     hub_subtitle: 'AI-powered call intelligence.',
-    
-    // --- DRIVERS ---
     drv_process: 'Process Efficiency',
     drv_working_capital: 'Working Capital',
     drv_trust: 'Trust Premium',
@@ -143,8 +202,6 @@ export const UI_STRINGS: Record<string, Record<string, string>> = {
     drv_innovation: 'Innovation',
     drv_decision: 'Real-Time Insights',
     drv_ai_ops: 'Scaling AI',
-    
-    // --- INDUSTRIES ---
     ind_manufacturing: 'Manufacturing',
     ind_retail: 'Retail',
     ind_financial: 'Financial Services',
