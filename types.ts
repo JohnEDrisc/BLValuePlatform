@@ -1,58 +1,80 @@
 import { LucideIcon } from 'lucide-react';
 
+// --- CORE ENUMS (Crucial Fix: Exporting ValueDriver) ---
+export enum ValueDriver {
+  PROCESS_EFFICIENCY = "Process Efficiency",
+  WORKING_CAPITAL = "Working Capital Optimization",
+  TRUST_PREMIUM = "Trust Premium",
+  MA_INTEGRATION = "M&A Integration Velocity",
+  REGULATORY_COMPLIANCE = "Regulatory Compliance",
+  TALENT_RETENTION = "Talent Retention",
+  FACILITATING_INNOVATION = "Facilitating Innovation",
+  REAL_TIME_DECISION_MAKING = "Real-Time Decision Making",
+  SCALING_TRUSTWORTHY_AI = "Scaling Trustworthy AI"
+}
+
 // --- CORE INTERFACES ---
-
-export interface ValueDriver {
-  id: string;
-  value: string;
-  nameKey: string;
-}
-
-export interface ProductItem {
-  id: string;
-  name: string;
-  category: string;
-  icon: string;
-}
-
-export interface IndustryItem {
-  id: string;
-  nameKey: string;
-  icon: string;
-}
-
 export interface ValueDriverSelection {
   id: string;
   value: string;
   nameKey: string;
 }
 
-export interface BenchmarkCase {
-  id: string;
-  companyName: string;
-  opportunityName: string;
-  opportunityId: string;
-  industry: string;
-  revenueBand: string;
-  products: string[];
-  primaryValueDriver: string;
-  roiMultiple: number;
-  annualSavings: number;
-  description: string;
-}
-
-// --- SKO EXPLAINER INTERFACES ---
-
 export interface Persona {
   id?: string;
   name?: string; 
   role?: string; 
-  icon: string; // Stored as string name of Lucide icon
+  icon: string; 
   group?: string;
   aspiration?: string; 
   nightmare?: string;  
 }
 
+export interface DealContext {
+  opportunityName?: string;
+  stage?: string;
+  dealSize?: string;
+  persona?: string;
+  industry?: string;
+  problem?: string;
+}
+
+// --- ANALYSIS RESULT INTERFACES (Rich Data Structure) ---
+
+export interface PersonaAnalysis {
+  role: string;
+  topConcerns: string[];
+  keepsThemUpAtNight: string;
+  personalWins: string[];
+  businessProblems: string[];
+}
+
+export interface ValueDriverImpact {
+  message: string;
+  metric: string;
+  relevance: 'High' | 'Medium' | 'Low';
+}
+
+export interface AnalysisResult {
+  driverId?: string; // Optional, for Hub mode
+  score?: number;    // Optional, for Hub mode
+  
+  // Core Fields
+  summary: string;
+  recommendations: string[];
+  
+  // Rich Fields for Narrative Mode
+  talkTrack?: string;
+  cfoPunchline?: string;
+  personaAnalysis?: PersonaAnalysis;
+  valueDriverImpacts?: Record<string, ValueDriverImpact>;
+}
+
+export interface UIStrings {
+  [key: string]: string;
+}
+
+// --- SKO / HUB INTERFACES ---
 export interface RoiItem {
   label: string;
   formula: string[];
@@ -61,15 +83,11 @@ export interface RoiItem {
 
 export interface SkoPovPhase {
   title: string;
-  // Create Value
   pains?: string[];
   focus?: string;
-  // Capture Value
   questions?: string[];
-  // Deliver Value
   capabilities?: string[];
   proofPoints?: string[];
-  // Justify Value
   metrics?: string[];
 }
 
@@ -87,7 +105,7 @@ export interface SkoPovContent {
 export interface SkoDriverDetail {
   id: string;
   title: string;
-  icon: string; // Stored as string name of Lucide icon
+  icon: string;
   heroMetric: string;
   summary: string;
   isPlImpact?: boolean;
@@ -98,38 +116,4 @@ export interface SkoDriverDetail {
   };
   executivePov: SkoPovContent;
   operationalPov: SkoPovContent;
-}
-
-// --- ANALYSIS RESULTS INTERFACES ---
-
-export interface AnalysisResult {
-  driverId: string;
-  score: number;
-  summary: string;
-  recommendations: string[];
-}
-
-// --- DEAL / COACHING HUB INTERFACES (Missing Piece) ---
-
-export type DealStage = 'discovery' | 'validation' | 'business_case' | 'negotiation' | 'closed';
-
-export const DEAL_STAGES: { id: DealStage; label: string }[] = [
-  { id: 'discovery', label: 'Discovery' },
-  { id: 'validation', label: 'Validation' },
-  { id: 'business_case', label: 'Business Case' },
-  { id: 'negotiation', label: 'Negotiation' },
-  { id: 'closed', label: 'Closed / Won' }
-];
-
-export interface DealContext {
-  stage: DealStage;
-  probability: number;
-  closeDate: string;
-  nextSteps: string;
-  dealSize?: string;
-  competitors?: string[];
-}
-
-export interface UIStrings {
-  [key: string]: string;
 }
