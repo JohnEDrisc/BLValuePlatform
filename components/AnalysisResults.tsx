@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { AnalysisResult, ValueDriver, UIStrings } from '../types';
 import { VALUE_DRIVERS_SELECTION, PERSONAS } from '../constants';
@@ -152,7 +153,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
     }
   };
 
-  // Safe Accessors
+  // Safe Accessors for Arrays
   const valueChain = Array.isArray(data.valueChain) ? data.valueChain : [];
   const objectionHandling = Array.isArray(data.objectionHandling) ? data.objectionHandling : [];
   const discoveryQuestions = Array.isArray(data.discoveryQuestions) ? data.discoveryQuestions : [];
@@ -169,6 +170,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
              <Search size={20} className="text-blackline-yellow" />
              <span className="text-sm font-black uppercase tracking-widest">{t.selected_scope}</span>
            </div>
+           
            <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl px-8 py-6 inline-block backdrop-blur-sm shadow-sm">
              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter break-words leading-[1.1] uppercase italic">
                {query}
@@ -200,6 +202,16 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
           </div>
 
           <button onClick={onBack} className="flex items-center gap-2 px-6 py-4 bg-white text-black rounded-xl hover:bg-blackline-yellow hover:text-black transition-all shadow-md font-black uppercase text-xs tracking-widest"><RotateCcw size={18} /><span className="hidden sm:inline">{t.new_analysis}</span><span className="sm:hidden">{t.new_btn_mobile}</span></button>
+          
+          {showNavTooltip && (
+            <div className="absolute top-full right-0 mt-4 w-80 p-5 bg-blackline-yellow text-black rounded-xl shadow-2xl animate-bounce-slow z-50">
+              <div className="absolute -top-2 right-10 w-4 h-4 bg-blackline-yellow transform rotate-45"></div>
+              <div className="flex gap-4">
+                <div className="bg-black/10 p-2 rounded-full h-fit mt-0.5"><ArrowLeft size={18} className="text-black" /></div>
+                <div><p className="font-black mb-1 text-base uppercase italic tracking-tighter">Navigation Tip</p><p className="leading-snug font-bold text-sm opacity-90">Use the Rail tools to chat with AI or pivot context.</p></div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -272,7 +284,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
          </div>
       </div>
 
-      {/* 2. STRATEGIC VALUE MATRIX */}
+      {/* 2. STRATEGIC VALUE MATRIX (DRIVERS) */}
       {!isValueDriverAnalysis && (
         <div className="space-y-8 scroll-mt-24" id="value-matrix">
           <h3 className="text-3xl font-black text-white uppercase tracking-[0.3em] flex items-center gap-6 italic">
@@ -301,7 +313,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
         </div>
       )}
 
-      {/* 3. VALUE CHAIN */}
+      {/* 3. THE VALUE CHAIN LADDER */}
       {valueChain.length > 0 && (
         <div className="space-y-8 scroll-mt-24">
            <h3 className="text-3xl font-black text-white uppercase tracking-[0.3em] flex items-center gap-6 italic">

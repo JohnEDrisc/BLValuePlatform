@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { MessageCircle, ChevronRight } from 'lucide-react';
 import { AiAssistant } from './AiAssistant';
 import { PivotPanel } from './PivotPanel';
 import { DealContext } from '../types';
-import { RubiksCube } from '../App';
+import { RubiksCube } from './Icons';
 
 interface RightRailProps {
   contextString: string;
