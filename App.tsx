@@ -152,7 +152,7 @@ function App() {
             <div className="h-8 w-px bg-zinc-800"></div>
             <h1 className="text-lg font-medium tracking-wide text-gray-200 group-hover:text-white transition-colors">
               {activeTab === 'sko' ? (
-                <>Value Delivery <span className="font-bold text-white uppercase tracking-tighter">Enablement Platform</span></>
+                <>Value Driver <span className="font-bold text-white uppercase tracking-tighter">Enablement Platform</span></>
               ) : (
                 <>Value Delivery <span className="font-bold text-white uppercase tracking-tighter">Execution Platform</span></>
               )}
