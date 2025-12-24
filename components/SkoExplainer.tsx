@@ -164,10 +164,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                                <p className="text-2xl md:text-5xl text-white font-black italic leading-[1.1] uppercase tracking-tight">
                                  Moving to a platform [like this] <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time."
                                </p>
-                             </div>
-                             <p className="text-xl md:text-3xl text-zinc-300 leading-relaxed font-light italic">
-                               It’s about more than just matching; it’s about <strong className="text-white">agility</strong>. It’s about being able to pivot... it allows our people to focus on higher-value work that actually drives the bottom line."
-                             </p>
                            </div>
                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-10 border-t border-zinc-800/50">
                               <div className="p-6 bg-zinc-800/30 rounded-2xl border border-zinc-700/50 flex flex-col justify-center">
