@@ -1,11 +1,11 @@
-
 import { GoogleGenAI, Modality } from "@google/genai";
 import { SYSTEM_PROMPT, SUPPORTED_LANGUAGES } from '../constants';
 import { AnalysisResult, DealContext } from '../types';
 
 export const generateValueAnalysis = async (query: string, languageCode: string = 'EN'): Promise<AnalysisResult> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // UPDATED: Using Vite environment variable
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
     const langObj = SUPPORTED_LANGUAGES.find(l => l.code === languageCode);
     const targetLanguage = langObj ? langObj.promptName : 'English';
 
@@ -51,7 +51,8 @@ export const generateValueAnalysis = async (query: string, languageCode: string 
 
 export const generateAudioOverview = async (text: string): Promise<string | undefined> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // UPDATED: Using Vite environment variable
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash-preview-tts",
       contents: [{ parts: [{ text: text }] }],
@@ -73,7 +74,8 @@ export const generateAudioOverview = async (text: string): Promise<string | unde
 
 export const askAiAssistant = async (context: string, userQuestion: string): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // UPDATED: Using Vite environment variable
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Context of user screen: ${context}. User Question: ${userQuestion}`,
@@ -90,7 +92,8 @@ export const askAiAssistant = async (context: string, userQuestion: string): Pro
 
 export const parsePivotPrompt = async (prompt: string): Promise<Partial<DealContext> & { problem?: string }> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // UPDATED: Using Vite environment variable
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Extract context from: "${prompt}". Return JSON with industry, companyName, annualRevenue, persona, problem.`,
