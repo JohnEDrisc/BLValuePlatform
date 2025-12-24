@@ -8,8 +8,10 @@ export default defineConfig({
     port: 3000,
     host: '0.0.0.0',
   },
-  // CRITICAL FIX: This prevents "process is not defined" crashes
-  // by telling the browser to treat process.env as an empty object.
+  // ---------------------------------------------------------
+  // THE FIX: This dummy object prevents the "process is not defined" crash.
+  // We do NOT need to load the API key here. The app handles it.
+  // ---------------------------------------------------------
   define: {
     'process.env': {}
   },
