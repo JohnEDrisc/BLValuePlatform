@@ -164,9 +164,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                                  Moving to a platform [like this] <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time."
                                </p>
                              </div>
-                             <p className="text-xl md:text-3xl text-zinc-300 leading-relaxed font-light italic">
-                               It’s about more than just matching; it’s about <strong className="text-white">agility</strong>. It’s about being able to pivot... it allows our people to focus on higher-value work that actually drives the bottom line."
-                             </p>
                            </div>
                            {/* UPDATED GRID SECTION BELOW - Removed 2nd box and changed cols to 1 */}
                            <div className="grid grid-cols-1 gap-6 pt-10 border-t border-zinc-800/50">
@@ -297,7 +294,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   if (viewMode === 'detail' && activeDriver) {
     const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
     const roiItems = activePov === 'executive' ? pov.roiCalculations?.executive : pov.roiCalculations?.operational;
-     
+      
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
         <button onClick={() => { setActivePov('executive'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
