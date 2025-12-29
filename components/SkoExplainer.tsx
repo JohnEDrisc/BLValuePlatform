@@ -158,14 +158,18 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                          <Quote className="text-blackline-yellow w-16 h-16 absolute -left-10 -top-12 opacity-20" />
                          <div className="space-y-10 md:space-y-14 relative z-10">
                            <div className="space-y-6">
+                             {/* // Update 1: Replaced truncated quote with full text from K. Mikells as requested */}
                              <p className="text-xl md:text-3xl text-zinc-300 leading-relaxed font-light italic">"We recently did a larger implementation of a software platform called <strong className="text-white font-bold">BlackLine</strong>.</p>
                              <div className="relative bg-black/40 p-8 md:p-12 rounded-3xl border border-blackline-yellow/20 shadow-inner">
                                <p className="text-2xl md:text-5xl text-white font-black italic leading-[1.1] uppercase tracking-tight">
                                  Moving to a platform [like this] <span className="text-blackline-yellow">literally enabled us to save tens of thousands of hours</span> in terms of people’s time."
                                </p>
                              </div>
+                             {/* // Update 1 (Cont): Added the second half of the qualitative quote */}
+                             <p className="text-xl md:text-3xl text-zinc-300 leading-relaxed font-light italic">
+                               "But a lot of this detail is in the data and being able to have cleaner data at a corporate-wide level so that we can get better insights from the data, we can improve our automation, and we can get both more efficient and more effective."
+                             </p>
                            </div>
-                           {/* UPDATED GRID SECTION BELOW - Removed 2nd box and changed cols to 1 */}
                            <div className="grid grid-cols-1 gap-6 pt-10 border-t border-zinc-800/50">
                               <div className="p-6 bg-zinc-800/30 rounded-2xl border border-zinc-700/50 flex flex-col justify-center">
                                  <h5 className="text-xs font-black text-blackline-yellow uppercase tracking-widest mb-2">Quantified Impact</h5>
@@ -181,7 +185,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                         <div>
                            <p className="text-white font-black text-2xl tracking-tight">Kathryn Mikells</p>
                            <p className="text-blackline-yellow text-xs font-bold uppercase tracking-[0.3em]">CFO, ExxonMobil</p>
-                           <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mt-1">Commentary from 2024 Investor Day</p>
+                           <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
                         </div>
                      </div>
                   </div>
@@ -195,7 +199,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Leadership Keynote</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-8">Hear from BL execs on the <span className="text-red-500">real value of BlackLine</span></h2>
                
-               <div className="bg-zinc-900 border-2 border-red-500/30 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12">
+               {/* // Update 2: Added onClick handler so the video button is not "dead" */}
+               <div onClick={() => alert("Video placeholder: Asset not yet connected for SKO.")} className="bg-zinc-900 border-2 border-red-500/30 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12">
                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                   <div className="relative z-10 w-24 h-24 bg-red-600 rounded-full flex items-center justify-center text-white shadow-[0_0_50px_rgba(220,38,38,0.5)] group-hover:scale-110 group-hover:bg-red-500 transition-all">
@@ -277,10 +282,12 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-left">
               <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap" formula='Create Value → The Problem' desc={"Move conversation from features to objectives. Define macro-level pains."} /></div>
-              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Value" subtitle="Expose the Quantified Reality" formula='Capture Value → The Questions' desc={"Execute high-gain discovery to uncover hidden costs of inertia."} /></div>
+              {/* // v2 Update 3: Step 2 Text Changes - Simplified High-Gain to Deep Discovery per RB feedback */}
+              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Customer Value" subtitle="Expose the Reality" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform" formula='Deliver Value → The Capabilities' desc={"Align platform capabilities to specific business outcomes."} /></div>
-              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="4" color="green-500" title="Justify Value" subtitle="Build the Economic Case" formula='Justify Value → The Business Case' desc={"Construct a CFO-ready business case with ROI modeling."} /></div>
-              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="5" color="purple-500" title="Quantify Value" subtitle="Validate the Win" formula='Quantify Value → The ROI' desc={"Translate operational improvements into hard financial calculations for the CFO."} /></div>
+              {/* // v2 Update 4: Step 4 & 5 Logic Clarity */}
+              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="4" color="green-500" title="Justify Value" subtitle="Build the Business Case Logic" formula='Justify Value → The Logic' desc={"Construct the logical business case structure before calculating math."} /></div>
+              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="5" color="purple-500" title="Quantify Value" subtitle="Calculate the ROI" formula='Quantify Value → The Hard Math' desc={"Translate agreed logic into hard financial return on investment calculations."} /></div>
            </div>
            <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mt-20">
               <button onClick={() => setViewMode('persona_explain')} className="px-8 py-4 bg-zinc-900 text-white text-lg font-black rounded-full hover:bg-zinc-800 uppercase italic border border-zinc-700">Back to Personas</button>
@@ -293,7 +300,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   if (viewMode === 'detail' && activeDriver) {
     const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
-    const roiItems = activePov === 'executive' ? pov.roiCalculations?.executive : pov.roiCalculations?.operational;
+    
+    // // Update 5: Critical Logic Fix - The 'roiCalculations' object is stored in 'executivePov' for both perspectives in the data structure
+    // This fixes the "Phase 5 Empty" bug for Operational views
+    const roiItems = activeDriver.executivePov.roiCalculations?.[activePov];
       
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
