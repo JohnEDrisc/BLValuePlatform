@@ -342,7 +342,7 @@ function App() {
 
       <footer className="bg-black py-12 border-t border-zinc-900 mt-auto no-print">
         <div className="container mx-auto px-6 flex flex-col items-center gap-4">
-           <p className="text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">Value Delivery Intelligence System</p>
+           <p className="text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">Value Delivery Execution Platform</p>
            <p className="text-[9px] text-zinc-800 uppercase tracking-widest">{t.footer_rights}</p>
         </div>
       </footer>
