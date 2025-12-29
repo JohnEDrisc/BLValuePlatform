@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Globe, ChevronDown, X, Loader2, Menu } from 'lucide-react';
 import { VisualNav } from './components/VisualNav';
@@ -8,7 +7,7 @@ import { CustomerBenchmarks } from './components/CustomerBenchmarks';
 import { PlatformHub } from './components/PlatformHub';
 import { OutsideInGenerator } from './components/OutsideInGenerator';
 import { SkoExplainer } from './components/SkoExplainer';
-import { RightRail } from './components/RightRail';
+// REMOVED: RightRail import
 import { RubiksCube } from './components/Icons';
 import { generateValueAnalysis } from './services/geminiService';
 import { AnalysisResult, DealContext } from './types';
@@ -142,8 +141,8 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-blackline-yellow selection:text-black">
       
-      {/* Header: Dynamic Titles based on Tab */}
-      <header className="bg-black/95 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-[60] pr-[60px]">
+      {/* Header: UPDATED - Removed padding right (pr-[60px]) */}
+      <header className="bg-black/95 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-[60]">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer group" onClick={goHome}>
             <div className="flex items-center justify-center w-10 h-10 bg-blackline-yellow rounded-sm group-hover:bg-white transition-colors duration-300">
@@ -202,15 +201,15 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-grow container mx-auto px-4 pt-8 pb-32 relative pr-[60px]">
+      {/* Main Content: UPDATED - Removed padding right (pr-[60px]) */}
+      <main className="flex-grow container mx-auto px-4 pt-8 pb-32 relative">
         {activeTab === 'discovery' && !hasSearched && (
           <div className="animate-fade-in">
-             <div className="text-center mb-12">
-               <h2 className="text-4xl font-black text-white italic tracking-tighter uppercase mb-2">Value Narratives</h2>
-               <p className="text-gray-500 font-medium">Select a scope to generate strategic value analysis and talk tracks.</p>
-             </div>
-             <VisualNav onSelect={(q) => handleSearch(q)} t={t} />
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-black text-white italic tracking-tighter uppercase mb-2">Value Narratives</h2>
+                <p className="text-gray-500 font-medium">Select a scope to generate strategic value analysis and talk tracks.</p>
+              </div>
+              <VisualNav onSelect={(q) => handleSearch(q)} t={t} />
           </div>
         )}
 
@@ -228,7 +227,7 @@ function App() {
 
         {activeTab === 'calculator' && (
           <div className="animate-fade-in">
-             <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
+              <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
           </div>
         )}
 
@@ -249,10 +248,10 @@ function App() {
         )}
       </main>
 
-      <RightRail contextString={getContextString()} dealContext={dealContext} onPivot={handlePivot} activePanelProp={activePanel} onPanelChange={setActivePanel} />
+      {/* REMOVED: <RightRail ... /> */}
 
-      {/* Smart Command Dock Footer */}
-      <div className={`fixed bottom-6 left-0 w-full flex justify-center z-50 transition-all duration-500 pr-[60px] no-print ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}>
+      {/* Smart Command Dock Footer: UPDATED - Removed padding right (pr-[60px]) */}
+      <div className={`fixed bottom-6 left-0 w-full flex justify-center z-50 transition-all duration-500 no-print ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}>
         <nav className="bg-zinc-900/90 backdrop-blur-xl p-2 rounded-2xl border border-zinc-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-1 md:gap-2 max-w-[95vw] overflow-x-auto scrollbar-hide">
           {[
             { id: 'sko', label: t.tab_sko },
@@ -278,13 +277,14 @@ function App() {
           ))}
           <div className="h-6 w-px bg-zinc-800 mx-1 md:mx-2"></div>
           <div className="px-4 py-2 hidden lg:flex flex-col items-start min-w-[120px]">
-             <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">{t.footer_internal}</span>
-             <span className="text-[9px] font-bold text-gray-300 uppercase italic">V3.6 READY</span>
+              <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">{t.footer_internal}</span>
+              <span className="text-[9px] font-bold text-gray-300 uppercase italic">V3.6 READY</span>
           </div>
         </nav>
       </div>
 
-      <footer className="bg-black py-12 border-t border-zinc-900 mt-auto no-print pr-[60px]">
+      {/* Footer: UPDATED - Removed padding right (pr-[60px]) */}
+      <footer className="bg-black py-12 border-t border-zinc-900 mt-auto no-print">
         <div className="container mx-auto px-6 flex flex-col items-center gap-4">
            <p className="text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">Value Delivery Intelligence System</p>
            <p className="text-[9px] text-zinc-800 uppercase tracking-widest">{t.footer_rights}</p>
