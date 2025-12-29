@@ -42,7 +42,7 @@ export const VALUE_DRIVERS_SELECTION = [
   { id: 'trust', value: 'Trust Premium', nameKey: 'drv_trust' },
   { id: 'ma', value: 'M&A Integration Velocity', nameKey: 'drv_ma' },
   { id: 'compliance', value: 'Regulatory Compliance', nameKey: 'drv_compliance' },
-  // v2 Update 1: Global Rename for Talent
+  // v2 Update: Global Rename for Talent
   { id: 'talent', value: 'Talent Retention & Engagement', nameKey: 'drv_talent' },
   { id: 'innovation', value: 'Facilitating Innovation', nameKey: 'drv_innovation' },
   { id: 'decision', value: 'Real-Time Decision Making', nameKey: 'drv_decision' },
@@ -51,12 +51,12 @@ export const VALUE_DRIVERS_SELECTION = [
 
 const FULL_SKO_PERSONAS = {
   executive: [
-    // v2 Update 2: Strengthened CEO Aspiration
+    // v2 Update: Strengthened CEO Aspiration
     { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen financial data visibility gaps.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
-    // v2 Update 3: CFO Nightmare updated to "Missing Audit Opinion" / "Debt Covenant Default" and spelled out Free Cash Flow
+    // v2 Update: CFO Nightmare updated to "Missing Audit Opinion" / "Debt Covenant Default" and spelled out Free Cash Flow
     { role: 'CFO', icon: 'TrendingUp', nightmare: 'Missing an audit opinion or defaulting on debt covenants due to reporting failures.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained cash variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
-    // v2 Update 4: CIO Updated to focus on data model blocking AI
+    // v2 Update: CIO Updated to focus on data model blocking AI
     { role: 'CIO', icon: 'Cpu', nightmare: 'Inconsistently defined data model blocking AI adoption; Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business; Organization actively participates in evaluation and adoption of strategic technology investments.' }
   ],
   operational: [
@@ -81,7 +81,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Strategic Alignment',
         pains: [
           'Spikes in volume create material overtime costs and eat up profit.',
-          // v2 Update 5: Removed "Capital Reallocation" to avoid overlap with Decision Making
+          // v2 Update: Removed "Capital Reallocation" to avoid overlap with Decision Making
           'Processing bottlenecks delaying financial close completion and reporting insights.',
           'Costly manual checks required for the "Last Mile" of global reporting.',
           'Spreadsheet version chaos leading to rework and material errors.'
@@ -116,7 +116,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'The Hard Numbers',
         metrics: [
           'Reduction in external audit fees by 20-30% via self-service.',
-          // v2 Update 6: Expanded Acronyms
+          // v2 Update: Expanded EPS/OpEx acronyms
           'Earnings Per Share improvement via Operating Expenses reduction and labor optimization.',
           'Zero-headcount scaling for future geographic expansion.',
           '40% reduction in reporting cycle variance and rework.'
@@ -124,7 +124,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          // v2 Update 7: Expanded Acronyms
+          // v2 Update: Expanded Acronyms
           { label: 'OpEx Optimization', formula: ['Total Full-Time Employees', '×', 'Manual %', '×', 'Avg Salary'], desc: 'Reclaiming capacity for high-ROI business analysis.' },
           { label: 'Audit Fee Redux', formula: ['Audit Fees', '×', '25% Reduction'], desc: 'Lowering the cost of external assurance via self-service data.' }
         ],
@@ -136,6 +136,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
     },
     operationalPov: {
       createValue: {
+        // v2 Update: Title changed from "Execution Excellence" to "Operational Friction"
         title: 'Operational Friction',
         pains: [
           'Acute burnout from excessive overtime during peak close cycles.',
@@ -172,7 +173,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'Efficiency Gains',
         metrics: [
-          // v2 Update 8: Expanded Acronyms
+          // v2 Update: Expanded Acronyms
           '3,000+ Full-Time Employee hours released per $1B in annual revenue.',
           '100% elimination of redundant effort in bank matching.',
           '95% reduction in close-related overtime for staff.',
@@ -195,7 +196,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         pains: [
           'High cost of external capital during global expansion.',
           'Company valuation lowered by poor cash efficiency.',
-          // v2 Update 9: Added Intercompany pain
+          // v2 Update: Added Intercompany pain
           'Intercompany settlement delays locking up cash across borders.',
           'Restricted credit lines due to slow unapplied cash application.'
         ],
@@ -204,7 +205,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       captureValue: {
         title: 'Probing Questions',
         questions: [
-          // v2 Update 10: Expanded DSO
+          // v2 Update: Expanded DSO
           'What would a 10-day Days Sales Outstanding reduction mean for your M&A budget?',
           'Does your board have real-time visibility into global liquidity?',
           'How often are sales blocked because of unapplied cash backlogs?',
@@ -222,7 +223,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         proofPoints: [
           'Release of $10M-$50M in cash flow per $1B annual revenue (e.g. McKesson).',
           '20% reduction in bad debt write-offs via better tracking.',
-          // v2 Update 11: Expanded CCC
+          // v2 Update: Expanded CCC
           'Cash Conversion Cycle improvement by 12+ days relative to industry average.',
           'Reduction in unapplied cash volumes by up to 80%.'
         ]
@@ -230,7 +231,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Hard Numbers',
         metrics: [
-          // v2 Update 12: Expanded WACC
+          // v2 Update: Expanded WACC
           'Measurable improvement in Weighted Average Cost of Capital and borrowing costs.',
           'Significant increase in Free Cash Flow for investment.',
           'Direct P&L benefit via interest savings on debt lines.',
@@ -298,7 +299,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
     id: 'trust',
     title: 'Trust Premium',
     icon: 'Lock',
-    heroMetric: '15% Audit Cost Redux', // UPDATED: Changed from Valuation Uplift to Audit Cost
+    heroMetric: '15% Audit Cost Redux', // v2 Update: Changed metric based on hard ROI change
     summary: "Market confidence is fragile. A single reporting error can wipe out billions in market cap and trigger a restatement nightmare. This is about building a 'wall of certainty' around your financial statements. When the board and auditors trust the data instantly, the business commands a valuation premium and avoids the 'risk tax' of uncertainty.",
     personas: FULL_SKO_PERSONAS,
     executivePov: {
@@ -347,7 +348,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          // UPDATED: Replaced complex "Valuation/Insurance" with hard "Audit Savings"
+          // v2 Update: Replaced complex metrics with Hard Audit Savings per John's feedback
           { label: 'External Audit Savings', formula: ['Annual Audit Fees', '×', '15% Efficiency'], desc: 'Direct reduction in billable auditor hours due to reliance on system controls.' },
           { label: 'Remediation Avoidance', formula: ['Material Weakness Remediation Cost (Est. $150k)'], desc: 'Avoided cost of consultants and contractors to fix control failures.' }
         ],
@@ -457,7 +458,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       roiCalculations: {
         executive: [
           { label: 'Synergy Velocity', formula: ['Deal Value', '×', 'Months Saved', '×', 'ROI'], desc: 'Quantifying the time-value of money for synergies.' },
-          // v2 Update 14: Expanded FTE
+          // v2 Update: Expanded FTE
           { label: 'Integration Labor Redux', formula: ['Target Full-Time Employees', '×', 'Manual % Redux'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
         ],
         operational: [
@@ -490,7 +491,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Tactical Capability',
         capabilities: [
           'ERP-Agnostic Reconciliations for any target system.',
-          // v2 Update 15: Specified AI-supported CoA Mapping
+          // v2 Update: Specified AI-supported CoA Mapping
           'AI-supported Automated Chart of Accounts Mapping Agents.',
           'Unified Integration Dashboard for project teams.',
           'Standardized journal workflows for newly acquired entities.'
@@ -515,7 +516,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
   },
   {
     id: 'talent',
-    // v2 Update 16: Global Rename for Talent
+    // v2 Update: Global Rename for Talent
     title: 'Talent Retention & Engagement',
     icon: 'Users',
     heroMetric: 'Retention > 92%',
@@ -635,7 +636,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         pains: [
           'Strategic growth projects delayed because Finance is buried in manual work.',
           'Finance viewed as a cost center rather than a partner.',
-          // v2 Update 17: Removed ESG, added Capacity pain
+          // v2 Update: Removed ESG, added Capacity pain
           'Inability to support new business data needs without adding headcount.',
           'Inability to model "What-If" scenarios during close.'
         ],
@@ -661,7 +662,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         proofPoints: [
           'Reduction in quarterly analyst call prep time by 40% (e.g. Domino\'s).',
           '30% of senior staff reallocated to strategic growth.',
-          // v2 Update 18: Added Project Delivery Benefit
+          // v2 Update: Added Project Delivery Benefit
           'Accelerated delivery of strategic data projects by over 6 months.',
           'Scaled 3 new market entries without increasing headcount.'
         ]
@@ -744,7 +745,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Risk Mitigation',
         pains: [
           'Exposure to massive public fines for reporting failures.',
-          // v2 Update 19: Removed ESG mentions
+          // v2 Update: Removed ESG mentions
           'Constant struggle to keep up with changing global regulations (Tax, Statutory).',
           'Reputational damage of a public compliance breach.',
           'Board lacks confidence in control coverage across remote entities.'
@@ -879,7 +880,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         proofPoints: [
           'Reporting cycle reduced from 15 days to under 3 days (e.g. Hershey).',
           '98%+ forecasting accuracy through live visibility.',
-          // v2 Update 20: Expanded OpEx acronym
+          // v2 Update: Expanded OpEx acronym
           'Enabled Intra-Month course corrections for Operating Expense spend.',
           'Reduction in quarterly prep time by over 50%.'
         ]
@@ -1059,3 +1060,239 @@ export const SKO_DATA: SkoDriverDetail[] = [
     }
   },
 ];
+
+export const PERSONAS: Persona[] = [
+  { id: 'cfo', name: 'Chief Financial Officer', icon: 'Briefcase', group: 'Executive' },
+  { id: 'cao', name: 'Chief Accounting Officer', icon: 'ShieldCheck', group: 'Executive' },
+  { id: 'controller', name: 'Corporate Controller', icon: 'ClipboardList', group: 'Accounting' },
+  { id: 'vp_finance', name: 'VP of Finance', icon: 'TrendingUp', group: 'Executive' },
+  { id: 'cio', name: 'Chief Information Officer', icon: 'Server', group: 'Executive' },
+  { id: 'it_director', name: 'IT Director', icon: 'Cpu', group: 'IT' },
+  { id: 'fpa_director', name: 'FP&A Director', icon: 'BarChart2', group: 'Finance' },
+  { id: 'accounting_manager', name: 'Accounting Manager', icon: 'Users', group: 'Accounting' },
+];
+
+export const MOCK_BENCHMARK_DATA: BenchmarkCase[] = [
+  {
+    id: '1',
+    companyName: 'Global Auto Parts',
+    opportunityName: 'Finance Transformation 2025',
+    opportunityId: 'OPP-101',
+    industry: 'Manufacturing',
+    revenueBand: '$5B - $10B',
+    products: ['Account Reconciliations', 'Transaction Matching'],
+    primaryValueDriver: 'Process Efficiency',
+    roiMultiple: 4.5,
+    annualSavings: 2500000,
+    description: 'Automated 85% of bank reconciliations, reducing close cycle by 4 days.'
+  },
+  {
+    id: '2',
+    companyName: 'TechFlow Solutions',
+    opportunityName: 'Continuous Close Initiative',
+    opportunityId: 'OPP-202',
+    industry: 'Technology',
+    revenueBand: '$1B - $5B',
+    products: ['Journal Entry', 'Task Management'],
+    primaryValueDriver: 'Talent Retention',
+    roiMultiple: 3.2,
+    annualSavings: 1200000,
+    description: 'Reduced close-related overtime by 90%, significantly improving team morale.'
+  },
+  {
+    id: '3',
+    companyName: 'Stellar Retail',
+    opportunityName: 'Working Capital Optimization',
+    opportunityId: 'OPP-303',
+    industry: 'Retail',
+    revenueBand: '$10B+',
+    products: ['Cash Application', 'Collections Management'],
+    primaryValueDriver: 'Working Capital Optimization',
+    roiMultiple: 6.8,
+    annualSavings: 15000000,
+    description: 'Reduced DSO by 12 days, unlocking $15M in operational cash flow.'
+  }
+];
+
+export const SYSTEM_PROMPT = `
+You are a world-class BlackLine Value Engineer. Your task is to map business scenarios, products, or pain points to the 9-Driver BlackLine Value Model.
+
+CRITICAL REQUIREMENT:
+The JSON response MUST include unique, quantified data for EVERY ONE of the 9 Value Drivers in "valueDriverImpacts". 
+DO NOT use placeholders like "N/A" or generic "Standard platform benefit".
+If a driver is less relevant, extrapolate a strategic "Second-Order" impact (e.g., how Efficiency enables Innovation).
+
+Value Drivers to include in "valueDriverImpacts":
+1. Process Efficiency
+2. Working Capital Optimization
+3. Trust Premium
+4. M&A Integration Velocity
+5. Regulatory Compliance
+6. Talent Retention
+7. Facilitating Innovation
+8. Real-Time Decision Making
+9. Scaling Trusted AI
+
+Structure:
+- valueDriverImpacts: Object with 9 keys (Exact names above). Each value: { message: string, metric: string, relevance: "High"|"Medium"|"Low" }.
+- kpiHighlights: Array of { title, metric, context }.
+- valueChain: Detailed array of { feature, benefit, value }.
+- businessScenarios: Array of { scenario, solution }.
+- objectionHandling: Array of { objection, rebuttal }.
+- talkTrack: Long-form executive narrative.
+- discoveryQuestions: 4-6 high-gain questions.
+- cfoPunchline, caoPunchline, cioPunchline: Power messages.
+- references: List of industry benchmarks.
+
+Tone: Highly strategic and quantified.
+`;
+
+export const SUPPORTED_LANGUAGES = [
+  { code: 'EN', label: 'English', flag: '🇺🇸', promptName: 'English' },
+  { code: 'DE', label: 'Deutsch', flag: '🇩🇪', promptName: 'German' },
+  { code: 'FR', label: 'Français', flag: '🇫🇷', promptName: 'French' },
+  { code: 'JP', label: '日本語', flag: '🇯🇵', promptName: 'Japanese' },
+];
+
+export const UI_STRINGS: Record<string, Record<string, string>> = {
+  EN: {
+    subtitle: 'Excellence',
+    subtitle_bold: 'Quantified',
+    hero_title: 'Measure What',
+    hero_title_accent: 'Matters',
+    hero_desc: 'The strategic framework for articulating financial operations value in the modern enterprise.',
+    tab_sko: 'SKO 26 Playbook',
+    tab_discovery: 'Value Narratives',
+    tab_outside_in: 'Outside-In Generator',
+    tab_calculator: 'BVA Calculator',
+    tab_benchmarks: 'Benchmarks',
+    tab_hub: 'Coaching Hub',
+    loading_title: 'Analyzing Value...',
+    loading_desc: 'Mapping capabilities to strategic outcomes.',
+    footer_rights: '© 2026 BlackLine, Inc.',
+    footer_internal: 'For Internal Sales Use Only',
+    platform_value_btn: 'Full Platform Value',
+    platform_value_desc: 'Strategic impact of the complete Financial Operations Management suite.',
+    nav_solutions: 'Browse by Solution',
+    nav_industries: 'Browse by Industry',
+    nav_personas: 'Browse by Persona',
+    cat_platform: 'Platform',
+    cat_close: 'Financial Close',
+    cat_intercompany: 'Intercompany',
+    cat_invoice: 'Invoice-to-Cash',
+    selected_scope: 'Selected Scope',
+    new_analysis: 'New Analysis',
+    new_btn_mobile: 'New',
+    nav_help_title: 'Navigating results',
+    nav_help_text: 'Use the rail tools to chat with an AI assistant or pivot the industry context.',
+    strategic_drivers: 'Strategic Value Matrix',
+    projected_impact: 'Projected Impact',
+    calc_export: 'Export Report',
+    export_word: 'Download Word',
+    calc_title: 'Value Assessment',
+    calc_subtitle: 'Quantify the financial impact of transformation.',
+    calc_btn: 'Generate Results',
+    calc_tab_company: 'Company',
+    calc_tab_ops: 'Operations',
+    calc_tab_risk: 'Risk',
+    calc_tab_ma: 'M&A',
+    calc_tab_inv: 'Investment',
+    calc_sec_company: 'Company Profile',
+    calc_sec_org: 'Organization',
+    calc_sec_process: 'Process & Operations',
+    calc_sec_metrics: 'Financial Metrics',
+    calc_sec_risk: 'Risk & Compliance',
+    calc_sec_ma: 'M&A Integration Velocity',
+    calc_sec_inv: 'Investment Horizon',
+    dash_title: 'Value Assessment Dashboard',
+    dash_subtitle: 'Strategic ROI Analysis',
+    dash_total_val: 'Annual Value',
+    dash_cum_val: 'Cumulative Value',
+    dash_roi: 'ROI Multiple',
+    dash_proj: 'Financial Projection',
+    dash_chart_cf: 'Annual Cash Flow',
+    dash_chart_net: 'Cumulative Net Cash Flow',
+    dash_tbl_metric: 'Metric',
+    dash_tbl_costs: 'Investment Costs',
+    dash_tbl_benefits: 'Value Benefits',
+    dash_tbl_net: 'Cumulative Net',
+    dash_tbl_driver: 'Value Driver',
+    dash_tbl_ann: 'Base Value',
+    dash_tbl_cons: 'Conservative',
+    dash_tbl_likely: 'Likely',
+    dash_tbl_opt: 'Optimistic',
+    dash_kpi_title: 'KPI Benchmarks Summary',
+    dash_kpi_bench: 'Metric',
+    dash_kpi_target: 'Target',
+    dash_kpi_impact: 'Impact',
+    bench_title: 'Customer Benchmarks',
+    bench_subtitle: 'Validated outcomes from the global BlackLine community.',
+    bench_stat_avg_roi: 'Avg ROI Multiple',
+    bench_stat_total_sav: 'Annual Savings',
+    bench_stat_cases: 'Case Studies',
+    bench_filter_industry: 'Industry',
+    bench_filter_driver: 'Value Driver',
+    bench_filter_account: 'Account',
+    bench_wip_badge: 'BETA RELEASE',
+    hub_title: 'Coaching Hub',
+    hub_subtitle: 'AI-powered call intelligence and sales coaching.',
+    ind_manufacturing: 'Manufacturing',
+    ind_retail: 'Retail',
+    ind_financial: 'Financial Services',
+    ind_healthcare: 'Healthcare',
+    ind_energy: 'Energy',
+    ind_tech: 'Technology',
+    ind_public: 'Public Sector',
+    ind_services: 'Professional Services',
+    drv_process: 'Process Efficiency',
+    drv_working_capital: 'Working Capital Optimization',
+    drv_trust: 'Trust Premium',
+    drv_ma: 'M&A Integration Velocity',
+    drv_compliance: 'Regulatory Compliance',
+    drv_talent: 'Talent Retention',
+    drv_innovation: 'Facilitating Innovation',
+    drv_decision: 'Real-Time Decision Making',
+    drv_ai_ops: 'Scaling Trusted AI',
+    lbl_cust_name: 'Customer Name',
+    lbl_revenue: 'Annual Revenue',
+    lbl_industry: 'Industry',
+    lbl_public_priv: 'Company Type',
+    lbl_market_cap: 'Market Cap',
+    lbl_entities: 'Number of Entities',
+    lbl_regions: 'Geographic Regions',
+    lbl_erps: 'Number of ERPs',
+    lbl_wacc: 'WACC (%)',
+    lbl_ftes: 'Total Finance FTEs',
+    lbl_acct_ftes: 'Accounting FTEs',
+    lbl_salary: 'Avg FTE Salary',
+    lbl_turnover: 'Turnover Rate (%)',
+    lbl_manual: 'Manual Work (%)',
+    lbl_res_recs: 'Recs Resources',
+    lbl_time_recs: 'Time on Recs (%)',
+    lbl_res_journal: 'Journal Resources',
+    lbl_time_journal: 'Time on Journals (%)',
+    lbl_overtime: 'Annual Close Overtime (Hrs)',
+    lbl_time_fill: 'Avg Time to Fill (Days)',
+    lbl_cost_replace: 'Cost to Replace (%)',
+    lbl_close_days: 'Financial Close Cycle (Days)',
+    lbl_dso: 'Current DSO (Days)',
+    lbl_recs_vol: 'Monthly Recs Volume',
+    lbl_recs_pct: 'Accounts Reconciled (%)',
+    lbl_journal_vol: 'Monthly Journals Volume',
+    lbl_restatements: 'Prior Restatements',
+    lbl_weakness: 'Material Weakness',
+    lbl_fines: 'Prior Fines ($)',
+    lbl_manual_proc: 'Manual Process Risk (%)',
+    lbl_acq_year: 'Acquisitions / Year',
+    lbl_deal_size: 'Avg Deal Size ($)',
+    lbl_int_cost: 'Integration Cost / Deal',
+    lbl_int_time: 'Integration Time (Mo)',
+    lbl_ma_return: 'Expected Ma Return (%)',
+    lbl_retention: 'Talent Retention Target',
+    lbl_ma_turnover: 'Historic Ma Turnover (%)',
+    lbl_inv_horizon: 'Investment Horizon',
+    lbl_ramp: 'Year 1 Ramp (%)',
+    lbl_sw_cost: 'Software Costs (Annual)',
+    lbl_svc_cost: 'Service Costs (Annual)',
+  }
+};
