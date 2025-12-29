@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Globe, ChevronDown, X, Loader2, Menu, ChevronUp } from 'lucide-react'; // Added ChevronUp
+import { Globe, ChevronDown, X, Loader2, Menu, ChevronUp } from 'lucide-react';
 import { VisualNav } from './components/VisualNav';
 import { ValueCalculator } from './components/ValueCalculator';
 import { AnalysisResults } from './components/AnalysisResults';
@@ -7,7 +7,6 @@ import { CustomerBenchmarks } from './components/CustomerBenchmarks';
 import { PlatformHub } from './components/PlatformHub';
 import { OutsideInGenerator } from './components/OutsideInGenerator';
 import { SkoExplainer } from './components/SkoExplainer';
-// REMOVED: RightRail import
 import { RubiksCube } from './components/Icons';
 import { generateValueAnalysis } from './services/geminiService';
 import { AnalysisResult, DealContext } from './types';
@@ -24,8 +23,11 @@ function App() {
   
   // Visibility States
   const [isVisible, setIsVisible] = useState(true);
-  const [isDockMinimized, setIsDockMinimized] = useState(false); // New state for dock minimization
+  const [isDockMinimized, setIsDockMinimized] = useState(false);
+  
+  // Refs for Scroll and Timer
   const lastScrollY = useRef(0);
+  const hideTimer = useRef<NodeJS.Timeout | null>(null);
   
   // Analysis State
   const [isLoading, setIsLoading] = useState(false);
@@ -44,27 +46,41 @@ function App() {
   
   const t = { ...UI_STRINGS['EN'], ...(UI_STRINGS[currentLang] || {}) };
 
-  // Smart Scroll Logic for Footer
+  // Smart Scroll Logic with Auto-Hide
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const isScrollingDown = currentScrollY > lastScrollY.current;
-      const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
       const isAtTop = currentScrollY < 100;
 
-      if (isAtTop || isAtBottom) {
+      // 1. Clear existing timer on any scroll event
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+
+      if (isAtTop) {
+        // Always show at the very top
         setIsVisible(true);
-      } else if (isScrollingDown && currentScrollY > 150) {
+      } else if (isScrollingDown) {
+        // Hide immediately when scrolling down
         setIsVisible(false);
-      } else if (!isScrollingDown) {
+      } else {
+        // Scrolling Up: Show immediately
         setIsVisible(true);
+        
+        // 2. Set Auto-Hide Timer (3 seconds)
+        // Only if we aren't at the top
+        hideTimer.current = setTimeout(() => {
+          setIsVisible(false);
+        }, 3000);
       }
       
       lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
   }, []);
 
   // UX: Scroll to top on tab change
@@ -72,6 +88,21 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setIsVisible(true);
   }, [activeTab]);
+
+  // Handlers to prevent auto-hide while using the menu
+  const handleNavMouseEnter = () => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    setIsVisible(true);
+  };
+
+  const handleNavMouseLeave = () => {
+    // If not at top, restart the auto-hide timer
+    if (window.scrollY > 100) {
+      hideTimer.current = setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+    }
+  };
 
   const goHome = () => {
     setActiveTab('discovery'); 
@@ -142,7 +173,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-blackline-yellow selection:text-black">
       
-      {/* Header: Removed padding right (pr-[60px]) */}
+      {/* Header */}
       <header className="bg-black/95 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-[60]">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer group" onClick={goHome}>
@@ -202,7 +233,7 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content: Removed padding right (pr-[60px]) */}
+      {/* Main Content */}
       <main className="flex-grow container mx-auto px-4 pt-8 pb-32 relative">
         {activeTab === 'discovery' && !hasSearched && (
           <div className="animate-fade-in">
@@ -249,8 +280,12 @@ function App() {
         )}
       </main>
 
-      {/* Smart Command Dock Footer: UPDATED with Collapsible Logic */}
-      <div className={`fixed bottom-6 left-0 w-full flex justify-center z-50 transition-all duration-500 no-print ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}>
+      {/* Smart Command Dock Footer - Collapsible & Auto-Hiding */}
+      <div 
+        className={`fixed bottom-6 left-0 w-full flex justify-center z-50 transition-all duration-500 no-print ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}
+        onMouseEnter={handleNavMouseEnter}
+        onMouseLeave={handleNavMouseLeave}
+      >
         <nav 
           className={`bg-zinc-900/90 backdrop-blur-xl p-2 rounded-2xl border border-zinc-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center transition-all duration-300 ${isDockMinimized ? 'gap-0 px-3' : 'gap-1 md:gap-2 max-w-[95vw] overflow-x-auto scrollbar-hide'}`}
         >
@@ -305,7 +340,6 @@ function App() {
         </nav>
       </div>
 
-      {/* Footer: Removed padding right (pr-[60px]) */}
       <footer className="bg-black py-12 border-t border-zinc-900 mt-auto no-print">
         <div className="container mx-auto px-6 flex flex-col items-center gap-4">
            <p className="text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">Value Delivery Intelligence System</p>
