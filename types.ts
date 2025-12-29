@@ -1,4 +1,3 @@
-
 export interface ProductItem {
   id: string;
   name: string;
@@ -78,7 +77,8 @@ export enum ValueDriver {
   TRUST_PREMIUM = "Trust Premium",
   MA_INTEGRATION = "M&A Integration Velocity",
   REGULATORY_COMPLIANCE = "Regulatory Compliance",
-  TALENT_RETENTION = "Talent Retention",
+  // v2 Update 1: Global Rename per John's instruction
+  TALENT_RETENTION = "Talent Retention & Engagement",
   FACILITATING_INNOVATION = "Facilitating Innovation",
   REAL_TIME_DECISION_MAKING = "Real-Time Decision Making",
   SCALING_TRUSTWORTHY_AI = "Scaling Trusted AI"
