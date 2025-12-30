@@ -215,7 +215,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   if (viewMode === 'landing') {
     return (
       <div className="min-h-[85vh] flex flex-col animate-fade-in relative px-4 md:px-0 bg-black">
-         {/* Close Button Removed as requested */}
+         <button onClick={onClose} className="absolute top-4 right-4 md:top-0 md:right-0 p-4 md:p-8 text-gray-400 hover:text-white transition-colors z-50 invisible"><X size={28} /></button>
          
          <div className="text-center py-16 md:py-28 flex flex-col items-center justify-center">
             <div className="inline-flex items-start gap-2 md:gap-4 mb-4">
@@ -263,18 +263,13 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
       <div className="min-h-screen bg-black flex flex-col animate-fade-in relative pb-40">
          <div className="flex justify-between items-center px-4 md:px-8 py-6 sticky top-0 bg-black/80 backdrop-blur-md z-40 border-b border-zinc-800/50">
             <button onClick={() => setViewMode('landing')} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-bold uppercase tracking-wider text-xs"><ArrowLeft size={16} /> Back</button>
-            <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors"><X size={24} /></button>
+            <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors invisible"><X size={24} /></button>
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
-            {/* --- SECTION 1: EXXONMOBIL (CUSTOMER VOICE) --- */}
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
-               
-               {/* Main Content Container - Exxon Section */}
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
-                  
-                  {/* Top Data Points Row - Realigned to Top of White Box */}
                   <div className="flex flex-col md:flex-row justify-start items-start gap-4 mb-10 w-full border-b border-gray-100 pb-8">
                      <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto text-left">
                         <p className="font-bold text-sm mb-1">Launched Migration to S/4HANA:</p>
@@ -285,30 +280,21 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                         <p className="text-sm">Automated 84% of reconciliations</p>
                      </div>
                   </div>
-
-                  {/* Main Quote Block */}
                   <div className="relative pl-8 md:pl-12 border-l-4 border-blackline-yellow mb-12">
                      <Quote className="text-blackline-yellow w-10 h-10 absolute -left-5 -top-4 bg-white" fill="currentColor" />
                      <p className="text-lg md:text-2xl leading-relaxed font-light">
                        “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black bg-blackline-yellow px-1">and being able to have cleaner data at a corporate-wide level so that we can get better insights</strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
                      </p>
                   </div>
-
-                  {/* Footer Section - Flexbox to prevent overlap */}
                   <div className="flex flex-col xl:flex-row justify-between items-end gap-8 mt-auto">
-                     {/* Customer Since - Moved into flow */}
                      <div className="text-gray-500 text-xs font-bold uppercase tracking-widest order-3 xl:order-1">
                         Customer Since: <span className="text-black text-lg font-black ml-2">2022</span>
                      </div>
-
                      <div className="flex flex-col md:flex-row items-end gap-8 order-2 w-full xl:w-auto justify-end">
-                         {/* Quantified Impact Bar */}
                          <div className="bg-black text-white p-4 md:p-6 rounded-xl shadow-lg text-center md:text-right w-full md:w-auto">
                             <p className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest mb-2">Quantified Impact</p>
                             <p className="text-2xl md:text-4xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
                          </div>
-                         
-                         {/* Author Block */}
                          <div className="text-right shrink-0">
                             <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
                             <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
@@ -316,20 +302,14 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                          </div>
                      </div>
                   </div>
-                  
                </div>
             </div>
-
             <div className="h-px bg-zinc-800 w-full opacity-50"></div>
-
-            {/* --- SECTION 2: BLACKLINE VISION (INTERNAL VOICE) --- */}
-            {/* Updated Colors & Removed Caps per request */}
             <div className="text-center pb-20">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Leadership Keynote</div>
                <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
                   Hear from BL execs on the <span className="text-blackline-yellow">real value of BlackLine</span>
                </h2>
-               
                <div onClick={() => alert("Video placeholder: Asset not yet connected for SKO.")} className="bg-zinc-900 border-2 border-zinc-800 hover:border-blackline-yellow/50 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12 transition-all duration-500">
                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
@@ -371,7 +351,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="flex flex-col gap-6">{valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}</div>
             </div>
          </div>
-         {/* Button Explicitly Restored Here */}
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button onClick={() => { setActivePov('executive'); setByActiveDriverId(sortedDrivers[0]?.id || null); setViewMode('persona_explain'); }} className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"><Sparkles size={24} /> Start Deep Dive</button>
          </div>
@@ -468,51 +447,59 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
         </div>
         <div className="max-w-6xl mx-auto px-4 md:px-10 space-y-16 md:space-y-32 pb-20">
            {/* PHASE 1: CREATE VALUE (With new Visuals) */}
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center">
-              <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] mb-8 flex items-center gap-4"><div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div> Phase 01: Create Value</h4>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.createValue.title}</h5>
+           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 01: Create Value</h4>
+              </div>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-10 uppercase italic tracking-tighter leading-[0.9]">{pov.createValue.title}</h5>
               
               {/* Conditional Visuals for Phase 1 */}
-              {activeDriver.id === 'process' ? (
-                <FunnelVisual />
-              ) : activeDriver.id === 'ai_ops' ? (
-                <GarbageInOutVisual />
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 mt-8">
+              <div className="w-full flex justify-center mb-8">
+                 {renderDriverVisual(activeDriver.id)}
+              </div>
+              
+              {/* Fallback Text List if no specific visual, or supplementary info */}
+              {!['process', 'ai_ops', 'working_cap', 'trust', 'ma', 'compliance', 'talent', 'innovation', 'decision'].includes(activeDriver.id) && (
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 mt-8 text-left">
                   {pov.createValue.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-200 text-lg md:text-2xl font-medium leading-relaxed">{p}</p></div>))}
                 </div>
               )}
-              
+
               <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Strategic Focus Point</p><p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov.createValue.focus}"</p></div>
            </div>
 
            {/* PHASE 2 & 3 */}
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center">
-              <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] mb-12 flex items-center gap-4"><div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div> Phase 02: Capture Value</h4>
+           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
+              <div className="flex items-center justify-center gap-4 mb-12">
+                <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 02: Capture Value</h4>
+              </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov.captureValue.title}</h5>
-              <div className="space-y-6 md:space-y-8 mb-16">{pov.captureValue.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 ${i % 2 === 0 ? 'justify-start' : 'justify-end'}`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p></div></div>))}</div>
+              <div className="space-y-6 md:space-y-8 mb-16">{pov.captureValue.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 justify-center`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p></div></div>))}</div>
            </div>
            
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center">
-              <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em] mb-12 flex items-center gap-4"><div className="w-3 h-3 bg-blackline-yellow rounded-full animate-pulse"></div> Phase 03: Deliver Value</h4>
+           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
+              <div className="flex items-center justify-center gap-4 mb-12">
+                <div className="w-3 h-3 bg-blackline-yellow rounded-full animate-pulse"></div>
+                <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 03: Deliver Value</h4>
+              </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.deliverValue.title}</h5>
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-20 mt-8">
-                 <div><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10">Platform Activation</span><div className="flex flex-wrap gap-4">{pov.deliverValue.capabilities?.map((c: string) => (<div key={c} className="px-6 py-4 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold shadow-lg flex items-center gap-3"><div className="w-2 h-2 bg-blackline-yellow rounded-full"></div>{c}</div>))}</div></div>
-                 <div><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10">Validated Proof Points</span><div className="space-y-6">{pov.deliverValue.proofPoints?.map((p: string, i: number) => (<div key={i} className="flex items-center gap-6 p-4 rounded-2xl hover:bg-white/5"><div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0"><CheckCircle2 size={20} /></div><span className="text-xl md:text-2xl font-bold text-white">{p}</span></div>))}</div></div>
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-20 mt-8 text-left">
+                 <div className="flex flex-col items-center"><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10 text-center">Platform Activation</span><div className="flex flex-wrap gap-4 justify-center">{pov.deliverValue.capabilities?.map((c: string) => (<div key={c} className="px-6 py-4 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold shadow-lg flex items-center gap-3"><div className="w-2 h-2 bg-blackline-yellow rounded-full"></div>{c}</div>))}</div></div>
+                 <div className="flex flex-col items-center"><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10 text-center">Validated Proof Points</span><div className="space-y-6 w-full max-w-xl">{pov.deliverValue.proofPoints?.map((p: string, i: number) => (<div key={i} className="flex items-center gap-6 p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-zinc-800 transition-all"><div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0"><CheckCircle2 size={20} /></div><span className="text-xl md:text-2xl font-bold text-white">{p}</span></div>))}</div></div>
               </div>
            </div>
 
-           {/* PHASE 4: JUSTIFY VALUE (With House Visual) */}
-           <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center">
-              <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] mb-12 flex items-center gap-4"><div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div> Phase 04: Justify Value</h4>
+           {/* PHASE 4: JUSTIFY VALUE */}
+           <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
+              <div className="flex items-center justify-center gap-4 mb-12">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 04: Justify Value</h4>
+              </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.justifyValue.title}</h5>
-              
-              {activeDriver.id === 'trust' || activeDriver.id === 'compliance' ? (
-                <div className="mb-12"><HouseFireVisual /></div>
-              ) : null}
 
-              {/* Dynamic Spanning for Odd Number of Metrics */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8 text-left">
                 {pov.justifyValue.metrics?.map((m: string, i: number) => {
                   const isLastItem = i === (pov.justifyValue.metrics?.length || 0) - 1;
                   const isOddTotal = (pov.justifyValue.metrics?.length || 0) % 2 !== 0;
@@ -527,12 +514,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
            </div>
 
-           {/* PHASE 5: QUANTIFY VALUE (Clean Cards - No "Bucketing" Text) */}
-           <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center">
-              <h4 className="text-purple-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] mb-12 flex items-center gap-4"><div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div> Phase 05: Quantify the Win</h4>
+           {/* PHASE 5: QUANTIFY VALUE */}
+           <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
+              <div className="flex items-center justify-center gap-4 mb-12">
+                <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                <h4 className="text-purple-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 05: Quantify the Win</h4>
+              </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">ROI & Realization</h5>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 text-left">
                 {roiItems && roiItems.length > 0 ? (roiItems.map((item: any, i: number) => {
                   const isLastItem = i === roiItems.length - 1;
                   const isOddTotal = roiItems.length % 2 !== 0;
@@ -605,11 +595,13 @@ const SimplePersonaCard: React.FC<{ role: string, icon: string, nightmare: strin
 };
 
 const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, subtitle: string, formula: string, desc: string }> = ({ step, color, title, subtitle, formula, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-14 rounded-[3.5rem] flex flex-col hover:border-zinc-500 shadow-xl group min-h-[450px]">
-     <div className={`w-16 h-16 rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-8 font-black text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
-     <h4 className="text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
-     <p className={`text-${color} text-xs font-black uppercase tracking-[0.3em] mb-4`}>{subtitle}</p>
-     <div className="mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit"><span className="text-sm font-mono text-zinc-200 flex items-center gap-2">{formula}</span></div>
+  <div className="bg-zinc-900 border border-zinc-800 p-12 rounded-[3.5rem] flex flex-col justify-between hover:border-zinc-500 shadow-xl group h-full gap-6">
+     <div>
+       <div className={`w-16 h-16 rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-8 font-black text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
+       <h4 className="text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
+       <p className={`text-${color} text-xs font-black uppercase tracking-[0.3em] mb-4`}>{subtitle}</p>
+       <div className="mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit"><span className="text-sm font-mono text-zinc-200 flex items-center gap-2">{formula}</span></div>
+     </div>
      <p className="text-2xl text-zinc-100 leading-relaxed font-light whitespace-pre-line">{desc}</p>
   </div>
 );
