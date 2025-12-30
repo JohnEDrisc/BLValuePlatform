@@ -111,8 +111,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
          <button onClick={onClose} className="absolute top-4 right-4 md:top-0 md:right-0 p-4 md:p-8 text-gray-400 hover:text-white transition-colors z-50"><X size={28} /></button>
          <div className="text-center py-12 md:py-24">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blackline-yellow/20 border border-blackline-yellow/50 text-blackline-yellow text-[10px] md:text-xs font-bold uppercase tracking-wider mb-6 md:mb-8 animate-pulse"><Rocket size={12} /> SKO 26 Sales Playbook</div>
-            <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter text-white mb-6 md:mb-8 leading-[0.9] md:leading-[0.85]">#LETSGO <span className="text-blackline-yellow">GET</span></h1>
-            <p className="text-xl md:text-3xl text-zinc-200 font-light max-w-2xl mx-auto px-4 mb-8 md:mb-12">The definitive playbook for pivoting from <span className="text-white font-bold">feature-led discovery</span> to <span className="text-white font-bold italic">strategic certainty</span>.</p>
+            <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter text-white mb-6 md:mb-8 leading-[0.9] md:leading-[0.85]">#Lets<span className="text-blackline-yellow">Go</span>Get</h1>
+           <p className="text-xl md:text-3xl text-zinc-200 font-light max-w-2xl mx-auto px-4 mb-8 md:mb-12">The definitive playbook for pivoting from <span className="text-white font-bold">feature-led discovery</span> to <span className="text-white font-bold italic">strategic certainty</span>.</p>
          </div>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto w-full pb-16 md:pb-24 px-4 md:px-6">
              <div onClick={() => setViewMode('executive_commentary')} className="group relative bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden cursor-pointer hover:border-blackline-yellow/50 transition-all duration-500 h-[250px] md:h-[450px]">
