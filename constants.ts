@@ -294,7 +294,7 @@ const FULL_SKO_PERSONAS = {
     { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen financial data visibility gaps.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
     { role: 'CFO', icon: 'TrendingUp', nightmare: 'Missing an audit opinion or defaulting on debt covenants due to reporting failures.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
-    { role: 'CIO', icon: 'Cpu', nightmare: 'Inconsistently defined data model blocking AI adoption; Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business; Organization actively participates in evaluation and adoption of strategic technology investments.' }
+    { role: 'CIO', icon: 'Cpu', nightmare: 'Inconsistently defined data model blocking AI adoption; Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
   ],
   operational: [
     { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as inefficient and a bottleneck to strategic insight due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
