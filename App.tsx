@@ -317,7 +317,7 @@ function App() {
               <div className="h-6 w-px bg-zinc-800 mx-1 md:mx-2"></div>
               <div className="px-4 py-2 hidden lg:flex flex-col items-start min-w-[120px]">
                   <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">{t.footer_internal}</span>
-                  <span className="text-[9px] font-bold text-gray-300 uppercase italic">V3.6 READY</span>
+                  {/* v4 Update: Removed "V3.6 READY" version tag */}
               </div>
             </>
           )}
