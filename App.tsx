@@ -203,6 +203,14 @@ function App() {
                   <button onClick={(e) => { e.stopPropagation(); setDealContext({}); }} className="ml-2 p-1 hover:bg-zinc-800 rounded-full text-zinc-600 hover:text-white transition-all"><X size={14} /></button>
                </div>
             )}
+
+            {/* PreSales Mirror Badge */}
+            <div className="flex items-center gap-4">
+              <div className="hidden md:block h-8 w-px bg-zinc-800"></div>
+              <div className="flex items-center justify-center px-4 h-10 bg-blackline-yellow rounded-sm">
+                <span className="text-black font-extrabold text-lg tracking-tighter">PreSales</span>
+              </div>
+            </div>
           </div>
         </div>
       </header>
