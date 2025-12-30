@@ -218,13 +218,19 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
          <button onClick={onClose} className="absolute top-4 right-4 md:top-0 md:right-0 p-4 md:p-8 text-gray-400 hover:text-white transition-colors z-50"><X size={28} /></button>
          
          <div className="text-center py-16 md:py-28 flex flex-col items-center justify-center">
-            <div className="inline-flex items-start gap-2 md:gap-4 mb-6">
+            <div className="inline-flex items-start gap-2 md:gap-4 mb-4">
                <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white italic leading-none">
                  #Lets<span className="text-blackline-yellow">Go</span>Get
                </h1>
                <TrendingUp className="text-blackline-yellow w-12 h-12 md:w-24 md:h-24 shrink-0 mt-2 md:mt-4" strokeWidth={3} />
             </div>
-            <p className="text-sm md:text-xl text-zinc-400 font-black uppercase tracking-[0.5em] pl-4 border-l-4 border-blackline-yellow">
+            
+            {/* New Subtext Added Here */}
+            <p className="text-xl md:text-3xl text-zinc-300 font-light mb-10 tracking-tight">
+              Quantifying the value of <span className="text-white font-bold italic">unstoppable finance</span>
+            </p>
+
+            <p className="text-sm md:text-xl text-zinc-500 font-black uppercase tracking-[0.5em] pl-4 border-l-4 border-blackline-yellow">
               BlackLine SKO 2026
             </p>
          </div>
@@ -261,7 +267,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors"><X size={24} /></button>
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
-            {/* --- SECTION 1: EXXONMOBIL (CUSTOMER VOICE) --- */}
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">the CFO</span></h2>
