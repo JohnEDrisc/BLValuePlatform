@@ -383,7 +383,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-left">
               <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap" formula='Create Value → The Problem' desc={"Move conversation from features to objectives. Define macro-level pains."} /></div>
-              {/* v3 Update 13 (JR): Step 2 Text Changes */}
               <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Customer Challenges" subtitle="Expose the Reality" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform" formula='Deliver Value → The Capabilities' desc={"Align platform capabilities to specific business outcomes."} /></div>
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="4" color="green-500" title="Justify Value" subtitle="Build the Business Case Logic" formula='Justify Value → The Logic' desc={"Construct the logical business case structure before calculating math."} /></div>
@@ -582,4 +581,16 @@ const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: s
 };
 
 const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ title, subtitle }) => (
-    <div className="flex flex-col items-center text-center gap-2 mb-2"><h3 className="text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-4 italic text-center leading-tight"><div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div></h3><p className="text-sm font-bold text-zinc-200 uppercase tracking-
+    <div className="flex flex-col items-center text-center gap-2 mb-2"><h3 className="text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-4 italic text-center leading-tight"><div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div></h3><p className="text-sm font-bold text-zinc-200 uppercase tracking-widest px-2">{subtitle}</p></div>
+);
+
+const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
+  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
+     <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
+     <div className="text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
+     <h3 className="text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
+     <p className={`text-${color} text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
+     <div className="h-px bg-zinc-800 w-full mb-6"></div>
+     <p className="text-zinc-100 leading-relaxed text-lg font-medium">{desc}</p>
+  </div>
+);
