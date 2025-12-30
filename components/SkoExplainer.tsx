@@ -33,7 +33,15 @@ import {
   ChevronDown, 
   Quote, 
   Factory, 
-  Flame 
+  Flame,
+  Wind,
+  Anchor,
+  Droplets,
+  CloudFog,
+  Eye,
+  Layers,
+  Radar,
+  Loader2
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -65,41 +73,25 @@ const SafeIcon = ({ name, className }: { name: string; className?: string }) => 
   return <IconComponent className={className} />;
 };
 
-// --- NEW VISUAL COMPONENTS (v4 Visuals) ---
+// --- DRIVER VISUAL COMPONENTS ---
 
 const FunnelVisual = () => (
-  <div className="flex flex-col items-center justify-center w-full py-8">
-    <div className="relative w-full max-w-2xl aspect-[16/9] bg-zinc-900 rounded-xl border border-zinc-800 p-8 flex items-center">
-      {/* Left: Input */}
-      <div className="flex-1 flex flex-col gap-2">
-        {['Spend Mgmt', 'CRM Upgrade', 'Data Lake', 'ERP Upgrade'].map(label => (
-          <div key={label} className="bg-zinc-800 border border-zinc-700 p-2 rounded text-xs text-center font-bold text-zinc-400">
-            {label}
-          </div>
-        ))}
-        <div className="text-center text-xs font-black uppercase text-zinc-500 mt-2">Total Demand</div>
-      </div>
-      
-      {/* Center: Funnel Constraint */}
-      <div className="flex-[2] flex flex-col items-center px-4 relative">
-        <div className="w-full h-32 bg-gradient-to-r from-zinc-800 via-blackline-yellow/20 to-zinc-800 [clip-path:polygon(0%_0%,_100%_40%,_100%_60%,_0%_100%)] flex items-center justify-center">
-           <div className="text-center">
-             <AlertTriangle className="w-8 h-8 text-blackline-yellow mx-auto mb-1" />
-             <span className="text-[10px] font-black uppercase text-blackline-yellow tracking-widest">CONSTRAINT</span>
-             <p className="text-xs text-white font-bold leading-tight">Manual Processes</p>
-           </div>
-        </div>
-      </div>
-
-      {/* Right: Output */}
-      <div className="flex-1 flex flex-col gap-2 opacity-50">
-        {['Delayed Close', 'Limited Analysis'].map(label => (
-          <div key={label} className="bg-zinc-800 border border-zinc-700 p-2 rounded text-xs text-center font-bold text-zinc-500">
-            {label}
-          </div>
-        ))}
-        <div className="text-center text-xs font-black uppercase text-zinc-600 mt-2">Limited Throughput</div>
-      </div>
+  <div className="flex flex-col items-center justify-center w-full py-6">
+    <div className="flex flex-col md:flex-row items-center gap-4 w-full max-w-3xl">
+       <div className="flex-1 flex flex-col gap-2 w-full text-center">
+          <div className="bg-zinc-800 p-2 rounded text-xs font-bold text-zinc-300">Transaction Volume</div>
+          <div className="bg-zinc-800 p-2 rounded text-xs font-bold text-zinc-300">New Entities</div>
+          <div className="bg-zinc-800 p-2 rounded text-xs font-bold text-zinc-300">Data Sources</div>
+       </div>
+       <div className="relative z-10 bg-gradient-to-r from-red-900/50 to-red-600/50 p-6 rounded-xl border border-red-500/30 flex flex-col items-center justify-center shrink-0 w-full md:w-48">
+          <AlertTriangle className="text-red-500 mb-2 w-8 h-8" />
+          <span className="text-[10px] font-black uppercase text-red-400 tracking-widest">BOTTLENECK</span>
+          <p className="text-sm font-bold text-white leading-tight text-center">Manual Matching</p>
+       </div>
+       <div className="flex-1 flex flex-col gap-2 w-full text-center opacity-50">
+          <div className="bg-zinc-800 border border-zinc-700 p-2 rounded text-xs font-bold text-zinc-500">Delay</div>
+          <div className="bg-zinc-800 border border-zinc-700 p-2 rounded text-xs font-bold text-zinc-500">Risk</div>
+       </div>
     </div>
   </div>
 );
@@ -108,38 +100,30 @@ const GarbageInOutVisual = () => {
   const [mode, setMode] = useState<'dirty' | 'clean'>('dirty');
   
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
       <div className="flex justify-center gap-4 mb-6">
         <button onClick={() => setMode('dirty')} className={`px-6 py-2 rounded-full font-bold text-sm transition-all ${mode === 'dirty' ? 'bg-red-500 text-white' : 'bg-zinc-800 text-zinc-400'}`}>Current State</button>
         <button onClick={() => setMode('clean')} className={`px-6 py-2 rounded-full font-bold text-sm transition-all ${mode === 'clean' ? 'bg-green-500 text-white' : 'bg-zinc-800 text-zinc-400'}`}>With BlackLine</button>
       </div>
       
-      <div className={`relative p-8 rounded-2xl border transition-all duration-500 ${mode === 'dirty' ? 'bg-red-950/20 border-red-900/50' : 'bg-green-950/20 border-green-900/50'}`}>
-        <div className="flex items-center justify-between gap-8">
-          {/* Input */}
-          <div className="text-center">
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${mode === 'dirty' ? 'bg-red-900/30 text-red-500' : 'bg-green-900/30 text-green-500'}`}>
+      <div className={`relative p-8 rounded-2xl border transition-all duration-500 w-full ${mode === 'dirty' ? 'bg-red-950/20 border-red-900/50' : 'bg-green-950/20 border-green-900/50'}`}>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 text-center">
+          <div className="flex-1 flex flex-col items-center">
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${mode === 'dirty' ? 'bg-red-900/30 text-red-500' : 'bg-green-900/30 text-green-500'}`}>
               <Factory size={32} />
             </div>
             <p className="text-sm font-bold uppercase tracking-wider">{mode === 'dirty' ? 'Polluted Data' : 'Clean Data'}</p>
-            <p className="text-xs text-zinc-500 mt-1">{mode === 'dirty' ? 'Unreconciled, Fragmented' : 'Standardized, Verified'}</p>
           </div>
 
-          {/* Process Arrow */}
-          <div className="flex-1 h-1 bg-zinc-800 relative">
-            <div className={`absolute inset-0 bg-current transition-all duration-1000 ${mode === 'dirty' ? 'text-red-500 w-1/2' : 'text-green-500 w-full'}`}></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-1 text-xs font-black uppercase border border-zinc-800 rounded-full">
-              AI Processing
-            </div>
+          <div className="flex-1 w-full h-1 bg-zinc-800 relative min-h-[4px]">
+             <div className={`absolute top-0 left-0 h-full transition-all duration-1000 ${mode === 'dirty' ? 'bg-red-500 w-1/3' : 'bg-green-500 w-full'}`}></div>
           </div>
 
-          {/* Output */}
-          <div className="text-center">
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${mode === 'dirty' ? 'bg-red-900/30 text-red-500' : 'bg-green-900/30 text-green-500'}`}>
+          <div className="flex-1 flex flex-col items-center">
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${mode === 'dirty' ? 'bg-red-900/30 text-red-500' : 'bg-green-900/30 text-green-500'}`}>
               {mode === 'dirty' ? <AlertTriangle size={32} /> : <Sparkles size={32} />}
             </div>
-            <p className="text-sm font-bold uppercase tracking-wider">{mode === 'dirty' ? 'Failed Decisions' : 'Strategic Insights'}</p>
-            <p className="text-xs text-zinc-500 mt-1">{mode === 'dirty' ? 'Hallucinations & Risk' : 'Trusted Forecasting'}</p>
+            <p className="text-sm font-bold uppercase tracking-wider">{mode === 'dirty' ? 'AI Hallucinations' : 'Trusted AI'}</p>
           </div>
         </div>
       </div>
@@ -148,22 +132,174 @@ const GarbageInOutVisual = () => {
 };
 
 const HouseFireVisual = () => (
-  <div className="grid grid-cols-2 gap-4 w-full max-w-4xl mx-auto">
-    <div className="bg-red-950/20 border border-red-900/30 p-6 rounded-2xl flex flex-col items-center text-center">
-      <div className="w-20 h-20 bg-red-900/20 rounded-full flex items-center justify-center mb-4 animate-pulse">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mx-auto">
+    <div className="bg-red-950/20 border border-red-900/30 p-8 rounded-2xl flex flex-col items-center text-center">
+      <div className="w-20 h-20 bg-red-900/20 rounded-full flex items-center justify-center mb-6 animate-pulse">
         <Flame size={40} className="text-red-500" />
       </div>
       <h4 className="text-red-400 font-black uppercase tracking-widest text-sm mb-2">Vulnerable State</h4>
       <p className="text-zinc-400 text-sm">Material Weakness = Reputational Fire</p>
     </div>
-    <div className="bg-blue-950/20 border border-blue-900/30 p-6 rounded-2xl flex flex-col items-center text-center">
-      <div className="w-20 h-20 bg-blue-900/20 rounded-full flex items-center justify-center mb-4">
+    <div className="bg-blue-950/20 border border-blue-900/30 p-8 rounded-2xl flex flex-col items-center text-center">
+      <div className="w-20 h-20 bg-blue-900/20 rounded-full flex items-center justify-center mb-6">
         <ShieldAlert size={40} className="text-blue-500" />
       </div>
       <h4 className="text-blue-400 font-black uppercase tracking-widest text-sm mb-2">Fortified State</h4>
-      <p className="text-zinc-400 text-sm">Automated Controls = Resilience</p>
+      <p className="text-zinc-400 text-sm">Automated Controls = Digital Resilience</p>
     </div>
   </div>
+);
+
+const WorkingCapitalVisual = () => (
+    <div className="flex flex-col items-center justify-center w-full py-4 text-center">
+        <div className="flex items-center gap-8 md:gap-16">
+            <div className="flex flex-col items-center opacity-50 grayscale">
+                <Droplets size={48} className="mb-2 text-zinc-500" />
+                <span className="text-[10px] uppercase font-black tracking-widest">Trapped Cash</span>
+            </div>
+            <div className="flex flex-col items-center">
+                 <ArrowRight size={32} className="text-zinc-700" />
+            </div>
+            <div className="flex flex-col items-center">
+                <div className="relative">
+                    <div className="absolute inset-0 bg-blackline-yellow blur-xl opacity-20 rounded-full"></div>
+                    <Zap size={64} className="text-blackline-yellow relative z-10 animate-pulse" />
+                </div>
+                <span className="text-[10px] uppercase font-black tracking-widest text-blackline-yellow mt-4">Cash Velocity</span>
+            </div>
+        </div>
+        <p className="text-xs text-zinc-500 mt-6 max-w-md mx-auto">Transforming idle droplets into a high-speed revenue turbine.</p>
+    </div>
+);
+
+const MaIntegrationVisual = () => (
+    <div className="flex flex-col items-center justify-center w-full py-4 text-center">
+        <div className="flex items-center gap-2">
+             <div className="h-24 w-12 bg-blue-500/20 border border-blue-500/50 rounded-l-xl flex items-center justify-center"><span className="rotate-90 text-[10px] uppercase font-black text-blue-400">Co. A</span></div>
+             <div className="h-24 w-8 flex flex-col justify-center gap-1">
+                 {[1,2,3,4,5].map(i => <div key={i} className="w-full h-1 bg-blackline-yellow rounded-full shadow-[0_0_10px_rgba(249,183,52,0.8)]"></div>)}
+             </div>
+             <div className="h-24 w-12 bg-purple-500/20 border border-purple-500/50 rounded-r-xl flex items-center justify-center"><span className="rotate-90 text-[10px] uppercase font-black text-purple-400">Co. B</span></div>
+        </div>
+        <p className="text-xs text-zinc-500 mt-6 max-w-md mx-auto">The "Digital Zipper" seamlessly merging disparate ERP landscapes.</p>
+    </div>
+);
+
+const ComplianceVisual = () => (
+    <div className="flex items-center justify-center w-full py-4 text-center gap-12">
+        <div className="flex flex-col items-center opacity-40">
+             <div className="w-16 h-16 border border-red-500/50 rounded-full flex items-center justify-center bg-red-950/20">
+                 <AlertTriangle className="text-red-500" size={24} />
+             </div>
+             <span className="text-[10px] uppercase font-black mt-2">Minefield</span>
+        </div>
+        <div className="flex flex-col items-center">
+             <div className="w-20 h-20 border-2 border-green-500 rounded-full flex items-center justify-center bg-green-950/20 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+                 <Radar className="text-green-500 animate-spin-slow" size={32} />
+             </div>
+             <span className="text-[10px] uppercase font-black mt-2 text-green-400">Active Radar</span>
+        </div>
+    </div>
+);
+
+const TalentVisual = () => (
+    <div className="flex items-center justify-center w-full py-4 text-center gap-8 md:gap-16">
+        <div className="flex flex-col items-center group">
+            <div className="w-16 h-16 rounded-full border border-zinc-700 flex items-center justify-center bg-zinc-900 group-hover:border-zinc-500 transition-colors">
+                <Loader2 className="text-zinc-500 animate-spin" size={24} />
+            </div>
+            <span className="text-[10px] uppercase font-black mt-3 text-zinc-500">The Grind</span>
+        </div>
+        <div className="h-px w-16 bg-zinc-800"></div>
+        <div className="flex flex-col items-center group">
+            <div className="w-20 h-20 rounded-full border-2 border-blackline-yellow flex items-center justify-center bg-blackline-yellow/10 shadow-[0_0_30px_rgba(249,183,52,0.2)]">
+                <Rocket className="text-blackline-yellow group-hover:-translate-y-1 transition-transform" size={32} />
+            </div>
+            <span className="text-[10px] uppercase font-black mt-3 text-blackline-yellow">Career Launchpad</span>
+        </div>
+    </div>
+);
+
+const InnovationVisual = () => (
+    <div className="flex flex-col items-center justify-center w-full py-4 text-center">
+        <div className="flex items-end gap-6 mb-4">
+             <div className="flex flex-col items-center">
+                 <Anchor className="text-zinc-600 mb-2" size={32} />
+                 <div className="h-1 w-12 bg-zinc-800 rounded-full"></div>
+             </div>
+             <ArrowRight className="text-zinc-700 mb-1" />
+             <div className="flex flex-col items-center">
+                 <Wind className="text-blue-400 mb-2 animate-pulse" size={40} />
+                 <div className="h-1 w-16 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+             </div>
+        </div>
+        <p className="text-xs text-zinc-500 max-w-md mx-auto">Cutting the anchor of manual work to catch the winds of strategy.</p>
+    </div>
+);
+
+const DecisionVisual = () => (
+    <div className="flex items-center justify-center w-full py-4 text-center gap-8">
+        <div className="relative w-32 h-20 bg-zinc-800 rounded-lg overflow-hidden flex items-center justify-center border border-zinc-700">
+            <CloudFog className="absolute inset-0 text-zinc-600 w-full h-full opacity-50" />
+            <span className="relative z-10 font-bold text-zinc-400 blur-[2px]">DATA</span>
+        </div>
+        <ArrowRight className="text-zinc-600" />
+        <div className="relative w-32 h-20 bg-blackline-yellow/10 rounded-lg overflow-hidden flex items-center justify-center border border-blackline-yellow">
+            <Eye className="absolute top-2 right-2 text-blackline-yellow w-4 h-4" />
+            <span className="font-black text-white tracking-widest text-lg">CLEAR</span>
+        </div>
+    </div>
+);
+
+// --- FRAMEWORK PHASE VISUALS ---
+
+const PainPulseGrid = ({ items }: { items: string[] }) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        {items.map((item, idx) => (
+            <div key={idx} className="bg-red-950/10 border border-red-900/30 p-4 rounded-xl flex items-center gap-4 group hover:bg-red-900/20 transition-all">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0"></div>
+                <p className="text-zinc-300 text-sm font-medium group-hover:text-white">{item}</p>
+            </div>
+        ))}
+    </div>
+);
+
+const SpotlightCards = ({ items }: { items: string[] }) => (
+    <div className="space-y-3 w-full">
+        {items.map((item, idx) => (
+            <div key={idx} className="bg-black border border-zinc-800 p-4 rounded-xl text-center hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all group">
+                <p className="text-zinc-400 italic text-lg group-hover:text-white transition-colors">"{item}"</p>
+            </div>
+        ))}
+    </div>
+);
+
+const CapabilityStack = ({ items }: { items: string[] }) => (
+    <div className="flex flex-col-reverse gap-2 w-full max-w-md mx-auto">
+        {items.map((item, idx) => (
+            <div key={idx} className="bg-zinc-800 border border-zinc-700 p-3 rounded-lg text-center shadow-lg transform hover:scale-105 transition-transform cursor-default">
+                <span className="text-sm font-bold text-white flex items-center justify-center gap-2">
+                    <Layers size={14} className="text-blackline-yellow" /> {item}
+                </span>
+            </div>
+        ))}
+        <div className="text-center text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-1">Tech Stack Foundation</div>
+    </div>
+);
+
+const LogicFlow = ({ metrics }: { metrics: string[] }) => (
+    <div className="flex flex-col gap-4 w-full">
+        {metrics.map((metric, idx) => (
+            <div key={idx} className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-green-900/30 border border-green-700 flex items-center justify-center text-green-500 font-bold text-xs shrink-0">
+                    {idx + 1}
+                </div>
+                <div className="flex-1 bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
+                    <p className="text-white font-medium text-lg">{metric}</p>
+                </div>
+            </div>
+        ))}
+    </div>
 );
 
 // --- MAIN COMPONENT ---
@@ -210,12 +346,28 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   const accelerationDrivers = sortedDrivers.filter(d => ['talent', 'ma', 'innovation', 'compliance', 'decision'].includes(d.id));
   const valueDrivers = sortedDrivers.filter(d => ['trust', 'ai_ops'].includes(d.id));
 
+  // --- HELPER FOR DRIVER VISUALS ---
+  const renderDriverVisual = (id: string) => {
+      switch(id) {
+          case 'process': return <FunnelVisual />;
+          case 'working_cap': return <WorkingCapitalVisual />;
+          case 'trust': return <HouseFireVisual />;
+          case 'ma': return <MaIntegrationVisual />;
+          case 'compliance': return <ComplianceVisual />;
+          case 'talent': return <TalentVisual />;
+          case 'innovation': return <InnovationVisual />;
+          case 'decision': return <DecisionVisual />;
+          case 'ai_ops': return <GarbageInOutVisual />;
+          default: return null;
+      }
+  };
+
   // --- VIEW RENDERING ---
 
   if (viewMode === 'landing') {
     return (
       <div className="min-h-[85vh] flex flex-col animate-fade-in relative px-4 md:px-0 bg-black">
-         <button onClick={onClose} className="absolute top-4 right-4 md:top-0 md:right-0 p-4 md:p-8 text-gray-400 hover:text-white transition-colors z-50 invisible"><X size={28} /></button>
+         {/* Close Button Removed as requested */}
          
          <div className="text-center py-16 md:py-28 flex flex-col items-center justify-center">
             <div className="inline-flex items-start gap-2 md:gap-4 mb-4">
@@ -263,7 +415,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
       <div className="min-h-screen bg-black flex flex-col animate-fade-in relative pb-40">
          <div className="flex justify-between items-center px-4 md:px-8 py-6 sticky top-0 bg-black/80 backdrop-blur-md z-40 border-b border-zinc-800/50">
             <button onClick={() => setViewMode('landing')} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-bold uppercase tracking-wider text-xs"><ArrowLeft size={16} /> Back</button>
-            <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors invisible"><X size={24} /></button>
+            {/* Close Button Removed here too */}
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
             <div className="text-center">
@@ -283,7 +435,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <div className="relative pl-8 md:pl-12 border-l-4 border-blackline-yellow mb-12">
                      <Quote className="text-blackline-yellow w-10 h-10 absolute -left-5 -top-4 bg-white" fill="currentColor" />
                      <p className="text-lg md:text-2xl leading-relaxed font-light">
-                       “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black bg-blackline-yellow px-1">and being able to have cleaner data at a corporate-wide level so that we can get better insights</strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
+                       “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black bg-blackline-yellow px-1">and being able to have <span className="bg-blackline-yellow px-1">cleaner data at a corporate-wide level so that we can get better insights</span></strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
                      </p>
                   </div>
                   <div className="flex flex-col xl:flex-row justify-between items-end gap-8 mt-auto">
@@ -390,16 +542,71 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
         <div className="max-w-7xl w-full text-center">
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-black uppercase tracking-[0.2em] mb-14"><HelpCircle size={14} /> Methodology Briefing</div>
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
+           
+           {/* REPLACED LARGE FRAMEWORK BOXES WITH NEW VISUAL COMPONENTS */}
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-left">
-              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap" formula='Create Value → The Problem' desc={"Move conversation from features to objectives. Define macro-level pains."} /></div>
+              <div className="col-span-1 md:col-span-3">
+                  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-red-500/50 transition-all gap-8">
+                      <div>
+                          <div className="text-red-500 font-black text-4xl mb-4">01</div>
+                          <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Create Value</h3>
+                          <p className="text-red-400 text-xs font-black uppercase tracking-widest mb-6">Establish the Strategic Gap</p>
+                          <PainPulseGrid items={["Headcount Risk", "Process Bottlenecks", "Reporting Lag", "Compliance Exposure"]} />
+                      </div>
+                      <p className="text-zinc-400 text-sm mt-8 border-t border-zinc-800 pt-4">Move conversation from features to objectives.</p>
+                  </div>
+              </div>
               
-              {/* v4 Update: Renamed Title to 'Capture Value' to align with pattern, using subtitle for context */}
-              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Value" subtitle="Identify Customer Challenges" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
+              <div className="col-span-1 md:col-span-3">
+                   <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-blue-500/50 transition-all gap-8">
+                      <div>
+                          <div className="text-blue-500 font-black text-4xl mb-4">02</div>
+                          <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Capture Value</h3>
+                          <p className="text-blue-400 text-xs font-black uppercase tracking-widest mb-6">Identify Customer Challenges</p>
+                          <SpotlightCards items={["How long does your close take?", "Do you trust the numbers on Day 1?", "What is the cost of attrition?"]} />
+                      </div>
+                      <p className="text-zinc-400 text-sm mt-8 border-t border-zinc-800 pt-4">Deep discovery to uncover hidden costs.</p>
+                  </div>
+              </div>
               
-              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform" formula='Deliver Value → The Capabilities' desc={"Align platform capabilities to specific business outcomes."} /></div>
-              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="4" color="green-500" title="Justify Value" subtitle="Build the Business Case Logic" formula='Justify Value → The Logic' desc={"Construct the logical business case structure before calculating math."} /></div>
-              <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="5" color="purple-500" title="Quantify Value" subtitle="Calculate the ROI" formula='Quantify Value → The Hard Math' desc={"Translate agreed logic into hard financial return on investment calculations."} /></div>
+              <div className="col-span-1 md:col-span-2">
+                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-blackline-yellow/50 transition-all gap-6">
+                      <div>
+                          <div className="text-blackline-yellow font-black text-4xl mb-4">03</div>
+                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Deliver Value</h3>
+                          <p className="text-blackline-yellow text-xs font-black uppercase tracking-widest mb-6">Map Outcomes</p>
+                          <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
+                      </div>
+                  </div>
+              </div>
+              
+              <div className="col-span-1 md:col-span-2">
+                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-green-500/50 transition-all gap-6">
+                      <div>
+                          <div className="text-green-500 font-black text-4xl mb-4">04</div>
+                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Justify Value</h3>
+                          <p className="text-green-400 text-xs font-black uppercase tracking-widest mb-6">Build Logic</p>
+                          <LogicFlow metrics={["Manual Hours", "FTE Capacity", "Strategic ROI"]} />
+                      </div>
+                  </div>
+              </div>
+              
+              <div className="col-span-1 md:col-span-2">
+                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-purple-500/50 transition-all gap-6">
+                      <div>
+                          <div className="text-purple-500 font-black text-4xl mb-4">05</div>
+                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Quantify Value</h3>
+                          <p className="text-purple-400 text-xs font-black uppercase tracking-widest mb-6">Calculate ROI</p>
+                          <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700">
+                              <Coins className="text-blackline-yellow mx-auto mb-2" />
+                              <span className="text-white font-mono text-xl">$2.5M</span>
+                              <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Savings</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
            </div>
+
            <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mt-20">
               <button onClick={() => setViewMode('persona_explain')} className="px-8 py-4 bg-zinc-900 text-white text-lg font-black rounded-full hover:bg-zinc-800 uppercase italic border border-zinc-700">Back to Personas</button>
               <button onClick={() => { setActivePov('executive'); setViewMode('detail'); }} className="px-10 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 shadow-xl flex items-center justify-center gap-4 uppercase italic">Start Driver Tour <ArrowRight size={24} /></button>
@@ -410,9 +617,12 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   }
 
   if (viewMode === 'detail' && activeDriver) {
-    const pov = activePov === 'executive' ? activeDriver.executivePov : activeDriver.operationalPov;
-    const roiItems = activeDriver.executivePov.roiCalculations?.[activePov];
+    const pov = activePov === 'executive' ? activeDriver?.executivePov : activeDriver?.operationalPov;
+    const roiItems = activeDriver?.executivePov?.roiCalculations?.[activePov];
       
+    // SAFETY CHECK: If POV data is missing, show fallback to prevent crash
+    if (!pov) return <div className="min-h-screen bg-black flex items-center justify-center text-white">Driver data incomplete. <button onClick={() => setViewMode('grid')} className="ml-4 underline">Back</button></div>;
+
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
         <button onClick={() => { setActivePov('executive'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
@@ -452,7 +662,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
                 <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 01: Create Value</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-10 uppercase italic tracking-tighter leading-[0.9]">{pov.createValue.title}</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-10 uppercase italic tracking-tighter leading-[0.9]">{pov?.createValue?.title}</h5>
               
               {/* Conditional Visuals for Phase 1 */}
               <div className="w-full flex justify-center mb-8">
@@ -462,11 +672,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               {/* Fallback Text List if no specific visual, or supplementary info */}
               {!['process', 'ai_ops', 'working_cap', 'trust', 'ma', 'compliance', 'talent', 'innovation', 'decision'].includes(activeDriver.id) && (
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 mt-8 text-left">
-                  {pov.createValue.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-200 text-lg md:text-2xl font-medium leading-relaxed">{p}</p></div>))}
+                  {pov?.createValue?.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-200 text-lg md:text-2xl font-medium leading-relaxed">{p}</p></div>))}
                 </div>
               )}
 
-              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Strategic Focus Point</p><p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov.createValue.focus}"</p></div>
+              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Strategic Focus Point</p><p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
            </div>
 
            {/* PHASE 2 & 3 */}
@@ -475,8 +685,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
                 <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 02: Capture Value</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov.captureValue.title}</h5>
-              <div className="space-y-6 md:space-y-8 mb-16">{pov.captureValue.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 justify-center`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p></div></div>))}</div>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov?.captureValue?.title}</h5>
+              <div className="space-y-6 md:space-y-8 mb-16">{pov?.captureValue?.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 justify-center`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p></div></div>))}</div>
            </div>
            
            <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
@@ -484,10 +694,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-blackline-yellow rounded-full animate-pulse"></div>
                 <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 03: Deliver Value</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.deliverValue.title}</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov?.deliverValue?.title}</h5>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-20 mt-8 text-left">
-                 <div className="flex flex-col items-center"><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10 text-center">Platform Activation</span><div className="flex flex-wrap gap-4 justify-center">{pov.deliverValue.capabilities?.map((c: string) => (<div key={c} className="px-6 py-4 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold shadow-lg flex items-center gap-3"><div className="w-2 h-2 bg-blackline-yellow rounded-full"></div>{c}</div>))}</div></div>
-                 <div className="flex flex-col items-center"><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10 text-center">Validated Proof Points</span><div className="space-y-6 w-full max-w-xl">{pov.deliverValue.proofPoints?.map((p: string, i: number) => (<div key={i} className="flex items-center gap-6 p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-zinc-800 transition-all"><div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0"><CheckCircle2 size={20} /></div><span className="text-xl md:text-2xl font-bold text-white">{p}</span></div>))}</div></div>
+                 <div className="flex flex-col items-center"><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10 text-center">Platform Activation</span><div className="flex flex-wrap gap-4 justify-center">{pov?.deliverValue?.capabilities?.map((c: string) => (<div key={c} className="px-6 py-4 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold shadow-lg flex items-center gap-3"><div className="w-2 h-2 bg-blackline-yellow rounded-full"></div>{c}</div>))}</div></div>
+                 <div className="flex flex-col items-center"><span className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-10 text-center">Validated Proof Points</span><div className="space-y-6 w-full max-w-xl">{pov?.deliverValue?.proofPoints?.map((p: string, i: number) => (<div key={i} className="flex items-center gap-6 p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-zinc-800 transition-all"><div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0"><CheckCircle2 size={20} /></div><span className="text-xl md:text-2xl font-bold text-white">{p}</span></div>))}</div></div>
               </div>
            </div>
 
@@ -497,10 +707,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                 <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 04: Justify Value</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov.justifyValue.title}</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">{pov?.justifyValue?.title}</h5>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8 text-left">
-                {pov.justifyValue.metrics?.map((m: string, i: number) => {
+                {pov?.justifyValue?.metrics?.map((m: string, i: number) => {
                   const isLastItem = i === (pov.justifyValue.metrics?.length || 0) - 1;
                   const isOddTotal = (pov.justifyValue.metrics?.length || 0) % 2 !== 0;
                   
@@ -595,7 +805,7 @@ const SimplePersonaCard: React.FC<{ role: string, icon: string, nightmare: strin
 };
 
 const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, subtitle: string, formula: string, desc: string }> = ({ step, color, title, subtitle, formula, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-12 rounded-[3.5rem] flex flex-col justify-between hover:border-zinc-500 shadow-xl group h-full gap-6">
+  <div className="bg-zinc-900 border border-zinc-800 p-14 rounded-[3.5rem] flex flex-col justify-between hover:border-zinc-500 shadow-xl group h-full gap-6">
      <div>
        <div className={`w-16 h-16 rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-8 font-black text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
        <h4 className="text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
