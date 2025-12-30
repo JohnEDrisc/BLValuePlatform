@@ -261,57 +261,78 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors"><X size={24} /></button>
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
+            {/* --- SECTION 1: EXXONMOBIL (CUSTOMER VOICE) --- */}
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">the CFO</span></h2>
-               <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col">
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Exxon_Mobil_Logo.svg/2560px-Exxon_Mobil_Logo.svg.png" alt="ExxonMobil Logo" className="h-10 md:h-14" />
-                     <div className="flex flex-col md:flex-row gap-4">
-                        <div className="bg-blackline-yellow p-4 rounded-xl">
-                           <p className="font-bold text-sm mb-1">Launched Migration to S/4HANA:</p>
-                           <p className="text-sm">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
-                        </div>
-                        <div className="bg-blackline-yellow p-4 rounded-xl">
-                           <p className="font-bold text-sm mb-1">Measurable Impact:</p>
-                           <p className="text-sm">Automated 84% of reconciliations</p>
-                        </div>
+               
+               {/* Main Content Container - Exxon Section */}
+               <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
+                  
+                  {/* Top Data Points Row - Logo Removed per request, fixed overlap */}
+                  <div className="flex flex-col md:flex-row justify-end items-start gap-4 mb-8">
+                     <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto">
+                        <p className="font-bold text-sm mb-1">Launched Migration to S/4HANA:</p>
+                        <p className="text-sm">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
+                     </div>
+                     <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto">
+                        <p className="font-bold text-sm mb-1">Measurable Impact:</p>
+                        <p className="text-sm">Automated 84% of reconciliations</p>
                      </div>
                   </div>
+
+                  {/* Main Quote Block */}
                   <div className="relative pl-8 md:pl-12 border-l-4 border-blackline-yellow mb-12">
                      <Quote className="text-blackline-yellow w-10 h-10 absolute -left-5 -top-4 bg-white" fill="currentColor" />
                      <p className="text-lg md:text-2xl leading-relaxed font-light">
                        “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black">and being able to have cleaner data at a corporate-wide level so that we can get better insights</strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
                      </p>
                   </div>
-                  <div className="flex flex-col md:flex-row justify-end items-end gap-8">
-                     <div className="bg-black text-white p-4 md:p-6 rounded-xl shadow-lg text-center md:text-right w-full md:w-auto">
-                        <p className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest mb-2">Quantified Impact</p>
-                        <p className="text-2xl md:text-4xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
+
+                  {/* Footer Section - Flexbox to prevent overlap */}
+                  <div className="flex flex-col xl:flex-row justify-between items-end gap-8 mt-auto">
+                     {/* Customer Since - Moved into flow */}
+                     <div className="text-gray-500 text-xs font-bold uppercase tracking-widest order-3 xl:order-1">
+                        Customer Since: <span className="text-black text-lg font-black ml-2">2022</span>
                      </div>
-                     <div className="text-right">
-                        <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
-                        <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
-                        <p className="text-gray-600 text-xs mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
+
+                     <div className="flex flex-col md:flex-row items-end gap-8 order-2 w-full xl:w-auto justify-end">
+                         {/* Quantified Impact Bar */}
+                         <div className="bg-black text-white p-4 md:p-6 rounded-xl shadow-lg text-center md:text-right w-full md:w-auto">
+                            <p className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest mb-2">Quantified Impact</p>
+                            <p className="text-2xl md:text-4xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
+                         </div>
+                         
+                         {/* Author Block */}
+                         <div className="text-right shrink-0">
+                            <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
+                            <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
+                            <p className="text-gray-600 text-xs mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
+                         </div>
                      </div>
                   </div>
-                  <div className="absolute bottom-8 left-8 text-gray-500 text-xs font-bold uppercase tracking-widest">
-                     Customer Since: <span className="text-black text-lg font-black">2022</span>
-                  </div>
+                  
                </div>
             </div>
+
             <div className="h-px bg-zinc-800 w-full opacity-50"></div>
+
+            {/* --- SECTION 2: BLACKLINE VISION (INTERNAL VOICE) --- */}
+            {/* Updated Colors & Removed Caps per request */}
             <div className="text-center pb-20">
-               <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Leadership Keynote</div>
-               <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-8">Hear from BL execs on the <span className="text-red-500">real value of BlackLine</span></h2>
-               <div onClick={() => alert("Video placeholder: Asset not yet connected for SKO.")} className="bg-zinc-900 border-2 border-red-500/30 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12">
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Leadership Keynote</div>
+               <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
+                  Hear from BL execs on the <span className="text-blackline-yellow">real value of BlackLine</span>
+               </h2>
+               
+               <div onClick={() => alert("Video placeholder: Asset not yet connected for SKO.")} className="bg-zinc-900 border-2 border-zinc-800 hover:border-blackline-yellow/50 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12 transition-all duration-500">
                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                  <div className="relative z-10 w-24 h-24 bg-red-600 rounded-full flex items-center justify-center text-white shadow-[0_0_50px_rgba(220,38,38,0.5)] group-hover:scale-110 group-hover:bg-red-500 transition-all">
-                     <Play size={32} fill="white" />
+                  <div className="relative z-10 w-24 h-24 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:bg-blackline-yellow group-hover:text-black transition-all">
+                     <Play size={32} fill="currentColor" />
                   </div>
                   <div className="absolute bottom-10 left-10 text-left z-10">
-                     <p className="text-white font-black text-2xl uppercase italic tracking-tighter">Executive Leadership Team</p>
+                     <p className="text-white font-bold text-2xl italic tracking-tight">Executive Leadership Team</p>
                   </div>
                </div>
             </div>
@@ -345,7 +366,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="flex flex-col gap-6">{valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}</div>
             </div>
          </div>
-         {/* Button Restored Here */}
+         {/* Button Explicitly Restored Here */}
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button onClick={() => { setActivePov('executive'); setByActiveDriverId(sortedDrivers[0]?.id || null); setViewMode('persona_explain'); }} className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"><Sparkles size={24} /> Start Deep Dive</button>
          </div>
@@ -387,7 +408,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-left">
               <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap" formula='Create Value → The Problem' desc={"Move conversation from features to objectives. Define macro-level pains."} /></div>
-              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Customer Challenges" subtitle="Expose the Reality" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
+              
+              {/* v4 Update: Renamed Title to 'Capture Value' to align with pattern, using subtitle for context */}
+              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Value" subtitle="Identify Customer Challenges" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
+              
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform" formula='Deliver Value → The Capabilities' desc={"Align platform capabilities to specific business outcomes."} /></div>
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="4" color="green-500" title="Justify Value" subtitle="Build the Business Case Logic" formula='Justify Value → The Logic' desc={"Construct the logical business case structure before calculating math."} /></div>
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="5" color="purple-500" title="Quantify Value" subtitle="Calculate the ROI" formula='Quantify Value → The Hard Math' desc={"Translate agreed logic into hard financial return on investment calculations."} /></div>
