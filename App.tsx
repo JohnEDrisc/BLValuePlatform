@@ -175,21 +175,23 @@ function App() {
       
       {/* Header */}
       <header className="bg-black/95 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-[60]">
-        <div className="container mx-auto px-6 flex items-center justify-between">
-          {/* Header Left: Removed Link/Pointer as requested */}
+        <div className="container mx-auto px-6 flex items-center justify-between relative">
+          
+          {/* Header Left: Logo only */}
           <div className="flex items-center gap-4">
             <div className="flex items-center justify-center w-10 h-10 bg-blackline-yellow rounded-sm">
               <span className="text-black font-extrabold text-2xl tracking-tighter">BL</span>
             </div>
-            <div className="h-8 w-px bg-zinc-800"></div>
-            <h1 className="text-lg font-medium tracking-wide text-gray-200">
-              {activeTab === 'sko' ? (
-                <>Value Driver <span className="font-bold text-white uppercase tracking-tighter">Enablement Platform</span></>
-              ) : (
-                <>Value Delivery <span className="font-bold text-white uppercase tracking-tighter">Execution Platform</span></>
-              )}
-            </h1>
           </div>
+
+          {/* Header Center: Title Text (Centered Absolutely) */}
+          <h1 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-medium tracking-wide text-gray-200 text-center whitespace-nowrap hidden md:block">
+            {activeTab === 'sko' ? (
+              <>Value Driver <span className="font-bold text-white uppercase tracking-tighter">Enablement Platform</span></>
+            ) : (
+              <>Value Delivery <span className="font-bold text-white uppercase tracking-tighter">Execution Platform</span></>
+            )}
+          </h1>
           
           {/* Header Right */}
           <div className="flex items-center gap-4 md:gap-6">
@@ -201,8 +203,6 @@ function App() {
                   <button onClick={(e) => { e.stopPropagation(); setDealContext({}); }} className="ml-2 p-1 hover:bg-zinc-800 rounded-full text-zinc-600 hover:text-white transition-all"><X size={14} /></button>
                </div>
             )}
-
-            {/* Assistant and Language buttons removed as requested */}
           </div>
         </div>
       </header>
