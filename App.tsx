@@ -176,12 +176,13 @@ function App() {
       {/* Header */}
       <header className="bg-black/95 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-[60]">
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <div className="flex items-center gap-4 cursor-pointer group" onClick={goHome}>
-            <div className="flex items-center justify-center w-10 h-10 bg-blackline-yellow rounded-sm group-hover:bg-white transition-colors duration-300">
+          {/* Header Left: Removed Link/Pointer as requested */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center w-10 h-10 bg-blackline-yellow rounded-sm">
               <span className="text-black font-extrabold text-2xl tracking-tighter">BL</span>
             </div>
             <div className="h-8 w-px bg-zinc-800"></div>
-            <h1 className="text-lg font-medium tracking-wide text-gray-200 group-hover:text-white transition-colors">
+            <h1 className="text-lg font-medium tracking-wide text-gray-200">
               {activeTab === 'sko' ? (
                 <>Value Driver <span className="font-bold text-white uppercase tracking-tighter">Enablement Platform</span></>
               ) : (
@@ -190,6 +191,7 @@ function App() {
             </h1>
           </div>
           
+          {/* Header Right */}
           <div className="flex items-center gap-4 md:gap-6">
             {dealContext.opportunityName && (
                <div className="hidden lg:flex items-center gap-2 px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800 animate-fade-in">
@@ -200,35 +202,7 @@ function App() {
                </div>
             )}
 
-            <div className="flex items-center gap-2 md:gap-3">
-              <button 
-                onClick={() => setActivePanel(activePanel === 'chat' ? null : 'chat')}
-                className={`p-3 rounded-xl transition-all duration-300 border flex items-center gap-2 ${activePanel === 'chat' ? 'bg-white border-white text-black scale-105 shadow-lg' : 'bg-blackline-yellow border-blackline-yellow text-black hover:bg-yellow-400'}`}
-              >
-                <RubiksCube size={20} className={activePanel === 'chat' ? 'animate-spin-once' : ''} />
-                <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Assistant</span>
-              </button>
-            </div>
-            
-            <div className="relative">
-              <button onClick={() => setIsLangMenuOpen(!isLangMenuOpen)} className="flex items-center gap-2 text-gray-300 hover:text-blackline-yellow transition-colors py-2 font-medium">
-                <Globe size={18} />
-                <span className="text-xs font-bold hidden sm:inline">{currentLang}</span>
-                <ChevronDown size={14} className={`transition-transform duration-200 ${isLangMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isLangMenuOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setIsLangMenuOpen(false)}></div>
-                  <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-xl py-2 z-50 border border-zinc-800 animate-fade-in">
-                    {SUPPORTED_LANGUAGES.map((lang) => (
-                      <button key={lang.code} onClick={() => handleLanguageChange(lang.code)} className={`w-full text-left px-4 py-2 text-sm flex items-center gap-3 hover:bg-zinc-800 transition-colors ${lang.code === currentLang ? 'text-blackline-yellow font-bold bg-zinc-800/50' : 'text-gray-300'}`}>
-                        <span className="text-lg">{lang.flag}</span><span>{lang.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+            {/* Assistant and Language buttons removed as requested */}
           </div>
         </div>
       </header>
@@ -317,7 +291,6 @@ function App() {
               <div className="h-6 w-px bg-zinc-800 mx-1 md:mx-2"></div>
               <div className="px-4 py-2 hidden lg:flex flex-col items-start min-w-[120px]">
                   <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">{t.footer_internal}</span>
-                  {/* v4 Update: Removed "V3.6 READY" version tag */}
               </div>
             </>
           )}
