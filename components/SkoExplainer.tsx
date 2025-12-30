@@ -30,7 +30,7 @@ import {
   Calculator,
   MessageCircle,
   AlertTriangle,
-  ChevronDown,
+  ChevronDown, 
   Quote
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
@@ -282,8 +282,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-left">
               <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="1" color="red-500" title="Create Value" subtitle="Establish the Strategic Gap" formula='Create Value → The Problem' desc={"Move conversation from features to objectives. Define macro-level pains."} /></div>
-              {/* // v2 Update 3: Step 2 Text Changes - Simplified High-Gain to Deep Discovery per RB feedback */}
-              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Customer Value" subtitle="Expose the Reality" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
+              {/* // v3 Update 13 (JR): Step 2 Text Changes - "Capture Customer Challenges" */}
+              <div className="col-span-1 md:col-span-3"><LargeFrameworkBox step="2" color="blue-500" title="Capture Customer Challenges" subtitle="Expose the Reality" formula='Capture Value → The Questions' desc={"Deep discovery to uncover the hidden costs of status quo inertia."} /></div>
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="3" color="yellow-500" title="Deliver Value" subtitle="Map Outcomes to Platform" formula='Deliver Value → The Capabilities' desc={"Align platform capabilities to specific business outcomes."} /></div>
               {/* // v2 Update 4: Step 4 & 5 Logic Clarity */}
               <div className="col-span-1 md:col-span-2"><LargeFrameworkBox step="4" color="green-500" title="Justify Value" subtitle="Build the Business Case Logic" formula='Justify Value → The Logic' desc={"Construct the logical business case structure before calculating math."} /></div>
@@ -398,7 +398,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
         <div className="max-w-5xl mx-auto px-6 pt-16">
            <div className="flex justify-between items-center mb-16"><button onClick={() => setViewMode('grid')} className="flex items-center gap-2 text-gray-300 hover:text-white uppercase tracking-wider text-xs"><ArrowLeft size={16} /> Back</button><button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full"><X size={24} /></button></div>
            <div className="text-center mb-20"><h2 className="text-8xl font-black text-white italic tracking-tighter uppercase mb-6">#LETSGO <span className="text-blackline-yellow">GET</span></h2><p className="text-2xl text-zinc-200 uppercase tracking-tighter italic">Strategic Next Steps for 2026</p></div>
-           <div className="space-y-12"><PhaseCard step="01" title="Align to and execute golden engagement" label="Strategic Methodology" color="blackline-yellow" desc="Ensure we pivot from technical features to strategic certainty at every turn of the deal cycle." /><PhaseCard step="02" title="Work with management to flag top pursuits" label="Resource Allocation" color="blue-500" desc="Flag top pursuits for 2026 so the presales and value engineering team can start working immediately." /><PhaseCard step="03" title="Engage in follow up enablement in Q1" label="Continuous Mastery" color="green-500" desc="Deep-dive sessions focusing on scaling this process arrive in Q1." /></div>
+           <div className="space-y-12"><PhaseCard step="01" title="Align to and execute golden engagement" label="Strategic Methodology" color="blackline-yellow" desc="Ensure we pivot from technical features to strategic certainty at every turn of the deal cycle." /><PhaseCard step="02" title="Work with management to flag top pursuits" label="Resource Allocation" color="blue-500" desc="Flag top pursuits for 2026 so the presales and value engineering team can start working immediately." /><PhaseCard step="03" title="Engage in follow up enablement in Q1" label="Continuous Mastery" color="green-500" desc="Deep-dive sessions focusing on specific industry narratives arrive in Q1." /></div>
            <div className="max-w-2xl mx-auto mt-24 p-12 bg-zinc-900 border border-zinc-800 rounded-[3rem] text-center"><button onClick={onClose} className="px-12 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 uppercase tracking-tighter italic border-4 border-black">Return to Analysis Suite</button></div>
         </div>
       </div>
