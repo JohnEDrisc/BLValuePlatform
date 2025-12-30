@@ -299,7 +299,7 @@ const FULL_SKO_PERSONAS = {
   operational: [
     { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as inefficient and a bottleneck to strategic insight due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
     { role: 'Accounting Manager', icon: 'Users', nightmare: 'Employee burnout and team focused on manual tasks, lacking time to analyze and fix core issues.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
-    { role: 'End User', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into strategic business partnering and high-impact forecasting.' }
+    { role: 'Accountant', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into strategic business partnering and high-impact forecasting.' }
   ]
 };
 
