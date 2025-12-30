@@ -55,13 +55,16 @@ const FULL_SKO_PERSONAS = {
     { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen financial data visibility gaps.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
     // v2 Update: CFO Nightmare updated to "Missing Audit Opinion" / "Debt Covenant Default" and spelled out Free Cash Flow
     { role: 'CFO', icon: 'TrendingUp', nightmare: 'Missing an audit opinion or defaulting on debt covenants due to reporting failures.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
-    { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained cash variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
+    // v3 Update 1: Changed "Cash variances" to "Balance sheet variances" per JR
+    { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
     // v2 Update: CIO Updated to focus on data model blocking AI
     { role: 'CIO', icon: 'Cpu', nightmare: 'Inconsistently defined data model blocking AI adoption; Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business; Organization actively participates in evaluation and adoption of strategic technology investments.' }
   ],
   operational: [
-    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Throwing hundreds of heads at unapplied cash backlogs in emerging markets.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
-    { role: 'Accounting Manager', icon: 'Users', nightmare: 'Reviewing 10,000 transaction rows manually in fragmented spreadsheets.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
+    // v3 Update 2: Changed nightmare from "Throwing heads" to "Inefficient bottleneck" per JR
+    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as inefficient and a bottleneck to strategic insight due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
+    // v3 Update 3: Changed nightmare to opposite of aspiration (burnout/manual focus) per JR
+    { role: 'Accounting Manager', icon: 'Users', nightmare: 'Employee burnout and team focused on manual tasks, lacking time to analyze and fix core issues.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
     { role: 'End User', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into strategic business partnering and high-impact forecasting.' }
   ]
 };
@@ -80,7 +83,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
       createValue: {
         title: 'Strategic Alignment',
         pains: [
-          'Spikes in volume create material overtime costs and eat up profit.',
+          // v3 Update 4: Changed "Overtime" to "Linear Headcount Risk" (Salaried employees don't get OT) per JR
+          'Spikes in volume drive linear headcount cost and risk, eating up profit.',
           // v2 Update: Removed "Capital Reallocation" to avoid overlap with Decision Making
           'Processing bottlenecks delaying financial close completion and reporting insights.',
           'Costly manual checks required for the "Last Mile" of global reporting.',
@@ -115,7 +119,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Hard Numbers',
         metrics: [
-          'Reduction in external audit fees by 20-30% via self-service.',
+          // v3 Update 5: Lowered Audit Fee reduction to 2-5% to be realistic per JR
+          'Reduction in external audit fees by 2-5% via self-service.',
           // v2 Update: Expanded EPS/OpEx acronyms
           'Earnings Per Share improvement via Operating Expenses reduction and labor optimization.',
           'Zero-headcount scaling for future geographic expansion.',
@@ -126,7 +131,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         executive: [
           // v2 Update: Expanded Acronyms
           { label: 'OpEx Optimization', formula: ['Total Full-Time Employees', '×', 'Manual %', '×', 'Avg Salary'], desc: 'Reclaiming capacity for high-ROI business analysis.' },
-          { label: 'Audit Fee Redux', formula: ['Audit Fees', '×', '25% Reduction'], desc: 'Lowering the cost of external assurance via self-service data.' }
+          // v3 Update 6: Updated formula text to match realistic expectation per JR
+          { label: 'Audit Fee Redux', formula: ['Audit Fees', '×', '5% Reduction'], desc: 'Lowering the cost of external assurance via self-service data.' }
         ],
         operational: [
           { label: 'Overtime Saved', formula: ['Annual OT Hours', '×', '1.5x Hourly Rate'], desc: 'Eliminating peak-cycle burnout and premium labor costs.' },
@@ -158,10 +164,14 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Tactical Capability',
         capabilities: [
-          'High-Volume Transaction Matching for bank and intercompany data.',
-          'Standardized Task Checklists ensuring global compliance.',
-          'Intelligent Journal Templates with automated validation rules.',
-          'Automated certification for low-risk, high-volume accounts.'
+          // v3 Update 7: Removed "Bank/Interco" restriction per JR
+          'High-Volume Transaction Matching for any data source (Bank, POS, sub-ledgers).',
+          // v3 Update 8: Changed to "Unified Process Orchestration" per JR
+          'Unified Process Orchestration (Studio) driving continuous improvement.',
+          // v3 Update 9: Changed "Templates" to "Automated Creation" per JR
+          'Automated Journal Entry Creation eliminating manual redundancy.',
+          // v3 Update 10: Added Flux Analysis per JR
+          'Automated compilation of variance (flux) analysis.'
         ],
         proofPoints: [
           'Auto-certification of 85% of low-risk bank reconciliations (e.g. Hershey).',
@@ -350,7 +360,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
         executive: [
           // v2 Update: Replaced complex metrics with Hard Audit Savings per John's feedback
           { label: 'External Audit Savings', formula: ['Annual Audit Fees', '×', '15% Efficiency'], desc: 'Direct reduction in billable auditor hours due to reliance on system controls.' },
-          { label: 'Remediation Avoidance', formula: ['Material Weakness Remediation Cost (Est. $150k)'], desc: 'Avoided cost of consultants and contractors to fix control failures.' }
+          { label: 'Remediation Avoidance', formula: ['Material Weakness Remediation Cost (Est. $150k)'], desc: 'Avoided cost of consultants and contractors to fix control failures.' },
+          // v3 Update 11: Added Debt Financing Risk for non-public companies per JR
+          { label: 'Debt Financing Risk', formula: ['Loan Value', '×', 'Rate Spread'], desc: 'Mitigating interest rate hikes due to material weakness/reporting risk.' }
         ],
         operational: [
           { label: 'SOX Labor Redux', formula: ['Controls', '×', 'Testing Time'], desc: 'Eliminating manual testing for 70% of scope.' },
@@ -528,7 +540,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         pains: [
           'Attrition at all levels creates disruption and loss of organizational knowledge.',
           'Manual work creates a talent tax that reduces value of what is produced.',
-          'University hires leaving to companies that provide roles where employees help make decisions.',
+          // v3 Update 12: Changed outcome to "make positive impacts" per JR
+          'University hires leaving to companies that provide roles where employees help make positive impacts to the business.',
           'Burnout Culture becomes the brand of the internal and external view.'
         ],
         focus: 'The multi-million dollar talent tax on repetitive manual work.'
