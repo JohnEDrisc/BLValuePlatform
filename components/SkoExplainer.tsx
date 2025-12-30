@@ -1,10 +1,3 @@
-It looks like some conversational text ("to implement") was accidentally pasted at the very top of the file before the code started. That is causing the build error.
-
-Here is the **clean, corrected file** for `components/SkoExplainer.tsx`.
-
-### **File: `components/SkoExplainer.tsx**`
-
-```tsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { SKO_DATA as GLOBAL_SKO_DATA } from '../constants'; 
 import { UIStrings, SkoDriverDetail } from '../types';
