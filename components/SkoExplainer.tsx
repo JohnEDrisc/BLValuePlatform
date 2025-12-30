@@ -345,6 +345,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="flex flex-col gap-6">{valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}</div>
             </div>
          </div>
+         {/* Button Restored Here */}
+         <div className="mt-20 md:mt-32 text-center pb-20">
+            <button onClick={() => { setActivePov('executive'); setByActiveDriverId(sortedDrivers[0]?.id || null); setViewMode('persona_explain'); }} className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"><Sparkles size={24} /> Start Deep Dive</button>
+         </div>
       </div>
     );
   }
@@ -481,22 +485,21 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">{pov.justifyValue.metrics?.map((m: string, i: number) => (<div key={i} className={`p-8 md:p-12 bg-black/50 rounded-[3rem] border border-zinc-800 hover:border-green-500/40 shadow-xl flex items-center gap-6 ${i === 2 ? 'md:col-span-2' : ''}`}><TrendingUp className="text-green-500 w-8 h-8 shrink-0 opacity-50" /><p className="text-2xl md:text-4xl font-black text-white tracking-tight italic">{m}</p></div>))}</div>
            </div>
 
-           {/* PHASE 5: QUANTIFY VALUE (Aramco-Style Cards) */}
+           {/* PHASE 5: QUANTIFY VALUE (Clean Cards - No "Bucketing" Text) */}
            <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center">
               <h4 className="text-purple-500 font-black text-xs md:text-lg uppercase tracking-[0.3em] mb-12 flex items-center gap-4"><div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div> Phase 05: Quantify the Win</h4>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">ROI & Realization</h5>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                 {roiItems && roiItems.length > 0 ? (roiItems.map((item: any, i: number) => (
-                  <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl group hover:border-zinc-600 transition-all">
-                    {/* Gold Header */}
-                    <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 py-3 flex justify-between items-center">
-                      <span className="text-black font-black uppercase tracking-widest text-xs">{item.category || 'Strategic'} Benefit</span>
-                      <Coins className="text-black/50 w-5 h-5" />
-                    </div>
-                    {/* Content */}
-                    <div className="p-8">
-                      <h6 className="text-2xl font-black text-white mb-4 italic">{item.label}</h6>
+                  <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl group hover:border-blackline-yellow/50 transition-all relative">
+                    {/* Clean Gold Accent Top Border */}
+                    <div className="absolute top-0 left-0 w-full h-1 bg-blackline-yellow"></div>
+                    <div className="p-8 pt-10">
+                      <div className="flex justify-between items-start mb-4">
+                        <h6 className="text-2xl font-black text-white italic">{item.label}</h6>
+                        <Coins className="text-blackline-yellow w-6 h-6" />
+                      </div>
                       <div className="bg-black/40 p-4 rounded-xl border border-zinc-800 mb-6 font-mono text-lg text-zinc-300 flex flex-wrap gap-2 items-center">
                         {item.formula.map((part: string, idx: number) => (
                           <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-yellow-500 font-bold" : ""}>{part}</span>
