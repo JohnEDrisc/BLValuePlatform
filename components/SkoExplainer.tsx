@@ -225,16 +225,13 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <TrendingUp className="text-blackline-yellow w-12 h-12 md:w-24 md:h-24 shrink-0 mt-2 md:mt-4" strokeWidth={3} />
             </div>
             
-       
-            <p className="text-sm md:text-xl text-zinc-500 font-black uppercase tracking-[0.5em] pl-4 border-l-4 border-blackline-yellow">
+            <p className="text-sm md:text-xl text-zinc-500 font-black uppercase tracking-[0.5em] mb-6">
               BlackLine SKO 2026
             </p>
 
-     {/* New Subtext Added Here */}
             <p className="text-xl md:text-3xl text-zinc-300 font-light mb-10 tracking-tight">
               Quantifying the value of <span className="text-white font-bold italic">unstoppable finance</span>
             </p>
-           
          </div>
 
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto w-full pb-16 md:pb-24 px-4 md:px-6">
