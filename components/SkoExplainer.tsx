@@ -27,13 +27,13 @@ import {
   Stars, 
   Layout, 
   LogOut, 
-  Calculator,
-  MessageCircle,
-  AlertTriangle,
+  Calculator, 
+  MessageCircle, 
+  AlertTriangle, 
   ChevronDown, 
-  Quote,
-  Factory,
-  Flame
+  Quote, 
+  Factory, 
+  Flame 
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -269,18 +269,18 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             {/* --- SECTION 1: EXXONMOBIL (CUSTOMER VOICE) --- */}
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
-               <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">the CFO</span></h2>
+               <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                
                {/* Main Content Container - Exxon Section */}
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
                   
-                  {/* Top Data Points Row - Logo Removed per request, fixed overlap */}
-                  <div className="flex flex-col md:flex-row justify-end items-start gap-4 mb-8">
-                     <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto">
+                  {/* Top Data Points Row - Realigned to Top of White Box */}
+                  <div className="flex flex-col md:flex-row justify-start items-start gap-4 mb-10 w-full border-b border-gray-100 pb-8">
+                     <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto text-left">
                         <p className="font-bold text-sm mb-1">Launched Migration to S/4HANA:</p>
                         <p className="text-sm">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
                      </div>
-                     <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto">
+                     <div className="bg-blackline-yellow p-4 rounded-xl w-full md:w-auto text-left">
                         <p className="font-bold text-sm mb-1">Measurable Impact:</p>
                         <p className="text-sm">Automated 84% of reconciliations</p>
                      </div>
@@ -290,7 +290,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <div className="relative pl-8 md:pl-12 border-l-4 border-blackline-yellow mb-12">
                      <Quote className="text-blackline-yellow w-10 h-10 absolute -left-5 -top-4 bg-white" fill="currentColor" />
                      <p className="text-lg md:text-2xl leading-relaxed font-light">
-                       “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black">and being able to have cleaner data at a corporate-wide level so that we can get better insights</strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
+                       “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black bg-blackline-yellow px-1">and being able to have cleaner data at a corporate-wide level so that we can get better insights</strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
                      </p>
                   </div>
 
@@ -511,7 +511,20 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="mb-12"><HouseFireVisual /></div>
               ) : null}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">{pov.justifyValue.metrics?.map((m: string, i: number) => (<div key={i} className={`p-8 md:p-12 bg-black/50 rounded-[3rem] border border-zinc-800 hover:border-green-500/40 shadow-xl flex items-center gap-6 ${i === 2 ? 'md:col-span-2' : ''}`}><TrendingUp className="text-green-500 w-8 h-8 shrink-0 opacity-50" /><p className="text-2xl md:text-4xl font-black text-white tracking-tight italic">{m}</p></div>))}</div>
+              {/* Dynamic Spanning for Odd Number of Metrics */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+                {pov.justifyValue.metrics?.map((m: string, i: number) => {
+                  const isLastItem = i === (pov.justifyValue.metrics?.length || 0) - 1;
+                  const isOddTotal = (pov.justifyValue.metrics?.length || 0) % 2 !== 0;
+                  
+                  return (
+                    <div key={i} className={`p-8 md:p-12 bg-black/50 rounded-[3rem] border border-zinc-800 hover:border-green-500/40 shadow-xl flex items-center gap-6 ${isOddTotal && isLastItem ? 'md:col-span-2' : ''}`}>
+                      <TrendingUp className="text-green-500 w-8 h-8 shrink-0 opacity-50" />
+                      <p className="text-2xl md:text-4xl font-black text-white tracking-tight italic">{m}</p>
+                    </div>
+                  );
+                })}
+              </div>
            </div>
 
            {/* PHASE 5: QUANTIFY VALUE (Clean Cards - No "Bucketing" Text) */}
@@ -520,24 +533,29 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">ROI & Realization</h5>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-                {roiItems && roiItems.length > 0 ? (roiItems.map((item: any, i: number) => (
-                  <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl group hover:border-blackline-yellow/50 transition-all relative">
-                    {/* Clean Gold Accent Top Border */}
-                    <div className="absolute top-0 left-0 w-full h-1 bg-blackline-yellow"></div>
-                    <div className="p-8 pt-10">
-                      <div className="flex justify-between items-start mb-4">
-                        <h6 className="text-2xl font-black text-white italic">{item.label}</h6>
-                        <Coins className="text-blackline-yellow w-6 h-6" />
+                {roiItems && roiItems.length > 0 ? (roiItems.map((item: any, i: number) => {
+                  const isLastItem = i === roiItems.length - 1;
+                  const isOddTotal = roiItems.length % 2 !== 0;
+
+                  return (
+                    <div key={i} className={`bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl group hover:border-blackline-yellow/50 transition-all relative ${isOddTotal && isLastItem ? 'md:col-span-2 md:w-1/2 md:mx-auto' : ''}`}>
+                      {/* Clean Gold Accent Top Border */}
+                      <div className="absolute top-0 left-0 w-full h-1 bg-blackline-yellow"></div>
+                      <div className="p-8 pt-10">
+                        <div className="flex justify-between items-start mb-4">
+                          <h6 className="text-2xl font-black text-white italic">{item.label}</h6>
+                          <Coins className="text-blackline-yellow w-6 h-6" />
+                        </div>
+                        <div className="bg-black/40 p-4 rounded-xl border border-zinc-800 mb-6 font-mono text-lg text-zinc-300 flex flex-wrap gap-2 items-center">
+                          {item.formula.map((part: string, idx: number) => (
+                            <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-yellow-500 font-bold" : ""}>{part}</span>
+                          ))}
+                        </div>
+                        <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
                       </div>
-                      <div className="bg-black/40 p-4 rounded-xl border border-zinc-800 mb-6 font-mono text-lg text-zinc-300 flex flex-wrap gap-2 items-center">
-                        {item.formula.map((part: string, idx: number) => (
-                          <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-yellow-500 font-bold" : ""}>{part}</span>
-                        ))}
-                      </div>
-                      <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
                     </div>
-                  </div>
-                ))) : (
+                  );
+                })) : (
                   <div className="col-span-2 text-center text-zinc-500 italic py-20 bg-black/20 rounded-3xl">ROI Calculation data unavailable.</div>
                 )}
               </div>
