@@ -362,7 +362,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     setActivePov('executive'); 
     setByActiveDriverId(sortedDrivers[nextIndex].id);
     setPhase3Focus('capabilities'); 
-    setTimeout(scrollToPhase1, 50);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // SCROLL TO TOP
   };
 
   const handlePrevDriver = () => {
@@ -372,7 +372,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     setActivePov('executive');
     setByActiveDriverId(sortedDrivers[prevIndex].id);
     setPhase3Focus('capabilities');
-    setTimeout(scrollToPhase1, 50);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // SCROLL TO TOP
   };
 
   const plImpactDrivers = sortedDrivers.filter(d => ['working_cap', 'process'].includes(d.id));
@@ -683,7 +683,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
-        {/* UPDATED: Buttons now use scrollToPhase1 logic */}
         <button onClick={() => { setActivePov('executive'); setTimeout(scrollToPhase1, 50); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
         <button onClick={() => { setActivePov('operational'); setTimeout(scrollToPhase1, 50); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
       </div>
@@ -785,17 +784,17 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     onClick={() => setPhase3Focus('capabilities')}
                     className={`rounded-3xl border p-8 flex flex-col items-center transition-all duration-700 ease-in-out cursor-pointer relative overflow-hidden
                        ${phase3Focus === 'capabilities' 
-                         ? 'flex-[2] bg-zinc-800/80 border-zinc-600 opacity-100 scale-100' 
-                         : 'flex-[1] bg-zinc-900/30 border-zinc-800/30 opacity-40 hover:opacity-60 scale-95 blur-[1px]'}`}
+                         ? 'flex-[2] bg-zinc-800/80 border-zinc-600 opacity-100 scale-100 shadow-2xl' 
+                         : 'flex-[1] bg-zinc-900/60 border-zinc-800 opacity-70 hover:opacity-100 scale-95'}`}
                  >
-                    <span className={`text-xs font-black uppercase tracking-[0.5em] mb-8 transition-colors ${phase3Focus === 'capabilities' ? 'text-blackline-yellow' : 'text-zinc-600'}`}>Platform Capabilities</span>
+                    <span className={`text-xs font-black uppercase tracking-[0.5em] mb-8 transition-colors ${phase3Focus === 'capabilities' ? 'text-blackline-yellow' : 'text-zinc-300'}`}>Platform Capabilities</span>
                     
                     <div className="flex flex-wrap gap-6 justify-center content-center h-full">
                       {pov?.deliverValue?.capabilities?.map((c: string) => (
                         <div key={c} className={`px-8 py-5 rounded-full border font-bold shadow-lg flex items-center gap-4 transition-all
                            ${phase3Focus === 'capabilities' 
                              ? 'bg-zinc-900 border-zinc-500 text-white text-xl hover:scale-105' 
-                             : 'bg-transparent border-zinc-800 text-zinc-600 text-sm'}`}>
+                             : 'bg-transparent border-zinc-800 text-zinc-300 text-sm'}`}>
                            <div className={`rounded-full transition-all ${phase3Focus === 'capabilities' ? 'w-3 h-3 bg-blackline-yellow' : 'w-2 h-2 bg-zinc-700'}`}></div>
                            {c}
                         </div>
@@ -809,18 +808,18 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     onClick={() => setPhase3Focus('proof')}
                     className={`rounded-3xl border p-8 flex flex-col items-center transition-all duration-700 ease-in-out cursor-pointer relative overflow-hidden
                        ${phase3Focus === 'proof' 
-                         ? 'flex-[2] bg-zinc-800/80 border-zinc-600 opacity-100 scale-100' 
-                         : 'flex-[1] bg-zinc-900/30 border-zinc-800/30 opacity-40 hover:opacity-60 scale-95 blur-[1px]'}`}
+                         ? 'flex-[2] bg-zinc-800/80 border-zinc-600 opacity-100 scale-100 shadow-2xl' 
+                         : 'flex-[1] bg-zinc-900/60 border-zinc-800 opacity-70 hover:opacity-100 scale-95'}`}
                  >
-                    <span className={`text-xs font-black uppercase tracking-[0.5em] mb-8 transition-colors ${phase3Focus === 'proof' ? 'text-green-500' : 'text-zinc-600'}`}>Validated Proof Points</span>
+                    <span className={`text-xs font-black uppercase tracking-[0.5em] mb-8 transition-colors ${phase3Focus === 'proof' ? 'text-green-500' : 'text-zinc-300'}`}>Validated Proof Points</span>
                     
                     <div className="space-y-6 w-full max-w-xl flex flex-col justify-center h-full">
                       {pov?.deliverValue?.proofPoints?.map((p: string, i: number) => (
                         <div key={i} className={`flex items-start gap-6 p-6 rounded-2xl border transition-all
                            ${phase3Focus === 'proof'
                              ? 'bg-white/5 border-zinc-700 text-white'
-                             : 'bg-transparent border-transparent text-zinc-600'}`}>
-                           <div className={`rounded-full flex items-center justify-center shrink-0 mt-1 transition-all ${phase3Focus === 'proof' ? 'w-10 h-10 bg-green-500/20 text-green-500' : 'w-6 h-6 bg-zinc-800 text-zinc-700'}`}>
+                             : 'bg-transparent border-transparent text-zinc-300'}`}>
+                           <div className={`rounded-full flex items-center justify-center shrink-0 mt-1 transition-all ${phase3Focus === 'proof' ? 'w-10 h-10 bg-green-500/20 text-green-500' : 'w-6 h-6 bg-zinc-800 text-zinc-500'}`}>
                               <CheckCircle2 size={phase3Focus === 'proof' ? 24 : 16} />
                            </div>
                            <span className={`font-bold leading-snug transition-all ${phase3Focus === 'proof' ? 'text-2xl' : 'text-sm'}`}>{p}</span>
@@ -885,7 +884,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                             <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-yellow-500 font-bold" : ""}>{part}</span>
                           ))}
                         </div>
-                        <p className="text-zinc-200 text-sm leading-relaxed">{item.desc}</p>
+                        <p className="text-zinc-100 text-sm leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   );
