@@ -208,7 +208,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = ({ data, query, o
               <div className="absolute -top-2 right-10 w-4 h-4 bg-blackline-yellow transform rotate-45"></div>
               <div className="flex gap-4">
                 <div className="bg-black/10 p-2 rounded-full h-fit mt-0.5"><ArrowLeft size={18} className="text-black" /></div>
-                <div><p className="font-black mb-1 text-base uppercase italic tracking-tighter">Navigation Tip</p><p className="leading-snug font-bold text-sm opacity-90">Use the Rail tools to chat with AI or pivot context.</p></div>
+                <div><p className="font-black mb-1 text-base uppercase italic tracking-tighter">Navigation Tip</p><p className="leading-snug font-bold text-sm opacity-90">Use this button to go back.</p></div>
               </div>
             </div>
           )}
