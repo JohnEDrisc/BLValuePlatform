@@ -56,12 +56,12 @@ function App() {
       // Clear existing timer
       if (hideTimer.current) clearTimeout(hideTimer.current);
 
-      // Start a new timer to hide after 3 seconds of inactivity
+      // Start a new timer to hide after 2 seconds of inactivity
       // BUT only if we aren't currently hovering over the dock itself
       if (!isHoveringDock.current) {
         hideTimer.current = setTimeout(() => {
           setIsVisible(false);
-        }, 3000);
+        }, 2000);
       }
     };
 
