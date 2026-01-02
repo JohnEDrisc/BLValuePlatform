@@ -451,10 +451,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
                   
-                  {/* TOP ROW: Customer Since + CFO Info */}
+                  {/* TOP ROW: Customer Since (UPSIZED) + CFO Info */}
                   <div className="flex justify-between items-start mb-8">
-                     <div className="text-gray-500 text-xs font-bold uppercase tracking-widest text-left">
-                        Customer Since: <span className="text-black text-lg font-black ml-2 block">2022</span>
+                     {/* UPSIZED Top Left Text */}
+                     <div className="text-gray-500 text-base font-bold uppercase tracking-widest text-left">
+                        Customer Since: <span className="text-black text-2xl font-black ml-2 block">2022</span>
                      </div>
                      <div className="text-right">
                         <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
@@ -471,24 +472,18 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                      </p>
                   </div>
 
-                  {/* BOTTOM ROW: 3-Col Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                     {/* Box 1: Migration (Yellow) */}
-                     <div className="bg-blackline-yellow p-6 rounded-xl flex flex-col justify-center h-full shadow-md text-left">
-                        <p className="font-bold text-lg mb-2">Launched Migration to S/4HANA</p>
-                        <p className="text-base leading-snug">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
+                  {/* BOTTOM ROW: 2-Col Grid - UPDATED (Removed middle box) */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+                     {/* Box 1: Migration (Yellow) - UPSIZED & BOLDER */}
+                     <div className="bg-blackline-yellow p-8 rounded-2xl flex flex-col justify-center h-full shadow-md text-left">
+                        <p className="font-black text-xl mb-3">Launched Migration to S/4HANA</p>
+                        <p className="text-lg leading-snug font-medium">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
                      </div>
 
-                     {/* Box 2: Quantified Impact (Black) */}
-                     <div className="bg-black text-white p-6 rounded-xl flex flex-col justify-center h-full shadow-lg text-left relative overflow-hidden group">
-                        <p className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest mb-2">Quantified Impact</p>
-                        <p className="font-bold text-2xl tracking-tight italic text-white group-hover:scale-105 transition-transform origin-left">10,000+ Hours Saved</p>
-                     </div>
-
-                     {/* Box 3: Scalable Compliance (Yellow) */}
-                     <div className="bg-blackline-yellow p-6 rounded-xl flex flex-col justify-center h-full shadow-md text-left">
-                        <p className="font-bold text-lg mb-2">Scalable Compliance</p>
-                        <p className="text-base leading-snug">Automated 84% of reconciliations</p>
+                     {/* Box 3: Scalable Compliance (Yellow) - UPSIZED & BOLDER */}
+                     <div className="bg-blackline-yellow p-8 rounded-2xl flex flex-col justify-center h-full shadow-md text-left">
+                        <p className="font-black text-xl mb-3">Scalable Compliance</p>
+                        <p className="text-lg leading-snug font-medium">Automated 84% of reconciliations</p>
                      </div>
                   </div>
                </div>
@@ -660,7 +655,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                               <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Savings</p>
                           </div>
                       </div>
-                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate the agreed-upon logic into hard numbers, projecting specific financial returns and impact.</p>
+                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact that the CFO can validate and defend.</p>
                   </div>
               </div>
            </div>
