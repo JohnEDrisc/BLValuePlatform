@@ -313,7 +313,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   const [activeDriverId, setByActiveDriverId] = useState<string | null>(null);
   const [activePov, setActivePov] = useState<'executive' | 'operational'>('executive');
   
-  // Phase 3 Toggle State (NEW)
+  // Phase 3 Toggle State
   const [phase3Focus, setPhase3Focus] = useState<'capabilities' | 'proof'>('capabilities');
   
   // Ref for Phase 1 section to support smart scrolling
@@ -449,43 +449,46 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
-               
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
-                  {/* --- UPDATED: YELLOW BOXES AGGRESSIVELY UPSIZED --- */}
-                  <div className="flex flex-col md:flex-row justify-start items-stretch gap-6 mb-10 w-full border-b border-gray-100 pb-8">
-                     <div className="bg-blackline-yellow p-6 rounded-xl flex-1 text-left h-full shadow-md flex flex-col justify-center">
-                        <p className="font-bold text-lg mb-2">Launched Migration to S/4HANA:</p>
-                        <p className="text-lg leading-snug">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
+                  
+                  {/* TOP ROW: Customer Since + CFO Info */}
+                  <div className="flex justify-between items-start mb-8">
+                     <div className="text-gray-500 text-xs font-bold uppercase tracking-widest text-left">
+                        Customer Since: <span className="text-black text-lg font-black ml-2 block">2022</span>
                      </div>
-                     <div className="bg-blackline-yellow p-6 rounded-xl flex-1 text-left h-full shadow-md flex flex-col justify-center">
-                        <p className="font-bold text-lg mb-2">Measurable Impact:</p>
-                        <p className="text-lg leading-snug">Automated 84% of reconciliations</p>
+                     <div className="text-right">
+                        <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
+                        <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
+                        <p className="text-zinc-500 text-xs font-medium mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
                      </div>
                   </div>
 
+                  {/* MIDDLE ROW: Quote */}
                   <div className="relative pl-8 md:pl-12 border-l-4 border-blackline-yellow mb-12">
                      <Quote className="text-blackline-yellow w-10 h-10 absolute -left-5 -top-4 bg-white" fill="currentColor" />
                      <p className="text-lg md:text-2xl leading-relaxed font-light">
-                       “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black bg-blackline-yellow px-1">and being able to have <span className="bg-blackline-yellow px-1">cleaner data at a corporate-wide level so that we can get better insights</span></strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
+                       “We recently did a larger implementation of a software platform called <strong className="font-black">BlackLine</strong> that we use in the accounting space, and it's <strong className="font-black bg-blackline-yellow px-1">literally enabled us to save tens of thousands of hours</strong> of what was very manually intensive work because we can now automate it. But a lot of this detail is in the data <strong className="font-black bg-blackline-yellow px-1">and being able to have cleaner data at a corporate-wide level so that we can get better insights</strong> from the data, we can improve our automation, and we can get both more efficient and more effective.”
                      </p>
                   </div>
-                  <div className="flex flex-col xl:flex-row justify-between items-end gap-8 mt-auto">
-                     <div className="text-gray-500 text-xs font-bold uppercase tracking-widest order-3 xl:order-1">
-                        Customer Since: <span className="text-black text-lg font-black ml-2">2022</span>
+
+                  {/* BOTTOM ROW: 3-Col Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                     {/* Box 1: Migration (Yellow) */}
+                     <div className="bg-blackline-yellow p-6 rounded-xl flex flex-col justify-center h-full shadow-md text-left">
+                        <p className="font-bold text-lg mb-2">Launched Migration to S/4HANA</p>
+                        <p className="text-base leading-snug">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
                      </div>
-                     <div className="flex flex-col md:flex-row items-end gap-8 order-2 w-full xl:w-auto justify-end">
-                         
-                         {/* --- UPDATED: BLACK BOX DOWNSIZED --- */}
-                         <div className="bg-black text-white px-5 py-3 rounded-xl shadow-lg text-center md:text-right w-full md:max-w-xs">
-                            <p className="text-[9px] font-black text-blackline-yellow uppercase tracking-widest mb-1">Quantified Impact</p>
-                            <p className="text-lg md:text-2xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
-                         </div>
-                         
-                         <div className="text-right shrink-0">
-                            <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
-                            <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
-                            <p className="text-zinc-500 text-xs font-medium mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
-                         </div>
+
+                     {/* Box 2: Quantified Impact (Black) */}
+                     <div className="bg-black text-white p-6 rounded-xl flex flex-col justify-center h-full shadow-lg text-left relative overflow-hidden group">
+                        <p className="text-[10px] font-black text-blackline-yellow uppercase tracking-widest mb-2">Quantified Impact</p>
+                        <p className="font-bold text-2xl tracking-tight italic text-white group-hover:scale-105 transition-transform origin-left">10,000+ Hours Saved</p>
+                     </div>
+
+                     {/* Box 3: Scalable Compliance (Yellow) */}
+                     <div className="bg-blackline-yellow p-6 rounded-xl flex flex-col justify-center h-full shadow-md text-left">
+                        <p className="font-bold text-lg mb-2">Scalable Compliance</p>
+                        <p className="text-base leading-snug">Automated 84% of reconciliations</p>
                      </div>
                   </div>
                </div>
@@ -554,6 +557,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="flex flex-col gap-6">{valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}</div>
             </div>
          </div>
+         {/* Button Explicitly Restored Here */}
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button onClick={() => { setActivePov('executive'); setByActiveDriverId(sortedDrivers[0]?.id || null); setViewMode('persona_explain'); }} className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"><Sparkles size={24} /> Start Deep Dive</button>
          </div>
@@ -656,7 +660,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                               <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Savings</p>
                           </div>
                       </div>
-                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact that the CFO can validate and defend.</p>
+                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate the agreed-upon logic into hard numbers, projecting specific financial returns and impact.</p>
                   </div>
               </div>
            </div>
