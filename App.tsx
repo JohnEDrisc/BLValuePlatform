@@ -297,8 +297,10 @@ function App() {
                 <React.Fragment key={tab.id}>
                   {/* INJECT BETA LABEL BEFORE 'DISCOVERY' TAB */}
                   {tab.id === 'discovery' && (
-                    <div className="flex items-center px-3">
-                      <span className="text-[10px] font-black text-blackline-yellow/80 tracking-widest">BETA <span className="text-white">→</span></span>
+                    <div className="flex items-center px-2 md:px-4">
+                      <span className="text-xs md:text-sm font-black text-blackline-yellow tracking-widest flex items-center gap-2">
+                        BETA <span className="text-white text-sm md:text-base">→</span>
+                      </span>
                     </div>
                   )}
                   
