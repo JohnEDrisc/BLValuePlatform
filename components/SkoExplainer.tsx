@@ -905,7 +905,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
   }
 
-  // --- MISSING 'letsgo_bva' VIEW RESTORED ---
+  // --- MISSING 'letsgo_bva' VIEW RESTORED AND UPDATED ---
   if (viewMode === 'letsgo_bva') {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-4 animate-fade-in relative">
@@ -922,23 +922,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   Turn these value drivers into customer-facing conversations.
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                  <button onClick={onClose} className="group p-8 rounded-3xl bg-zinc-900 border border-zinc-800 hover:border-blackline-yellow transition-all text-left">
-                      <div className="w-14 h-14 bg-blackline-yellow rounded-2xl flex items-center justify-center mb-6 text-black group-hover:scale-110 transition-transform">
-                          <Sparkles size={28} />
-                      </div>
-                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blackline-yellow">Build a Narrative</h3>
-                      <p className="text-zinc-400">Generate persona-specific talk tracks and discovery questions.</p>
-                  </button>
-
-                  <div className="p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 text-left opacity-50 cursor-not-allowed">
-                      <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center mb-6 text-zinc-500">
-                          <Calculator size={28} />
-                      </div>
-                      <h3 className="text-2xl font-bold text-zinc-500 mb-2">Build a Business Case</h3>
-                      <p className="text-zinc-600">ROI Calculators coming soon to this workflow.</p>
-                  </div>
-              </div>
+              {/* THE TWO BOXES HAVE BEEN REMOVED FROM HERE */}
           </div>
       </div>
     )
@@ -989,7 +973,7 @@ const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ titl
 );
 
 const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
+  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
      <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
      <div className="text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
      <h3 className="text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
