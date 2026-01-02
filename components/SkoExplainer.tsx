@@ -32,18 +32,23 @@ import {
   AlertTriangle, 
   ChevronDown, 
   Quote, 
-  Factory, 
-  Flame,
-  Wind,
-  Anchor,
-  Droplets,
-  CloudFog,
-  Eye,
-  Layers,
-  Radar,
-  Loader2,
-  Maximize2,
-  Minimize2
+  Factory,      // Fixed: Was missing
+  Flame,        // Fixed: Was missing
+  Wind,         // Fixed: Was missing
+  Anchor,       // Fixed: Was missing
+  Droplets,     // Fixed: Was missing
+  CloudFog,     // Fixed: Was missing
+  Eye,          // Fixed: Was missing
+  Layers,       // Fixed: Was missing
+  Radar,        // Fixed: Was missing
+  Loader2,      // Fixed: Was missing
+  Maximize2,    // Fixed: Was missing
+  Minimize2,    // Fixed: Was missing
+  GitMerge,     // Fixed: Was missing
+  Lightbulb,    // Fixed: Was missing
+  Activity,     // Fixed: Was missing
+  ShieldCheck,  // Fixed: Was missing
+  DollarSign    // Fixed: Was missing
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -76,20 +81,187 @@ const SafeIcon = ({ name, className }: { name: string; className?: string }) => 
 };
 
 // --- DRIVER VISUAL COMPONENTS ---
-// (Visual components truncated for brevity, they remain unchanged from the last working version)
-// Note: Ensure all visual components (FunnelVisual, GarbageInOutVisual, etc.) are included here as before.
-const FunnelVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><AlertTriangle className="text-red-500 w-12 h-12" /></div>;
-const GarbageInOutVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Factory className="text-zinc-500 w-12 h-12" /></div>;
-const HouseFireVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Flame className="text-red-500 w-12 h-12" /></div>;
-const WorkingCapitalVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><DollarSign className="text-green-500 w-12 h-12" /></div>;
-const MaIntegrationVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Icons.GitMerge className="text-blue-500 w-12 h-12" /></div>;
-const ComplianceVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Icons.ShieldCheck className="text-green-500 w-12 h-12" /></div>;
-const TalentVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Users className="text-purple-500 w-12 h-12" /></div>;
-const InnovationVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Icons.Lightbulb className="text-yellow-500 w-12 h-12" /></div>;
-const DecisionVisual = () => <div className="p-10 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center"><Activity className="text-blue-400 w-12 h-12" /></div>;
 
+const FunnelVisual = () => (
+  <div className="flex flex-col items-center justify-center w-full py-8">
+    <div className="flex flex-col md:flex-row items-center gap-6 w-full max-w-5xl">
+       <div className="flex-1 flex flex-col gap-3 w-full text-center">
+          <div className="bg-zinc-800 p-4 rounded-lg text-sm font-bold text-zinc-300">Transaction Volume</div>
+          <div className="bg-zinc-800 p-4 rounded-lg text-sm font-bold text-zinc-300">New Entities</div>
+          <div className="bg-zinc-800 p-4 rounded-lg text-sm font-bold text-zinc-300">Data Sources</div>
+       </div>
+       <div className="relative z-10 bg-gradient-to-r from-red-900/50 to-red-600/50 p-8 rounded-2xl border border-red-500/30 flex flex-col items-center justify-center shrink-0 w-full md:w-64 shadow-[0_0_30px_rgba(220,38,38,0.2)]">
+          <AlertTriangle className="text-red-500 mb-3 w-10 h-10" />
+          <span className="text-xs font-black uppercase text-red-400 tracking-widest mb-1">BOTTLENECK</span>
+          <p className="text-lg font-bold text-white leading-tight text-center">Manual Matching</p>
+       </div>
+       <div className="flex-1 flex flex-col gap-3 w-full text-center opacity-60">
+          <div className="bg-zinc-800 border border-zinc-700 p-4 rounded-lg text-sm font-bold text-zinc-500">Delay</div>
+          <div className="bg-zinc-800 border border-zinc-700 p-4 rounded-lg text-sm font-bold text-zinc-500">Risk</div>
+       </div>
+    </div>
+  </div>
+);
+
+const GarbageInOutVisual = () => {
+  const [mode, setMode] = useState<'dirty' | 'clean'>('dirty');
+  
+  return (
+    <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+      <div className="flex justify-center gap-6 mb-8">
+        <button onClick={() => setMode('dirty')} className={`px-8 py-3 rounded-full font-bold text-base transition-all ${mode === 'dirty' ? 'bg-red-500 text-white' : 'bg-zinc-800 text-zinc-400'}`}>Current State</button>
+        <button onClick={() => setMode('clean')} className={`px-8 py-3 rounded-full font-bold text-base transition-all ${mode === 'clean' ? 'bg-green-500 text-white' : 'bg-zinc-800 text-zinc-400'}`}>With BlackLine</button>
+      </div>
+      
+      <div className={`relative p-10 rounded-3xl border transition-all duration-500 w-full ${mode === 'dirty' ? 'bg-red-950/20 border-red-900/50' : 'bg-green-950/20 border-green-900/50'}`}>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 text-center">
+          <div className="flex-1 flex flex-col items-center">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${mode === 'dirty' ? 'bg-red-900/30 text-red-500' : 'bg-green-900/30 text-green-500'}`}>
+              <Factory size={40} />
+            </div>
+            <p className="text-lg font-black uppercase tracking-wider">{mode === 'dirty' ? 'Polluted Data' : 'Clean Data'}</p>
+            <p className="text-sm text-zinc-400 mt-2">{mode === 'dirty' ? 'Unreconciled, Fragmented' : 'Standardized, Verified'}</p>
+          </div>
+
+          <div className="flex-1 w-full h-2 bg-zinc-800 relative rounded-full overflow-hidden">
+             <div className={`absolute top-0 left-0 h-full transition-all duration-1000 ${mode === 'dirty' ? 'bg-red-500 w-1/3' : 'bg-green-500 w-full'}`}></div>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${mode === 'dirty' ? 'bg-red-900/30 text-red-500' : 'bg-green-900/30 text-green-500'}`}>
+              {mode === 'dirty' ? <AlertTriangle size={40} /> : <Sparkles size={40} />}
+            </div>
+            <p className="text-lg font-black uppercase tracking-wider">{mode === 'dirty' ? 'AI Hallucinations' : 'Trusted AI'}</p>
+             <p className="text-sm text-zinc-400 mt-2">{mode === 'dirty' ? 'High Risk & Error' : 'Autonomous Execution'}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const HouseFireVisual = () => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mx-auto">
+    <div className="bg-red-950/20 border border-red-900/30 p-10 rounded-3xl flex flex-col items-center text-center">
+      <div className="w-24 h-24 bg-red-900/20 rounded-full flex items-center justify-center mb-6 animate-pulse">
+        <Flame size={48} className="text-red-500" />
+      </div>
+      <h4 className="text-red-400 font-black uppercase tracking-widest text-base mb-2">Vulnerable State</h4>
+      <p className="text-zinc-300 text-lg">Material Weakness = Reputational Fire</p>
+    </div>
+    <div className="bg-blue-950/20 border border-blue-900/30 p-10 rounded-3xl flex flex-col items-center text-center">
+      <div className="w-24 h-24 bg-blue-900/20 rounded-full flex items-center justify-center mb-6">
+        <ShieldAlert size={48} className="text-blue-500" />
+      </div>
+      <h4 className="text-blue-400 font-black uppercase tracking-widest text-base mb-2">Fortified State</h4>
+      <p className="text-zinc-300 text-lg">Automated Controls = Digital Resilience</p>
+    </div>
+  </div>
+);
+
+const WorkingCapitalVisual = () => (
+    <div className="flex flex-col items-center justify-center w-full py-8 text-center bg-zinc-900/50 rounded-3xl border border-zinc-800">
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24">
+            <div className="flex flex-col items-center opacity-60 grayscale">
+                <Droplets size={64} className="mb-4 text-zinc-500" />
+                <span className="text-sm uppercase font-black tracking-widest">Trapped Cash</span>
+            </div>
+            <div className="hidden md:flex flex-col items-center">
+                 <ArrowRight size={48} className="text-zinc-700" />
+            </div>
+            <div className="flex flex-col items-center">
+                <div className="relative">
+                    <div className="absolute inset-0 bg-blackline-yellow blur-2xl opacity-20 rounded-full"></div>
+                    <Zap size={80} className="text-blackline-yellow relative z-10 animate-pulse" />
+                </div>
+                <span className="text-sm uppercase font-black tracking-widest text-blackline-yellow mt-6">Cash Velocity</span>
+            </div>
+        </div>
+        <p className="text-base text-zinc-400 mt-8 max-w-lg mx-auto">Transforming idle droplets into a high-speed revenue turbine.</p>
+    </div>
+);
+
+const MaIntegrationVisual = () => (
+    <div className="flex flex-col items-center justify-center w-full py-8 text-center bg-zinc-900/50 rounded-3xl border border-zinc-800">
+        <div className="flex items-center gap-4 w-full max-w-2xl justify-center">
+             <div className="h-32 w-20 bg-blue-500/20 border border-blue-500/50 rounded-l-2xl flex items-center justify-center"><span className="rotate-90 text-sm uppercase font-black text-blue-400 whitespace-nowrap">Co. A</span></div>
+             <div className="h-32 flex-1 flex flex-col justify-center gap-2 max-w-[200px]">
+                 {[1,2,3,4,5,6].map(i => <div key={i} className="w-full h-1.5 bg-blackline-yellow rounded-full shadow-[0_0_10px_rgba(249,183,52,0.8)]"></div>)}
+             </div>
+             <div className="h-32 w-20 bg-purple-500/20 border border-purple-500/50 rounded-r-2xl flex items-center justify-center"><span className="rotate-90 text-sm uppercase font-black text-purple-400 whitespace-nowrap">Co. B</span></div>
+        </div>
+        <p className="text-base text-zinc-400 mt-8 max-w-lg mx-auto">The "Digital Zipper" seamlessly merging disparate ERP landscapes.</p>
+    </div>
+);
+
+const ComplianceVisual = () => (
+    <div className="flex flex-col md:flex-row items-center justify-center w-full py-8 text-center gap-16 bg-zinc-900/50 rounded-3xl border border-zinc-800">
+        <div className="flex flex-col items-center opacity-50">
+             <div className="w-24 h-24 border-2 border-red-500/50 rounded-full flex items-center justify-center bg-red-950/20 mb-4">
+                 <AlertTriangle className="text-red-500" size={40} />
+             </div>
+             <span className="text-sm uppercase font-black">Minefield</span>
+        </div>
+        <div className="flex flex-col items-center">
+             <div className="w-32 h-32 border-4 border-green-500 rounded-full flex items-center justify-center bg-green-950/20 shadow-[0_0_40px_rgba(34,197,94,0.2)] mb-4">
+                 <Radar className="text-green-500 animate-spin-slow" size={56} />
+             </div>
+             <span className="text-sm uppercase font-black text-green-400">Active Radar</span>
+        </div>
+    </div>
+);
+
+const TalentVisual = () => (
+    <div className="flex flex-col md:flex-row items-center justify-center w-full py-8 text-center gap-12 md:gap-24 bg-zinc-900/50 rounded-3xl border border-zinc-800">
+        <div className="flex flex-col items-center group">
+            <div className="w-24 h-24 rounded-full border border-zinc-700 flex items-center justify-center bg-zinc-900 group-hover:border-zinc-500 transition-colors mb-4">
+                <Loader2 className="text-zinc-500 animate-spin" size={40} />
+            </div>
+            <span className="text-sm uppercase font-black text-zinc-500">The Grind</span>
+        </div>
+        <div className="h-px w-24 bg-zinc-700 hidden md:block"></div>
+        <div className="flex flex-col items-center group">
+            <div className="w-32 h-32 rounded-full border-4 border-blackline-yellow flex items-center justify-center bg-blackline-yellow/10 shadow-[0_0_40px_rgba(249,183,52,0.3)] mb-4">
+                <Rocket className="text-blackline-yellow group-hover:-translate-y-2 transition-transform" size={56} />
+            </div>
+            <span className="text-sm uppercase font-black text-blackline-yellow">Career Launchpad</span>
+        </div>
+    </div>
+);
+
+const InnovationVisual = () => (
+    <div className="flex flex-col items-center justify-center w-full py-8 text-center bg-zinc-900/50 rounded-3xl border border-zinc-800">
+        <div className="flex items-end gap-12 mb-6">
+             <div className="flex flex-col items-center">
+                 <Anchor className="text-zinc-600 mb-4" size={48} />
+                 <div className="h-1.5 w-20 bg-zinc-800 rounded-full"></div>
+             </div>
+             <ArrowRight className="text-zinc-700 mb-2 w-8 h-8" />
+             <div className="flex flex-col items-center">
+                 <Wind className="text-blue-400 mb-4 animate-pulse" size={64} />
+                 <div className="h-1.5 w-24 bg-blue-500 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)]"></div>
+             </div>
+        </div>
+        <p className="text-base text-zinc-400 max-w-lg mx-auto">Cutting the anchor of manual work to catch the winds of strategy.</p>
+    </div>
+);
+
+const DecisionVisual = () => (
+    <div className="flex flex-col md:flex-row items-center justify-center w-full py-8 text-center gap-12 bg-zinc-900/50 rounded-3xl border border-zinc-800">
+        <div className="relative w-48 h-32 bg-zinc-800 rounded-xl overflow-hidden flex items-center justify-center border border-zinc-700">
+            <CloudFog className="absolute inset-0 text-zinc-600 w-full h-full opacity-50" />
+            <span className="relative z-10 font-bold text-zinc-400 blur-[3px] text-2xl">DATA</span>
+        </div>
+        <ArrowRight className="text-zinc-600 w-8 h-8 rotate-90 md:rotate-0" />
+        <div className="relative w-48 h-32 bg-blackline-yellow/10 rounded-xl overflow-hidden flex items-center justify-center border-2 border-blackline-yellow shadow-[0_0_30px_rgba(249,183,52,0.15)]">
+            <Eye className="absolute top-3 right-3 text-blackline-yellow w-5 h-5" />
+            <span className="font-black text-white tracking-widest text-2xl">CLEAR</span>
+        </div>
+    </div>
+);
 
 // --- FRAMEWORK PHASE VISUALS ---
+
 const PainPulseGrid = ({ items }: { items: string[] }) => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         {items.map((item, idx) => (
@@ -100,6 +272,7 @@ const PainPulseGrid = ({ items }: { items: string[] }) => (
         ))}
     </div>
 );
+
 const SpotlightCards = ({ items }: { items: string[] }) => (
     <div className="space-y-3 w-full">
         {items.map((item, idx) => (
@@ -109,6 +282,7 @@ const SpotlightCards = ({ items }: { items: string[] }) => (
         ))}
     </div>
 );
+
 const CapabilityStack = ({ items }: { items: string[] }) => (
     <div className="flex flex-col-reverse gap-2 w-full max-w-md mx-auto">
         {items.map((item, idx) => (
@@ -121,6 +295,7 @@ const CapabilityStack = ({ items }: { items: string[] }) => (
         <div className="text-center text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-1">Tech Stack Foundation</div>
     </div>
 );
+
 const LogicFlow = ({ metrics }: { metrics: string[] }) => (
     <div className="flex flex-col gap-4 w-full">
         {metrics.map((metric, idx) => (
@@ -224,7 +399,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   if (viewMode === 'landing') {
     return (
-      <div className="min-h-screen flex flex-col animate-fade-in relative px-4 md:px-0 bg-black">
+      <div className="min-h-screen flex flex-col animate-fade-in relative px-4 md:px-0 bg-black w-full">
          <button onClick={onClose} className="absolute top-4 right-4 md:top-0 md:right-0 p-4 md:p-8 text-gray-400 hover:text-white transition-colors z-50 invisible"><X size={28} /></button>
          
          <div className="text-center py-16 md:py-28 flex flex-col items-center justify-center">
@@ -393,7 +568,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   if (viewMode === 'persona_explain' && activeDriver) {
     const personas = activeDriver.personas || { executive: [], operational: [] };
     return (
-      <div className="min-h-screen bg-black text-white animate-fade-in py-12 md:py-20 px-4 md:px-6">
+      <div className="min-h-screen w-full bg-black text-white animate-fade-in py-12 md:py-20 px-4 md:px-6">
         <div className="max-w-7xl mx-auto w-full text-center">
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-black uppercase tracking-[0.2em] mb-6 md:mb-10"><Users size={14} /> Persona Alignment</div>
            <h2 className="text-4xl md:text-9xl font-black text-white uppercase italic tracking-tighter mb-12">Meet the <span className="text-blackline-yellow">Stakeholders</span></h2>
@@ -418,7 +593,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   if (viewMode === 'framework_explain' && activeDriver) {
     return (
-      <div className="min-h-screen bg-black text-white animate-fade-in flex flex-col items-center justify-center py-12 md:py-24 px-4 md:px-6">
+      <div className="min-h-screen w-full bg-black text-white animate-fade-in flex flex-col items-center justify-center py-12 md:py-24 px-4 md:px-6">
         <div className="max-w-7xl w-full text-center">
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-black uppercase tracking-[0.2em] mb-14"><HelpCircle size={14} /> Methodology Briefing</div>
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
@@ -514,7 +689,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     );
 
     return (
-      <div className="min-h-screen bg-black text-white animate-fade-in pb-40 md:scale-[0.8] md:origin-top overflow-visible">
+      <div className="min-h-screen w-full bg-black text-white animate-fade-in pb-40 md:scale-[0.8] md:origin-top overflow-visible">
         <div className="fixed top-0 left-0 w-full bg-black/95 backdrop-blur-xl z-50 border-b border-zinc-800 px-4 md:px-10 py-4 md:py-6 flex justify-between items-center no-print">
            <div className="flex items-center gap-4">
               <button onClick={() => setViewMode('grid')} className="text-gray-300 hover:text-white p-2 bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center gap-2 font-black uppercase text-[10px] tracking-widest"><LogOut size={16} /> Escape</button>
@@ -725,27 +900,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            </div>
         </div>
         <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 flex gap-8 no-print justify-center"><button onClick={handlePrevDriver} className="px-14 py-8 bg-zinc-900 border border-zinc-800 text-white rounded-full font-black uppercase italic hover:bg-zinc-800 transition-all shadow-2xl flex items-center gap-4"><ChevronLeft size={16} /> Prev</button><button onClick={handleNextDriver} className="px-16 py-8 bg-blackline-yellow text-black rounded-full font-black uppercase italic hover:scale-105 transition-all shadow-2xl border-4 border-black flex items-center gap-4">Next <ChevronRight size={16} /></button></div>
-      </div>
-    );
-  }
-
-  if (viewMode === 'letsgo_bva') {
-    return (
-      <div className="min-h-screen bg-black text-white animate-fade-in pb-32">
-        <div className="max-w-5xl mx-auto px-6 pt-16">
-           <div className="flex justify-between items-center mb-16"><button onClick={() => setViewMode('grid')} className="flex items-center gap-2 text-gray-300 hover:text-white uppercase tracking-wider text-xs"><ArrowLeft size={16} /> Back</button><button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full"><X size={24} /></button></div>
-           
-           <div className="text-center mb-20 flex flex-col items-center">
-              <div className="inline-flex items-start gap-2 mb-4">
-                 <h2 className="text-6xl md:text-8xl font-black text-white italic tracking-tighter uppercase leading-none">#Lets<span className="text-blackline-yellow">Go</span>Get</h2>
-                 <TrendingUp className="text-blackline-yellow w-10 h-10 md:w-16 md:h-16 shrink-0 mt-2" strokeWidth={3} />
-              </div>
-              <p className="text-xl md:text-2xl text-zinc-400 uppercase tracking-widest italic font-bold">Strategic Next Steps for 2026</p>
-           </div>
-
-           <div className="space-y-12"><PhaseCard step="01" title="Align to and execute golden engagement" label="Strategic Methodology" color="blackline-yellow" desc="Ensure we pivot from technical features to strategic certainty at every turn of the deal cycle." /><PhaseCard step="02" title="Work with management to flag top pursuits" label="Resource Allocation" color="blue-500" desc="Flag top pursuits for 2026 so the presales and value engineering team can start working immediately." /><PhaseCard step="03" title="Engage in follow up enablement in Q1" label="Continuous Mastery" color="green-500" desc="Deep-dive sessions focusing on specific industry narratives arrive in Q1." /></div>
-           <div className="max-w-2xl mx-auto mt-24 p-12 bg-zinc-900 border border-zinc-800 rounded-[3rem] text-center"><button onClick={onClose} className="px-12 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 uppercase tracking-tighter italic border-4 border-black">Return to Analysis Suite</button></div>
-        </div>
       </div>
     );
   }
