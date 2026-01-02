@@ -28,6 +28,7 @@ function App() {
   // Refs for Scroll and Timer
   const lastScrollY = useRef(0);
   const hideTimer = useRef<NodeJS.Timeout | null>(null);
+  const isHoveringDock = useRef(false); // New Ref to track hover state
   
   // Analysis State
   const [isLoading, setIsLoading] = useState(false);
@@ -46,39 +47,50 @@ function App() {
   
   const t = { ...UI_STRINGS['EN'], ...(UI_STRINGS[currentLang] || {}) };
 
-  // Smart Scroll Logic with Auto-Hide
+  // --- SMART SCROLL & MOUSE LOGIC ---
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const isScrollingDown = currentScrollY > lastScrollY.current;
-      const isAtTop = currentScrollY < 10;
-
-      // 1. Clear existing timer on any scroll event
+    // Unified function to handle "User Activity"
+    const handleActivity = () => {
+      setIsVisible(true);
+      
+      // Clear existing timer
       if (hideTimer.current) clearTimeout(hideTimer.current);
 
-      if (isAtTop) {
-        // Always show at the very top
-        setIsVisible(true);
-      } else if (isScrollingDown) {
-        // Hide immediately when scrolling down
-        setIsVisible(false);
-      } else {
-        // Scrolling Up: Show immediately
-        setIsVisible(true);
-        
-        // 2. Set Auto-Hide Timer (3 seconds)
-        // Only if we aren't at the top
+      // Start a new timer to hide after 3 seconds of inactivity
+      // BUT only if we aren't currently hovering over the dock itself
+      if (!isHoveringDock.current) {
         hideTimer.current = setTimeout(() => {
           setIsVisible(false);
         }, 3000);
+      }
+    };
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > lastScrollY.current;
+      
+      // If scrolling down, hide immediately (override timer)
+      if (isScrollingDown && currentScrollY > 10) {
+         setIsVisible(false);
+         if (hideTimer.current) clearTimeout(hideTimer.current);
+      } else {
+         // If scrolling up, treat it as activity
+         handleActivity();
       }
       
       lastScrollY.current = currentScrollY;
     };
 
+    // Attach Listeners
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('mousemove', handleActivity); // NEW: Mouse move triggers visibility
+
+    // Initial Trigger
+    handleActivity();
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleActivity);
       if (hideTimer.current) clearTimeout(hideTimer.current);
     };
   }, []);
@@ -91,17 +103,17 @@ function App() {
 
   // Handlers to prevent auto-hide while using the menu
   const handleNavMouseEnter = () => {
+    isHoveringDock.current = true;
     if (hideTimer.current) clearTimeout(hideTimer.current);
     setIsVisible(true);
   };
 
   const handleNavMouseLeave = () => {
-    // If not at top, restart the auto-hide timer
-    if (window.scrollY > 100) {
-      hideTimer.current = setTimeout(() => {
-        setIsVisible(false);
-      }, 3000);
-    }
+    isHoveringDock.current = false;
+    // Resume auto-hide timer when mouse leaves
+    hideTimer.current = setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
   };
 
   const goHome = () => {
