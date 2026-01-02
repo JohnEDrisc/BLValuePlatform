@@ -49,19 +49,19 @@ function App() {
 
   // --- SMART SCROLL & MOUSE LOGIC ---
   useEffect(() => {
-    // Unified function to handle "User Activity"
+    // Unified function to handle "User Activity" (Mouse move or Scroll Up)
     const handleActivity = () => {
       setIsVisible(true);
       
       // Clear existing timer
       if (hideTimer.current) clearTimeout(hideTimer.current);
 
-      // Start a new timer to hide after 2 seconds of inactivity
+      // Start a new timer to hide after 3 seconds of inactivity
       // BUT only if we aren't currently hovering over the dock itself
       if (!isHoveringDock.current) {
         hideTimer.current = setTimeout(() => {
           setIsVisible(false);
-        }, 2000);
+        }, 3000);
       }
     };
 
@@ -69,7 +69,7 @@ function App() {
       const currentScrollY = window.scrollY;
       const isScrollingDown = currentScrollY > lastScrollY.current;
       
-      // If scrolling down, hide immediately (override timer)
+      // If scrolling down significantly, hide immediately (override timer)
       if (isScrollingDown && currentScrollY > 10) {
          setIsVisible(false);
          if (hideTimer.current) clearTimeout(hideTimer.current);
@@ -83,7 +83,7 @@ function App() {
 
     // Attach Listeners
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('mousemove', handleActivity); // NEW: Mouse move triggers visibility
+    window.addEventListener('mousemove', handleActivity); 
 
     // Initial Trigger
     handleActivity();
@@ -294,19 +294,27 @@ function App() {
                 { id: 'benchmarks', label: t.tab_benchmarks },
                 { id: 'hub', label: t.tab_hub }
               ].map((tab) => (
-                <button 
-                  key={tab.id}
-                  onClick={() => {
-                    setActiveTab(tab.id as any);
-                    if (tab.id === 'discovery') setHasSearched(false);
-                  }} 
-                  className={`px-4 py-2.5 md:px-6 md:py-3 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] rounded-xl transition-all border whitespace-nowrap
-                    ${activeTab === tab.id 
-                      ? 'bg-blackline-yellow text-black border-blackline-yellow shadow-[0_0_20px_rgba(249,183,52,0.3)] scale-105' 
-                      : 'bg-transparent text-gray-400 border-transparent hover:border-zinc-700 hover:text-white hover:bg-zinc-800'}`}
-                >
-                  {tab.label}
-                </button>
+                <React.Fragment key={tab.id}>
+                  {/* INJECT BETA LABEL BEFORE 'DISCOVERY' TAB */}
+                  {tab.id === 'discovery' && (
+                    <div className="flex items-center px-3">
+                      <span className="text-[10px] font-black text-blackline-yellow/80 tracking-widest">BETA <span className="text-white">→</span></span>
+                    </div>
+                  )}
+                  
+                  <button 
+                    onClick={() => {
+                      setActiveTab(tab.id as any);
+                      if (tab.id === 'discovery') setHasSearched(false);
+                    }} 
+                    className={`px-4 py-2.5 md:px-6 md:py-3 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] rounded-xl transition-all border whitespace-nowrap
+                      ${activeTab === tab.id 
+                        ? 'bg-blackline-yellow text-black border-blackline-yellow shadow-[0_0_20px_rgba(249,183,52,0.3)] scale-105' 
+                        : 'bg-transparent text-gray-400 border-transparent hover:border-zinc-700 hover:text-white hover:bg-zinc-800'}`}
+                  >
+                    {tab.label}
+                  </button>
+                </React.Fragment>
               ))}
               <div className="h-6 w-px bg-zinc-800 mx-1 md:mx-2"></div>
               <div className="px-4 py-2 hidden lg:flex flex-col items-start min-w-[120px]">
