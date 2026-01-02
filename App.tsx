@@ -14,22 +14,26 @@ import {
   BarChart3, 
   FileText, 
   MessageSquare,
-  Search,
-  X,
-  ChevronDown,
-  ChevronUp,
-  Play,
-  Calculator,
-  Target,
-  Download,
-  AlertTriangle,
-  PenTool,
-  Brain,
-  ShieldCheck,
-  Briefcase,
-  DollarSign,
-  Activity,
-  LogOut // Added for Exit button
+  Search, 
+  X, 
+  ChevronDown, 
+  ChevronUp, 
+  Play, 
+  Calculator, 
+  Target, 
+  Download, 
+  AlertTriangle, 
+  PenTool, 
+  Brain, 
+  ShieldCheck, 
+  Briefcase, 
+  DollarSign, 
+  Activity, 
+  LogOut,      // Added
+  Loader2,     // Added (Fixed Crash)
+  Factory,     // Added (Fixed Crash)
+  User,        // Added (Fixed Crash)
+  Rocket       // Added (Fixed Crash)
 } from 'lucide-react';
 import { 
   PRODUCTS, 
@@ -42,7 +46,6 @@ import {
 } from './constants';
 import { SkoExplainer } from './components/SkoExplainer';
 
-// ... (Keep existing interfaces or import them if separated) ...
 interface SelectionState {
   scope: string;
   solutions: string[];
@@ -64,12 +67,11 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [showSkoExplainer, setShowSkoExplainer] = useState(false);
 
-  // --- MOCK DATA GENERATOR (Fixes the "N/A" Issue) ---
+  // --- MOCK DATA GENERATOR (Fixes "N/A" Issue) ---
   const generateMockAnalysis = () => {
     return {
       executiveSummary: "BlackLine's platform directly addresses the critical need for financial autonomy and risk mitigation. By unifying the close process, we project a shift from 70% manual effort to 70% strategic analysis.",
       valueDriverImpacts: {
-        // HARDCODED DATA TO PREVENT "N/A"
         process: { 
           message: "Standardization of global reconciliations reduces cycle time.", 
           metric: "40-60% reduction in close cycle days", 
@@ -207,7 +209,6 @@ function App() {
                 <div key={driver.id} className="bg-zinc-900 border border-zinc-800 p-6 rounded-3xl hover:border-zinc-600 transition-all">
                   <div className="flex justify-between items-start mb-4">
                     <div className="p-3 bg-zinc-800 rounded-xl">
-                      {/* Icon mapping would go here, simplified for brevity */}
                       <Zap size={20} className="text-white" /> 
                     </div>
                     {impact?.relevance === 'High' && <span className="text-[10px] bg-green-500/20 text-green-400 px-2 py-1 rounded font-bold uppercase">High Impact</span>}
@@ -231,7 +232,7 @@ function App() {
 
     // --- SELECTION VIEW ---
     return (
-      <div className="max-w-4xl mx-auto pb-40"> {/* Added ample bottom padding */}
+      <div className="max-w-4xl mx-auto pb-40"> 
         <div className="text-center mb-12">
           <h2 className="text-5xl font-black text-white mb-4 italic tracking-tight">Value Narratives</h2>
           <p className="text-zinc-400 text-lg">Select a scope to generate strategic value analysis and talk tracks.</p>
@@ -268,7 +269,7 @@ function App() {
                 onClick={() => setSelections({...selections, industry: ind.id})}
                 className={`p-4 rounded-xl border flex flex-col items-center gap-3 transition-all ${selections.industry === ind.id ? 'bg-blue-500/10 border-blue-500 text-white' : 'bg-black border-zinc-800 text-zinc-400 hover:border-zinc-600'}`}
               >
-                <Factory size={24} /> {/* Placeholder icon */}
+                <Factory size={24} /> 
                 <span className="text-xs font-bold uppercase">{UI_STRINGS.EN[ind.nameKey] || ind.id}</span>
               </button>
             ))}
@@ -285,7 +286,7 @@ function App() {
                 onClick={() => setSelections({...selections, persona: p.id})}
                 className={`p-4 rounded-xl border flex flex-col items-center gap-3 transition-all ${selections.persona === p.id ? 'bg-purple-500/10 border-purple-500 text-white' : 'bg-black border-zinc-800 text-zinc-400 hover:border-zinc-600'}`}
               >
-                <User size={24} /> {/* Placeholder */}
+                <User size={24} /> 
                 <span className="text-xs font-bold uppercase text-center">{p.name}</span>
               </button>
             ))}
@@ -293,7 +294,7 @@ function App() {
         </div>
 
         {/* FIXED GENERATE BUTTON (Yellow Pill) */}
-        <div className="fixed bottom-12 left-0 w-full px-6 z-40 pointer-events-none">
+        <div className="fixed bottom-20 left-0 w-full px-6 z-40 pointer-events-none">
           <div className="max-w-4xl mx-auto pointer-events-auto">
             <button
               onClick={handleGenerate}
@@ -327,7 +328,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-blackline-yellow selection:text-black pb-20">
       
-      {/* Navigation Rail (Simplified for brevity) */}
+      {/* Navigation Rail */}
       <nav className="fixed bottom-0 left-0 w-full bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 z-50 px-6 py-4 flex justify-between items-center">
         <div className="flex gap-1 overflow-x-auto no-scrollbar">
           {[
@@ -344,7 +345,7 @@ function App() {
                 if (item.id === 'sko') setShowSkoExplainer(true);
                 else {
                   setActiveTab(item.id);
-                  setAnalysisResult(null); // Reset analysis when switching tabs
+                  setAnalysisResult(null); 
                 }
               }}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all
