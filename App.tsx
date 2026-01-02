@@ -29,11 +29,11 @@ import {
   Briefcase, 
   DollarSign, 
   Activity, 
-  LogOut,      
-  Loader2,     
-  Factory,     
-  User,        
-  Rocket       
+  LogOut,
+  Loader2,
+  Factory,
+  User,
+  Rocket
 } from 'lucide-react';
 import { 
   PRODUCTS, 
@@ -66,7 +66,7 @@ function App() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   
-  // --- CHANGE: Set this to true so it loads first ---
+  // Set to TRUE so SKO Explainer is the first thing seen
   const [showSkoExplainer, setShowSkoExplainer] = useState(true);
 
   // --- MOCK DATA GENERATOR ---
@@ -130,7 +130,6 @@ function App() {
 
   const handleGenerate = () => {
     setIsAnalyzing(true);
-    // Simulate API delay
     setTimeout(() => {
       setAnalysisResult(generateMockAnalysis());
       setIsAnalyzing(false);
@@ -153,11 +152,8 @@ function App() {
     </div>
   );
 
-  // --- RENDER HELPERS ---
-
   const renderValueNarratives = () => {
     if (analysisResult) {
-      // --- RESULTS VIEW ---
       return (
         <div className="animate-fade-in space-y-8 pb-32">
           {/* Header with EXIT Button */}
@@ -171,7 +167,6 @@ function App() {
               <h2 className="text-3xl font-black text-white italic tracking-tight">Executive Value Analysis</h2>
             </div>
             
-            {/* EXIT BUTTON */}
             <button 
               onClick={resetAnalysis}
               className="flex items-center gap-2 px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-full font-bold transition-all border border-red-500/50"
@@ -200,7 +195,7 @@ function App() {
             </div>
           </div>
 
-          {/* Value Matrix (Populated) */}
+          {/* Value Matrix */}
           <h3 className="text-xl font-bold text-white mt-12 mb-6 flex items-center gap-3">
             <LayoutGrid className="text-blackline-yellow" /> Strategic Value Matrix
           </h3>
@@ -240,7 +235,7 @@ function App() {
           <p className="text-zinc-400 text-lg">Select a scope to generate strategic value analysis and talk tracks.</p>
         </div>
 
-        {/* 1. Scope Selection */}
+        {/* Selection Content Omitted for Brevity - Same as before */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-2 mb-4">
           <button 
             onClick={() => setSelections({...selections, scope: 'platform'})}
@@ -261,7 +256,6 @@ function App() {
           </button>
         </div>
 
-        {/* 2. Industry Selection */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 mb-4">
           <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2"><Building2 size={20} className="text-blue-400"/> Browse by Industry</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -278,7 +272,6 @@ function App() {
           </div>
         </div>
 
-        {/* 3. Persona Selection */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
           <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2"><Users size={20} className="text-purple-400"/> Browse by Persona</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -295,7 +288,7 @@ function App() {
           </div>
         </div>
 
-        {/* FIXED GENERATE BUTTON (Yellow Pill) */}
+        {/* Generate Button */}
         <div className="fixed bottom-20 left-0 w-full px-6 z-40 pointer-events-none">
           <div className="max-w-4xl mx-auto pointer-events-auto">
             <button
@@ -323,14 +316,10 @@ function App() {
 
   // --- MAIN RENDER ---
 
-  if (showSkoExplainer) {
-    return <SkoExplainer onClose={() => setShowSkoExplainer(false)} t={UI_STRINGS['EN']} />;
-  }
-
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-blackline-yellow selection:text-black pb-20">
       
-      {/* Navigation Rail */}
+      {/* Navigation Rail - Always Visible */}
       <nav className="fixed bottom-0 left-0 w-full bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 z-50 px-6 py-4 flex justify-between items-center">
         <div className="flex gap-1 overflow-x-auto no-scrollbar">
           {[
@@ -346,13 +335,13 @@ function App() {
               onClick={() => {
                 if (item.id === 'sko') setShowSkoExplainer(true);
                 else {
+                  setShowSkoExplainer(false);
                   setActiveTab(item.id);
                   setAnalysisResult(null); 
                 }
               }}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all
-                ${activeTab === item.id && item.id !== 'sko' ? 'bg-blackline-yellow text-black' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}
-                ${item.id === 'sko' ? 'bg-zinc-800 border border-zinc-700' : ''}
+                ${(activeTab === item.id && !showSkoExplainer) || (showSkoExplainer && item.id === 'sko') ? 'bg-blackline-yellow text-black' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}
               `}
             >
               <item.icon size={14} />
@@ -365,51 +354,57 @@ function App() {
       {/* Main Content Area */}
       <main className="pt-8 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
         
-        {/* Render Active Tab */}
-        {activeTab === 'discovery' && renderValueNarratives()}
+        {/* CONDITIONAL RENDER: SKO EXPLAINER TAKES PRIORITY */}
+        {showSkoExplainer ? (
+          <SkoExplainer onClose={() => setShowSkoExplainer(false)} t={UI_STRINGS['EN']} />
+        ) : (
+          <>
+            {activeTab === 'discovery' && renderValueNarratives()}
 
-        {activeTab === 'outside_in' && (
-          <div className="animate-fade-in">
-            <WipBanner title="Outside-In Generator" />
-            <div className="text-center py-20 text-zinc-500">
-              <Search size={64} className="mx-auto mb-4 opacity-20" />
-              <h2 className="text-2xl font-bold">Public Financial Parsing Engine</h2>
-              <p>Connects to 10-K/10-Q data sources. Currently in development.</p>
-            </div>
-          </div>
-        )}
+            {activeTab === 'outside_in' && (
+              <div className="animate-fade-in">
+                <WipBanner title="Outside-In Generator" />
+                <div className="text-center py-20 text-zinc-500">
+                  <Search size={64} className="mx-auto mb-4 opacity-20" />
+                  <h2 className="text-2xl font-bold">Public Financial Parsing Engine</h2>
+                  <p>Connects to 10-K/10-Q data sources. Currently in development.</p>
+                </div>
+              </div>
+            )}
 
-        {activeTab === 'calculator' && (
-          <div className="animate-fade-in">
-            <WipBanner title="BVA Calculator" />
-            <div className="text-center py-20 text-zinc-500">
-              <Calculator size={64} className="mx-auto mb-4 opacity-20" />
-              <h2 className="text-2xl font-bold">ROI & TCO Modeler</h2>
-              <p>Advanced financial modeling interface. Currently in development.</p>
-            </div>
-          </div>
-        )}
+            {activeTab === 'calculator' && (
+              <div className="animate-fade-in">
+                <WipBanner title="BVA Calculator" />
+                <div className="text-center py-20 text-zinc-500">
+                  <Calculator size={64} className="mx-auto mb-4 opacity-20" />
+                  <h2 className="text-2xl font-bold">ROI & TCO Modeler</h2>
+                  <p>Advanced financial modeling interface. Currently in development.</p>
+                </div>
+              </div>
+            )}
 
-        {activeTab === 'benchmarks' && (
-          <div className="animate-fade-in">
-            <WipBanner title="Benchmarks" />
-            <div className="text-center py-20 text-zinc-500">
-              <BarChart3 size={64} className="mx-auto mb-4 opacity-20" />
-              <h2 className="text-2xl font-bold">Customer Data Lake</h2>
-              <p> anonymized peer comparison data. Currently in development.</p>
-            </div>
-          </div>
-        )}
+            {activeTab === 'benchmarks' && (
+              <div className="animate-fade-in">
+                <WipBanner title="Benchmarks" />
+                <div className="text-center py-20 text-zinc-500">
+                  <BarChart3 size={64} className="mx-auto mb-4 opacity-20" />
+                  <h2 className="text-2xl font-bold">Customer Data Lake</h2>
+                  <p> anonymized peer comparison data. Currently in development.</p>
+                </div>
+              </div>
+            )}
 
-        {activeTab === 'hub' && (
-          <div className="animate-fade-in">
-            <WipBanner title="Coaching Hub" />
-            <div className="text-center py-20 text-zinc-500">
-              <MessageSquare size={64} className="mx-auto mb-4 opacity-20" />
-              <h2 className="text-2xl font-bold">Sales Enablement AI</h2>
-              <p>Call recording analysis and objection handling. Currently in development.</p>
-            </div>
-          </div>
+            {activeTab === 'hub' && (
+              <div className="animate-fade-in">
+                <WipBanner title="Coaching Hub" />
+                <div className="text-center py-20 text-zinc-500">
+                  <MessageSquare size={64} className="mx-auto mb-4 opacity-20" />
+                  <h2 className="text-2xl font-bold">Sales Enablement AI</h2>
+                  <p>Call recording analysis and objection handling. Currently in development.</p>
+                </div>
+              </div>
+            )}
+          </>
         )}
 
       </main>
