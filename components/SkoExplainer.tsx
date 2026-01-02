@@ -683,6 +683,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
+        {/* UPDATED: Buttons now use scrollToPhase1 logic */}
         <button onClick={() => { setActivePov('executive'); setTimeout(scrollToPhase1, 50); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
         <button onClick={() => { setActivePov('operational'); setTimeout(scrollToPhase1, 50); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
       </div>
@@ -731,7 +732,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               {/* Fallback Text List if no specific visual, or supplementary info */}
               {!['process', 'ai_ops', 'working_cap', 'trust', 'ma', 'compliance', 'talent', 'innovation', 'decision'].includes(activeDriver.id) && (
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 mt-8 text-left">
-                  {pov?.createValue?.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-200 text-lg md:text-2xl font-medium leading-relaxed">{p}</p></div>))}
+                  {pov?.createValue?.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-100 text-lg md:text-2xl font-medium leading-relaxed">{p}</p></div>))}
                 </div>
               )}
 
@@ -902,6 +903,45 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
         <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 flex gap-8 no-print justify-center"><button onClick={handlePrevDriver} className="px-14 py-8 bg-zinc-900 border border-zinc-800 text-white rounded-full font-black uppercase italic hover:bg-zinc-800 transition-all shadow-2xl flex items-center gap-4"><ChevronLeft size={16} /> Prev</button><button onClick={handleNextDriver} className="px-16 py-8 bg-blackline-yellow text-black rounded-full font-black uppercase italic hover:scale-105 transition-all shadow-2xl border-4 border-black flex items-center gap-4">Next <ChevronRight size={16} /></button></div>
       </div>
     );
+  }
+
+  // --- MISSING 'letsgo_bva' VIEW RESTORED ---
+  if (viewMode === 'letsgo_bva') {
+    return (
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-4 animate-fade-in relative">
+          <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-white"><X size={32}/></button>
+          <div className="max-w-4xl w-full">
+              <div className="inline-flex items-center gap-3 mb-8 px-4 py-2 rounded-full bg-blackline-yellow/10 border border-blackline-yellow/30 text-blackline-yellow text-sm font-bold uppercase tracking-widest">
+                  <Rocket size={16} />
+                  <span>Activation Phase</span>
+              </div>
+              <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter italic uppercase">
+                  Ready to <span className="text-blackline-yellow">Go Get?</span>
+              </h1>
+              <p className="text-xl md:text-3xl text-zinc-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
+                  Turn these value drivers into customer-facing conversations.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                  <button onClick={onClose} className="group p-8 rounded-3xl bg-zinc-900 border border-zinc-800 hover:border-blackline-yellow transition-all text-left">
+                      <div className="w-14 h-14 bg-blackline-yellow rounded-2xl flex items-center justify-center mb-6 text-black group-hover:scale-110 transition-transform">
+                          <Sparkles size={28} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blackline-yellow">Build a Narrative</h3>
+                      <p className="text-zinc-400">Generate persona-specific talk tracks and discovery questions.</p>
+                  </button>
+
+                  <div className="p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 text-left opacity-50 cursor-not-allowed">
+                      <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center mb-6 text-zinc-500">
+                          <Calculator size={28} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-zinc-500 mb-2">Build a Business Case</h3>
+                      <p className="text-zinc-600">ROI Calculators coming soon to this workflow.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    )
   }
 
   return <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white"><h1 className="text-2xl font-bold mb-4">Content Not Found</h1><button onClick={onClose} className="px-6 py-2 bg-zinc-800 rounded-lg">Return to Home</button></div>;
