@@ -66,13 +66,13 @@ export const CustomerBenchmarks: React.FC<CustomerBenchmarksProps> = ({ t }) => 
      
      // Mapping generic names back to icons if needed, though simple switch works
      switch(industryName) {
-        case 'Manufacturing': return <Factory size={24} className="text-blue-400" />;
-        case 'Retail': return <ShoppingBag size={24} className="text-pink-400" />;
-        case 'Financial Services': return <Landmark size={24} className="text-green-400" />;
-        case 'Healthcare': return <HeartPulse size={24} className="text-red-400" />;
-        case 'Energy': return <Zap size={24} className="text-yellow-400" />;
-        case 'Technology': return <Cpu size={24} className="text-indigo-400" />;
-        default: return <Building2 size={24} className="text-gray-400" />;
+       case 'Manufacturing': return <Factory size={24} className="text-blue-400" />;
+       case 'Retail': return <ShoppingBag size={24} className="text-pink-400" />;
+       case 'Financial Services': return <Landmark size={24} className="text-green-400" />;
+       case 'Healthcare': return <HeartPulse size={24} className="text-red-400" />;
+       case 'Energy': return <Zap size={24} className="text-yellow-400" />;
+       case 'Technology': return <Cpu size={24} className="text-indigo-400" />;
+       default: return <Building2 size={24} className="text-gray-400" />;
      }
   };
 
@@ -81,10 +81,7 @@ export const CustomerBenchmarks: React.FC<CustomerBenchmarksProps> = ({ t }) => 
       
       {/* Header */}
       <div className="mb-10 text-center relative">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blackline-yellow/20 border border-blackline-yellow/50 text-blackline-yellow text-xs font-bold uppercase tracking-wider mb-4 animate-pulse">
-          <Construction size={14} />
-          {t.bench_wip_badge || "Work in Progress"}
-        </div>
+        {/* BETA BUTTON REMOVED HERE */}
         <h2 className="text-4xl font-bold text-white tracking-tight mb-3">
           {t.bench_title}
         </h2>
@@ -118,7 +115,7 @@ export const CustomerBenchmarks: React.FC<CustomerBenchmarksProps> = ({ t }) => 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl flex items-center gap-6">
            <div className="p-4 bg-blackline-yellow/10 rounded-full text-blackline-yellow">
-              <TrendingUp size={32} />
+             <TrendingUp size={32} />
            </div>
            <div>
               <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">{t.bench_stat_avg_roi}</p>
@@ -128,7 +125,7 @@ export const CustomerBenchmarks: React.FC<CustomerBenchmarksProps> = ({ t }) => 
         
         <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl flex items-center gap-6">
            <div className="p-4 bg-green-500/10 rounded-full text-green-500">
-              <DollarSign size={32} />
+             <DollarSign size={32} />
            </div>
            <div>
               <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">{t.bench_stat_total_sav}</p>
@@ -138,7 +135,7 @@ export const CustomerBenchmarks: React.FC<CustomerBenchmarksProps> = ({ t }) => 
 
         <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl flex items-center gap-6">
            <div className="p-4 bg-blue-500/10 rounded-full text-blue-500">
-              <Briefcase size={32} />
+             <Briefcase size={32} />
            </div>
            <div>
               <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">{t.bench_stat_cases}</p>
