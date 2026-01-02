@@ -32,23 +32,23 @@ import {
   AlertTriangle, 
   ChevronDown, 
   Quote, 
-  Factory,      // Fixed: Was missing
-  Flame,        // Fixed: Was missing
-  Wind,         // Fixed: Was missing
-  Anchor,       // Fixed: Was missing
-  Droplets,     // Fixed: Was missing
-  CloudFog,     // Fixed: Was missing
-  Eye,          // Fixed: Was missing
-  Layers,       // Fixed: Was missing
-  Radar,        // Fixed: Was missing
-  Loader2,      // Fixed: Was missing
-  Maximize2,    // Fixed: Was missing
-  Minimize2,    // Fixed: Was missing
-  GitMerge,     // Fixed: Was missing
-  Lightbulb,    // Fixed: Was missing
-  Activity,     // Fixed: Was missing
-  ShieldCheck,  // Fixed: Was missing
-  DollarSign    // Fixed: Was missing
+  Factory, 
+  Flame,
+  Wind,
+  Anchor,
+  Droplets,
+  CloudFog,
+  Eye,
+  Layers,
+  Radar,
+  Loader2,
+  Maximize2,
+  Minimize2,
+  GitMerge,
+  Lightbulb,
+  Activity,
+  ShieldCheck,
+  DollarSign
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -120,7 +120,7 @@ const GarbageInOutVisual = () => {
               <Factory size={40} />
             </div>
             <p className="text-lg font-black uppercase tracking-wider">{mode === 'dirty' ? 'Polluted Data' : 'Clean Data'}</p>
-            <p className="text-sm text-zinc-400 mt-2">{mode === 'dirty' ? 'Unreconciled, Fragmented' : 'Standardized, Verified'}</p>
+            <p className="text-sm text-zinc-200 mt-2">{mode === 'dirty' ? 'Unreconciled, Fragmented' : 'Standardized, Verified'}</p>
           </div>
 
           <div className="flex-1 w-full h-2 bg-zinc-800 relative rounded-full overflow-hidden">
@@ -132,7 +132,7 @@ const GarbageInOutVisual = () => {
               {mode === 'dirty' ? <AlertTriangle size={40} /> : <Sparkles size={40} />}
             </div>
             <p className="text-lg font-black uppercase tracking-wider">{mode === 'dirty' ? 'AI Hallucinations' : 'Trusted AI'}</p>
-             <p className="text-sm text-zinc-400 mt-2">{mode === 'dirty' ? 'High Risk & Error' : 'Autonomous Execution'}</p>
+             <p className="text-sm text-zinc-200 mt-2">{mode === 'dirty' ? 'High Risk & Error' : 'Autonomous Execution'}</p>
           </div>
         </div>
       </div>
@@ -147,14 +147,14 @@ const HouseFireVisual = () => (
         <Flame size={48} className="text-red-500" />
       </div>
       <h4 className="text-red-400 font-black uppercase tracking-widest text-base mb-2">Vulnerable State</h4>
-      <p className="text-zinc-300 text-lg">Material Weakness = Reputational Fire</p>
+      <p className="text-zinc-200 text-lg">Material Weakness = Reputational Fire</p>
     </div>
     <div className="bg-blue-950/20 border border-blue-900/30 p-10 rounded-3xl flex flex-col items-center text-center">
       <div className="w-24 h-24 bg-blue-900/20 rounded-full flex items-center justify-center mb-6">
         <ShieldAlert size={48} className="text-blue-500" />
       </div>
       <h4 className="text-blue-400 font-black uppercase tracking-widest text-base mb-2">Fortified State</h4>
-      <p className="text-zinc-300 text-lg">Automated Controls = Digital Resilience</p>
+      <p className="text-zinc-200 text-lg">Automated Controls = Digital Resilience</p>
     </div>
   </div>
 );
@@ -177,7 +177,7 @@ const WorkingCapitalVisual = () => (
                 <span className="text-sm uppercase font-black tracking-widest text-blackline-yellow mt-6">Cash Velocity</span>
             </div>
         </div>
-        <p className="text-base text-zinc-400 mt-8 max-w-lg mx-auto">Transforming idle droplets into a high-speed revenue turbine.</p>
+        <p className="text-base text-zinc-200 mt-8 max-w-lg mx-auto">Transforming idle droplets into a high-speed revenue turbine.</p>
     </div>
 );
 
@@ -190,7 +190,7 @@ const MaIntegrationVisual = () => (
              </div>
              <div className="h-32 w-20 bg-purple-500/20 border border-purple-500/50 rounded-r-2xl flex items-center justify-center"><span className="rotate-90 text-sm uppercase font-black text-purple-400 whitespace-nowrap">Co. B</span></div>
         </div>
-        <p className="text-base text-zinc-400 mt-8 max-w-lg mx-auto">The "Digital Zipper" seamlessly merging disparate ERP landscapes.</p>
+        <p className="text-base text-zinc-200 mt-8 max-w-lg mx-auto">The "Digital Zipper" seamlessly merging disparate ERP landscapes.</p>
     </div>
 );
 
@@ -242,7 +242,7 @@ const InnovationVisual = () => (
                  <div className="h-1.5 w-24 bg-blue-500 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)]"></div>
              </div>
         </div>
-        <p className="text-base text-zinc-400 max-w-lg mx-auto">Cutting the anchor of manual work to catch the winds of strategy.</p>
+        <p className="text-base text-zinc-200 max-w-lg mx-auto">Cutting the anchor of manual work to catch the winds of strategy.</p>
     </div>
 );
 
@@ -267,7 +267,7 @@ const PainPulseGrid = ({ items }: { items: string[] }) => (
         {items.map((item, idx) => (
             <div key={idx} className="bg-red-950/10 border border-red-900/30 p-4 rounded-xl flex items-center gap-4 group hover:bg-red-900/20 transition-all">
                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0"></div>
-                <p className="text-zinc-300 text-sm font-medium group-hover:text-white">{item}</p>
+                <p className="text-zinc-100 text-sm font-medium group-hover:text-white">{item}</p>
             </div>
         ))}
     </div>
@@ -277,7 +277,7 @@ const SpotlightCards = ({ items }: { items: string[] }) => (
     <div className="space-y-3 w-full">
         {items.map((item, idx) => (
             <div key={idx} className="bg-black border border-zinc-800 p-4 rounded-xl text-center hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all group">
-                <p className="text-zinc-400 italic text-lg group-hover:text-white transition-colors">"{item}"</p>
+                <p className="text-zinc-200 italic text-lg group-hover:text-white transition-colors">"{item}"</p>
             </div>
         ))}
     </div>
@@ -608,7 +608,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <p className="text-red-400 text-xs font-black uppercase tracking-widest mb-6">Establish the Strategic Gap</p>
                           <PainPulseGrid items={["Headcount Risk", "Process Bottlenecks", "Reporting Lag", "Compliance Exposure"]} />
                       </div>
-                      <p className="text-zinc-400 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Shift the dialogue from features to executive objectives. Define the 'Strategic Gap' between their current state and required future state.</p>
+                      <p className="text-zinc-100 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Shift the dialogue from features to executive objectives. Define the 'Strategic Gap' between their current state and required future state.</p>
                   </div>
               </div>
               
@@ -620,7 +620,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <p className="text-blue-400 text-xs font-black uppercase tracking-widest mb-6">Identify Customer Challenges</p>
                           <SpotlightCards items={["How long does your close take?", "Do you trust the numbers on Day 1?", "What is the cost of attrition?"]} />
                       </div>
-                      <p className="text-zinc-400 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Deep discovery to uncover the hidden costs of status quo inertia. Validate the specific pains that make change urgent.</p>
+                      <p className="text-zinc-100 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Deep discovery to uncover the hidden costs of status quo inertia. Validate the specific pains that make change urgent.</p>
                   </div>
               </div>
               
@@ -632,7 +632,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <p className="text-blackline-yellow text-xs font-black uppercase tracking-widest mb-6">Map Outcomes</p>
                           <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
                       </div>
-                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
+                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
                   </div>
               </div>
               
@@ -644,7 +644,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <p className="text-green-400 text-xs font-black uppercase tracking-widest mb-6">Build Logic</p>
                           <LogicFlow metrics={["Manual Hours", "FTE Capacity", "Strategic ROI"]} />
                       </div>
-                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Co-author the business case logic. Secure agreement on the 'mechanics of improvement' before a single ROI number is calculated.</p>
+                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Co-author the business case logic. Secure agreement on the 'mechanics of improvement' before a single ROI number is calculated.</p>
                   </div>
               </div>
               
@@ -660,7 +660,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                               <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Savings</p>
                           </div>
                       </div>
-                      <p className="text-zinc-400 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact that the CFO can validate and defend.</p>
+                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact that the CFO can validate and defend.</p>
                   </div>
               </div>
            </div>
@@ -683,8 +683,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
-        <button onClick={() => { setActivePov('executive'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
-        <button onClick={() => { setActivePov('operational'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
+        {/* UPDATED: Buttons now use scrollToPhase1 logic */}
+        <button onClick={() => { setActivePov('executive'); setTimeout(scrollToPhase1, 50); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
+        <button onClick={() => { setActivePov('operational'); setTimeout(scrollToPhase1, 50); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
       </div>
     );
 
@@ -745,7 +746,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 02: Capture Value</h4>
               </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov?.captureValue?.title}</h5>
-              <div className="space-y-6 md:space-y-8 mb-16">{pov?.captureValue?.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 justify-center`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p></div></div>))}</div>
+              <div className="space-y-6 md:space-y-8 mb-16">{pov?.captureValue?.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 justify-center`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed text-white">{q}</p></div></div>))}</div>
            </div>
            
            {/* PHASE 3: DYNAMIC SPLIT TOGGLE */}
@@ -884,7 +885,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                             <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-yellow-500 font-bold" : ""}>{part}</span>
                           ))}
                         </div>
-                        <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
+                        <p className="text-zinc-200 text-sm leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   );
