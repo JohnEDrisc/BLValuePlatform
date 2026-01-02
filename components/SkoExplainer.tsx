@@ -73,7 +73,7 @@ const SafeIcon = ({ name, className }: { name: string; className?: string }) => 
   return <IconComponent className={className} />;
 };
 
-// --- DRIVER VISUAL COMPONENTS (Upsized for Readability) ---
+// --- DRIVER VISUAL COMPONENTS (Upsized for better container fill) ---
 
 const FunnelVisual = () => (
   <div className="flex flex-col items-center justify-center w-full py-8">
@@ -443,11 +443,12 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-full text-gray-500 hover:text-white transition-colors invisible"><X size={24} /></button>
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
-            {/* --- SECTION 1: EXXONMOBIL (CUSTOMER VOICE) --- */}
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
+                  
+                  {/* --- UPDATED: YELLOW BOXES ARE NOW FULL WIDTH (flex-1) AND BIGGER --- */}
                   <div className="flex flex-col md:flex-row justify-start items-start gap-6 mb-10 w-full border-b border-gray-100 pb-8">
                      <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full">
                         <p className="font-bold text-sm mb-1">Launched Migration to S/4HANA:</p>
@@ -458,6 +459,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                         <p className="text-sm">Automated 84% of reconciliations</p>
                      </div>
                   </div>
+
                   <div className="relative pl-8 md:pl-12 border-l-4 border-blackline-yellow mb-12">
                      <Quote className="text-blackline-yellow w-10 h-10 absolute -left-5 -top-4 bg-white" fill="currentColor" />
                      <p className="text-lg md:text-2xl leading-relaxed font-light">
@@ -469,14 +471,17 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                         Customer Since: <span className="text-black text-lg font-black ml-2">2022</span>
                      </div>
                      <div className="flex flex-col md:flex-row items-end gap-8 order-2 w-full xl:w-auto justify-end">
+                         
+                         {/* --- UPDATED: BLACK BOX IS NOW SMALLER --- */}
                          <div className="bg-black text-white px-6 py-4 rounded-xl shadow-lg text-center md:text-right w-full md:w-auto">
                             <p className="text-[9px] font-black text-blackline-yellow uppercase tracking-widest mb-1">Quantified Impact</p>
                             <p className="text-xl md:text-3xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
                          </div>
+                         
                          <div className="text-right shrink-0">
                             <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
                             <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
-                            <p className="text-gray-600 text-xs mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
+                            <p className="text-zinc-600 text-xs font-medium mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
                          </div>
                      </div>
                   </div>
@@ -529,6 +534,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="flex flex-col gap-6">{valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}</div>
             </div>
          </div>
+         {/* Button Explicitly Restored Here */}
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button onClick={() => { setActivePov('executive'); setByActiveDriverId(sortedDrivers[0]?.id || null); setViewMode('persona_explain'); }} className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"><Sparkles size={24} /> Start Deep Dive</button>
          </div>
@@ -591,7 +597,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <p className="text-blue-400 text-xs font-black uppercase tracking-widest mb-6">Identify Customer Challenges</p>
                           <SpotlightCards items={["How long does your close take?", "Do you trust the numbers on Day 1?", "What is the cost of attrition?"]} />
                       </div>
-                      <p className="text-zinc-400 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Deep discovery to expose the hidden costs of status quo inertia. Validate the specific pains that make change urgent.</p>
+                      <p className="text-zinc-400 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Deep discovery to uncover the hidden costs of status quo inertia. Validate the specific pains that make change urgent.</p>
                   </div>
               </div>
               
