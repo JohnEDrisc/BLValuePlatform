@@ -29,11 +29,11 @@ import {
   Briefcase, 
   DollarSign, 
   Activity, 
-  LogOut,      // Added
-  Loader2,     // Added (Fixed Crash)
-  Factory,     // Added (Fixed Crash)
-  User,        // Added (Fixed Crash)
-  Rocket       // Added (Fixed Crash)
+  LogOut,      
+  Loader2,     
+  Factory,     
+  User,        
+  Rocket       
 } from 'lucide-react';
 import { 
   PRODUCTS, 
@@ -65,9 +65,11 @@ function App() {
   });
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
-  const [showSkoExplainer, setShowSkoExplainer] = useState(false);
+  
+  // --- CHANGE: Set this to true so it loads first ---
+  const [showSkoExplainer, setShowSkoExplainer] = useState(true);
 
-  // --- MOCK DATA GENERATOR (Fixes "N/A" Issue) ---
+  // --- MOCK DATA GENERATOR ---
   const generateMockAnalysis = () => {
     return {
       executiveSummary: "BlackLine's platform directly addresses the critical need for financial autonomy and risk mitigation. By unifying the close process, we project a shift from 70% manual effort to 70% strategic analysis.",
@@ -169,7 +171,7 @@ function App() {
               <h2 className="text-3xl font-black text-white italic tracking-tight">Executive Value Analysis</h2>
             </div>
             
-            {/* EXIT BUTTON (Replaces Export) */}
+            {/* EXIT BUTTON */}
             <button 
               onClick={resetAnalysis}
               className="flex items-center gap-2 px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-full font-bold transition-all border border-red-500/50"
