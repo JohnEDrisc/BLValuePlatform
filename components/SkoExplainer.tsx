@@ -177,7 +177,7 @@ const WorkingCapitalVisual = () => (
                 <span className="text-sm uppercase font-black tracking-widest text-blackline-yellow mt-6">Cash Velocity</span>
             </div>
         </div>
-        <p className="text-base text-zinc-200 mt-8 max-w-lg mx-auto">Transforming idle droplets into a high-speed revenue turbine.</p>
+        <p className="text-2xl text-zinc-200 mt-12 max-w-2xl mx-auto leading-relaxed font-medium">Transforming idle droplets into a high-speed revenue turbine.</p>
     </div>
 );
 
@@ -190,7 +190,7 @@ const MaIntegrationVisual = () => (
              </div>
              <div className="h-32 w-20 bg-purple-500/20 border border-purple-500/50 rounded-r-2xl flex items-center justify-center"><span className="rotate-90 text-sm uppercase font-black text-purple-400 whitespace-nowrap">Co. B</span></div>
         </div>
-        <p className="text-base text-zinc-200 mt-8 max-w-lg mx-auto">The "Digital Zipper" seamlessly merging disparate ERP landscapes.</p>
+        <p className="text-2xl text-zinc-200 mt-12 max-w-2xl mx-auto leading-relaxed font-medium">The "Digital Zipper" seamlessly merging disparate ERP landscapes.</p>
     </div>
 );
 
@@ -242,7 +242,7 @@ const InnovationVisual = () => (
                  <div className="h-1.5 w-24 bg-blue-500 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)]"></div>
              </div>
         </div>
-        <p className="text-base text-zinc-200 max-w-lg mx-auto">Cutting the anchor of manual work to catch the winds of strategy.</p>
+        <p className="text-2xl text-zinc-200 mt-12 max-w-2xl mx-auto leading-relaxed font-medium">Cutting the anchor of manual work to catch the winds of strategy.</p>
     </div>
 );
 
@@ -732,11 +732,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               {/* Fallback Text List if no specific visual, or supplementary info */}
               {!['process', 'ai_ops', 'working_cap', 'trust', 'ma', 'compliance', 'talent', 'innovation', 'decision'].includes(activeDriver.id) && (
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 mt-8 text-left">
-                  {pov?.createValue?.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-100 text-lg md:text-2xl font-medium leading-relaxed">{p}</p></div>))}
+                  {pov?.createValue?.pains?.map((p: string, i: number) => (<div key={i} className="bg-black/40 border border-zinc-800 p-6 md:p-8 rounded-3xl flex gap-6 items-start"><div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 text-red-500"><AlertTriangle size={20} /></div><p className="text-zinc-100 text-xl md:text-3xl font-medium leading-relaxed">{p}</p></div>))}
                 </div>
               )}
 
-              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Strategic Focus Point</p><p className="text-xl md:text-3xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
+              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
            </div>
 
            {/* PHASE 2 & 3 */}
@@ -877,15 +877,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                       <div className="absolute top-0 left-0 w-full h-1 bg-blackline-yellow"></div>
                       <div className="p-8 pt-10">
                         <div className="flex justify-between items-start mb-4">
-                          <h6 className="text-2xl font-black text-white italic">{item.label}</h6>
+                          <h6 className="text-3xl font-black text-white italic">{item.label}</h6>
                           <Coins className="text-blackline-yellow w-6 h-6" />
                         </div>
-                        <div className="bg-black/40 p-4 rounded-xl border border-zinc-800 mb-6 font-mono text-lg text-zinc-300 flex flex-wrap gap-2 items-center">
+                        <div className="bg-black/40 p-4 rounded-xl border border-zinc-800 mb-6 font-mono text-xl text-zinc-300 flex flex-wrap gap-2 items-center">
                           {item.formula.map((part: string, idx: number) => (
                             <span key={idx} className={['×', '÷', '+', '-', 'vs', 'to', '→'].includes(part) ? "text-yellow-500 font-bold" : ""}>{part}</span>
                           ))}
                         </div>
-                        <p className="text-zinc-100 text-sm leading-relaxed">{item.desc}</p>
+                        <p className="text-zinc-100 text-lg leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   );
@@ -973,7 +973,7 @@ const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ titl
 );
 
 const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
+  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
      <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
      <div className="text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
      <h3 className="text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
