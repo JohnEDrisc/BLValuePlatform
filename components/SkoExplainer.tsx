@@ -73,24 +73,21 @@ const SafeIcon = ({ name, className }: { name: string; className?: string }) => 
   return <IconComponent className={className} />;
 };
 
-// --- DRIVER VISUAL COMPONENTS (Upsized for better container fill) ---
+// --- DRIVER VISUAL COMPONENTS ---
 
 const FunnelVisual = () => (
   <div className="flex flex-col items-center justify-center w-full py-8">
     <div className="flex flex-col md:flex-row items-center gap-6 w-full max-w-5xl">
-       {/* Input */}
        <div className="flex-1 flex flex-col gap-3 w-full text-center">
           <div className="bg-zinc-800 p-4 rounded-lg text-sm font-bold text-zinc-300">Transaction Volume</div>
           <div className="bg-zinc-800 p-4 rounded-lg text-sm font-bold text-zinc-300">New Entities</div>
           <div className="bg-zinc-800 p-4 rounded-lg text-sm font-bold text-zinc-300">Data Sources</div>
        </div>
-       {/* Center: Funnel Constraint */}
        <div className="relative z-10 bg-gradient-to-r from-red-900/50 to-red-600/50 p-8 rounded-2xl border border-red-500/30 flex flex-col items-center justify-center shrink-0 w-full md:w-64 shadow-[0_0_30px_rgba(220,38,38,0.2)]">
           <AlertTriangle className="text-red-500 mb-3 w-10 h-10" />
           <span className="text-xs font-black uppercase text-red-400 tracking-widest mb-1">BOTTLENECK</span>
           <p className="text-lg font-bold text-white leading-tight text-center">Manual Matching</p>
        </div>
-       {/* Output */}
        <div className="flex-1 flex flex-col gap-3 w-full text-center opacity-60">
           <div className="bg-zinc-800 border border-zinc-700 p-4 rounded-lg text-sm font-bold text-zinc-500">Delay</div>
           <div className="bg-zinc-800 border border-zinc-700 p-4 rounded-lg text-sm font-bold text-zinc-500">Risk</div>
@@ -120,7 +117,6 @@ const GarbageInOutVisual = () => {
           </div>
 
           <div className="flex-1 w-full h-2 bg-zinc-800 relative rounded-full overflow-hidden">
-             {/* Animated Progress Line */}
              <div className={`absolute top-0 left-0 h-full transition-all duration-1000 ${mode === 'dirty' ? 'bg-red-500 w-1/3' : 'bg-green-500 w-full'}`}></div>
           </div>
 
@@ -448,15 +444,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
                   
-                  {/* --- UPDATED: YELLOW BOXES ARE NOW FULL WIDTH (flex-1) AND BIGGER --- */}
+                  {/* --- UPDATED: YELLOW BOXES ARE NOW FULL WIDTH (flex-1) AND UPSIZED TEXT --- */}
                   <div className="flex flex-col md:flex-row justify-start items-start gap-6 mb-10 w-full border-b border-gray-100 pb-8">
-                     <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full">
-                        <p className="font-bold text-sm mb-1">Launched Migration to S/4HANA:</p>
-                        <p className="text-sm">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
+                     <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full shadow-md">
+                        <p className="font-bold text-lg mb-2">Launched Migration to S/4HANA:</p>
+                        <p className="text-base">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
                      </div>
-                     <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full">
-                        <p className="font-bold text-sm mb-1">Measurable Impact:</p>
-                        <p className="text-sm">Automated 84% of reconciliations</p>
+                     <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full shadow-md">
+                        <p className="font-bold text-lg mb-2">Measurable Impact:</p>
+                        <p className="text-base">Automated 84% of reconciliations</p>
                      </div>
                   </div>
 
@@ -472,7 +468,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                      </div>
                      <div className="flex flex-col md:flex-row items-end gap-8 order-2 w-full xl:w-auto justify-end">
                          
-                         {/* --- UPDATED: BLACK BOX IS NOW SMALLER --- */}
+                         {/* --- UPDATED: BLACK BOX IS NOW DOWNSIZED --- */}
                          <div className="bg-black text-white px-6 py-4 rounded-xl shadow-lg text-center md:text-right w-full md:w-auto">
                             <p className="text-[9px] font-black text-blackline-yellow uppercase tracking-widest mb-1">Quantified Impact</p>
                             <p className="text-xl md:text-3xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
@@ -481,7 +477,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                          <div className="text-right shrink-0">
                             <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
                             <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
-                            <p className="text-zinc-600 text-xs font-medium mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
+                            <p className="text-zinc-500 text-xs font-bold mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
                          </div>
                      </div>
                   </div>
