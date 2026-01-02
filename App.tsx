@@ -1,413 +1,332 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  LayoutGrid, 
-  Sparkles, 
-  PieChart, 
-  Settings, 
-  TrendingUp, 
-  Users, 
-  Zap, 
-  Globe, 
-  ArrowRight, 
-  CheckCircle2, 
-  Building2, 
-  BarChart3, 
-  FileText, 
-  MessageSquare,
-  Search, 
-  X, 
-  ChevronDown, 
-  ChevronUp, 
-  Play, 
-  Calculator, 
-  Target, 
-  Download, 
-  AlertTriangle, 
-  PenTool, 
-  Brain, 
-  ShieldCheck, 
-  Briefcase, 
-  DollarSign, 
-  Activity, 
-  LogOut,
-  Loader2,
-  Factory,
-  User,
-  Rocket
-} from 'lucide-react';
-import { 
-  PRODUCTS, 
-  INDUSTRIES, 
-  VALUE_DRIVERS_SELECTION, 
-  PERSONAS, 
-  SUPPORTED_LANGUAGES, 
-  UI_STRINGS,
-  SYSTEM_PROMPT
-} from './constants';
+import { Globe, ChevronDown, X, Loader2, Menu, ChevronUp } from 'lucide-react';
+import { VisualNav } from './components/VisualNav';
+import { ValueCalculator } from './components/ValueCalculator';
+import { AnalysisResults } from './components/AnalysisResults';
+import { CustomerBenchmarks } from './components/CustomerBenchmarks';
+import { PlatformHub } from './components/PlatformHub';
+import { OutsideInGenerator } from './components/OutsideInGenerator';
 import { SkoExplainer } from './components/SkoExplainer';
+import { RubiksCube } from './components/Icons';
+import { generateValueAnalysis } from './services/geminiService';
+import { AnalysisResult, DealContext } from './types';
+import { SUPPORTED_LANGUAGES, UI_STRINGS } from './constants';
 
-interface SelectionState {
-  scope: string;
-  solutions: string[];
-  industry: string | null;
-  persona: string | null;
-  language: string;
-}
-
+/**
+ * Main application component for the BlackLine Value Delivery Platform.
+ * Features a smart, hide-on-scroll floating command dock.
+ */
 function App() {
-  const [activeTab, setActiveTab] = useState('discovery');
-  const [selections, setSelections] = useState<SelectionState>({
-    scope: 'platform',
-    solutions: [],
-    industry: null,
-    persona: null,
-    language: 'EN'
-  });
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  // Navigation State
+  const [activeTab, setActiveTab] = useState<'discovery' | 'outside_in' | 'calculator' | 'benchmarks' | 'hub' | 'sko'>('sko');
+  const [query, setQuery] = useState('');
   
-  // Set to TRUE so SKO Explainer is the first thing seen
-  const [showSkoExplainer, setShowSkoExplainer] = useState(true);
+  // Visibility States
+  const [isVisible, setIsVisible] = useState(true);
+  const [isDockMinimized, setIsDockMinimized] = useState(false);
+  
+  // Refs for Scroll and Timer
+  const lastScrollY = useRef(0);
+  const hideTimer = useRef<NodeJS.Timeout | null>(null);
+  
+  // Analysis State
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
-  // --- MOCK DATA GENERATOR ---
-  const generateMockAnalysis = () => {
-    return {
-      executiveSummary: "BlackLine's platform directly addresses the critical need for financial autonomy and risk mitigation. By unifying the close process, we project a shift from 70% manual effort to 70% strategic analysis.",
-      valueDriverImpacts: {
-        process: { 
-          message: "Standardization of global reconciliations reduces cycle time.", 
-          metric: "40-60% reduction in close cycle days", 
-          relevance: "High" 
-        },
-        working_cap: { 
-          message: "Faster cash application unlocks trapped liquidity.", 
-          metric: "$15M+ working capital released annually", 
-          relevance: "High" 
-        },
-        trust: { 
-          message: "Automated controls reduce audit risk and fees.", 
-          metric: "25% reduction in external audit fees", 
-          relevance: "High" 
-        },
-        ma: { 
-          message: "Day 1 visibility for acquired entities.", 
-          metric: "3x faster integration of new acquisitions", 
-          relevance: "Medium" 
-        },
-        compliance: { 
-          message: "Continuous monitoring replaces periodic sampling.", 
-          metric: "100% reduction in control testing labor", 
-          relevance: "High" 
-        },
-        talent: { 
-          message: "Eliminating mundane tasks improves retention.", 
-          metric: "20% increase in employee engagement scores", 
-          relevance: "High" 
-        },
-        innovation: { 
-          message: "Capacity created for strategic business partnering.", 
-          metric: "3,000+ hours reallocated to analysis", 
-          relevance: "Medium" 
-        },
-        decision: { 
-          message: "Real-time data availability for C-suite.", 
-          metric: "Day 1 insight vs Day 15 reporting", 
-          relevance: "High" 
-        },
-        ai_ops: { 
-          message: "Clean data foundation enabling future AI adoption.", 
-          metric: "99.9% data accuracy for AI models", 
-          relevance: "High" 
-        }
-      },
-      executivePowerMessages: {
-        cfo: "Unlocking $15M in working capital while reducing audit risk exposure by 40%.",
-        cao: "Guaranteeing balance sheet integrity across all 50 global entities instantly.",
-        cio: "Retiring 4 legacy point solutions and standardizing our data model for AI."
+  // Panel Control
+  const [activePanel, setActivePanel] = useState<'chat' | 'pivot' | null>(null);
+
+  // Global Deal Context
+  const [dealContext, setDealContext] = useState<DealContext>({});
+
+  // Internationalization
+  const [currentLang, setCurrentLang] = useState('EN');
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  
+  const t = { ...UI_STRINGS['EN'], ...(UI_STRINGS[currentLang] || {}) };
+
+  // Smart Scroll Logic with Auto-Hide
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > lastScrollY.current;
+      const isAtTop = currentScrollY < 100;
+
+      // 1. Clear existing timer on any scroll event
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+
+      if (isAtTop) {
+        // Always show at the very top
+        setIsVisible(true);
+      } else if (isScrollingDown) {
+        // Hide immediately when scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling Up: Show immediately
+        setIsVisible(true);
+        
+        // 2. Set Auto-Hide Timer (3 seconds)
+        // Only if we aren't at the top
+        hideTimer.current = setTimeout(() => {
+          setIsVisible(false);
+        }, 3000);
       }
+      
+      lastScrollY.current = currentScrollY;
     };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
+  }, []);
+
+  // UX: Scroll to top on tab change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    setIsVisible(true);
+  }, [activeTab]);
+
+  // Handlers to prevent auto-hide while using the menu
+  const handleNavMouseEnter = () => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    setIsVisible(true);
   };
 
-  const handleGenerate = () => {
-    setIsAnalyzing(true);
-    setTimeout(() => {
-      setAnalysisResult(generateMockAnalysis());
-      setIsAnalyzing(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 2500);
-  };
-
-  const resetAnalysis = () => {
-    setAnalysisResult(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // --- HELPER COMPONENT: WIP BANNER ---
-  const WipBanner = ({ title }: { title: string }) => (
-    <div className="bg-zinc-900 border border-yellow-500/30 rounded-xl p-4 mb-8 flex items-center justify-center gap-3 shadow-lg">
-      <AlertTriangle className="text-yellow-500" size={20} />
-      <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">
-        {title} - Work in Progress (Internal Beta)
-      </span>
-    </div>
-  );
-
-  const renderValueNarratives = () => {
-    if (analysisResult) {
-      return (
-        <div className="animate-fade-in space-y-8 pb-32">
-          {/* Header with EXIT Button */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-zinc-900/50 p-6 rounded-3xl border border-zinc-800">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Analysis Complete</span>
-                <span className="text-zinc-500 text-xs">|</span>
-                <span className="text-zinc-400 text-xs">Global Retail • Enterprise Scope</span>
-              </div>
-              <h2 className="text-3xl font-black text-white italic tracking-tight">Executive Value Analysis</h2>
-            </div>
-            
-            <button 
-              onClick={resetAnalysis}
-              className="flex items-center gap-2 px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-full font-bold transition-all border border-red-500/50"
-            >
-              <LogOut size={18} />
-              Exit Analysis
-            </button>
-          </div>
-
-          {/* Executive Messages */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-zinc-900 p-6 rounded-3xl border border-blue-500/30 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-              <h4 className="text-blue-400 text-xs font-black uppercase tracking-widest mb-4">CFO Narrative</h4>
-              <p className="text-white text-lg font-medium italic">"{analysisResult.executivePowerMessages.cfo}"</p>
-            </div>
-            <div className="bg-zinc-900 p-6 rounded-3xl border border-green-500/30 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
-              <h4 className="text-green-400 text-xs font-black uppercase tracking-widest mb-4">CAO Narrative</h4>
-              <p className="text-white text-lg font-medium italic">"{analysisResult.executivePowerMessages.cao}"</p>
-            </div>
-            <div className="bg-zinc-900 p-6 rounded-3xl border border-purple-500/30 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
-              <h4 className="text-purple-400 text-xs font-black uppercase tracking-widest mb-4">CIO Narrative</h4>
-              <p className="text-white text-lg font-medium italic">"{analysisResult.executivePowerMessages.cio}"</p>
-            </div>
-          </div>
-
-          {/* Value Matrix */}
-          <h3 className="text-xl font-bold text-white mt-12 mb-6 flex items-center gap-3">
-            <LayoutGrid className="text-blackline-yellow" /> Strategic Value Matrix
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {VALUE_DRIVERS_SELECTION.map((driver) => {
-              const impact = analysisResult.valueDriverImpacts[driver.id];
-              return (
-                <div key={driver.id} className="bg-zinc-900 border border-zinc-800 p-6 rounded-3xl hover:border-zinc-600 transition-all">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-3 bg-zinc-800 rounded-xl">
-                      <Zap size={20} className="text-white" /> 
-                    </div>
-                    {impact?.relevance === 'High' && <span className="text-[10px] bg-green-500/20 text-green-400 px-2 py-1 rounded font-bold uppercase">High Impact</span>}
-                  </div>
-                  <h4 className="text-white font-bold text-lg mb-2">{driver.value}</h4>
-                  <p className="text-zinc-400 text-sm mb-4 min-h-[40px]">{impact?.message}</p>
-                  
-                  <div className="bg-black/40 p-4 rounded-xl border border-zinc-800">
-                    <span className="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Projected Impact</span>
-                    <span className="text-blackline-yellow font-mono font-bold text-lg">
-                      {impact?.metric}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      );
+  const handleNavMouseLeave = () => {
+    // If not at top, restart the auto-hide timer
+    if (window.scrollY > 100) {
+      hideTimer.current = setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
     }
-
-    // --- SELECTION VIEW ---
-    return (
-      <div className="max-w-4xl mx-auto pb-40"> 
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-black text-white mb-4 italic tracking-tight">Value Narratives</h2>
-          <p className="text-zinc-400 text-lg">Select a scope to generate strategic value analysis and talk tracks.</p>
-        </div>
-
-        {/* Selection Content Omitted for Brevity - Same as before */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-2 mb-4">
-          <button 
-            onClick={() => setSelections({...selections, scope: 'platform'})}
-            className={`w-full p-6 rounded-2xl flex items-center justify-between transition-all ${selections.scope === 'platform' ? 'bg-zinc-800 border border-blackline-yellow/30' : 'hover:bg-zinc-800/50'}`}
-          >
-            <div className="flex items-center gap-4">
-              <div className={`p-3 rounded-xl ${selections.scope === 'platform' ? 'bg-blackline-yellow text-black' : 'bg-zinc-700 text-zinc-400'}`}>
-                <LayoutGrid size={24} />
-              </div>
-              <div className="text-left">
-                <h3 className="text-white font-bold text-lg">Full Platform Value</h3>
-                <p className="text-zinc-400 text-sm">Strategic impact of the complete Financial Operations Management suite.</p>
-              </div>
-            </div>
-            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selections.scope === 'platform' ? 'border-blackline-yellow' : 'border-zinc-600'}`}>
-              {selections.scope === 'platform' && <div className="w-3 h-3 bg-blackline-yellow rounded-full" />}
-            </div>
-          </button>
-        </div>
-
-        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 mb-4">
-          <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2"><Building2 size={20} className="text-blue-400"/> Browse by Industry</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {INDUSTRIES.map((ind) => (
-              <button
-                key={ind.id}
-                onClick={() => setSelections({...selections, industry: ind.id})}
-                className={`p-4 rounded-xl border flex flex-col items-center gap-3 transition-all ${selections.industry === ind.id ? 'bg-blue-500/10 border-blue-500 text-white' : 'bg-black border-zinc-800 text-zinc-400 hover:border-zinc-600'}`}
-              >
-                <Factory size={24} /> 
-                <span className="text-xs font-bold uppercase">{UI_STRINGS.EN[ind.nameKey] || ind.id}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
-          <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2"><Users size={20} className="text-purple-400"/> Browse by Persona</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {PERSONAS.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => setSelections({...selections, persona: p.id})}
-                className={`p-4 rounded-xl border flex flex-col items-center gap-3 transition-all ${selections.persona === p.id ? 'bg-purple-500/10 border-purple-500 text-white' : 'bg-black border-zinc-800 text-zinc-400 hover:border-zinc-600'}`}
-              >
-                <User size={24} /> 
-                <span className="text-xs font-bold uppercase text-center">{p.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Generate Button */}
-        <div className="fixed bottom-20 left-0 w-full px-6 z-40 pointer-events-none">
-          <div className="max-w-4xl mx-auto pointer-events-auto">
-            <button
-              onClick={handleGenerate}
-              disabled={isAnalyzing}
-              className="w-full bg-blackline-yellow hover:bg-yellow-400 text-black font-black text-xl py-6 rounded-full shadow-[0_0_40px_rgba(249,183,52,0.3)] transition-all transform hover:scale-105 disabled:opacity-70 disabled:scale-100 flex items-center justify-center gap-3 border-4 border-black/10"
-            >
-              {isAnalyzing ? (
-                <>
-                  <Loader2 className="animate-spin" size={24} />
-                  Generating value-based enablement content...
-                </>
-              ) : (
-                <>
-                  <Sparkles size={24} />
-                  Generate Analysis
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
   };
 
-  // --- MAIN RENDER ---
+  const goHome = () => {
+    setActiveTab('discovery'); 
+    setHasSearched(false);
+    setResult(null);
+    setQuery('');
+    setActivePanel(null);
+  };
+
+  const handleSearch = (searchQuery: string = query, lang: string = currentLang) => {
+    if (!searchQuery.trim()) return;
+    
+    setHasSearched(true);
+    setQuery(searchQuery);
+    setIsLoading(true);
+
+    generateValueAnalysis(searchQuery, lang).then((data) => {
+      setResult(data);
+      setIsLoading(false);
+    }).catch(err => {
+      console.error("Search error:", err);
+      setIsLoading(false);
+    });
+  };
+  
+  const handleBackToDiscovery = () => {
+      setResult(null);
+      setHasSearched(false);
+      setQuery('');
+      setActiveTab('discovery');
+  };
+
+  const handleLanguageChange = (langCode: string) => {
+    setCurrentLang(langCode);
+    setIsLangMenuOpen(false);
+    if (hasSearched && query && activeTab === 'discovery') {
+      handleSearch(query, langCode);
+    }
+  };
+
+  const getContextString = () => {
+    const contextMap: Record<string, string> = {
+      discovery: hasSearched ? `Analyzing value for: ${query}` : "Narrative selection menu.",
+      outside_in: "Outside-In Value Generator.",
+      calculator: "BVA ROI Calculator.",
+      benchmarks: "Global Customer Benchmarks.",
+      hub: "Sales Coaching and Intelligence Hub.",
+      sko: "SKO 26 Sales Playbook.",
+    };
+    return contextMap[activeTab] || "Value Delivery Platform";
+  };
+
+  const handlePivot = (newContext: Partial<DealContext> & { problem?: string }) => {
+    setDealContext(prev => ({ ...prev, ...newContext }));
+    if (activeTab === 'discovery') {
+      let pivotQuery = query || "Financial Close Transformation";
+      const pivotParts = [];
+      if (newContext.persona) pivotParts.push(`${newContext.persona}`);
+      if (newContext.industry) pivotParts.push(`${newContext.industry}`);
+      if (newContext.problem) pivotParts.push(`Solving for ${newContext.problem}`);
+      if (pivotParts.length > 0) {
+        pivotQuery = pivotParts.join(', ');
+        handleSearch(pivotQuery);
+      }
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-blackline-yellow selection:text-black pb-20">
+    <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-blackline-yellow selection:text-black">
       
-      {/* Navigation Rail - Always Visible */}
-      <nav className="fixed bottom-0 left-0 w-full bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 z-50 px-6 py-4 flex justify-between items-center">
-        <div className="flex gap-1 overflow-x-auto no-scrollbar">
-          {[
-            { id: 'sko', label: 'SKO2026 #LetsGoGet', icon: Rocket },
-            { id: 'discovery', label: 'Value Narratives', icon: Sparkles },
-            { id: 'outside_in', label: 'Outside-In Generator', icon: Search },
-            { id: 'calculator', label: 'BVA Calculator', icon: Calculator },
-            { id: 'benchmarks', label: 'Benchmarks', icon: BarChart3 },
-            { id: 'hub', label: 'Coaching Hub', icon: MessageSquare },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                if (item.id === 'sko') setShowSkoExplainer(true);
-                else {
-                  setShowSkoExplainer(false);
-                  setActiveTab(item.id);
-                  setAnalysisResult(null); 
-                }
-              }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all
-                ${(activeTab === item.id && !showSkoExplainer) || (showSkoExplainer && item.id === 'sko') ? 'bg-blackline-yellow text-black' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}
-              `}
-            >
-              <item.icon size={14} />
-              {item.label}
-            </button>
-          ))}
+      {/* Header */}
+      <header className="bg-black/95 backdrop-blur-md text-white py-4 border-b border-zinc-800 sticky top-0 z-[60]">
+        <div className="container mx-auto px-6 flex items-center justify-between relative">
+          
+          {/* Header Left: Logo only */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center w-10 h-10 bg-blackline-yellow rounded-sm">
+              <span className="text-black font-extrabold text-2xl tracking-tighter">BL</span>
+            </div>
+          </div>
+
+          {/* Header Center: Title Text (Centered Absolutely) */}
+          <h1 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-medium tracking-wide text-gray-200 text-center whitespace-nowrap hidden md:block">
+            {activeTab === 'sko' ? (
+              <>Value Driver <span className="font-bold text-white uppercase tracking-tighter">Enablement Platform</span></>
+            ) : (
+              <>Value Delivery <span className="font-bold text-white uppercase tracking-tighter">Execution Platform</span></>
+            )}
+          </h1>
+          
+          {/* Header Right */}
+          <div className="flex items-center gap-4 md:gap-6">
+            {dealContext.opportunityName && (
+               <div className="hidden lg:flex items-center gap-2 px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800 animate-fade-in">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                  <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest mr-1">Deal:</span>
+                  <span className="text-xs font-bold text-white max-w-[150px] truncate">{dealContext.opportunityName}</span>
+                  <button onClick={(e) => { e.stopPropagation(); setDealContext({}); }} className="ml-2 p-1 hover:bg-zinc-800 rounded-full text-zinc-600 hover:text-white transition-all"><X size={14} /></button>
+               </div>
+            )}
+
+            {/* PreSales Mirror Badge */}
+            <div className="flex items-center gap-4">
+              <div className="hidden md:block h-8 w-px bg-zinc-800"></div>
+              <div className="flex items-center justify-center px-4 h-10 bg-blackline-yellow rounded-sm">
+                <span className="text-black font-extrabold text-lg tracking-tighter">PreSales</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Main Content Area */}
-      <main className="pt-8 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
-        
-        {/* CONDITIONAL RENDER: SKO EXPLAINER TAKES PRIORITY */}
-        {showSkoExplainer ? (
-          <SkoExplainer onClose={() => setShowSkoExplainer(false)} t={UI_STRINGS['EN']} />
-        ) : (
-          <>
-            {activeTab === 'discovery' && renderValueNarratives()}
-
-            {activeTab === 'outside_in' && (
-              <div className="animate-fade-in">
-                <WipBanner title="Outside-In Generator" />
-                <div className="text-center py-20 text-zinc-500">
-                  <Search size={64} className="mx-auto mb-4 opacity-20" />
-                  <h2 className="text-2xl font-bold">Public Financial Parsing Engine</h2>
-                  <p>Connects to 10-K/10-Q data sources. Currently in development.</p>
-                </div>
+      {/* Main Content */}
+      <main className="flex-grow container mx-auto px-4 pt-8 pb-32 relative">
+        {activeTab === 'discovery' && !hasSearched && (
+          <div className="animate-fade-in">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-black text-white italic tracking-tighter uppercase mb-2">Value Narratives</h2>
+                <p className="text-gray-500 font-medium">Select a scope to generate strategic value analysis and talk tracks.</p>
               </div>
-            )}
-
-            {activeTab === 'calculator' && (
-              <div className="animate-fade-in">
-                <WipBanner title="BVA Calculator" />
-                <div className="text-center py-20 text-zinc-500">
-                  <Calculator size={64} className="mx-auto mb-4 opacity-20" />
-                  <h2 className="text-2xl font-bold">ROI & TCO Modeler</h2>
-                  <p>Advanced financial modeling interface. Currently in development.</p>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'benchmarks' && (
-              <div className="animate-fade-in">
-                <WipBanner title="Benchmarks" />
-                <div className="text-center py-20 text-zinc-500">
-                  <BarChart3 size={64} className="mx-auto mb-4 opacity-20" />
-                  <h2 className="text-2xl font-bold">Customer Data Lake</h2>
-                  <p> anonymized peer comparison data. Currently in development.</p>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'hub' && (
-              <div className="animate-fade-in">
-                <WipBanner title="Coaching Hub" />
-                <div className="text-center py-20 text-zinc-500">
-                  <MessageSquare size={64} className="mx-auto mb-4 opacity-20" />
-                  <h2 className="text-2xl font-bold">Sales Enablement AI</h2>
-                  <p>Call recording analysis and objection handling. Currently in development.</p>
-                </div>
-              </div>
-            )}
-          </>
+              <VisualNav onSelect={(q) => handleSearch(q)} t={t} />
+          </div>
         )}
 
+        {activeTab === 'discovery' && hasSearched && result && (
+          <AnalysisResults data={result} query={query} onBack={handleBackToDiscovery} onNavigateToCalculator={() => setActiveTab('calculator')} t={t} />
+        )}
+
+        {isLoading && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center z-[100] animate-fade-in">
+            <Loader2 className="w-20 h-20 text-blackline-yellow animate-spin mb-8" />
+            <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">{t.loading_title}</h2>
+            <p className="text-gray-400 text-lg font-medium mt-2">{t.loading_desc}</p>
+          </div>
+        )}
+
+        {activeTab === 'calculator' && (
+          <div className="animate-fade-in">
+              <ValueCalculator t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
+          </div>
+        )}
+
+        {activeTab === 'outside_in' && (
+          <OutsideInGenerator t={t} onSetDealContext={setDealContext} dealContext={dealContext} />
+        )}
+
+        {activeTab === 'benchmarks' && (
+          <CustomerBenchmarks t={t} />
+        )}
+
+        {activeTab === 'hub' && (
+          <PlatformHub t={t} dealContext={dealContext} onSetDealContext={setDealContext} />
+        )}
+
+        {activeTab === 'sko' && (
+          <SkoExplainer onClose={() => setActiveTab('discovery')} t={t} />
+        )}
       </main>
+
+      {/* Smart Command Dock Footer - Collapsible & Auto-Hiding */}
+      <div 
+        className={`fixed bottom-6 left-0 w-full flex justify-center z-50 transition-all duration-500 no-print ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}
+        onMouseEnter={handleNavMouseEnter}
+        onMouseLeave={handleNavMouseLeave}
+      >
+        <nav 
+          className={`bg-zinc-900/90 backdrop-blur-xl p-2 rounded-2xl border border-zinc-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center transition-all duration-300 ${isDockMinimized ? 'gap-0 px-3' : 'gap-1 md:gap-2 max-w-[95vw] overflow-x-auto scrollbar-hide'}`}
+        >
+          {/* Collapsible Content */}
+          {!isDockMinimized && (
+            <>
+              {[
+                { id: 'sko', label: t.tab_sko },
+                { id: 'discovery', label: t.tab_discovery },
+                { id: 'outside_in', label: t.tab_outside_in },
+                { id: 'calculator', label: t.tab_calculator },
+                { id: 'benchmarks', label: t.tab_benchmarks },
+                { id: 'hub', label: t.tab_hub }
+              ].map((tab) => (
+                <button 
+                  key={tab.id}
+                  onClick={() => {
+                    setActiveTab(tab.id as any);
+                    if (tab.id === 'discovery') setHasSearched(false);
+                  }} 
+                  className={`px-4 py-2.5 md:px-6 md:py-3 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] rounded-xl transition-all border whitespace-nowrap
+                    ${activeTab === tab.id 
+                      ? 'bg-blackline-yellow text-black border-blackline-yellow shadow-[0_0_20px_rgba(249,183,52,0.3)] scale-105' 
+                      : 'bg-transparent text-gray-400 border-transparent hover:border-zinc-700 hover:text-white hover:bg-zinc-800'}`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+              <div className="h-6 w-px bg-zinc-800 mx-1 md:mx-2"></div>
+              <div className="px-4 py-2 hidden lg:flex flex-col items-start min-w-[120px]">
+                  <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">{t.footer_internal}</span>
+              </div>
+            </>
+          )}
+
+          {/* Dock Minimize Toggle */}
+          <button 
+            onClick={() => setIsDockMinimized(!isDockMinimized)}
+            className={`p-2 text-zinc-500 hover:text-white transition-colors ${!isDockMinimized ? 'border-l border-zinc-800 pl-3 ml-1' : ''}`}
+            title={isDockMinimized ? "Expand Menu" : "Minimize Menu"}
+          >
+            {isDockMinimized ? (
+              <div className="flex items-center gap-2 px-2">
+                <Menu size={16} className="text-blackline-yellow" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-white">Menu</span>
+              </div>
+            ) : (
+              <ChevronDown size={16} />
+            )}
+          </button>
+        </nav>
+      </div>
+
+      <footer className="bg-black py-12 border-t border-zinc-900 mt-auto no-print">
+        <div className="container mx-auto px-6 flex flex-col items-center gap-4">
+           <p className="text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">Value Delivery Execution Platform</p>
+           <p className="text-[9px] text-zinc-800 uppercase tracking-widest">{t.footer_rights}</p>
+        </div>
+      </footer>
     </div>
   );
 }
