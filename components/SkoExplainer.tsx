@@ -479,7 +479,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <div className="text-center pb-20">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Leadership Keynote</div>
                <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
-                  Hear from BL execs on the <span className="text-blackline-yellow">real value of BlackLine</span>
+                  Hear from BL execs on <br />the <span className="text-blackline-yellow">real value of BlackLine</span>
                </h2>
                
                <div onClick={() => alert("Video placeholder: Asset not yet connected for SKO.")} className="bg-zinc-900 border-2 border-zinc-800 hover:border-blackline-yellow/50 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12 transition-all duration-500">
