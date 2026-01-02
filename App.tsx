@@ -51,7 +51,7 @@ function App() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const isScrollingDown = currentScrollY > lastScrollY.current;
-      const isAtTop = currentScrollY < 100;
+      const isAtTop = currentScrollY < 10;
 
       // 1. Clear existing timer on any scroll event
       if (hideTimer.current) clearTimeout(hideTimer.current);
