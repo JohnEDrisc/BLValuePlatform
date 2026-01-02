@@ -41,7 +41,9 @@ import {
   Eye,
   Layers,
   Radar,
-  Loader2
+  Loader2,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -311,8 +313,14 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   const [activeDriverId, setByActiveDriverId] = useState<string | null>(null);
   const [activePov, setActivePov] = useState<'executive' | 'operational'>('executive');
   
+  // Phase 3 Toggle State (NEW)
+  const [phase3Focus, setPhase3Focus] = useState<'capabilities' | 'proof'>('capabilities');
+  
   // Ref for Phase 1 section to support smart scrolling
   const phase1Ref = useRef<HTMLDivElement>(null);
+  
+  // Video Player State
+  const [showVideo, setShowVideo] = useState(false);
 
   const sortedDrivers = useMemo(() => {
     if (!GLOBAL_SKO_DATA || !Array.isArray(GLOBAL_SKO_DATA)) return [];
@@ -321,8 +329,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
   const activeDriver = sortedDrivers.find(d => d.id === activeDriverId);
 
-  // SCROLL LOGIC: On initial load or view change, scroll top.
-  // Exception: If switching drivers while in Detail view, we handle that in the handler.
+  // SCROLL LOGIC
   useEffect(() => {
     if (viewMode !== 'detail') {
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -333,7 +340,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     setActivePov('executive'); 
     setByActiveDriverId(id);
     setViewMode('detail');
-    // For initial entry to detail, scroll top
+    setPhase3Focus('capabilities'); // Reset Phase 3 view
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -349,7 +356,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const nextIndex = (currentIndex + 1) % sortedDrivers.length;
     setActivePov('executive'); 
     setByActiveDriverId(sortedDrivers[nextIndex].id);
-    // Smart Scroll: Go to content start, not top of page
+    setPhase3Focus('capabilities'); // Reset Phase 3 view
     setTimeout(scrollToPhase1, 50);
   };
 
@@ -359,7 +366,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const prevIndex = (currentIndex - 1 + sortedDrivers.length) % sortedDrivers.length;
     setActivePov('executive');
     setByActiveDriverId(sortedDrivers[prevIndex].id);
-    // Smart Scroll: Go to content start, not top of page
+    setPhase3Focus('capabilities'); // Reset Phase 3 view
     setTimeout(scrollToPhase1, 50);
   };
 
@@ -442,17 +449,17 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             <div className="text-center">
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
+               
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
-                  
-                  {/* --- UPDATED: YELLOW BOXES ARE NOW FULL WIDTH (flex-1) AND UPSIZED TEXT --- */}
-                  <div className="flex flex-col md:flex-row justify-start items-start gap-6 mb-10 w-full border-b border-gray-100 pb-8">
-                     <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full shadow-md">
+                  {/* --- UPDATED: YELLOW BOXES AGGRESSIVELY UPSIZED --- */}
+                  <div className="flex flex-col md:flex-row justify-start items-stretch gap-6 mb-10 w-full border-b border-gray-100 pb-8">
+                     <div className="bg-blackline-yellow p-6 rounded-xl flex-1 text-left h-full shadow-md flex flex-col justify-center">
                         <p className="font-bold text-lg mb-2">Launched Migration to S/4HANA:</p>
-                        <p className="text-base">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
+                        <p className="text-lg leading-snug">Reallocated 200+ F&A resources to SAP S/4HANA migration effort</p>
                      </div>
-                     <div className="bg-blackline-yellow p-6 rounded-xl w-full flex-1 text-left h-full shadow-md">
+                     <div className="bg-blackline-yellow p-6 rounded-xl flex-1 text-left h-full shadow-md flex flex-col justify-center">
                         <p className="font-bold text-lg mb-2">Measurable Impact:</p>
-                        <p className="text-base">Automated 84% of reconciliations</p>
+                        <p className="text-lg leading-snug">Automated 84% of reconciliations</p>
                      </div>
                   </div>
 
@@ -468,16 +475,16 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                      </div>
                      <div className="flex flex-col md:flex-row items-end gap-8 order-2 w-full xl:w-auto justify-end">
                          
-                         {/* --- UPDATED: BLACK BOX IS NOW DOWNSIZED --- */}
-                         <div className="bg-black text-white px-6 py-4 rounded-xl shadow-lg text-center md:text-right w-full md:w-auto">
+                         {/* --- UPDATED: BLACK BOX DOWNSIZED --- */}
+                         <div className="bg-black text-white px-5 py-3 rounded-xl shadow-lg text-center md:text-right w-full md:max-w-xs">
                             <p className="text-[9px] font-black text-blackline-yellow uppercase tracking-widest mb-1">Quantified Impact</p>
-                            <p className="text-xl md:text-3xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
+                            <p className="text-lg md:text-2xl font-black tracking-tighter italic">10,000+ FTE HOURS SAVED</p>
                          </div>
                          
                          <div className="text-right shrink-0">
                             <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
                             <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
-                            <p className="text-zinc-500 text-xs font-bold mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
+                            <p className="text-zinc-500 text-xs font-medium mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
                          </div>
                      </div>
                   </div>
@@ -489,16 +496,33 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
                   Hear from BL execs on <br />the <span className="text-blackline-yellow">real value of BlackLine</span>
                </h2>
-               <div onClick={() => alert("Video placeholder: Asset not yet connected for SKO.")} className="bg-zinc-900 border-2 border-zinc-800 hover:border-blackline-yellow/50 rounded-[3rem] aspect-video relative flex flex-col items-center justify-center overflow-hidden shadow-2xl group cursor-pointer mb-12 transition-all duration-500">
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                  <div className="relative z-10 w-24 h-24 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:bg-blackline-yellow group-hover:text-black transition-all">
-                     <Play size={32} fill="currentColor" />
-                  </div>
-                  <div className="absolute bottom-10 left-10 text-left z-10">
-                     <p className="text-white font-bold text-2xl italic tracking-tight">Executive Leadership Team</p>
-                  </div>
-               </div>
+               
+               {/* Video Container */}
+               <div className="w-full aspect-video mb-12 rounded-[3rem] overflow-hidden shadow-2xl border-2 border-zinc-800 relative bg-zinc-900">
+                  {showVideo ? (
+                    <iframe 
+                      className="w-full h-full"
+                      src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&modestbranding=1&rel=0" 
+                      title="BlackLine Executive Keynote"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  ) : (
+                    <div 
+                      onClick={() => setShowVideo(true)} 
+                      className="w-full h-full relative flex flex-col items-center justify-center group cursor-pointer hover:border-blackline-yellow/50 transition-all duration-500"
+                    >
+                       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
+                       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                       <div className="relative z-10 w-24 h-24 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:bg-blackline-yellow group-hover:text-black transition-all">
+                          <Play size={32} fill="currentColor" />
+                       </div>
+                       <div className="absolute bottom-10 left-10 text-left z-10">
+                          <p className="text-white font-bold text-2xl italic tracking-tight">Executive Leadership Team</p>
+                       </div>
+                    </div>
+                  )}
+                </div>
             </div>
          </div>
       </div>
@@ -530,7 +554,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="flex flex-col gap-6">{valueDrivers.map((driver) => <DriverCardHorizontal key={driver.id} driver={driver} onSelect={handleDriverSelect} />)}</div>
             </div>
          </div>
-         {/* Button Explicitly Restored Here */}
          <div className="mt-20 md:mt-32 text-center pb-20">
             <button onClick={() => { setActivePov('executive'); setByActiveDriverId(sortedDrivers[0]?.id || null); setViewMode('persona_explain'); }} className="w-full md:w-auto px-8 md:px-16 py-6 md:py-8 bg-blackline-yellow text-black text-xl md:text-2xl font-black rounded-full hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-4 mx-auto uppercase italic tracking-tighter border-4 border-black"><Sparkles size={24} /> Start Deep Dive</button>
          </div>
@@ -721,38 +744,81 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <div className="space-y-6 md:space-y-8 mb-16">{pov?.captureValue?.questions?.map((q: string, i: number) => (<div key={i} className={`flex gap-6 justify-center`}><div className={`relative max-w-4xl p-6 md:p-10 rounded-[2rem] ${i % 2 === 0 ? 'bg-zinc-800 text-white rounded-bl-none' : 'bg-blue-600 text-white rounded-br-none shadow-xl'}`}><p className="text-xl md:text-3xl font-medium italic leading-relaxed">"{q}"</p></div></div>))}</div>
            </div>
            
-           {/* PHASE 3: UPSIZED CONTENT */}
-           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
-              <div className="flex items-center justify-center gap-4 mb-12">
+           {/* PHASE 3: DYNAMIC SPLIT TOGGLE */}
+           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center transition-all">
+              
+              {/* Header */}
+              <div className="flex items-center justify-center gap-4 mb-8">
                 <div className="w-3 h-3 bg-blackline-yellow rounded-full animate-pulse"></div>
                 <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 03: Deliver Value</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-16 uppercase italic tracking-tighter leading-[0.9]">{pov?.deliverValue?.title}</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov?.deliverValue?.title}</h5>
+
+              {/* Toggle Switch */}
+              <div className="flex justify-center mb-12">
+                 <div className="bg-zinc-950 p-2 rounded-full border border-zinc-800 inline-flex gap-2">
+                    <button 
+                        onClick={() => setPhase3Focus('capabilities')}
+                        className={`px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all ${phase3Focus === 'capabilities' ? 'bg-blackline-yellow text-black' : 'text-zinc-500 hover:text-white'}`}
+                    >
+                        Capabilities
+                    </button>
+                    <button 
+                        onClick={() => setPhase3Focus('proof')}
+                        className={`px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all ${phase3Focus === 'proof' ? 'bg-blackline-yellow text-black' : 'text-zinc-500 hover:text-white'}`}
+                    >
+                        Proof Points
+                    </button>
+                 </div>
+              </div>
               
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-24 mt-8 text-left w-full">
-                 {/* LEFT: Capabilities - Bigger Pills */}
-                 <div className="flex flex-col items-center">
-                    <span className="text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-12 text-center">Platform Activation</span>
-                    <div className="flex flex-wrap gap-6 justify-center">
+              {/* Dynamic Split Layout */}
+              <div className="flex flex-col xl:flex-row gap-6 w-full h-full min-h-[500px]">
+                 
+                 {/* LEFT: Capabilities */}
+                 <div 
+                    onClick={() => setPhase3Focus('capabilities')}
+                    className={`rounded-3xl border p-8 flex flex-col items-center transition-all duration-700 ease-in-out cursor-pointer relative overflow-hidden
+                       ${phase3Focus === 'capabilities' 
+                         ? 'flex-[2] bg-zinc-800/80 border-zinc-600 opacity-100 scale-100' 
+                         : 'flex-[1] bg-zinc-900/30 border-zinc-800/30 opacity-40 hover:opacity-60 scale-95 blur-[1px]'}`}
+                 >
+                    <span className={`text-xs font-black uppercase tracking-[0.5em] mb-8 transition-colors ${phase3Focus === 'capabilities' ? 'text-blackline-yellow' : 'text-zinc-600'}`}>Platform Capabilities</span>
+                    
+                    <div className="flex flex-wrap gap-6 justify-center content-center h-full">
                       {pov?.deliverValue?.capabilities?.map((c: string) => (
-                        <div key={c} className="px-8 py-5 bg-zinc-800 rounded-full border border-zinc-700 text-white font-bold text-lg shadow-lg flex items-center gap-4 hover:scale-105 transition-transform cursor-default">
-                           <div className="w-3 h-3 bg-blackline-yellow rounded-full shadow-[0_0_10px_rgba(249,183,52,0.8)]"></div>
+                        <div key={c} className={`px-8 py-5 rounded-full border font-bold shadow-lg flex items-center gap-4 transition-all
+                           ${phase3Focus === 'capabilities' 
+                             ? 'bg-zinc-900 border-zinc-500 text-white text-xl hover:scale-105' 
+                             : 'bg-transparent border-zinc-800 text-zinc-600 text-sm'}`}>
+                           <div className={`rounded-full transition-all ${phase3Focus === 'capabilities' ? 'w-3 h-3 bg-blackline-yellow' : 'w-2 h-2 bg-zinc-700'}`}></div>
                            {c}
                         </div>
                       ))}
                     </div>
+                    {phase3Focus !== 'capabilities' && <div className="absolute inset-0 flex items-center justify-center bg-black/10"><Maximize2 className="text-zinc-500 opacity-0 group-hover:opacity-100" /></div>}
                  </div>
 
-                 {/* RIGHT: Proof Points - Bigger Text & Spacing */}
-                 <div className="flex flex-col items-center">
-                    <span className="text-sm font-black text-zinc-500 uppercase tracking-[0.5em] block mb-12 text-center">Validated Proof Points</span>
-                    <div className="space-y-8 w-full max-w-xl">
+                 {/* RIGHT: Proof Points */}
+                 <div 
+                    onClick={() => setPhase3Focus('proof')}
+                    className={`rounded-3xl border p-8 flex flex-col items-center transition-all duration-700 ease-in-out cursor-pointer relative overflow-hidden
+                       ${phase3Focus === 'proof' 
+                         ? 'flex-[2] bg-zinc-800/80 border-zinc-600 opacity-100 scale-100' 
+                         : 'flex-[1] bg-zinc-900/30 border-zinc-800/30 opacity-40 hover:opacity-60 scale-95 blur-[1px]'}`}
+                 >
+                    <span className={`text-xs font-black uppercase tracking-[0.5em] mb-8 transition-colors ${phase3Focus === 'proof' ? 'text-green-500' : 'text-zinc-600'}`}>Validated Proof Points</span>
+                    
+                    <div className="space-y-6 w-full max-w-xl flex flex-col justify-center h-full">
                       {pov?.deliverValue?.proofPoints?.map((p: string, i: number) => (
-                        <div key={i} className="flex items-start gap-6 p-6 rounded-3xl bg-white/5 border border-zinc-800/50 hover:border-zinc-700 transition-all">
-                           <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 mt-1">
-                              <CheckCircle2 size={28} />
+                        <div key={i} className={`flex items-start gap-6 p-6 rounded-2xl border transition-all
+                           ${phase3Focus === 'proof'
+                             ? 'bg-white/5 border-zinc-700 text-white'
+                             : 'bg-transparent border-transparent text-zinc-600'}`}>
+                           <div className={`rounded-full flex items-center justify-center shrink-0 mt-1 transition-all ${phase3Focus === 'proof' ? 'w-10 h-10 bg-green-500/20 text-green-500' : 'w-6 h-6 bg-zinc-800 text-zinc-700'}`}>
+                              <CheckCircle2 size={phase3Focus === 'proof' ? 24 : 16} />
                            </div>
-                           <span className="text-xl md:text-2xl font-bold text-white leading-snug">{p}</span>
+                           <span className={`font-bold leading-snug transition-all ${phase3Focus === 'proof' ? 'text-2xl' : 'text-sm'}`}>{p}</span>
                         </div>
                       ))}
                     </div>
