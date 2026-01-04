@@ -665,7 +665,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700">
                               <Coins className="text-blackline-yellow mx-auto mb-2" />
                               <span className="text-white font-mono text-xl">$2.5M</span>
-                              <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Benefits</p>
+                              <p className="text-[10px] text-zinc-100 uppercase mt-1">Projected Benefits</p>
                           </div>
                       </div>
                       <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact and other economic benefits that the CFO can validate and defend.</p>
