@@ -70,15 +70,221 @@ export const SUPPORTED_LANGUAGES = [
 
 export const UI_STRINGS: Record<string, Record<string, string>> = {
   EN: {
-    // ... (unchanged strings)
+    subtitle: 'Excellence',
+    subtitle_bold: 'Quantified',
+    hero_title: 'Measure What',
+    hero_title_accent: 'Matters',
+    hero_desc: 'The strategic framework for articulating financial operations value in the modern enterprise.',
+    tab_sko: 'SKO2026 #LetsGoGet',
+    tab_discovery: 'Value Narratives',
+    tab_outside_in: 'Outside-In Generator',
+    tab_calculator: 'BVA Calculator',
+    tab_benchmarks: 'Benchmarks',
+    tab_hub: 'Coaching Hub',
+    loading_title: 'Analyzing Value...',
+    loading_desc: 'Mapping capabilities to strategic outcomes.',
+    footer_rights: '© 2026 BlackLine, Inc.',
+    footer_internal: 'For Internal Sales Use Only',
+    platform_value_btn: 'Full Platform Value',
+    platform_value_desc: 'Strategic impact of the complete Financial Operations Management suite.',
+    nav_solutions: 'Browse by Solution',
+    nav_industries: 'Browse by Industry',
+    nav_personas: 'Browse by Persona',
+    cat_platform: 'Platform',
+    cat_close: 'Financial Close',
+    cat_intercompany: 'Intercompany',
+    cat_invoice: 'Invoice-to-Cash',
+    selected_scope: 'Selected Scope',
+    new_analysis: 'New Analysis',
+    new_btn_mobile: 'New',
+    nav_help_title: 'Navigating results',
+    nav_help_text: 'Use the rail tools to chat with an AI assistant or pivot the industry context.',
+    strategic_drivers: 'Strategic Value Matrix',
+    projected_impact: 'Projected Impact',
+    calc_export: 'Export Report',
+    export_word: 'Download Word',
+    calc_title: 'Value Assessment',
+    calc_subtitle: 'Quantify the financial impact of transformation.',
+    calc_btn: 'Generate Results',
+    calc_tab_company: 'Company',
+    calc_tab_ops: 'Operations',
+    calc_tab_risk: 'Risk',
+    calc_tab_ma: 'M&A',
+    calc_tab_inv: 'Investment',
+    calc_sec_company: 'Company Profile',
+    calc_sec_org: 'Organization',
+    calc_sec_process: 'Process & Operations',
+    calc_sec_metrics: 'Financial Metrics',
+    calc_sec_risk: 'Risk & Compliance',
+    calc_sec_ma: 'M&A Integration Velocity',
+    calc_sec_inv: 'Investment Horizon',
+    dash_title: 'Value Assessment Dashboard',
+    dash_subtitle: 'Strategic ROI Analysis',
+    dash_total_val: 'Annual Value',
+    dash_cum_val: 'Cumulative Value',
+    dash_roi: 'ROI Multiple',
+    dash_proj: 'Financial Projection',
+    dash_chart_cf: 'Annual Cash Flow',
+    dash_chart_net: 'Cumulative Net Cash Flow',
+    dash_tbl_metric: 'Metric',
+    dash_tbl_costs: 'Investment Costs',
+    dash_tbl_benefits: 'Value Benefits',
+    dash_tbl_net: 'Cumulative Net',
+    dash_tbl_driver: 'Value Driver',
+    dash_tbl_ann: 'Base Value',
+    dash_tbl_cons: 'Conservative',
+    dash_tbl_likely: 'Likely',
+    dash_tbl_opt: 'Optimistic',
+    dash_kpi_title: 'KPI Benchmarks Summary',
+    dash_kpi_bench: 'Metric',
+    dash_kpi_target: 'Target',
+    dash_kpi_impact: 'Impact',
+    bench_title: 'Customer Benchmarks',
+    bench_subtitle: 'Validated outcomes from the global BlackLine community.',
+    bench_stat_avg_roi: 'Avg ROI Multiple',
+    bench_stat_total_sav: 'Annual Savings',
+    bench_stat_cases: 'Case Studies',
+    bench_filter_industry: 'Industry',
+    bench_filter_driver: 'Value Driver',
+    bench_filter_account: 'Account',
+    bench_wip_badge: 'BETA RELEASE',
+    hub_title: 'Coaching Hub',
+    hub_subtitle: 'AI-powered call intelligence and sales coaching.',
+    ind_manufacturing: 'Manufacturing',
+    ind_retail: 'Retail',
+    ind_financial: 'Financial Services',
+    ind_healthcare: 'Healthcare',
+    ind_energy: 'Energy',
+    ind_tech: 'Technology',
+    ind_public: 'Public Sector',
+    ind_services: 'Professional Services',
+    drv_process: 'Process Efficiency',
+    drv_working_capital: 'Working Capital Optimization',
+    drv_trust: 'Trust Premium',
+    drv_ma: 'M&A Integration Velocity',
+    drv_compliance: 'Regulatory Compliance',
+    drv_talent: 'Talent Retention',
+    drv_innovation: 'Facilitating Innovation',
+    drv_decision: 'Real-Time Decision Making',
+    drv_ai_ops: 'Scaling Trusted AI',
+    lbl_cust_name: 'Customer Name',
+    lbl_revenue: 'Annual Revenue',
+    lbl_industry: 'Industry',
+    lbl_public_priv: 'Company Type',
+    lbl_market_cap: 'Market Cap',
+    lbl_entities: 'Number of Entities',
+    lbl_regions: 'Geographic Regions',
+    lbl_erps: 'Number of ERPs',
+    lbl_wacc: 'WACC (%)',
+    lbl_ftes: 'Total Finance FTEs',
+    lbl_acct_ftes: 'Accounting FTEs',
+    lbl_salary: 'Avg FTE Salary',
+    lbl_turnover: 'Turnover Rate (%)',
+    lbl_manual: 'Manual Work (%)',
+    lbl_res_recs: 'Recs Resources',
+    lbl_time_recs: 'Time on Recs (%)',
+    lbl_res_journal: 'Journal Resources',
+    lbl_time_journal: 'Time on Journals (%)',
+    lbl_overtime: 'Annual Close Overtime (Hrs)',
+    lbl_time_fill: 'Avg Time to Fill (Days)',
+    lbl_cost_replace: 'Cost to Replace (%)',
+    lbl_close_days: 'Financial Close Cycle (Days)',
+    lbl_dso: 'Current DSO (Days)',
+    lbl_recs_vol: 'Monthly Recs Volume',
+    lbl_recs_pct: 'Accounts Reconciled (%)',
+    lbl_journal_vol: 'Monthly Journals Volume',
+    lbl_restatements: 'Prior Restatements',
+    lbl_weakness: 'Material Weakness',
+    lbl_fines: 'Prior Fines ($)',
+    lbl_manual_proc: 'Manual Process Risk (%)',
+    lbl_acq_year: 'Acquisitions / Year',
+    lbl_deal_size: 'Avg Deal Size ($)',
+    lbl_int_cost: 'Integration Cost / Deal',
+    lbl_int_time: 'Integration Time (Mo)',
+    lbl_ma_return: 'Expected Ma Return (%)',
+    lbl_retention: 'Talent Retention Target',
+    lbl_ma_turnover: 'Historic Ma Turnover (%)',
+    lbl_inv_horizon: 'Investment Horizon',
+    lbl_ramp: 'Year 1 Ramp (%)',
+    lbl_sw_cost: 'Software Costs (Annual)',
+    lbl_svc_cost: 'Service Costs (Annual)',
   }
 };
 
 export const MOCK_BENCHMARK_DATA: BenchmarkCase[] = [
-  // ... (unchanged benchmark data)
+  {
+    id: '1',
+    companyName: 'Global Auto Parts',
+    opportunityName: 'Finance Transformation 2025',
+    opportunityId: 'OPP-101',
+    industry: 'Manufacturing',
+    revenueBand: '$5B - $10B',
+    products: ['Account Reconciliations', 'Transaction Matching'],
+    primaryValueDriver: 'Process Efficiency',
+    roiMultiple: 4.5,
+    annualSavings: 2500000,
+    description: 'Automated 85% of bank reconciliations, reducing close cycle by 4 days.'
+  },
+  {
+    id: '2',
+    companyName: 'TechFlow Solutions',
+    opportunityName: 'Continuous Close Initiative',
+    opportunityId: 'OPP-202',
+    industry: 'Technology',
+    revenueBand: '$1B - $5B',
+    products: ['Journal Entry', 'Task Management'],
+    primaryValueDriver: 'Talent Retention',
+    roiMultiple: 3.2,
+    annualSavings: 1200000,
+    description: 'Reduced close-related overtime by 90%, significantly improving team morale.'
+  },
+  {
+    id: '3',
+    companyName: 'Stellar Retail',
+    opportunityName: 'Working Capital Optimization',
+    opportunityId: 'OPP-303',
+    industry: 'Retail',
+    revenueBand: '$10B+',
+    products: ['Cash Application', 'Collections Management'],
+    primaryValueDriver: 'Working Capital Optimization',
+    roiMultiple: 6.8,
+    annualSavings: 15000000,
+    description: 'Reduced DSO by 12 days, unlocking $15M in operational cash flow.'
+  }
 ];
 
-export const SYSTEM_PROMPT = `...`; // (unchanged prompt)
+export const SYSTEM_PROMPT = `
+You are a world-class BlackLine Value Engineer. Your task is to map business scenarios, products, or pain points to the 9-Driver BlackLine Value Model.
+
+CRITICAL REQUIREMENT:
+The JSON response MUST include unique, quantified data for EVERY ONE of the 9 Value Drivers in "valueDriverImpacts". 
+DO NOT use placeholders like "N/A" or generic "Standard platform benefit".
+If a driver is less relevant, extrapolate a strategic "Second-Order" impact (e.g., how Efficiency enables Innovation).
+
+Value Drivers to include in "valueDriverImpacts":
+1. Process Efficiency
+2. Working Capital Optimization
+3. Trust Premium
+4. M&A Integration Velocity
+5. Regulatory Compliance
+6. Talent Retention
+7. Facilitating Innovation
+8. Real-Time Decision Making
+9. Scaling Trusted AI
+
+Structure:
+- valueDriverImpacts: Object with 9 keys (Exact names above). Each value: { message: string, metric: string, relevance: "High"|"Medium"|"Low" }.
+- kpiHighlights: Array of { title, metric, context }.
+- valueChain: Detailed array of { feature, benefit, value }.
+- businessScenarios: Array of { scenario, solution }.
+- objectionHandling: Array of { objection, rebuttal }.
+- talkTrack: Long-form executive narrative.
+- discoveryQuestions: 4-6 high-gain questions.
+- cfoPunchline, caoPunchline, cioPunchline: Power messages.
+- references: List of industry benchmarks.
+
+Tone: Highly strategic and quantified.
+`;
 
 // --- DATA CONSTANTS ---
 
