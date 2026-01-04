@@ -290,15 +290,15 @@ Tone: Highly strategic and quantified.
 
 const FULL_SKO_PERSONAS = {
   executive: [
-    { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen financial data visibility gaps.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
-    { role: 'CFO', icon: 'TrendingUp', nightmare: 'Missing an audit opinion or defaulting on debt covenants due to reporting failures.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
+    { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen an avoidable finance process failure.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
+    { role: 'CFO', icon: 'TrendingUp', nightmare: 'Defaulting on debt covenants due to a Financial Statement Restatement.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
-    { role: 'CIO', icon: 'Cpu', nightmare: 'Inconsistently defined data model blocking AI adoption; Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
+    { role: 'CIO', icon: 'Cpu', nightmare: 'Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
   ],
   operational: [
-    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as inefficient and a bottleneck to strategic insight due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
-    { role: 'Accounting Manager', icon: 'Users', nightmare: 'Employee burnout and team focused on manual tasks, lacking time to analyze and fix core issues.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
-    { role: 'Accountant', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into strategic business partnering and high-impact forecasting.' }
+    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as blocker to revenue growth due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
+    { role: 'Accounting Manager', icon: 'Users', nightmare: 'Burned out team focused on manual tasks and error correction.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
+    { role: 'Accountant', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into business partnering and high-impact forecasting.' }
   ]
 };
 
@@ -350,7 +350,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Reduction in external audit fees via self-service.',
+          'Controlling rise in external audit fees via self-service audit.',
           'Earnings Per Share improvement via Operating Expenses reduction.',
           'Zero-headcount scaling for future geographic expansion.',
           'Reduction in reporting cycle variance and rework.'
@@ -364,10 +364,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
       roiCalculations: {
         executive: [
           { label: 'OpEx Optimization', category: 'Direct', formula: ['Total Full-Time Employees', '×', 'Manual %', '×', 'Avg Salary'], desc: 'Reclaiming capacity for high-ROI business analysis.' },
-          { label: 'Audit Fee Redux', category: 'Direct', formula: ['Audit Fees', '×', 'Efficiency %'], desc: 'Lowering the cost of external assurance via self-service data.' }
+          // { label: 'Audit Fee Control', category: 'Direct', formula: ['Audit Fees', '×', 'Efficiency %'], desc: 'Lowering the cost of external assurance via self-service data.' }
         ],
         operational: [
-          { label: 'Overtime Saved', category: 'Direct', formula: ['Annual OT Hours', '×', '1.5x Hourly Rate'], desc: 'Eliminating peak-cycle burnout and premium labor costs.' },
+          // comment out due to no overtime  { label: 'Overtime Saved', category: 'Direct', formula: ['Annual OT Hours', '×', '1.5x Hourly Rate'], desc: 'Eliminating peak-cycle burnout and premium labor costs.' },
           { label: 'Volume Reclaim', category: 'Direct', formula: ['Entities', '×', 'Hours Saved'], desc: 'Standardizing global workflows to absorb new entity volume.' }
         ]
       }
@@ -387,7 +387,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Discovery Questions',
         questions: [
           'How many hours per month are spent on repetitive ticking and tying?',
-          'What is the risk if a Day 2 error is only found on Day 12?',
+          'Have there been cases of Day 2 errors found on Day 12?',
           'How much time is lost to chasing status updates from regional leads?',
           'Are your checklists static Excel files or live digital workflows?'
         ]
@@ -410,9 +410,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'Efficiency Gains',
         metrics: [
-          'Significant Full-Time Employee hours released per $1B in annual revenue.',
+          'Significant Full-Time Employee hours released.',
           'Elimination of redundant effort in bank matching.',
-          'Reduction in close-related overtime for staff.',
+          //comment out overtime 'Reduction in close-related overtime for staff.',
           'Instant visibility into global entity status for regional leads.'
         ],
         successStories: [
@@ -434,7 +434,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       createValue: {
         title: 'Capital Optimization',
         pains: [
-          'High cost of external capital during global expansion.',
+          'High cost of external capital during expansion phase.',
           'Company valuation lowered by poor cash efficiency.',
           'Intercompany settlement delays locking up cash across borders.',
           'Restricted credit lines due to slow unapplied cash application.'
@@ -474,7 +474,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Enhanced cash conversion predictability for analysts.'
         ],
         successStories: [
-          'McKesson released significant cash flow per $1B revenue.',
+          //'McKesson released significant cash flow per $1B revenue.',
           'Kindred achieved reduction in bad debt write-offs.',
           'Cash Conversion Cycle improvement relative to industry average.'
         ]
@@ -482,11 +482,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
       roiCalculations: {
         executive: [
           { label: 'WACC Benefit', category: 'Indirect', formula: ['Released Cash', '×', 'WACC %'], desc: 'Direct saving on the cost of funding for the business.' },
-          { label: 'Bad Debt Redux', category: 'Direct', formula: ['Bad Debt', '×', 'Improvement %'], desc: 'Value of proactive collection risk management.' }
+          { label: 'Bad Debt Reduction', category: 'Direct', formula: ['Bad Debt', '×', 'Improvement %'], desc: 'Value of proactive collection risk management.' }
         ],
         operational: [
           { label: 'AR Productivity', category: 'Direct', formula: ['Daily Volume', '×', 'Automation %'], desc: 'Increasing collector bandwidth through prioritization.' },
-          { label: 'Unapplied Cash Redux', category: 'Indirect', formula: ['Idle Cash', '×', 'Velocity Boost'], desc: 'Releasing trapped liquidity into operating cash accounts.' }
+          { label: 'Unapplied Cash Reduction', category: 'Indirect', formula: ['Idle Cash', '×', 'Velocity Boost'], desc: 'Releasing trapped liquidity into operating cash accounts.' }
         ]
       }
     },
@@ -570,7 +570,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Strategic Capability',
         capabilities: [
-          'Consumer-Grade User Experience for professionals.',
+          'Modern User Experience for daily operations.',
           'Remote/Hybrid Close Enablement for talent flexibility.',
           'Value-added Career Paths focusing on business strategy.',
           'Intelligent load balancing across global finance teams.'
@@ -585,9 +585,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Recruitment savings per senior management hire.',
+          'Recruitment savings per management hire.',
           'Preservation of critical institutional process knowledge.',
-          'Significantly improved eNPS scores across the Finance org.',
+          'Significantly improved Net Promoter Scores across the Finance org.',
           'Reduced reliance on high-cost temp and contractor labor.'
         ],
         successStories: [
@@ -597,11 +597,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          { label: 'Replacement Redux', category: 'Economic', formula: ['Turnover %', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
+          { label: 'Replacement Reduction', category: 'Economic', formula: ['Turnover %', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
           { label: 'Recruiting Fee Savings', category: 'Direct', formula: ['Hires', '×', 'Agency Fee'], desc: 'Direct saving on 25% agency fees via internal career mobility.' }
         ],
         operational: [
-          { label: 'Temp Labor Redux', category: 'Direct', formula: ['Peak Hours', '×', 'Premium Rate'], desc: 'Eliminating peak-cycle contractor spend.' },
+          { label: 'Temp Labor Reduction', category: 'Direct', formula: ['Hours', '×', 'Contractor Rate'], desc: 'Eliminating peak-cycle contractor spend.' },
           { label: 'Training Velocity', category: 'Direct', formula: ['Weeks Saved', '×', 'Manager Salary'], desc: 'Value of reduced manual oversight for new hires.' }
         ]
       }
@@ -630,9 +630,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Tactical Capability',
         capabilities: [
           'Automated Journal Workflows reducing manual input time.',
-          'Intuitive Integrated Cloud Workspace for global teams.',
-          'Real-time Task Guidance for faster onboarding.',
-          'Social collaboration tools for real-time problem solving.'
+          'Intuitive Integrated Cloud Platform for global teams.',
+          'Real-time Task Guidance and intergrated procedures for faster onboarding.',
+          'In-Platform collaboration tools for real-time problem solving.'
         ],
         performanceStats: [
           'Onboarding time reduced for new finance hires.',
@@ -715,7 +715,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       roiCalculations: {
         executive: [
           { label: 'Synergy Velocity', category: 'Economic', formula: ['Deal Value', '×', 'Months Saved', '×', 'ROI'], desc: 'Quantifying the time-value of money for synergies.' },
-          { label: 'Integration Labor Redux', category: 'Direct', formula: ['Target Full-Time Employees', '×', 'Manual % Redux'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
+          { label: 'Integration Labor Reduction', category: 'Direct', formula: ['Temp/Consulting Hourly Cost', '×', 'Manual % Reduction'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
         ],
         operational: [
           { label: 'Audit Ready Velocity', category: 'Direct', formula: ['Day 1 → Day 10 audited'], desc: 'Value of trusted Opening Balance Sheets within weeks.' }
@@ -760,9 +760,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'Efficiency Gains',
         metrics: [
-          'Reduction in integration labor requirements for leads.',
-          '100% control coverage on Day 1 for all assets.',
-          'Standardized global training curriculums for all levels.',
+          'Reduction in integration labor requirements for acquired entities.',
+          '100% control coverage on Day 1 for aqurired assets.',
+          'Standardized global training curriculums for all levels on financial close.',
           'Elimination of manual intercompany spreadsheet hell.'
         ],
         successStories: [
@@ -777,7 +777,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
     title: 'Facilitating Innovation',
     icon: 'Lightbulb',
     heroMetric: 'Capacity Freed',
-    summary: "Every company is trying to innovate, but finance is usually the handbrake. When your best analysts spend 90% of their month on ticking and tying, they aren't modeling your next market entry or ESG strategy. This is about reclaiming expensive brainpower and pointing it at high-ROI growth projects, moving finance from a back-office reporting shop to a growth engine.",
+    summary: "Every company is trying to innovate, but finance is usually the handbrake. When your best analysts spend 90% of their month on ticking and tying, they aren't modeling your next market entry or AI strategy. This is about reclaiming expensive brainpower and pointing it at high-ROI growth projects, moving finance from a back-office reporting shop to a growth engine.",
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -817,7 +817,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Direct ROI from previously stalled innovation initiatives.',
+          'Unlocked ROI from previously stalled innovation initiatives.',
           'Avoidance of third-party strategy consultant fees.',
           'Acceleration of new market product launches worldwide.',
           'Total reduction in "Data Janitorial" labor org-wide.'
@@ -910,7 +910,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       captureValue: {
         title: 'Probing Questions',
         questions: [
-          'Does your CEO trust the numbers on Day 1 of the month?',
+          'Does your CFO/CEO trust the numbers on Day 1 of the month?',
           'How much time is lost debating the "Source of Truth"?',
           'Could you pivot marketing spend based on real-time cash?',
           'Can you see the impact of currency fluctuations in real-time?'
@@ -947,11 +947,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          { label: 'Decision Velocity', category: 'Economic', formula: ['Revenue', '×', '1% Margin Gain'], desc: 'Impact of timely course-correction on annual profit.' },
+          { label: 'Decision Velocity', category: 'Economic', formula: ['Revenue', '×', 'x% Margin Gain'], desc: 'Impact of timely course-correction on annual profit.' },
           { label: 'Inventory Holding Redux', category: 'Economic', formula: ['Inventory Value', '×', 'WACC %'], desc: 'Savings from better demand-supply alignment via live cash visibility.' }
         ],
         operational: [
-          { label: 'Rework Redux', category: 'Direct', formula: ['Error Count', '×', 'Correction Time'], desc: 'Eliminating the "Day 12" variance drill and rework.' },
+          { label: 'Rework Reduction', category: 'Direct', formula: ['Error Count', '×', 'Correction Time'], desc: 'Eliminating the "Day 12" variance drill and rework.' },
           { label: 'Variance Velocity', category: 'Direct', formula: ['Requests', '×', 'Research Hours'], desc: 'Value of instant drill-down for root cause analysis.' }
         ]
       }
@@ -1051,25 +1051,27 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Total quantifiable fine avoidance value for the board.',
+          //  'Total quantifiable fine avoidance value for the board.',
           'Significant reduction in 3rd party audit consultant hours.',
-          'Lower cost of insurance via Best-in-Class governance.',
+          //  'Lower cost of insurance via Best-in-Class governance.',
           'Total reduction in internal control testing labor costs.'
         ],
         successStories: [
-          'Coca-Cola achieved significant ROI via reduction in audit fees.',
-          'Estimated fine avoidance for global firms.',
+          'Coca-Cola achieved  ROI via reduction in audit fees.',
+          //'Estimated fine avoidance for global firms.',
           'Navigated global regulatory shifts with zero rework.'
         ]
       },
       roiCalculations: {
         executive: [
-          { label: 'Audit Fee Redux', category: 'Direct', formula: ['Audit Fee', '×', 'Reduction %'], desc: 'Direct reduction in third-party assurance costs.' },
-          { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
+          //          { label: 'Audit Fee Reduction', category: 'Direct', formula: ['Audit Fee', '×', 'Reduction %'], desc: 'Control againstthird-party assurance cost increases.' },
+
+          { label: 'Audit Fee Increase Avoidance', category: 'Direct', formula: ['Audit Fees held flat'], desc: 'Control against third-party assurance cost increases.' },
+          //{ label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
         ],
         operational: [
           { label: 'Evidence Gathering', category: 'Direct', formula: ['Entities', '×', 'Hours Saved'], desc: 'Automating the SOX evidence gathering drill.' },
-          { label: 'Testing Labor Redux', category: 'Direct', formula: ['Controls Count', '×', 'Testing Time'], desc: 'Reclaiming time from internal audit and control testing teams.' }
+          { label: 'Testing Labor Reduction', category: 'Direct', formula: ['Controls Count', '×', 'Testing Time'], desc: 'Reclaiming time from internal audit and control testing teams.' }
         ]
       }
     },
@@ -1146,8 +1148,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         questions: [
           'What is the board\'s tolerance for a material weakness?',
           'What was the reputational cost of your last reporting surprise?',
-          'How do you guarantee control compliance across 50+ entities?',
-          'Do your analysts spend more time "fixing" or "reading" data?'
+          'How do you guarantee control compliance across your full suite of entities?'
+          // 'Do your analysts spend more time "fixing" or "reading" data?'
         ]
       },
       deliverValue: {
@@ -1160,7 +1162,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         performanceStats: [
           'Validated data lineage for every balance sheet line item.',
-          'Auditor "Self-Service" reducing business disruption.',
+          'Verifiable controls across financial processes.',
           'Automated internal control monitoring.',
           'Real-time risk identification.'
         ]
@@ -1180,13 +1182,14 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          { label: 'External Audit Savings', category: 'Direct', formula: ['Annual Audit Fees', '×', 'Efficiency %'], desc: 'Direct reduction in billable auditor hours due to reliance on system controls.' },
+          { label: 'Market Cap Drop Insurance', category: 'Economic', formula: ['Market Cap', '×', '10% drop', '×', '1% probability', '×', '20% BL Impact'], desc: 'BL\'s Controls provide insurance to financial disasters.' },
           { label: 'Remediation Avoidance', category: 'Economic', formula: ['Remediation Cost'], desc: 'Avoided cost of consultants and contractors to fix control failures.' },
-          { label: 'Debt Financing Risk', category: 'Economic', formula: ['Loan Value', '×', 'Rate Spread'], desc: 'Mitigating interest rate hikes due to material weakness/reporting risk.' }
+          { label: 'Debt Financing Risk', category: 'Economic', formula: ['Loan Value', '×', 'Rate Spread'], desc: 'Mitigating interest rate hikes due to material weakness/reporting risk.' },
+          { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
         ],
         operational: [
-          { label: 'SOX Labor Redux', category: 'Direct', formula: ['Controls', '×', 'Testing Time'], desc: 'Eliminating manual testing for 70% of scope.' },
-          { label: 'Rework Redux', category: 'Direct', formula: ['Cycle Time', '×', 'Error %'], desc: 'Value of zero-correction reporting cycles.' }
+          // { label: 'SOX Labor Redux', category: 'Direct', formula: ['Controls', '×', 'Testing Time'], desc: 'Eliminating manual testing for 70% of scope.' },
+          // { label: 'Rework Redux', category: 'Direct', formula: ['Cycle Time', '×', 'Error %'], desc: 'Value of zero-correction reporting cycles.' }
         ]
       }
     },
@@ -1195,7 +1198,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Audit Readiness',
         pains: [
           'Audit fire drills stopping all regular high-value work.',
-          'Fragmented evidence storage across disparate network folders.',
+          //   'Fragmented evidence storage across disparate network folders.',
           'Reactive compliance drills preventing strategic analysis.',
           'Significant rework required for quarterly SEC filings.'
         ],
@@ -1254,7 +1257,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'AI tools fail because underlying financial data is not standardized.',
           'Competitors gaining efficiency while our data remains trapped in silos.',
           'High cost of manual data cleansing for LLM ingestion.',
-          'Board pressure to deploy AI without a governance roadmap.'
+          'Board pressure to deploy AI without a governance and change mgmt. roadmap.'
         ],
         focus: 'Avoidable AI obsolescence due to foundational data gaps.'
       },
@@ -1270,15 +1273,15 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Strategic Capability',
         capabilities: [
-          'Verity AI Standardized Data Lake for financial data.',
+          'Standardized Data Lake for financial data.',
           'Agentic Accounting Hub for autonomous execution.',
-          'Automated Data Stewardship ensuring constant clean state.',
-          'AI Governance Layer for verifiable automated journals.'
+          'Transactional level preventive controls ensuring constant clean state.',
+          'Embedded train of thought for AI capabilities.'
         ],
         performanceStats: [
           '99.9% clean, standardized data across multiple ERPs.',
           'Automated creation of standard journal entries.',
-          'Automated data stewardship.',
+          'Proactive posting controls.',
           'Verifiable AI governance.'
         ]
       },
@@ -1297,8 +1300,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          { label: 'AI Reclaim', category: 'Economic', formula: ['Manual Task Value', '×', '40% Reclaim'], desc: 'Freeing up Full-Time Employees with autonomous accounting agents.' },
-          { label: 'Data Stewardship Value', category: 'Direct', formula: ['Cleansing Hours', '×', 'FTE Rate'], desc: 'Eliminating the "Data Janitor" cost for enterprise AI initiatives.' }
+          { label: 'AI Data ROI', category: 'Strategic', formula: ['AI Investment', '×', '17% Target ROI', '×', '80% Data Dependency'], desc: 'Quantifying the portion of AI returns that are strictly contingent on clean, high-velocity data. (See Aramco)' },
+          { label: 'Data Prep Sunk Cost', category: 'Direct', formula: ['FTEs', '×', '30% Time Cleaning', '×', 'Avg Salary'], desc: 'The tangible cost of high-value staff scrubbing data manually to make it usable for AI.' }
         ],
         operational: [
           { label: 'Copilot Value', category: 'Direct', formula: ['Accountant Count', '×', '10% Speed Boost'], desc: 'Productivity gain from AI-assisted research.' },
@@ -1321,7 +1324,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Discovery Questions',
         questions: [
           'What is your current accuracy rate for AI data ingestion?',
-          'Would you trust an AI to suggest a $1M journal today?',
+          'Would you trust an AI to suggest a material journal today?',
           'How many manual spreadsheets do you use to "fix" ERP data?',
           'Are your controllers afraid of or empowered by AI tools?'
         ]
@@ -1329,23 +1332,23 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Tactical Capability',
         capabilities: [
-          'Self-cleaning Data Pipelines for high-volume transactions.',
+          'Automatic Suggestion of matches for transactional processing.',
           'Predictive Accounting Agents identifying flux outliers.',
           'Natural language querying for non-technical users.',
           'AI-assisted account reconciliation research agents.'
         ],
         performanceStats: [
-          'Zero-manual-touch for standard intercompany posts.',
-          'Total elimination of manual data re-formatting for AI.',
-          'Self-cleaning data pipelines.',
-          'Instant natural language query results.'
+          'Reduction of time spent on manual matching activities.',
+          'Reduction of manual flux analysis generation.',
+          'Instant natural language query results.',
+          'Self Reconciling Balance Sheet Accounts'
         ]
       },
       justifyValue: {
         title: 'Efficiency Gains',
         metrics: [
           'Team freed from data janitorial tasks forever.',
-          '100% elimination of manual data re-formatting for AI.',
+          // '100% elimination of manual data re-formatting for AI.',
           'Consistent data integrity ensuring long-term AI trust.',
           'Enabled autonomous execution of repetitive close steps.'
         ],
