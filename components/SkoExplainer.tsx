@@ -300,7 +300,7 @@ const CapabilityStack = ({ items }: { items: string[] }) => (
                 </span>
             </div>
         ))}
-        <div className="text-center text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-1">Tech Stack Foundation</div>
+        <div className="text-center text-[10px] font-black uppercase text-zinc-100 tracking-widest mb-1">Tech Stack Foundation</div>
     </div>
 );
 
