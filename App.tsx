@@ -281,33 +281,24 @@ function App() {
         onMouseLeave={handleNavMouseLeave}
       >
         <nav 
-          className={`bg-zinc-900/90 backdrop-blur-xl p-2 rounded-2xl border border-zinc-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center transition-all duration-300 ${isDockMinimized ? 'gap-0 px-3' : 'gap-1 md:gap-2 max-w-[95vw] overflow-x-auto scrollbar-hide'}`}
+          /* UPDATED: Increased gap to md:gap-5 to respace the bar after removing an item */
+          className={`bg-zinc-900/90 backdrop-blur-xl p-2 rounded-2xl border border-zinc-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center transition-all duration-300 ${isDockMinimized ? 'gap-0 px-3' : 'gap-3 md:gap-5 max-w-[95vw] overflow-x-auto scrollbar-hide'}`}
         >
           {/* Collapsible Content */}
           {!isDockMinimized && (
             <>
               {[
                 { id: 'sko', label: t.tab_sko },
-                { id: 'discovery', label: t.tab_discovery },
+                /* REMOVED: 'discovery' tab (Process Narrative) hidden as requested */
                 { id: 'outside_in', label: t.tab_outside_in },
                 { id: 'calculator', label: t.tab_calculator },
                 { id: 'benchmarks', label: t.tab_benchmarks },
                 { id: 'hub', label: t.tab_hub }
               ].map((tab) => (
                 <React.Fragment key={tab.id}>
-                  {/* INJECT BETA LABEL BEFORE 'DISCOVERY' TAB */}
-                  {tab.id === 'discovery' && (
-                    <div className="flex items-center px-2 md:px-4">
-                      <span className="text-xs md:text-sm font-black text-blackline-yellow tracking-widest flex items-center gap-2">
-                        BETA <span className="text-white text-sm md:text-base">→</span>
-                      </span>
-                    </div>
-                  )}
-                  
                   <button 
                     onClick={() => {
                       setActiveTab(tab.id as any);
-                      if (tab.id === 'discovery') setHasSearched(false);
                     }} 
                     className={`px-4 py-2.5 md:px-6 md:py-3 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] rounded-xl transition-all border whitespace-nowrap
                       ${activeTab === tab.id 
