@@ -281,7 +281,7 @@ function App() {
         onMouseLeave={handleNavMouseLeave}
       >
         <nav 
-          /* UPDATED: Balanced Spacing - md:gap-4 allows breathing room without crowding */
+          /* UPDATED: md:gap-4 allows breathing room without crowding */
           className={`bg-zinc-900/90 backdrop-blur-xl p-2 rounded-2xl border border-zinc-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center transition-all duration-300 ${isDockMinimized ? 'gap-0 px-3' : 'gap-2 md:gap-4 max-w-[95vw] overflow-x-auto scrollbar-hide'}`}
         >
           {/* Collapsible Content */}
@@ -289,19 +289,18 @@ function App() {
             <>
               {[
                 { id: 'sko', label: t.tab_sko },
-                /* RESTORED: Discovery tab with BETA badge */
-                { id: 'discovery', label: t.tab_discovery },
+                /* REMOVED: Discovery (Value Narrative) button hidden */
                 { id: 'outside_in', label: t.tab_outside_in },
                 { id: 'calculator', label: t.tab_calculator },
                 { id: 'benchmarks', label: t.tab_benchmarks },
                 { id: 'hub', label: t.tab_hub }
               ].map((tab) => (
                 <React.Fragment key={tab.id}>
-                  {/* INJECT BETA LABEL BEFORE 'DISCOVERY' TAB */}
-                  {tab.id === 'discovery' && (
+                  {/* INJECT BETA LABEL BEFORE 'OUTSIDE_IN' TAB - SIZE INCREASED */}
+                  {tab.id === 'outside_in' && (
                     <div className="flex items-center px-2 md:px-4">
-                      <span className="text-xs md:text-sm font-black text-blackline-yellow tracking-widest flex items-center gap-2">
-                        BETA <span className="text-white text-sm md:text-base">→</span>
+                      <span className="text-sm md:text-lg font-black text-blackline-yellow tracking-widest flex items-center gap-2">
+                        BETA <span className="text-white text-base md:text-lg">→</span>
                       </span>
                     </div>
                   )}
@@ -309,7 +308,6 @@ function App() {
                   <button 
                     onClick={() => {
                       setActiveTab(tab.id as any);
-                      if (tab.id === 'discovery') setHasSearched(false);
                     }} 
                     className={`px-4 py-2.5 md:px-6 md:py-3 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] rounded-xl transition-all border whitespace-nowrap
                       ${activeTab === tab.id 
