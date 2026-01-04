@@ -299,6 +299,7 @@ const CapabilityStack = ({ items }: { items: string[] }) => (
                 </span>
             </div>
         ))}
+        {/* UPDATED: Brighter text color for better readability */}
         <div className="text-center text-[10px] font-black uppercase text-zinc-400 tracking-widest mb-1">Tech Stack Foundation</div>
     </div>
 );
@@ -368,7 +369,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const nextIndex = (currentIndex + 1) % sortedDrivers.length;
     setActivePov('executive'); 
     setByActiveDriverId(sortedDrivers[nextIndex].id);
-    setPhase3Focus('capabilities'); // RESET
+    setPhase3Focus('capabilities'); // RESET TOGGLE
     window.scrollTo({ top: 0, behavior: 'smooth' }); // SCROLL TO TOP
   };
 
@@ -378,7 +379,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const prevIndex = (currentIndex - 1 + sortedDrivers.length) % sortedDrivers.length;
     setActivePov('executive');
     setByActiveDriverId(sortedDrivers[prevIndex].id);
-    setPhase3Focus('capabilities'); // RESET
+    setPhase3Focus('capabilities'); // RESET TOGGLE
     window.scrollTo({ top: 0, behavior: 'smooth' }); // SCROLL TO TOP
   };
 
@@ -697,7 +698,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
-        {/* UPDATED: Reset Phase 3 toggle when switching personas */}
+        {/* UPDATED: Buttons now use scrollToPhase1 logic */}
         <button onClick={() => { setActivePov('executive'); setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
         <button onClick={() => { setActivePov('operational'); setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
       </div>
