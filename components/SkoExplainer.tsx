@@ -69,9 +69,17 @@ const DRIVER_IMAGES: Record<string, string> = {
   'ai_ops': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
 };
 
+// UPDATED ORDERING
 const ORDERED_IDS = [
-  'working_cap', 'process', 'talent', 'ma', 'innovation', 
-  'compliance', 'decision', 'trust', 'ai_ops'
+  'process',       // 1. Process First
+  'working_cap',   // 2. Working Capital Second
+  'talent',        // 3. Talent
+  'ma',            // 4. M&A
+  'innovation',    // 5. Innovation
+  'decision',      // 6. Decision Agility
+  'compliance',    // 7. Compliance (Moved to end of Group 2)
+  'trust',         // 8. Trust
+  'ai_ops'         // 9. AI Ops
 ];
 
 const SafeIcon = ({ name, className }: { name: string; className?: string }) => {
