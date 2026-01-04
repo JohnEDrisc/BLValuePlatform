@@ -856,7 +856,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 04: Justify Value</h4>
               </div>
               {/* UPDATED: "The Metrics That Drive Impact" */}
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">The Metrics That Drive Impact</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">The Outcomes That Drive Impact</h5>
               
               {activeDriver.id === 'trust' || activeDriver.id === 'compliance' ? (
                 <div className="mb-12"><HouseFireVisual /></div>
@@ -864,7 +864,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
               {/* REORDERED: KPIs FIRST */}
               {/* UPDATED: Double Big Text (text-2xl) + Brighter color (text-zinc-300) */}
-              <p className="text-zinc-300 text-2xl font-black uppercase tracking-widest mb-8">Strategic KPIs to Track</p>
+              <p className="text-zinc-300 text-2xl font-black uppercase tracking-widest mb-8"> </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-left mb-16">
                 {pov?.justifyValue?.metrics?.map((m: string, i: number) => {
                   const isLastItem = i === (pov.justifyValue.metrics?.length || 0) - 1;
@@ -941,33 +941,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
            </div>
 
-           {/* ADDED: Strategic Sources & Appendix Section */}
-            <div className="bg-zinc-900/30 border border-zinc-800 p-8 md:p-12 rounded-[2rem] relative flex flex-col justify-center text-center mt-12">
-               <div className="flex items-center justify-center gap-4 mb-8">
-                 <BookOpen className="text-zinc-500 w-6 h-6" />
-                 <h4 className="text-zinc-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]">Appendix</h4>
-               </div>
-               <h5 className="text-2xl font-black text-white mb-8 uppercase italic tracking-tighter">Strategic Sources</h5>
-               
-               {activeDriver.references && activeDriver.references.length > 0 ? (
-                 <div className="flex flex-wrap justify-center gap-4">
-                   {activeDriver.references.map((ref: any, idx: number) => (
-                     <a 
-                       key={idx} 
-                       href={ref.url} 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="flex items-center gap-3 px-6 py-4 bg-black border border-zinc-800 rounded-xl hover:border-blackline-yellow hover:text-white text-zinc-400 transition-all group"
-                     >
-                        <span className="text-sm font-bold group-hover:text-blackline-yellow transition-colors">{ref.title}</span>
-                        <ArrowRight size={14} className="opacity-50 group-hover:translate-x-1 transition-transform" />
-                     </a>
-                   ))}
-                 </div>
-               ) : (
-                 <p className="text-zinc-500 italic">No specific sources listed for this driver.</p>
-               )}
-            </div>
+       
 
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
               <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
