@@ -311,6 +311,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
     isPlImpact: true,
     outcomeTargetId: 'innovation',
     summary: "Most finance teams are drowning in manual tasks—ticking, tying, and chasing status. This isn't just slow; it's a strategic bottleneck. If we don't fix the foundation, scaling becomes a hiring race that kills margins. By automating the mundane, we transform finance from a cost center into a strategic partner that can scale without adding heads.",
+    references: [
+        { title: 'The Hackett Group: Finance Benchmarking', url: 'https://www.thehackettgroup.com/finance/' },
+        { title: 'APQC: Process Benchmarks', url: 'https://www.apqc.org/benchmarking' },
+        { title: 'APQC: Open Standards Database', url: 'https://www.apqc.org/pcf' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -429,6 +434,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
     heroMetric: 'Cash Release',
     isPlImpact: true,
     summary: "Cash is the lifeblood of growth. Right now, millions are likely trapped in your unapplied cash backlogs or slow collection cycles. This isn't just a process gap—it's expensive, idle capital. By accelerating cash processing, we lower your cost of funding and give leadership a bigger 'war chest' to fund strategic growth internally.",
+    references: [
+        { title: 'Yahoo Finance', url: 'https://finance.yahoo.com/' },
+        { title: 'Bloomberg Professional', url: 'https://www.bloomberg.com/professional/' },
+        { title: 'Reuters Finance', url: 'https://www.reuters.com/finance/' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -546,6 +556,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'Users',
     heroMetric: 'Best-in-Class Retention',
     summary: "The war for finance talent is over—talent won. If your team is spending 80% of their time on manual data janitorial work, your best people will leave for firms that prioritize analysis. Replacing a senior accountant costs 1.5x their salary. This is about upskilling your team and making finance a high-engagement 'think tank' rather than a data entry factory.",
+    references: [
+        { title: 'Google Scholar', url: 'https://scholar.google.com/' },
+        { title: 'SSRN: Social Science Research Network', url: 'https://www.ssrn.com/' },
+        { title: 'Journal of Law and Economics', url: 'https://www.journals.uchicago.edu/toc/jle/current' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -570,7 +585,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Strategic Capability',
         capabilities: [
-          'Modern User Experience for daily operations.',
+          'Consumer-Grade User Experience for professionals.',
           'Remote/Hybrid Close Enablement for talent flexibility.',
           'Value-added Career Paths focusing on business strategy.',
           'Intelligent load balancing across global finance teams.'
@@ -585,9 +600,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Recruitment savings per management hire.',
+          'Recruitment savings per senior management hire.',
           'Preservation of critical institutional process knowledge.',
-          'Significantly improved Net Promoter Scores across the Finance org.',
+          'Significantly improved eNPS scores across the Finance org.',
           'Reduced reliance on high-cost temp and contractor labor.'
         ],
         successStories: [
@@ -662,6 +677,12 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'GitMerge',
     heroMetric: 'Rapid Synergy',
     summary: "Deals are won or lost in the first 100 days. If you can't see the target's balance sheet risk or integrate their data on Day 1, synergies leak and ROI drops. This is about creating a repeatable 'integration engine' that allows you to scale M&A without increasing headcount, ensuring every deal hits its model targets faster.",
+    references: [
+        { title: 'PwC: CFO Pulse Survey', url: 'https://www.pwc.com/us/en/services/consulting/finance/pulse-survey.html' },
+        { title: 'Deloitte: CFO Insights', url: 'https://www2.deloitte.com/us/en/pages/finance/articles/cfo-insights.html' },
+        { title: 'EY: Finance Insights', url: 'https://www.ey.com/en_us/finance' },
+        { title: 'KPMG: Finance Excellence', url: 'https://home.kpmg/xx/en/home/insights/finance-excellence.html' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -778,6 +799,12 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'Lightbulb',
     heroMetric: 'Capacity Freed',
     summary: "Every company is trying to innovate, but finance is usually the handbrake. When your best analysts spend 90% of their month on ticking and tying, they aren't modeling your next market entry or AI strategy. This is about reclaiming expensive brainpower and pointing it at high-ROI growth projects, moving finance from a back-office reporting shop to a growth engine.",
+    references: [
+        { title: 'Gartner: Finance Technology', url: 'https://www.gartner.com/en/finance' },
+        { title: 'Forrester: Financial Services', url: 'https://www.forrester.com/financial-services/' },
+        { title: 'SaaS Metrics', url: 'https://www.saasmetrics.co/' },
+        { title: 'OpenView Partners Blog', url: 'https://openviewpartners.com/blog/' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -817,7 +844,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Unlocked ROI from previously stalled innovation initiatives.',
+          'Direct ROI from previously stalled innovation initiatives.',
           'Avoidance of third-party strategy consultant fees.',
           'Acceleration of new market product launches worldwide.',
           'Total reduction in "Data Janitorial" labor org-wide.'
@@ -895,6 +922,12 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'Activity',
     heroMetric: 'Day 1 Insights',
     summary: "Leading a company on 2-week-old data is like driving with a blacked-out windshield. In today's market, speed is a competitive advantage. This is about moving from lagging reporting to leading insights. By delivering trusted numbers on Day 1, we give leadership the ability to course-correct mid-month, optimize OpEx, and react to market shifts before the competition.",
+    references: [
+        { title: 'AWS: RPO and RTO Targets', url: 'https://aws.amazon.com/blogs/mt/establishing-rpo-and-rto-targets-for-cloud-applications/' },
+        { title: 'Splunk: RPO vs RTO Overview', url: 'https://www.splunk.com/en_us/blog/learn/rpo-vs-rto.html' },
+        { title: 'Commvault: RTO/RPO Standards', url: 'https://www.commvault.com/glossary-library/rto-rpo' },
+        { title: 'Uptime Calculator', url: 'https://uptime.is/' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -1012,6 +1045,12 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'FileText',
     heroMetric: 'Fine Avoidance',
     summary: "Regulatory pressure is non-stop, and manual compliance is a massive drain. If compliance is a 'drill' that happens once a quarter, you're at risk. This is about making compliance a touchless by-product of your daily process. When controls are automated and evidence is digital, you don't just avoid fines; you reclaim the thousands of hours your team currently spends on audit support.",
+    references: [
+        { title: 'Protiviti: 2024 SOX Survey', url: 'https://www.protiviti.com/us-en/survey/sox-compliance' },
+        { title: 'SEC: SOX Implementation', url: 'https://www.sec.gov/info/accountants/soxcomp.htm' },
+        { title: 'PCAOB: Auditing Standards', url: 'https://pcaobus.org/Standards/Auditing/Pages/default.aspx' },
+        { title: 'COSO: Internal Control Framework', url: 'https://www.coso.org/guidance-on-ic' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -1131,6 +1170,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'Lock',
     heroMetric: 'Audit Cost Redux',
     summary: "Market confidence is fragile. A single reporting error can wipe out billions in market cap and trigger a restatement nightmare. This is about building a 'wall of certainty' around your financial statements. When the board and auditors trust the data instantly, the business commands a valuation premium and avoids the 'risk tax' of uncertainty.",
+    references: [
+        { title: 'CAQ: Financial Restatement Trends', url: 'https://www.thecaq.org/financial-restatement-trends-us-2013-2022' },
+        { title: 'Ideagen: 20-Year Restatement Analysis', url: 'https://www.ideagen.com/resources/whitepapers/financial-restatements-2005-2024' },
+        { title: 'SEC: EDGAR Database', url: 'https://www.sec.gov/edgar' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
@@ -1249,6 +1293,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
     icon: 'Brain',
     heroMetric: '99.9% Clean Data',
     summary: "AI is the next industrial revolution for finance, but 'AI on dirty data' is just fast-tracking errors. If your data isn't reconciled and standardized, your AI strategy will fail. This is about building the trusted data foundation required for autonomous accounting. By delivering 99.9% clean data, we ensure your AI agents can actually execute tasks, not just provide suggestions.",
+    references: [
+        { title: 'Gartner: Finance Technology', url: 'https://www.gartner.com/en/finance' },
+        { title: 'Forrester: Financial Services', url: 'https://www.forrester.com/financial-services/' },
+        { title: 'Google Scholar: AI in Finance', url: 'https://scholar.google.com/' }
+    ],
     personas: FULL_SKO_PERSONAS,
     executivePov: {
       createValue: {
