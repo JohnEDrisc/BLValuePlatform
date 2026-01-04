@@ -505,7 +505,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   {showVideo ? (
                     <iframe 
                       className="w-full h-full"
-                      src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&modestbranding=1&rel=0" 
+                      src="https://www.youtube.com/embed/sFReEiNEGQY?autoplay=1&modestbranding=1&rel=0" 
                       title="BlackLine Executive Keynote"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -973,7 +973,7 @@ const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ titl
 );
 
 const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
+  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
      <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
      <div className="text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
      <h3 className="text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
