@@ -33,22 +33,22 @@ import {
   ChevronDown, 
   Quote, 
   Factory, 
-  Flame,
-  Wind,
-  Anchor,
-  Droplets,
-  CloudFog,
-  Eye,
-  Layers,
-  Radar,
-  Loader2,
-  Maximize2,
-  Minimize2,
-  GitMerge,
-  Lightbulb,
-  Activity,
-  ShieldCheck,
-  DollarSign
+  Flame, 
+  Wind, 
+  Anchor, 
+  Droplets, 
+  CloudFog, 
+  Eye, 
+  Layers, 
+  Radar, 
+  Loader2, 
+  Maximize2, 
+  Minimize2, 
+  GitMerge, 
+  Lightbulb, 
+  Activity, 
+  ShieldCheck, 
+  DollarSign 
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
@@ -69,17 +69,16 @@ const DRIVER_IMAGES: Record<string, string> = {
   'ai_ops': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
 };
 
-// UPDATED ORDERING
 const ORDERED_IDS = [
-  'process',       // 1. Process First
-  'working_cap',   // 2. Working Capital Second
-  'talent',        // 3. Talent
-  'ma',            // 4. M&A
-  'innovation',    // 5. Innovation
-  'decision',      // 6. Decision Agility
-  'compliance',    // 7. Compliance (Moved to end of Group 2)
-  'trust',         // 8. Trust
-  'ai_ops'         // 9. AI Ops
+  'process',       
+  'working_cap',   
+  'talent',        
+  'ma',            
+  'innovation',    
+  'decision',      
+  'compliance',    
+  'trust',         
+  'ai_ops'         
 ];
 
 const SafeIcon = ({ name, className }: { name: string; className?: string }) => {
@@ -369,7 +368,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const nextIndex = (currentIndex + 1) % sortedDrivers.length;
     setActivePov('executive'); 
     setByActiveDriverId(sortedDrivers[nextIndex].id);
-    setPhase3Focus('capabilities'); 
+    setPhase3Focus('capabilities'); // RESET
     window.scrollTo({ top: 0, behavior: 'smooth' }); // SCROLL TO TOP
   };
 
@@ -379,7 +378,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     const prevIndex = (currentIndex - 1 + sortedDrivers.length) % sortedDrivers.length;
     setActivePov('executive');
     setByActiveDriverId(sortedDrivers[prevIndex].id);
-    setPhase3Focus('capabilities');
+    setPhase3Focus('capabilities'); // RESET
     window.scrollTo({ top: 0, behavior: 'smooth' }); // SCROLL TO TOP
   };
 
@@ -460,7 +459,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
             <div className="text-center">
-               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Strategic Validation</div>
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Strategic Validation</div>
                <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
                   
@@ -698,7 +697,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
-        {/* UPDATED: Buttons now use scrollToPhase1 logic */}
+        {/* UPDATED: Reset Phase 3 toggle when switching personas */}
         <button onClick={() => { setActivePov('executive'); setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
         <button onClick={() => { setActivePov('operational'); setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
       </div>
