@@ -650,7 +650,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="text-green-500 font-black text-4xl mb-4">04</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Justify Value</h3>
                           <p className="text-green-400 text-xs font-black uppercase tracking-widest mb-6">Build Logic</p>
-                          <LogicFlow metrics={["Manual Hours", "FTE Capacity", "Strategic ROI"]} />
+                          <LogicFlow metrics={["Manual Hours", "FTE Capacity", "Cash Conversion Cycle Improvement"]} />
                       </div>
                       <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Co-author the business case logic. Secure agreement on the 'mechanics of improvement' before a single ROI number is calculated.</p>
                   </div>
@@ -665,17 +665,17 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700">
                               <Coins className="text-blackline-yellow mx-auto mb-2" />
                               <span className="text-white font-mono text-xl">$2.5M</span>
-                              <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Savings</p>
+                              <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Benefits</p>
                           </div>
                       </div>
-                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact that the CFO can validate and defend.</p>
+                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact and other economic benefits that the CFO can validate and defend.</p>
                   </div>
               </div>
            </div>
 
            <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mt-20">
               <button onClick={() => setViewMode('persona_explain')} className="px-8 py-4 bg-zinc-900 text-white text-lg font-black rounded-full hover:bg-zinc-800 uppercase italic border border-zinc-700">Back to Personas</button>
-              <button onClick={() => { setActivePov('executive'); setViewMode('detail'); }} className="px-10 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 shadow-xl flex items-center justify-center gap-4 uppercase italic">Start Driver Tour <ArrowRight size={24} /></button>
+              <button onClick={() => { setActivePov('executive'); setViewMode('detail'); window.scrollTo({ top: 0, behavior: 'instant' }); }} className="px-10 py-6 bg-blackline-yellow text-black text-xl font-black rounded-full hover:scale-105 shadow-xl flex items-center justify-center gap-4 uppercase italic">Start Driver Tour <ArrowRight size={24} /></button>
            </div>
         </div>
       </div>
