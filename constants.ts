@@ -1,6 +1,6 @@
 import { ProductItem, BenchmarkCase, SkoDriverDetail, Persona } from './types';
 
-// --- CORE EXPORTS (Moved to top to prevent truncation errors) ---
+// --- CORE EXPORTS ---
 
 export const PRODUCTS: ProductItem[] = [
   { id: 'studio', name: 'BlackLine Studio360', category: 'Platform', icon: 'LayoutGrid' },
@@ -50,7 +50,6 @@ export const VALUE_DRIVERS_SELECTION = [
   { id: 'ai_ops', value: 'Scaling Trusted AI', nameKey: 'drv_ai_ops' },
 ];
 
-// Re-added explicitly to fix "PERSONAS not exported" error
 export const PERSONAS: Persona[] = [
   { id: 'cfo', name: 'Chief Financial Officer', icon: 'Briefcase', group: 'Executive' },
   { id: 'cao', name: 'Chief Accounting Officer', icon: 'ShieldCheck', group: 'Executive' },
@@ -287,7 +286,7 @@ Structure:
 Tone: Highly strategic and quantified.
 `;
 
-// --- DATA CONSTANTS (Large datasets at bottom) ---
+// --- DATA CONSTANTS ---
 
 const FULL_SKO_PERSONAS = {
   executive: [
@@ -341,20 +340,25 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Automated Data Ingestion from disparate ERP instances.',
           'Real-time status tracking for every global financial task.'
         ],
-        proofPoints: [
-          'Leading firms reduce close cycle time by 40-60% in 12 months (e.g. Domino\'s).',
-          'Average 3-day reduction in consolidated reporting cycles.',
+        performanceStats: [
           '100% visibility into global task status for leadership.',
-          'Elimination of manual follow-up emails via automated logic.'
+          'Elimination of manual follow-up emails via automated logic.',
+          'Unified dashboard for all global entities.',
+          'Real-time execution monitoring 24/7.'
         ]
       },
       justifyValue: {
         title: 'The Hard Numbers',
         metrics: [
           'Reduction in external audit fees by 2-5% via self-service.',
-          'Earnings Per Share improvement via Operating Expenses reduction and labor optimization.',
+          'Earnings Per Share improvement via Operating Expenses reduction.',
           'Zero-headcount scaling for future geographic expansion.',
           '40% reduction in reporting cycle variance and rework.'
+        ],
+        successStories: [
+          'Domino\'s reduced close cycle time by 40-60% in 12 months.',
+          'Leading firms achieved a 3-day reduction in consolidated reporting cycles.',
+          'Hershey reallocated 30% of accounting staff to analysis.'
         ]
       },
       roiCalculations: {
@@ -391,16 +395,16 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Tactical Capability',
         capabilities: [
-          'High-Volume Transaction Matching for any data source (Bank, POS, sub-ledgers).',
+          'High-Volume Transaction Matching for any data source.',
           'Unified Process Orchestration (Studio) driving continuous improvement.',
           'Automated Journal Entry Creation eliminating manual redundancy.',
           'Automated compilation of variance (flux) analysis.'
         ],
-        proofPoints: [
-          'Auto-certification of 85% of low-risk bank reconciliations (e.g. Hershey).',
+        performanceStats: [
+          'Auto-certification of 85% of low-risk bank reconciliations.',
           '90% reduction in journal preparation time via automation.',
-          'Real-time "Percent Complete" dashboarding for the Controller.',
-          'Elimination of manual follow-up emails for task status.'
+          'Real-time "Percent Complete" dashboarding.',
+          'Zero-touch matching for high volume data.'
         ]
       },
       justifyValue: {
@@ -410,6 +414,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           '100% elimination of redundant effort in bank matching.',
           '95% reduction in close-related overtime for staff.',
           'Instant visibility into global entity status for regional leads.'
+        ],
+        successStories: [
+          'Hershey automated 99% of bank transaction matching.',
+          'Coca-Cola reduced manual journal volume by 40%.'
         ]
       }
     }
@@ -450,20 +458,25 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Unified Invoice-to-Cash platform for global standardized ops.',
           'Automated dispute resolution workflows for faster closure.'
         ],
-        proofPoints: [
-          'Release of $10M-$50M in cash flow per $1B annual revenue (e.g. McKesson).',
-          '20% reduction in bad debt write-offs via better tracking.',
-          'Cash Conversion Cycle improvement by 12+ days relative to industry average.',
-          'Reduction in unapplied cash volumes by up to 80%.'
+        performanceStats: [
+          'Reduction in unapplied cash volumes by up to 80%.',
+          'Automated dispute resolution workflows for faster closure.',
+          'Unified Invoice-to-Cash platform stability.',
+          'Real-time global cash visibility.'
         ]
       },
       justifyValue: {
         title: 'The Hard Numbers',
         metrics: [
-          'Measurable improvement in Weighted Average Cost of Capital and borrowing costs.',
+          'Measurable improvement in Weighted Average Cost of Capital.',
           'Significant increase in Free Cash Flow for investment.',
           'Direct P&L benefit via interest savings on debt lines.',
           'Enhanced cash conversion predictability for analysts.'
+        ],
+        successStories: [
+          'McKesson released $10M-$50M in cash flow per $1B annual revenue.',
+          'Kindred achieved 20% reduction in bad debt write-offs.',
+          'Cash Conversion Cycle improvement by 12+ days.'
         ]
       },
       roiCalculations: {
@@ -505,8 +518,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Integrated Dispute Management for collaborative resolution.',
           'Automated remittance extraction from email and portals.'
         ],
-        proofPoints: [
-          '90%+ auto-matching for fragmented global payments (e.g. Kindred).',
+        performanceStats: [
+          '90%+ auto-matching for fragmented global payments.',
           '30% increase in collector productivity and coverage.',
           '80% reduction in time-to-application for complex wires.',
           'Elimination of manual cash application errors by over 95%.'
@@ -519,6 +532,593 @@ export const SKO_DATA: SkoDriverDetail[] = [
           '50% reduction in unapplied cash volume within 6 months.',
           'Elimination of manual data entry for 90% of line items.',
           'Significant reduction in lockbox and bank processing fees.'
+        ],
+        successStories: [
+          'Kindred achieved 90% auto-match rates on day one.',
+          'Western Union reduced unapplied cash backlog by 99%.'
+        ]
+      }
+    }
+  },
+  {
+    id: 'talent',
+    title: 'Talent Retention & Engagement',
+    icon: 'Users',
+    heroMetric: 'Retention > 92%',
+    summary: "The war for finance talent is over—talent won. If your team is spending 80% of their time on manual data janitorial work, your best people will leave for firms that prioritize analysis. Replacing a senior accountant costs 1.5x their salary. This is about upskilling your team and making finance a high-engagement 'think tank' rather than a data entry factory.",
+    personas: FULL_SKO_PERSONAS,
+    executivePov: {
+      createValue: {
+        title: 'Talent Crisis',
+        pains: [
+          'Attrition at all levels creates disruption and loss of organizational knowledge.',
+          'Manual work creates a talent tax that reduces value of what is produced.',
+          'University hires leaving to companies that provide roles where employees help make positive impacts to the business.',
+          'Burnout Culture becomes the brand of the internal and external view.'
+        ],
+        focus: 'The multi-million dollar talent tax on repetitive manual work.'
+      },
+      captureValue: {
+        title: 'Probing Questions',
+        questions: [
+          'What is the loaded cost of losing your top 10% of talent?',
+          'Does your tech stack attract or repel modern university hires?',
+          'What percentage of staff leave due to "peak period burnout"?',
+          'Could you close the books if your lead Controller left today?'
+        ]
+      },
+      deliverValue: {
+        title: 'Strategic Capability',
+        capabilities: [
+          'Consumer-Grade User Experience for professionals.',
+          'Remote/Hybrid Close Enablement for talent flexibility.',
+          'Value-added Career Paths focusing on business strategy.',
+          'Intelligent load balancing across global finance teams.'
+        ],
+        performanceStats: [
+          'Onboarding time reduced from 3 months to under 2 weeks.',
+          'Reduction in staff burnout reports by over 60%.',
+          'Elimination of manual journal inputs.',
+          'Real-time task re-assignment capability.'
+        ]
+      },
+      justifyValue: {
+        title: 'The Hard Numbers',
+        metrics: [
+          'Recruitment savings ($500K+ per senior management hire).',
+          'Preservation of critical institutional process knowledge.',
+          'Significantly improved eNPS scores across the Finance org.',
+          'Reduced reliance on high-cost temp and contractor labor.'
+        ],
+        successStories: [
+          'Retention rates improved from 85% to over 92% annually.',
+          'TechFlow finance engagement scores outperformed company average.'
+        ]
+      },
+      roiCalculations: {
+        executive: [
+          { label: 'Replacement Redux', category: 'Economic', formula: ['Turnover %', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
+          { label: 'Recruiting Fee Savings', category: 'Direct', formula: ['Hires', '×', 'Agency Fee'], desc: 'Direct saving on 25% agency fees via internal career mobility.' }
+        ],
+        operational: [
+          { label: 'Temp Labor Redux', category: 'Direct', formula: ['Peak Hours', '×', 'Premium Rate'], desc: 'Eliminating peak-cycle contractor spend.' },
+          { label: 'Training Velocity', category: 'Direct', formula: ['Weeks Saved', '×', 'Manager Salary'], desc: 'Value of reduced manual oversight for new hires.' }
+        ]
+      }
+    },
+    operationalPov: {
+      createValue: {
+        title: 'Employee Experience',
+        pains: [
+          'Acute burnout from extreme fatigue and repetitive cycles.',
+          'Legacy tools that don\'t support modern collaborative work.',
+          'Low engagement leading to preventable manual errors.',
+          'Time spent on "ticking and tying" instead of analyzing.'
+        ],
+        focus: 'Preventing low engagement and preventable close-related errors.'
+      },
+      captureValue: {
+        title: 'Discovery Questions',
+        questions: [
+          'Does your team work more than 2 weekends a month during close?',
+          'How long does it take to train a new hire on your manuals?',
+          'What is the #1 complaint in your team engagement surveys?',
+          'Do your analysts feel they are "learning" or "just processing"?'
+        ]
+      },
+      deliverValue: {
+        title: 'Tactical Capability',
+        capabilities: [
+          'Automated Journal Workflows reducing manual input time.',
+          'Intuitive Integrated Cloud Workspace for global teams.',
+          'Real-time Task Guidance for faster onboarding.',
+          'Social collaboration tools for real-time problem solving.'
+        ],
+        performanceStats: [
+          'Onboarding time reduced by 70% for new finance hires.',
+          'Significant reduction in stress-related absence.',
+          '100% adoption of analytical tools by data entry staff.',
+          'Zero manual emails for task follow-up.'
+        ]
+      },
+      justifyValue: {
+        title: 'Efficiency Gains',
+        metrics: [
+          '15% improvement in overall team daily productivity.',
+          'Digitized process documentation for 100% continuity.',
+          'Standardized global training curriculums for all levels.',
+          'Improved job satisfaction and work-life balance metrics.'
+        ],
+        successStories: [
+          'TechFlow achieved 90% reduction in close-related overtime.',
+          'Global Auto Parts reduced turnover by 15% post-implementation.'
+        ]
+      }
+    }
+  },
+  {
+    id: 'ma',
+    title: 'M&A Integration Velocity',
+    icon: 'GitMerge',
+    heroMetric: '3x Faster Synergy',
+    summary: "Deals are won or lost in the first 100 days. If you can't see the target's balance sheet risk or integrate their data on Day 1, synergies leak and ROI drops. This is about creating a repeatable 'integration engine' that allows you to scale M&A without increasing headcount, ensuring every deal hits its model targets faster.",
+    personas: FULL_SKO_PERSONAS,
+    executivePov: {
+      createValue: {
+        title: 'Synergy Realization',
+        pains: [
+          'Market punishment due to slow integration visibility.',
+          'Lack of visibility into acquired entity financials leads to surprise risks.',
+          'Integration costs exceeding deal model assumptions.',
+          'Deal value erodes while targets remain on legacy systems.'
+        ],
+        focus: 'The high strategic cost of fragmented visibility in high-stakes deals.'
+      },
+      captureValue: {
+        title: 'Probing Questions',
+        questions: [
+          'How long until you get a trusted close after Day 1?',
+          'What is the value of capturing synergies 6 months earlier?',
+          'Can you see the target balance sheet risk pre-acquisition?',
+          'How many "different ways of closing" are in your portfolio?'
+        ]
+      },
+      deliverValue: {
+        title: 'Strategic Capability',
+        capabilities: [
+          'Standardized M&A Playbook for Day 1 entity onboarding.',
+          'Cross-ERP Connectivity Layer unifying data streams.',
+          'Automated Verification Engine for opening balance sheets.',
+          'Intercompany Hub for global entity settlement rules.'
+        ],
+        performanceStats: [
+          'Full financial visibility within 30 days of Day 1 closure.',
+          'Process deployed to new entities in under 15 business days.',
+          'Automated data ingestion from target ERPs.',
+          'Instant Day 1 control coverage.'
+        ]
+      },
+      justifyValue: {
+        title: 'The Hard Numbers',
+        metrics: [
+          'Millions in accelerated synergy value across the portfolio.',
+          'Reduced integration-specific labor and consultant costs.',
+          'Immediate 100% control coverage for newly acquired assets.',
+          'Minimized integration execution risk in high-growth deals.'
+        ],
+        successStories: [
+          'Zurich reduced integration cycle time by 3x compared to legacy.',
+          'Integrated 10+ acquisitions without increasing overhead.',
+          'Acceleration of deal model validation by over 4 months.'
+        ]
+      },
+      roiCalculations: {
+        executive: [
+          { label: 'Synergy Velocity', category: 'Economic', formula: ['Deal Value', '×', 'Months Saved', '×', 'ROI'], desc: 'Quantifying the time-value of money for synergies.' },
+          { label: 'Integration Labor Redux', category: 'Direct', formula: ['Target Full-Time Employees', '×', 'Manual % Redux'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
+        ],
+        operational: [
+          { label: 'Audit Ready Velocity', category: 'Direct', formula: ['Day 1 → Day 10 audited'], desc: 'Value of trusted Opening Balance Sheets within weeks.' }
+        ]
+      }
+    },
+    operationalPov: {
+      createValue: {
+        title: 'Entity Onboarding',
+        pains: [
+          'Manual CoA mapping during critical transition windows.',
+          'Reconciling fragmented target systems during integration.',
+          'Operational chaos during the most critical First 100 Days.',
+          'Inconsistent financial policies across newly merged teams.'
+        ],
+        focus: 'Operational chaos during the critical deal transition period.'
+      },
+      captureValue: {
+        title: 'Discovery Questions',
+        questions: [
+          'How do you verify opening balance sheet integrity today?',
+          'How long does it take to train target teams on your standards?',
+          'Do you have a repeatable playbook for new entity close?',
+          'How many "late corrections" are needed for new subsidiaries?'
+        ]
+      },
+      deliverValue: {
+        title: 'Tactical Capability',
+        capabilities: [
+          'ERP-Agnostic Reconciliations for any target system.',
+          'AI-supported Automated Chart of Accounts Mapping Agents.',
+          'Unified Integration Dashboard for project teams.',
+          'Standardized journal workflows for newly acquired entities.'
+        ],
+        performanceStats: [
+          '90% reduction in manual data mapping and cleanup.',
+          'Zero reporting surprises post-acquisition at quarter-end.',
+          'Instant "on-rails" process for new staff.',
+          'Zero manual spreadsheet mapping for intercompany.'
+        ]
+      },
+      justifyValue: {
+        title: 'Efficiency Gains',
+        metrics: [
+          '60% reduction in integration labor requirements for leads.',
+          '100% control coverage on Day 1 for all assets.',
+          'Standardized global training curriculums for all levels.',
+          'Elimination of manual intercompany spreadsheet hell.'
+        ],
+        successStories: [
+          'Zurich achieved Month 1 visibility for 100% of new acquisitions.',
+          'Applied Day 1 controls to 5 global acquisitions simultaneously.'
+        ]
+      }
+    }
+  },
+  {
+    id: 'innovation',
+    title: 'Facilitating Innovation',
+    icon: 'Lightbulb',
+    heroMetric: '30% Capacity Freed',
+    summary: "Every company is trying to innovate, but finance is usually the handbrake. When your best analysts spend 90% of their month on ticking and tying, they aren't modeling your next market entry or ESG strategy. This is about reclaiming expensive brainpower and pointing it at high-ROI growth projects, moving finance from a back-office reporting shop to a growth engine.",
+    personas: FULL_SKO_PERSONAS,
+    executivePov: {
+      createValue: {
+        title: 'Strategic Agility',
+        pains: [
+          'Strategic growth projects delayed because Finance is buried in manual work.',
+          'Finance viewed as a cost center rather than a partner.',
+          'Inability to support new business data needs without adding headcount.',
+          'Inability to model "What-If" scenarios during close.'
+        ],
+        focus: 'Moving from a "Reporting Shop" to a high-impact partner.'
+      },
+      captureValue: {
+        title: 'Probing Questions',
+        questions: [
+          'What growth project would you start with 10 extra hours?',
+          'Is your team spending 90% of their month on ticking or thinking?',
+          'Can Finance support a new product launch in under 30 days?',
+          'How many decisions were delayed by "Books being open"?'
+        ]
+      },
+      deliverValue: {
+        title: 'Strategic Capability',
+        capabilities: [
+          'Automated Transaction Processing for standard events.',
+          'Dynamic Resource Allocation via task analytics.',
+          'One-Platform Scalability for ESG and non-financial data.',
+          'Scenario Modeling Hub for real-time business partnering.'
+        ],
+        performanceStats: [
+          'Automated processing of standard transactions.',
+          'Dynamic load balancing of tasks.',
+          'One-platform data ingestion for non-financials.',
+          'Instant scenario model generation.'
+        ]
+      },
+      justifyValue: {
+        title: 'The Hard Numbers',
+        metrics: [
+          'Direct ROI from previously stalled innovation initiatives.',
+          'Avoidance of third-party strategy consultant fees.',
+          'Acceleration of new market product launches worldwide.',
+          'Total reduction in "Data Janitorial" labor org-wide.'
+        ],
+        successStories: [
+          'Domino\'s reduced quarterly analyst call prep time by 40%.',
+          '30% of senior staff reallocated to strategic growth.',
+          'Accelerated delivery of strategic data projects by over 6 months.'
+        ]
+      },
+      roiCalculations: {
+        executive: [
+          { label: 'Strategic Capacity', category: 'Economic', formula: ['Senior Salary', '×', '30% Reallocation'], desc: 'Applying brainpower to high-growth ROI tasks.' },
+          { label: 'Market Entry Speed', category: 'Economic', formula: ['Revenue / Mo', '×', 'Months Saved'], desc: 'Value of accelerated time-to-market for new regions.' }
+        ],
+        operational: [
+          { label: 'Ad-hoc Redux', category: 'Direct', formula: ['Analyst Count', '×', 'Request Hours'], desc: 'Value of self-service reporting for business leads.' },
+          { label: 'Analysis Delta', category: 'Economic', formula: ['Hours Thinking', 'vs', 'Hours Ticking'], desc: 'Quantifying the shift from low-value to high-value brainpower.' }
+        ]
+      }
+    },
+    operationalPov: {
+      createValue: {
+        title: 'High-Value Work',
+        pains: [
+          'Career stagnation due to manual, repetitive data loops.',
+          'Analytical time sacrificed to manual data manipulation.',
+          'No time to investigate "Why" numbers moved, only "What".',
+          'Lack of platform to share strategic insights.'
+        ],
+        focus: 'Solving business problems rather than manual data cleaning.'
+      },
+      captureValue: {
+        title: 'Discovery Questions',
+        questions: [
+          'What % of work is thinking vs. low-level data prep?',
+          'Do you have time to explain Why numbers moved in Day 3?',
+          'How many "last minute requests" can you handle in close?',
+          'Are your business partners getting the "So What" from you?'
+        ]
+      },
+      deliverValue: {
+        title: 'Tactical Capability',
+        capabilities: [
+          'Unified Close Management Platform with live analytics.',
+          'One-Click Analytical Dashboards for business units.',
+          'Automated Variance Analysis identifying outliers early.',
+          'Natural language querying for instant data retrieval.'
+        ],
+        performanceStats: [
+          '100% elimination of redundant manual data entry tasks.',
+          'Real-time automated variance identification.',
+          'Instant retrieval of flux explanations.',
+          'Zero-touch dashboard updates.'
+        ]
+      },
+      justifyValue: {
+        title: 'Efficiency Gains',
+        metrics: [
+          '20+ hours per person month freed for partnering.',
+          'Improved forecast accuracy by 15% via better insight.',
+          'Significant reduction in average "Time-to-Insight" cycles.',
+          'Total visibility into drivers of variance across regions.'
+        ],
+        successStories: [
+          'Domino\'s shifted staff from 80% processing to 80% strategic analysis.',
+          '40% higher job satisfaction scores in post-impl surveys.'
+        ]
+      }
+    }
+  },
+  {
+    id: 'decision',
+    title: 'Real-Time Decision Making',
+    icon: 'Activity',
+    heroMetric: 'Day 1 Insights',
+    summary: "Leading a company on 2-week-old data is like driving with a blacked-out windshield. In today's market, speed is a competitive advantage. This is about moving from lagging reporting to leading insights. By delivering trusted numbers on Day 1, we give leadership the ability to course-correct mid-month, optimize OpEx, and react to market shifts before the competition.",
+    personas: FULL_SKO_PERSONAS,
+    executivePov: {
+      createValue: {
+        title: 'Agile Leadership',
+        pains: [
+          'Decisions are delayed because financial data is 2-3 weeks old.',
+          'Meetings wasted debating which data source is correct.',
+          'Reacting to market shifts 30 days too late for impact.',
+          'Lack of confidence in mid-month liquidity snapshots.'
+        ],
+        focus: 'Reacting to market shifts 30 days too late for maximum ROI.'
+      },
+      captureValue: {
+        title: 'Probing Questions',
+        questions: [
+          'Does your CEO trust the numbers on Day 1 of the month?',
+          'How much time is lost debating the "Source of Truth"?',
+          'Could you pivot marketing spend based on real-time cash?',
+          'Can you see the impact of currency fluctuations in real-time?'
+        ]
+      },
+      deliverValue: {
+        title: 'Strategic Capability',
+        capabilities: [
+          'Continuous Data Refresh from sub-ledger sources.',
+          'Executive Health Dashboards with drill-to-transaction.',
+          'Automated Narrative Generation explaining variances.',
+          'Predictive modeling for intra-month course correction.'
+        ],
+        performanceStats: [
+          '98%+ forecasting accuracy through live visibility.',
+          'Continuous data streaming from ERPs.',
+          'Instant drill-down to transaction level.',
+          'Automated narrative generation.'
+        ]
+      },
+      justifyValue: {
+        title: 'The Hard Numbers',
+        metrics: [
+          'Improved market response leading to share gains.',
+          'Avoidance of costly intra-quarter financial surprises.',
+          'Optimized resource allocation based on live cash data.',
+          'Reduced strategic forecasting cycle by over 50%.'
+        ],
+        successStories: [
+          'Hershey reduced reporting cycle from 15 days to under 3 days.',
+          'Reduction in quarterly prep time by over 50%.',
+          'Enabled Intra-Month course corrections for Operating Expense spend.'
+        ]
+      },
+      roiCalculations: {
+        executive: [
+          { label: 'Decision Velocity', category: 'Economic', formula: ['Revenue', '×', '1% Margin Gain'], desc: 'Impact of timely course-correction on annual profit.' },
+          { label: 'Inventory Holding Redux', category: 'Economic', formula: ['Inventory Value', '×', 'WACC %'], desc: 'Savings from better demand-supply alignment via live cash visibility.' }
+        ],
+        operational: [
+          { label: 'Rework Redux', category: 'Direct', formula: ['Error Count', '×', 'Correction Time'], desc: 'Eliminating the "Day 12" variance drill and rework.' },
+          { label: 'Variance Velocity', category: 'Direct', formula: ['Requests', '×', 'Research Hours'], desc: 'Value of instant drill-down for root cause analysis.' }
+        ]
+      }
+    },
+    operationalPov: {
+      createValue: {
+        title: 'Insight Delivery',
+        pains: [
+          'Team spending 90% of time cleaning data vs. explaining.',
+          'Manual Excel manipulation delaying monthly reports.',
+          'Lack of drill-down capability from report to journal entry.',
+          'Inability to provide "Flash" results during the close.'
+        ],
+        focus: 'Analysis time sacrificed to manipulation and cleaning of Dirty Data.'
+      },
+      captureValue: {
+        title: 'Discovery Questions',
+        questions: [
+          'How many different sources of truth exist today?',
+          'What is the risk of a decision based on un-reconciled data?',
+          'How long does it take to explain a $1M variance today?',
+          'How many versions of "The Number" exist during close?'
+        ]
+      },
+      deliverValue: {
+        title: 'Tactical Capability',
+        capabilities: [
+          'Anomaly Detection AI identifying variance early.',
+          'Unified Reporting Layer across all legal entities.',
+          'Real-time Variance Workflows for instant explanation.',
+          'Direct GL-to-Report automated mapping architecture.'
+        ],
+        performanceStats: [
+          'Real-time highlighting of variances for immediate review.',
+          'Zero manual data cleaning; analysis starts immediately.',
+          'Automated flux report generation.',
+          'Instant anomaly detection alerts.'
+        ]
+      },
+      justifyValue: {
+        title: 'Efficiency Gains',
+        metrics: [
+          'Shifted to 100% proactive analysis of business data.',
+          'Elimination of rework from conflicting data sources.',
+          'Zero manual cleaning; analysis starts on Day 1.',
+          'Significant improvement in data reliability scores.'
+        ],
+        successStories: [
+          'Hershey achieved 80% faster generation of board packages.',
+          'Direct audit reliance on system-generated flux reports.'
+        ]
+      }
+    }
+  },
+  {
+    id: 'compliance',
+    title: 'Regulatory Compliance',
+    icon: 'FileText',
+    heroMetric: '$1-5M Fine Avoidance',
+    summary: "Regulatory pressure is non-stop, and manual compliance is a massive drain. If compliance is a 'drill' that happens once a quarter, you're at risk. This is about making compliance a touchless by-product of your daily process. When controls are automated and evidence is digital, you don't just avoid fines; you reclaim the thousands of hours your team currently spends on audit support.",
+    personas: FULL_SKO_PERSONAS,
+    executivePov: {
+      createValue: {
+        title: 'Risk Mitigation',
+        pains: [
+          'Exposure to massive public fines for reporting failures.',
+          'Constant struggle to keep up with changing global regulations (Tax, Statutory).',
+          'Reputational damage of a public compliance breach.',
+          'Board lacks confidence in control coverage across remote entities.'
+        ],
+        focus: 'Reputational and financial damage of a global compliance breach.'
+      },
+      captureValue: {
+        title: 'Probing Questions',
+        questions: [
+          'How are you preparing for rigorous transparency rules?',
+          'Can you guarantee 100% control coverage across transactions?',
+          'How much do you spend on compliance consultants annually?',
+          'How many "un-monitored" entities are in your portfolio?'
+        ]
+      },
+      deliverValue: {
+        title: 'Strategic Capability',
+        capabilities: [
+          'Continuous Monitoring Hub for all global control states.',
+          'Automated SOX Frameworks built into the workflow.',
+          'Cloud-native Governance with zero local debt.',
+          'Systemic enforcement of Segregation of Duties (SoD).'
+        ],
+        performanceStats: [
+          'Validated 100% control coverage for 100% of revenue.',
+          'Real-time automated evidence collection.',
+          'Systemic enforcement of SoD.',
+          'Instant global compliance visibility.'
+        ]
+      },
+      justifyValue: {
+        title: 'The Hard Numbers',
+        metrics: [
+          'Total quantifiable fine avoidance value for the board.',
+          'Significant reduction in 3rd party audit consultant hours.',
+          'Lower cost of insurance via Best-in-Class governance.',
+          'Total reduction in internal control testing labor costs.'
+        ],
+        successStories: [
+          'Coca-Cola achieved 6.0x ROI via reduction in external audit fees.',
+          'Estimated $1M-$5M fine avoidance for global firms.',
+          'Navigated 5+ global regulatory shifts with zero rework.'
+        ]
+      },
+      roiCalculations: {
+        executive: [
+          { label: 'Audit Fee Redux', category: 'Direct', formula: ['Audit Fee', '×', '25% Reduction'], desc: 'Direct reduction in third-party assurance costs.' },
+          { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
+        ],
+        operational: [
+          { label: 'Evidence Gathering', category: 'Direct', formula: ['Entities', '×', 'Hours Saved'], desc: 'Automating the SOX evidence gathering drill.' },
+          { label: 'Testing Labor Redux', category: 'Direct', formula: ['Controls Count', '×', 'Testing Time'], desc: 'Reclaiming time from internal audit and control testing teams.' }
+        ]
+      }
+    },
+    operationalPov: {
+      createValue: {
+        title: 'Compliance Execution',
+        pains: [
+          'Manual log review to find unauthorized access/conflicts.',
+          'Static checklists offering zero status visibility.',
+          'Manual evidence gathering for hundreds of controls.',
+          'Inability to track multi-jurisdictional changes manually.'
+        ],
+        focus: 'Compliance as a natural, verified by-product of daily work.'
+      },
+      captureValue: {
+        title: 'Discovery Questions',
+        questions: [
+          'How many exceptions were found in your last audit cycle?',
+          'Are your checklists static files or live digital workflows?',
+          'Do you have a single repository for all control evidence?',
+          'How many staff are purely focused on "compliance chasing"?'
+        ]
+      },
+      deliverValue: {
+        title: 'Tactical Capability',
+        capabilities: [
+          'Real-time Exception Tracking identifying errors instantly.',
+          'Built-in Data Connectors for automated collection.',
+          'Digital Signature providing audit proof.',
+          'Systemic lock-down of periods preventing back-posting.'
+        ],
+        performanceStats: [
+          'Real-time "Audit-Ready" state maintained all year.',
+          'Zero manual testing for 70% of standard controls.',
+          'Automated data connection and evidence logging.',
+          'Instant exception alerts.'
+        ]
+      },
+      justifyValue: {
+        title: 'Efficiency Gains',
+        metrics: [
+          'Saved 200+ hours per business unit via automation.',
+          'Zero manual testing for 70% of financial controls.',
+          'Real-time readiness for any regulatory inquiries.',
+          'Consistent audit experience for partners worldwide.'
+        ],
+        successStories: [
+          'Coca-Cola collected 100% of SOX evidence automatically.',
+          '80% reduction in manual control testing time.'
         ]
       }
     }
@@ -558,11 +1158,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Global Governance Hub',
           'Real-time Flux Analysis for predictive risk identification.'
         ],
-        proofPoints: [
-          'Zero audit findings across 40+ complex global entities (e.g. eBay).',
-          'Up to 15% valuation premium for reliable reporting.',
+        performanceStats: [
+          'Validated data lineage for every balance sheet line item.',
           'Auditor "Self-Service" reducing business disruption.',
-          'Validated data lineage for every balance sheet line item.'
+          'Automated internal control monitoring.',
+          'Real-time risk identification.'
         ]
       },
       justifyValue: {
@@ -572,6 +1172,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           '25% reduction in external billable audit support fees.',
           'Lower cost of capital via reduced risk profiles.',
           'Total elimination of manual spreadsheet-based control risk.'
+        ],
+        successStories: [
+          'eBay had zero audit findings across 40+ complex global entities.',
+          'Up to 15% valuation premium for reliable reporting.'
         ]
       },
       roiCalculations: {
@@ -614,11 +1218,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Automated Flux Analysis identifying risk before audit.',
           'Digital Signature workflows for 100% accountability.'
         ],
-        proofPoints: [
-          '100% automated SOX evidence collection and storage (e.g. eBay).',
-          '75% reduction in audit support time for leads.',
+        performanceStats: [
           '99.9% accuracy with zero adjustments post-close.',
-          'Continuous audit-ready state 365 days a year.'
+          'Continuous audit-ready state 365 days a year.',
+          '100% data lineage and transaction visibility.',
+          'Automated evidence collection.'
         ]
       },
       justifyValue: {
@@ -628,545 +1232,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Consistent reporting standards regardless of staff turnover.',
           '100% data lineage and transaction visibility for leads.',
           'Automated "Continuous Audit" status for all legal entities.'
-        ]
-      }
-    }
-  },
-  {
-    id: 'ma',
-    title: 'M&A Integration Velocity',
-    icon: 'GitMerge',
-    heroMetric: '3x Faster Synergy',
-    summary: "Deals are won or lost in the first 100 days. If you can't see the target's balance sheet risk or integrate their data on Day 1, synergies leak and ROI drops. This is about creating a repeatable 'integration engine' that allows you to scale M&A without increasing headcount, ensuring every deal hits its model targets faster.",
-    personas: FULL_SKO_PERSONAS,
-    executivePov: {
-      createValue: {
-        title: 'Synergy Realization',
-        pains: [
-          'Market punishment due to slow integration visibility.',
-          'Lack of visibility into acquired entity financials leads to surprise risks.',
-          'Integration costs exceeding deal model assumptions.',
-          'Deal value erodes while targets remain on legacy systems.'
         ],
-        focus: 'The high strategic cost of fragmented visibility in high-stakes deals.'
-      },
-      captureValue: {
-        title: 'Probing Questions',
-        questions: [
-          'How long until you get a trusted close after Day 1?',
-          'What is the value of capturing synergies 6 months earlier?',
-          'Can you see the target balance sheet risk pre-acquisition?',
-          'How many "different ways of closing" are in your portfolio?'
-        ]
-      },
-      deliverValue: {
-        title: 'Strategic Capability',
-        capabilities: [
-          'Standardized M&A Playbook for Day 1 entity onboarding.',
-          'Cross-ERP Connectivity Layer unifying data streams.',
-          'Automated Verification Engine for opening balance sheets.',
-          'Intercompany Hub for global entity settlement rules.'
-        ],
-        proofPoints: [
-          'Integration cycle time reduced by 3x compared to legacy (e.g. Zurich).',
-          'Full financial visibility within 30 days of Day 1 closure.',
-          'Integrated 10+ acquisitions without increasing overhead.',
-          'Acceleration of deal model validation by over 4 months.'
-        ]
-      },
-      justifyValue: {
-        title: 'The Hard Numbers',
-        metrics: [
-          'Millions in accelerated synergy value across the portfolio.',
-          'Reduced integration-specific labor and consultant costs.',
-          'Immediate 100% control coverage for newly acquired assets.',
-          'Minimized integration execution risk in high-growth deals.'
-        ]
-      },
-      roiCalculations: {
-        executive: [
-          { label: 'Synergy Velocity', category: 'Economic', formula: ['Deal Value', '×', 'Months Saved', '×', 'ROI'], desc: 'Quantifying the time-value of money for synergies.' },
-          { label: 'Integration Labor Redux', category: 'Direct', formula: ['Target Full-Time Employees', '×', 'Manual % Redux'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
-        ],
-        operational: [
-          { label: 'Audit Ready Velocity', category: 'Direct', formula: ['Day 1 → Day 10 audited'], desc: 'Value of trusted Opening Balance Sheets within weeks.' }
-        ]
-      }
-    },
-    operationalPov: {
-      createValue: {
-        title: 'Entity Onboarding',
-        pains: [
-          'Manual CoA mapping during critical transition windows.',
-          'Reconciling fragmented target systems during integration.',
-          'Operational chaos during the most critical First 100 Days.',
-          'Inconsistent financial policies across newly merged teams.'
-        ],
-        focus: 'Operational chaos during the critical deal transition period.'
-      },
-      captureValue: {
-        title: 'Discovery Questions',
-        questions: [
-          'How do you verify opening balance sheet integrity today?',
-          'How long does it take to train target teams on your standards?',
-          'Do you have a repeatable playbook for new entity close?',
-          'How many "late corrections" are needed for new subsidiaries?'
-        ]
-      },
-      deliverValue: {
-        title: 'Tactical Capability',
-        capabilities: [
-          'ERP-Agnostic Reconciliations for any target system.',
-          'AI-supported Automated Chart of Accounts Mapping Agents.',
-          'Unified Integration Dashboard for project teams.',
-          'Standardized journal workflows for newly acquired entities.'
-        ],
-        proofPoints: [
-          'Month 1 visibility for 100% of new global acquisitions (e.g. Zurich).',
-          'Process deployed to new entities in under 15 business days.',
-          '90% reduction in manual data mapping and cleanup.',
-          'Zero reporting surprises post-acquisition at quarter-end.'
-        ]
-      },
-      justifyValue: {
-        title: 'Efficiency Gains',
-        metrics: [
-          '60% reduction in integration labor requirements for leads.',
-          '100% control coverage on Day 1 for all assets.',
-          'Standardized global training curriculums for all levels.',
-          'Elimination of manual intercompany spreadsheet hell.'
-        ]
-      }
-    }
-  },
-  {
-    id: 'talent',
-    title: 'Talent Retention & Engagement',
-    icon: 'Users',
-    heroMetric: 'Retention > 92%',
-    summary: "The war for finance talent is over—talent won. If your team is spending 80% of their time on manual data janitorial work, your best people will leave for firms that prioritize analysis. Replacing a senior accountant costs 1.5x their salary. This is about upskilling your team and making finance a high-engagement 'think tank' rather than a data entry factory.",
-    personas: FULL_SKO_PERSONAS,
-    executivePov: {
-      createValue: {
-        title: 'Talent Crisis',
-        pains: [
-          'Attrition at all levels creates disruption and loss of organizational knowledge.',
-          'Manual work creates a talent tax that reduces value of what is produced.',
-          'University hires leaving to companies that provide roles where employees help make positive impacts to the business.',
-          'Burnout Culture becomes the brand of the internal and external view.'
-        ],
-        focus: 'The multi-million dollar talent tax on repetitive manual work.'
-      },
-      captureValue: {
-        title: 'Probing Questions',
-        questions: [
-          'What is the loaded cost of losing your top 10% of talent?',
-          'Does your tech stack attract or repel modern university hires?',
-          'What percentage of staff leave due to "peak period burnout"?',
-          'Could you close the books if your lead Controller left today?'
-        ]
-      },
-      deliverValue: {
-        title: 'Strategic Capability',
-        capabilities: [
-          'Consumer-Grade User Experience for professionals.',
-          'Remote/Hybrid Close Enablement for talent flexibility.',
-          'Value-added Career Paths focusing on business strategy.',
-          'Intelligent load balancing across global finance teams.'
-        ],
-        proofPoints: [
-          'Retention rates improved from 85% to over 92% annually.',
-          'Finance engagement scores outperforming company average (e.g. TechFlow).',
-          'Onboarding time reduced from 3 months to under 2 weeks.',
-          'Reduction in staff burnout reports by over 60%.'
-        ]
-      },
-      justifyValue: {
-        title: 'The Hard Numbers',
-        metrics: [
-          'Recruitment savings ($500K+ per senior management hire).',
-          'Preservation of critical institutional process knowledge.',
-          'Significantly improved eNPS scores across the Finance org.',
-          'Reduced reliance on high-cost temp and contractor labor.'
-        ]
-      },
-      roiCalculations: {
-        executive: [
-          { label: 'Replacement Redux', category: 'Economic', formula: ['Turnover %', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
-          { label: 'Recruiting Fee Savings', category: 'Direct', formula: ['Hires', '×', 'Agency Fee'], desc: 'Direct saving on 25% agency fees via internal career mobility.' }
-        ],
-        operational: [
-          { label: 'Temp Labor Redux', category: 'Direct', formula: ['Peak Hours', '×', 'Premium Rate'], desc: 'Eliminating peak-cycle contractor spend.' },
-          { label: 'Training Velocity', category: 'Direct', formula: ['Weeks Saved', '×', 'Manager Salary'], desc: 'Value of reduced manual oversight for new hires.' }
-        ]
-      }
-    },
-    operationalPov: {
-      createValue: {
-        title: 'Employee Experience',
-        pains: [
-          'Acute burnout from extreme fatigue and repetitive cycles.',
-          'Legacy tools that don\'t support modern collaborative work.',
-          'Low engagement leading to preventable manual errors.',
-          'Time spent on "ticking and tying" instead of analyzing.'
-        ],
-        focus: 'Preventing low engagement and preventable close-related errors.'
-      },
-      captureValue: {
-        title: 'Discovery Questions',
-        questions: [
-          'Does your team work more than 2 weekends a month during close?',
-          'How long does it take to train a new hire on your manuals?',
-          'What is the #1 complaint in your team engagement surveys?',
-          'Do your analysts feel they are "learning" or "just processing"?'
-        ]
-      },
-      deliverValue: {
-        title: 'Tactical Capability',
-        capabilities: [
-          'Automated Journal Workflows reducing manual input time.',
-          'Intuitive Integrated Cloud Workspace for global teams.',
-          'Real-time Task Guidance for faster onboarding.',
-          'Social collaboration tools for real-time problem solving.'
-        ],
-        proofPoints: [
-          '90% reduction in close-related overtime for staff (e.g. TechFlow).',
-          'Onboarding time reduced by 70% for new finance hires.',
-          'Significant reduction in stress-related absence.',
-          '100% adoption of analytical tools by data entry staff.'
-        ]
-      },
-      justifyValue: {
-        title: 'Efficiency Gains',
-        metrics: [
-          '15% improvement in overall team daily productivity.',
-          'Digitized process documentation for 100% continuity.',
-          'Standardized global training curriculums for all levels.',
-          'Improved job satisfaction and work-life balance metrics.'
-        ]
-      }
-    }
-  },
-  {
-    id: 'innovation',
-    title: 'Facilitating Innovation',
-    icon: 'Lightbulb',
-    heroMetric: '30% Capacity Freed',
-    summary: "Every company is trying to innovate, but finance is usually the handbrake. When your best analysts spend 90% of their month on ticking and tying, they aren't modeling your next market entry or ESG strategy. This is about reclaiming expensive brainpower and pointing it at high-ROI growth projects, moving finance from a back-office reporting shop to a growth engine.",
-    personas: FULL_SKO_PERSONAS,
-    executivePov: {
-      createValue: {
-        title: 'Strategic Agility',
-        pains: [
-          'Strategic growth projects delayed because Finance is buried in manual work.',
-          'Finance viewed as a cost center rather than a partner.',
-          'Inability to support new business data needs without adding headcount.',
-          'Inability to model "What-If" scenarios during close.'
-        ],
-        focus: 'Moving from a "Reporting Shop" to a high-impact partner.'
-      },
-      captureValue: {
-        title: 'Probing Questions',
-        questions: [
-          'What growth project would you start with 10 extra hours?',
-          'Is your team spending 90% of their month on ticking or thinking?',
-          'Can Finance support a new product launch in under 30 days?',
-          'How many decisions were delayed by "Books being open"?'
-        ]
-      },
-      deliverValue: {
-        title: 'Strategic Capability',
-        capabilities: [
-          'Automated Transaction Processing for standard events.',
-          'Dynamic Resource Allocation via task analytics.',
-          'One-Platform Scalability for ESG and non-financial data.',
-          'Scenario Modeling Hub for real-time business partnering.'
-        ],
-        proofPoints: [
-          'Reduction in quarterly analyst call prep time by 40% (e.g. Domino\'s).',
-          '30% of senior staff reallocated to strategic growth.',
-          'Accelerated delivery of strategic data projects by over 6 months.',
-          'Scaled 3 new market entries without increasing headcount.'
-        ]
-      },
-      justifyValue: {
-        title: 'The Hard Numbers',
-        metrics: [
-          'Direct ROI from previously stalled innovation initiatives.',
-          'Avoidance of third-party strategy consultant fees.',
-          'Acceleration of new market product launches worldwide.',
-          'Total reduction in "Data Janitorial" labor org-wide.'
-        ]
-      },
-      roiCalculations: {
-        executive: [
-          { label: 'Strategic Capacity', category: 'Economic', formula: ['Senior Salary', '×', '30% Reallocation'], desc: 'Applying brainpower to high-growth ROI tasks.' },
-          { label: 'Market Entry Speed', category: 'Economic', formula: ['Revenue / Mo', '×', 'Months Saved'], desc: 'Value of accelerated time-to-market for new regions.' }
-        ],
-        operational: [
-          { label: 'Ad-hoc Redux', category: 'Direct', formula: ['Analyst Count', '×', 'Request Hours'], desc: 'Value of self-service reporting for business leads.' },
-          { label: 'Analysis Delta', category: 'Economic', formula: ['Hours Thinking', 'vs', 'Hours Ticking'], desc: 'Quantifying the shift from low-value to high-value brainpower.' }
-        ]
-      }
-    },
-    operationalPov: {
-      createValue: {
-        title: 'High-Value Work',
-        pains: [
-          'Career stagnation due to manual, repetitive data loops.',
-          'Analytical time sacrificed to manual data manipulation.',
-          'No time to investigate "Why" numbers moved, only "What".',
-          'Lack of platform to share strategic insights.'
-        ],
-        focus: 'Solving business problems rather than manual data cleaning.'
-      },
-      captureValue: {
-        title: 'Discovery Questions',
-        questions: [
-          'What % of work is thinking vs. low-level data prep?',
-          'Do you have time to explain Why numbers moved in Day 3?',
-          'How many "last minute requests" can you handle in close?',
-          'Are your business partners getting the "So What" from you?'
-        ]
-      },
-      deliverValue: {
-        title: 'Tactical Capability',
-        capabilities: [
-          'Unified Close Management Platform with live analytics.',
-          'One-Click Analytical Dashboards for business units.',
-          'Automated Variance Analysis identifying outliers early.',
-          'Natural language querying for instant data retrieval.'
-        ],
-        proofPoints: [
-          'Staff shift from 80% processing to 80% strategic analysis (e.g. Domino\'s).',
-          '100% elimination of redundant manual data entry tasks.',
-          '40% higher job satisfaction scores in post-impl surveys.',
-          'Significant increase in finance-led recommendations.'
-        ]
-      },
-      justifyValue: {
-        title: 'Efficiency Gains',
-        metrics: [
-          '20+ hours per person month freed for partnering.',
-          'Improved forecast accuracy by 15% via better insight.',
-          'Significant reduction in average "Time-to-Insight" cycles.',
-          'Total visibility into drivers of variance across regions.'
-        ]
-      }
-    }
-  },
-  {
-    id: 'compliance',
-    title: 'Regulatory Compliance',
-    icon: 'FileText',
-    heroMetric: '$1-5M Fine Avoidance',
-    summary: "Regulatory pressure is non-stop, and manual compliance is a massive drain. If compliance is a 'drill' that happens once a quarter, you're at risk. This is about making compliance a touchless by-product of your daily process. When controls are automated and evidence is digital, you don't just avoid fines; you reclaim the thousands of hours your team currently spends on audit support.",
-    personas: FULL_SKO_PERSONAS,
-    executivePov: {
-      createValue: {
-        title: 'Risk Mitigation',
-        pains: [
-          'Exposure to massive public fines for reporting failures.',
-          'Constant struggle to keep up with changing global regulations (Tax, Statutory).',
-          'Reputational damage of a public compliance breach.',
-          'Board lacks confidence in control coverage across remote entities.'
-        ],
-        focus: 'Reputational and financial damage of a global compliance breach.'
-      },
-      captureValue: {
-        title: 'Probing Questions',
-        questions: [
-          'How are you preparing for rigorous transparency rules?',
-          'Can you guarantee 100% control coverage across transactions?',
-          'How much do you spend on compliance consultants annually?',
-          'How many "un-monitored" entities are in your portfolio?'
-        ]
-      },
-      deliverValue: {
-        title: 'Strategic Capability',
-        capabilities: [
-          'Continuous Monitoring Hub for all global control states.',
-          'Automated SOX Frameworks built into the workflow.',
-          'Cloud-native Governance with zero local debt.',
-          'Systemic enforcement of Segregation of Duties (SoD).'
-        ],
-        proofPoints: [
-          '6.0x ROI via reduction in external audit fees (e.g. Coca-Cola).',
-          'Estimated $1M-$5M fine avoidance for global firms.',
-          'Navigated 5+ global regulatory shifts with zero rework.',
-          'Validated 100% control coverage for 100% of revenue.'
-        ]
-      },
-      justifyValue: {
-        title: 'The Hard Numbers',
-        metrics: [
-          'Total quantifiable fine avoidance value for the board.',
-          'Significant reduction in 3rd party audit consultant hours.',
-          'Lower cost of insurance via Best-in-Class governance.',
-          'Total reduction in internal control testing labor costs.'
-        ]
-      },
-      roiCalculations: {
-        executive: [
-          { label: 'Audit Fee Redux', category: 'Direct', formula: ['Audit Fee', '×', '25% Reduction'], desc: 'Direct reduction in third-party assurance costs.' },
-          { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
-        ],
-        operational: [
-          { label: 'Evidence Gathering', category: 'Direct', formula: ['Entities', '×', 'Hours Saved'], desc: 'Automating the SOX evidence gathering drill.' },
-          { label: 'Testing Labor Redux', category: 'Direct', formula: ['Controls Count', '×', 'Testing Time'], desc: 'Reclaiming time from internal audit and control testing teams.' }
-        ]
-      }
-    },
-    operationalPov: {
-      createValue: {
-        title: 'Compliance Execution',
-        pains: [
-          'Manual log review to find unauthorized access/conflicts.',
-          'Static checklists offering zero status visibility.',
-          'Manual evidence gathering for hundreds of controls.',
-          'Inability to track multi-jurisdictional changes manually.'
-        ],
-        focus: 'Compliance as a natural, verified by-product of daily work.'
-      },
-      captureValue: {
-        title: 'Discovery Questions',
-        questions: [
-          'How many exceptions were found in your last audit cycle?',
-          'Are your checklists static files or live digital workflows?',
-          'Do you have a single repository for all control evidence?',
-          'How many staff are purely focused on "compliance chasing"?'
-        ]
-      },
-      deliverValue: {
-        title: 'Tactical Capability',
-        capabilities: [
-          'Real-time Exception Tracking identifying errors instantly.',
-          'Built-in Data Connectors for automated collection.',
-          'Digital Signature providing audit proof.',
-          'Systemic lock-down of periods preventing back-posting.'
-        ],
-        proofPoints: [
-          '100% of SOX evidence collected automatically (e.g. Coca-Cola).',
-          '80% reduction in manual control testing time.',
-          'Real-time "Audit-Ready" state maintained all year.',
-          'Zero manual testing for 70% of standard controls.'
-        ]
-      },
-      justifyValue: {
-        title: 'Efficiency Gains',
-        metrics: [
-          'Saved 200+ hours per business unit via automation.',
-          'Zero manual testing for 70% of financial controls.',
-          'Real-time readiness for any regulatory inquiries.',
-          'Consistent audit experience for partners worldwide.'
-        ]
-      }
-    }
-  },
-  {
-    id: 'decision',
-    title: 'Real-Time Decision Making',
-    icon: 'Activity',
-    heroMetric: 'Day 1 Insights',
-    summary: "Leading a company on 2-week-old data is like driving with a blacked-out windshield. In today's market, speed is a competitive advantage. This is about moving from lagging reporting to leading insights. By delivering trusted numbers on Day 1, we give leadership the ability to course-correct mid-month, optimize OpEx, and react to market shifts before the competition.",
-    personas: FULL_SKO_PERSONAS,
-    executivePov: {
-      createValue: {
-        title: 'Agile Leadership',
-        pains: [
-          'Decisions are delayed because financial data is 2-3 weeks old.',
-          'Meetings wasted debating which data source is correct.',
-          'Reacting to market shifts 30 days too late for impact.',
-          'Lack of confidence in mid-month liquidity snapshots.'
-        ],
-        focus: 'Reacting to market shifts 30 days too late for maximum ROI.'
-      },
-      captureValue: {
-        title: 'Probing Questions',
-        questions: [
-          'Does your CEO trust the numbers on Day 1 of the month?',
-          'How much time is lost debating the "Source of Truth"?',
-          'Could you pivot marketing spend based on real-time cash?',
-          'Can you see the impact of currency fluctuations in real-time?'
-        ]
-      },
-      deliverValue: {
-        title: 'Strategic Capability',
-        capabilities: [
-          'Continuous Data Refresh from sub-ledger sources.',
-          'Executive Health Dashboards with drill-to-transaction.',
-          'Automated Narrative Generation explaining variances.',
-          'Predictive modeling for intra-month course correction.'
-        ],
-        proofPoints: [
-          'Reporting cycle reduced from 15 days to under 3 days (e.g. Hershey).',
-          '98%+ forecasting accuracy through live visibility.',
-          'Enabled Intra-Month course corrections for Operating Expense spend.',
-          'Reduction in quarterly prep time by over 50%.'
-        ]
-      },
-      justifyValue: {
-        title: 'The Hard Numbers',
-        metrics: [
-          'Improved market response leading to share gains.',
-          'Avoidance of costly intra-quarter financial surprises.',
-          'Optimized resource allocation based on live cash data.',
-          'Reduced strategic forecasting cycle by over 50%.'
-        ]
-      },
-      roiCalculations: {
-        executive: [
-          { label: 'Decision Velocity', category: 'Economic', formula: ['Revenue', '×', '1% Margin Gain'], desc: 'Impact of timely course-correction on annual profit.' },
-          { label: 'Inventory Holding Redux', category: 'Economic', formula: ['Inventory Value', '×', 'WACC %'], desc: 'Savings from better demand-supply alignment via live cash visibility.' }
-        ],
-        operational: [
-          { label: 'Rework Redux', category: 'Direct', formula: ['Error Count', '×', 'Correction Time'], desc: 'Eliminating the "Day 12" variance drill and rework.' },
-          { label: 'Variance Velocity', category: 'Direct', formula: ['Requests', '×', 'Research Hours'], desc: 'Value of instant drill-down for root cause analysis.' }
-        ]
-      }
-    },
-    operationalPov: {
-      createValue: {
-        title: 'Insight Delivery',
-        pains: [
-          'Team spending 90% of time cleaning data vs. explaining.',
-          'Manual Excel manipulation delaying monthly reports.',
-          'Lack of drill-down capability from report to journal entry.',
-          'Inability to provide "Flash" results during the close.'
-        ],
-        focus: 'Analysis time sacrificed to manipulation and cleaning of Dirty Data.'
-      },
-      captureValue: {
-        title: 'Discovery Questions',
-        questions: [
-          'How many different sources of truth exist today?',
-          'What is the risk of a decision based on un-reconciled data?',
-          'How long does it take to explain a $1M variance today?',
-          'How many versions of "The Number" exist during close?'
-        ]
-      },
-      deliverValue: {
-        title: 'Tactical Capability',
-        capabilities: [
-          'Anomaly Detection AI identifying variance early.',
-          'Unified Reporting Layer across all legal entities.',
-          'Real-time Variance Workflows for instant explanation.',
-          'Direct GL-to-Report automated mapping architecture.'
-        ],
-        proofPoints: [
-          '80% faster generation of board management packages (e.g. Hershey).',
-          'Real-time highlighting of variances for immediate review.',
-          'Zero manual data cleaning; analysis starts immediately.',
-          'Direct audit reliance on system-generated flux reports.'
-        ]
-      },
-      justifyValue: {
-        title: 'Efficiency Gains',
-        metrics: [
-          'Shifted to 100% proactive analysis of business data.',
-          'Elimination of rework from conflicting data sources.',
-          'Zero manual cleaning; analysis starts on Day 1.',
-          'Significant improvement in data reliability scores.'
+        successStories: [
+          'eBay achieved 100% automated SOX evidence collection and storage.',
+          '75% reduction in audit support time for leads.'
         ]
       }
     }
@@ -1206,11 +1275,11 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Automated Data Stewardship ensuring constant clean state.',
           'AI Governance Layer for verifiable automated journals.'
         ],
-        proofPoints: [
-          'AI accuracy increased by 40% on the BlackLine platform (Early Adopter Benchmark).',
-          '70% faster scaling of strategic AI use-cases.',
+        performanceStats: [
           '99.9% clean, standardized data across multiple ERPs.',
-          'Automated creation of 40% of standard journal entries.'
+          'Automated creation of 40% of standard journal entries.',
+          'Automated data stewardship.',
+          'Verifiable AI governance.'
         ]
       },
       justifyValue: {
@@ -1220,6 +1289,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           '30% reduction in manual data cleaning labor costs.',
           'Measurable accounting accuracy gains via AI validation.',
           'Future-proofed AI governance framework for Finance.'
+        ],
+        successStories: [
+          'AI accuracy increased by 40% on the BlackLine platform (Early Adopter Benchmark).',
+          '70% faster scaling of strategic AI use-cases.'
         ]
       },
       roiCalculations: {
@@ -1258,14 +1331,14 @@ export const SKO_DATA: SkoDriverDetail[] = [
         capabilities: [
           'Self-cleaning Data Pipelines for high-volume transactions.',
           'Predictive Accounting Agents identifying flux outliers.',
-          'Natural Language Querying for non-technical users.',
+          'Natural language querying for non-technical users.',
           'AI-assisted account reconciliation research agents.'
         ],
-        proofPoints: [
-          'AI accuracy increased by 40% on the BlackLine platform (Early Adopter Benchmark).',
-          '90% reduction in manual data prep for reporting leads.',
+        performanceStats: [
           'Zero-manual-touch for 40% of standard intercompany posts.',
-          'Total elimination of manual data re-formatting for AI.'
+          'Total elimination of manual data re-formatting for AI.',
+          'Self-cleaning data pipelines.',
+          'Instant natural language query results.'
         ]
       },
       justifyValue: {
@@ -1275,6 +1348,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           '100% elimination of manual data re-formatting for AI.',
           'Consistent data integrity ensuring long-term AI trust.',
           'Enabled autonomous execution of repetitive close steps.'
+        ],
+        successStories: [
+          '90% reduction in manual data prep for reporting leads.',
+          'AI accuracy increased by 40% on the BlackLine platform.'
         ]
       }
     }
