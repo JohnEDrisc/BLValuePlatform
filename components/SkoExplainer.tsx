@@ -300,7 +300,8 @@ const CapabilityStack = ({ items }: { items: string[] }) => (
                 </span>
             </div>
         ))}
-        <div className="text-center text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-1">Tech Stack Foundation</div>
+        {/* UPDATED: Lighter text color for better readability */}
+        <div className="text-center text-[10px] font-black uppercase text-zinc-400 tracking-widest mb-1">Tech Stack Foundation</div>
     </div>
 );
 
@@ -640,7 +641,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <p className="text-blackline-yellow text-xs font-black uppercase tracking-widest mb-6">Map Outcomes</p>
                           <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
                       </div>
-                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
+                      {/* UPDATED: Lighter text for better readability */}
+                      <p className="text-white font-medium text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
                   </div>
               </div>
               
@@ -662,13 +664,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="text-purple-500 font-black text-4xl mb-4">05</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Quantify Value</h3>
                           <p className="text-purple-400 text-xs font-black uppercase tracking-widest mb-6">Calculate ROI</p>
-                          <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700">
+                          {/* UPDATED: Added mx-auto to center the box horizontally */}
+                          <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700 mx-auto">
                               <Coins className="text-blackline-yellow mx-auto mb-2" />
                               <span className="text-white font-mono text-xl">$2.5M</span>
-                              <p className="text-[10px] text-zinc-500 uppercase mt-1">Projected Savings</p>
+                              <p className="text-[10px] text-zinc-300 uppercase mt-1">Projected Savings</p>
                           </div>
                       </div>
-                      <p className="text-zinc-100 text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact and other economic benefits that the CFO can validate and defend.</p>
+                      {/* UPDATED: Lighter text for better readability */}
+                      <p className="text-white font-medium text-sm mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact and other economic benefits that the CFO can validate and defend.</p>
                   </div>
               </div>
            </div>
