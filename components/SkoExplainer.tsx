@@ -614,9 +614,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="text-red-500 font-black text-4xl mb-4">01</div>
                           <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Create Value</h3>
                           <p className="text-red-400 text-xs font-black uppercase tracking-widest mb-6">Establish the Strategic Gap</p>
-                          <PainPulseGrid items={["Headcount Risk", "Process Bottlenecks", "Reporting Lag", "Compliance Exposure"]} />
+                          <PainPulseGrid items={["Reliance on Institutional Heroics", "Capacity Constraints on Growth", "Data Blindness at Period End", "Unmanaged Balance Sheet Risk"]} />
                       </div>
-                      <p className="text-zinc-100 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Shift the dialogue from features to executive objectives. Define the 'Strategic Gap' between their current state and required future state.</p>
+                      <p className="text-zinc-100 text-sm mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Shift the dialogue from 'process improvements' to 'strategic imperatives.' <strong>Expose</strong> that the current manual state is an active threat to their growth goals.</p>
                   </div>
               </div>
               
