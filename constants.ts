@@ -290,14 +290,14 @@ Tone: Highly strategic and quantified.
 
 const FULL_SKO_PERSONAS = {
   executive: [
-    { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen financial data visibility gaps.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
-    { role: 'CFO', icon: 'TrendingUp', nightmare: 'Missing an audit opinion or defaulting on debt covenants due to reporting failures.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
+    { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to avoidable financial process failures.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
+    { role: 'CFO', icon: 'TrendingUp', nightmare: 'Defaulting on debt covenants due to reporting failures.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
-    { role: 'CIO', icon: 'Cpu', nightmare: 'Inconsistently defined data model blocking AI adoption; Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
+    { role: 'CIO', icon: 'Cpu', nightmare: 'Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
   ],
   operational: [
     { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as inefficient and a bottleneck to strategic insight due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
-    { role: 'Accounting Manager', icon: 'Users', nightmare: 'Employee burnout and team focused on manual tasks, lacking time to analyze and fix core issues.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
+    { role: 'Accounting Manager', icon: 'Users', nightmare: 'Employee burnout and team focused on manual tasks.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
     { role: 'Accountant', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into strategic business partnering and high-impact forecasting.' }
   ]
 };
