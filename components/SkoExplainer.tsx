@@ -93,16 +93,19 @@ const SafeIcon = ({ name, className }: { name: string; className?: string }) => 
 const FunnelVisual = () => (
   <div className="flex flex-col items-center justify-center w-full py-8">
     <div className="flex flex-col md:flex-row items-center gap-6 w-full max-w-5xl">
-       <div className="flex-1 flex flex-col gap-3 w-full text-center">
-          <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200">Transaction Volume</div>
-          <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200">New Entities</div>
-          <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200">Data Sources</div>
+       <div className="flex-1 flex flex-col gap-3 w-full text-center relative">
+          <div className="absolute -top-8 left-0 w-full text-center text-green-500 text-xs font-black uppercase tracking-widest mb-2">Growth Factors</div>
+          <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200 border border-green-900/30">Transaction Volume</div>
+          <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200 border border-green-900/30">New Entities</div>
+          <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200 border border-green-900/30">Data Sources</div>
        </div>
+       
        <div className="relative z-10 bg-gradient-to-r from-red-900/50 to-red-600/50 p-8 rounded-2xl border border-red-500/30 flex flex-col items-center justify-center shrink-0 w-full md:w-64 shadow-[0_0_30px_rgba(220,38,38,0.2)]">
           <AlertTriangle className="text-red-500 mb-3 w-10 h-10" />
-          <span className="text-xs font-black uppercase text-red-400 tracking-widest mb-1">BOTTLENECK</span>
+          <span className="text-xs font-black uppercase text-red-400 tracking-widest mb-1">PROCESS BLOCKER</span>
           <p className="text-xl font-bold text-white leading-tight text-center">Manual Matching</p>
        </div>
+       
        <div className="flex-1 flex flex-col gap-3 w-full text-center opacity-80">
           <div className="bg-zinc-800 border border-zinc-600 p-4 rounded-lg text-lg font-bold text-zinc-300">Delay</div>
           <div className="bg-zinc-800 border border-zinc-600 p-4 rounded-lg text-lg font-bold text-zinc-300">Risk</div>
@@ -484,7 +487,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-6 md:p-8 text-center">
                    <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 md:mb-6 border border-white/20 group-hover:bg-blue-500 group-hover:text-black transition-all shadow-xl"><LayoutGrid size={24} /></div>
-                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">Explore Drivers</h3>
+                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight uppercase italic">Explore Drivers</h3>
                    <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest group-hover:text-blue-400 transition-colors">Strategic Framework Map</p>
                 </div>
              </div>
@@ -678,7 +681,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           </div>
                           {/* UPDATED: Text Last, Smaller Font */}
                           <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-8 leading-relaxed">
-                            Move beyond technical requirements. Uncover the 'Cost of Inertia'— the compounding daily friction that makes 'doing nothing' the most expensive decision they can make.
+                            Move beyond technical requirements. Uncover the 'Cost of Inertia'—the specific, compounding daily friction that makes 'doing nothing' the most expensive decision they can make.
                           </p>
                       </div>
                    </div>
@@ -730,7 +733,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           {/* UPDATED: Visual First */}
                           <div className="bg-zinc-800 p-8 rounded-2xl text-center border border-zinc-700 mx-auto w-full max-w-sm shadow-2xl mb-8">
                               <Coins className="text-blackline-yellow mx-auto mb-4 w-10 h-10" />
-                              <span className="text-white font-black text-4xl tracking-tighter block mb-2">$2.5M</span>
+                              <span className="text-white font-black text-4xl tracking-tighter block mb-2">$25-50M</span>
                               <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Projected Benefit</p>
                           </div>
                           {/* UPDATED: Text Last, Smaller Font */}
@@ -830,7 +833,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-blackline-yellow rounded-full animate-pulse"></div>
                 <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 03: Connect Capabilities to Benefits</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">Capabilities That Deliver</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov?.deliverValue?.title}</h5>
 
               <div className="flex justify-center mb-12">
                  <div className="bg-zinc-950 p-2 rounded-full border border-zinc-800 inline-flex gap-2">
