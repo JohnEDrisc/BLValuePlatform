@@ -290,13 +290,13 @@ Tone: Highly strategic and quantified.
 
 const FULL_SKO_PERSONAS = {
   executive: [
-    { role: 'CEO', icon: 'Target', nightmare: 'Missing earnings guidance due to unforeseen an avoidable finance process failure.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
+    { role: 'CEO', icon: 'Target', nightmare: 'Missed earnings guidance due to failed acquisition.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
     { role: 'CFO', icon: 'TrendingUp', nightmare: 'Defaulting on debt covenants due to a Financial Statement Restatement.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
     { role: 'CIO', icon: 'Cpu', nightmare: 'Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
   ],
   operational: [
-    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Being viewed as blocker to revenue growth due to manual data processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
+    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Block revenue growth due to unscalable processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
     { role: 'Accounting Manager', icon: 'Users', nightmare: 'Burned out team focused on manual tasks and error correction.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
     { role: 'Accountant', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into business partnering and high-impact forecasting.' }
   ]
@@ -346,7 +346,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Real-time status tracking for every global financial task.'
         ],
         performanceStats: [
-          '100% visibility into global task status for leadership.',
+          'Total visibility into global task status for leadership.',
           'Elimination of manual follow-up emails via automated logic.',
           'Unified dashboard for all global entities.',
           'Real-time execution monitoring 24/7.'
@@ -362,7 +362,6 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         successStories: [
           'Domino\'s significantly reduced close cycle time.',
-          'Leading firms achieved a 3-day reduction in consolidated reporting cycles.',
           'Hershey reallocated accounting staff to analysis.'
         ]
       },
@@ -406,10 +405,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Automated compilation of variance (flux) analysis.'
         ],
         performanceStats: [
-          'Auto-certification of low-risk bank reconciliations.',
-          'Reduction in journal preparation time via automation.',
+          'Zero-touch matching for high volume data.',
           'Real-time "Percent Complete" dashboarding.',
-          'Zero-touch matching for high volume data.'
+          'Reduction in journal preparation time via automation.',
+          'Auto-certification of low-risk bank reconciliations.'
         ]
       },
       justifyValue: {
@@ -469,10 +468,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Automated dispute resolution workflows for faster closure.'
         ],
         performanceStats: [
-          'Reduction in unapplied cash volumes.',
-          'Automated dispute resolution workflows for faster closure.',
+          'Real-time global cash visibility.',
+          'Predictive risk identification.',
           'Unified Invoice-to-Cash platform stability.',
-          'Real-time global cash visibility.'
+          'Faster dispute closure times.'
         ]
       },
       justifyValue: {
@@ -486,7 +485,6 @@ export const SKO_DATA: SkoDriverDetail[] = [
         successStories: [
           //'McKesson released significant cash flow per $1B revenue.',
           'Kindred achieved reduction in bad debt write-offs.'
-          //'Cash Conversion Cycle improvement relative to industry average.'
         ]
       },
       roiCalculations: {
@@ -612,7 +610,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       },
       roiCalculations: {
         executive: [
-          { label: 'Replacement Reduction', category: 'Economic', formula: ['Turnover %', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
+          { label: 'Replacement Reduction', category: 'Economic', formula: ['Turnover Rate', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
           { label: 'Recruiting Fee Savings', category: 'Direct', formula: ['Hires', '×', 'Agency Fee'], desc: 'Direct saving on 25% agency fees via internal career mobility.' }
         ],
         operational: [
@@ -650,10 +648,10 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'In-Platform collaboration tools for real-time problem solving.'
         ],
         performanceStats: [
-          'Onboarding time reduced for new finance hires.',
-          'Significant reduction in stress-related absence.',
-          'High adoption of analytical tools by data entry staff.',
-          'Zero manual emails for task follow-up.'
+          'Elimination of manual inputs.',
+          'High adoption of cloud tools.',
+          'Reduced onboarding time.',
+          'Zero manual follow-up emails.'
         ]
       },
       justifyValue: {
@@ -707,16 +705,16 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Strategic Capability',
         capabilities: [
-          'Standardized M&A Playbook for Day 1 entity onboarding.',
-          'Cross-ERP Connectivity Layer unifying data streams.',
-          'Automated Verification Engine for opening balance sheets.',
-          'Intercompany Hub for global entity settlement rules.'
-        ],
-        performanceStats: [
           'Full financial visibility within 30 days of Day 1 closure.',
           'Process deployed to new entities in record time.',
           'Automated data ingestion from target ERPs.',
           'Instant Day 1 control coverage.'
+        ],
+        performanceStats: [
+          'Standardized M&A Playbook for Day 1 entity onboarding.',
+          'Cross-ERP Connectivity Layer unifying data streams.',
+          'Automated Verification Engine for opening balance sheets.',
+          'Intercompany Hub for global entity settlement rules.'
         ]
       },
       justifyValue: {
@@ -728,15 +726,13 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Minimized integration execution risk in high-growth deals.'
         ],
         successStories: [
-          'Zurich significantly reduced integration cycle time.',
-          'Integrated multiple acquisitions without increasing overhead.',
-          'Acceleration of deal model validation.'
+          'Zurich significantly reduced integration cycle time.'
         ]
       },
       roiCalculations: {
         executive: [
           { label: 'Synergy Velocity', category: 'Economic', formula: ['Deal Value', '×', 'Months Saved', '×', 'ROI'], desc: 'Quantifying the time-value of money for synergies.' },
-          { label: 'Integration Labor Reduction', category: 'Direct', formula: ['Temp/Consulting Hourly Cost', '×', 'Manual % Reduction'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
+          { label: 'Integration Labor Reduction', category: 'Direct', formula: ['Temp/Consulting Hourly Cost', '×', 'Manual Reduction'], desc: 'Scaling acquisition capacity without adding Integration staff.' }
         ],
         operational: [
           { label: 'Audit Ready Velocity', category: 'Direct', formula: ['Day 1 → Day 10 audited'], desc: 'Value of trusted Opening Balance Sheets within weeks.' }
@@ -837,7 +833,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         performanceStats: [
           'Automated processing of standard transactions.',
           'Dynamic load balancing of tasks.',
-          'One-platform data ingestion for non-financials.',
+          'Investor-grade ESG reporting readiness.',
           'Instant scenario model generation.'
         ]
       },
@@ -896,9 +892,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         performanceStats: [
           'Elimination of redundant manual data entry tasks.',
+          'Zero-touch dashboard updates.',
           'Real-time automated variance identification.',
-          'Instant retrieval of flux explanations.',
-          'Zero-touch dashboard updates.'
+          'Instant retrieval of flux explanations.'
         ]
       },
       justifyValue: {
@@ -959,9 +955,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         performanceStats: [
           'High forecasting accuracy through live visibility.',
-          'Continuous data streaming from ERPs.',
           'Instant drill-down to transaction level.',
-          'Automated narrative generation.'
+          'Faster Reporting Cycles.',
+          'Intra-month Course Correction.'
         ]
       },
       justifyValue: {
@@ -973,9 +969,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Reduced strategic forecasting cycle.'
         ],
         successStories: [
-          'Hershey significantly accelerated reporting cycles.',
+          'Hershey significantly accelerated reporting cycles.'
           //'Reduction in quarterly prep time.',
-          'BlackLine Enabled Intra-Month course corrections for Operating Expense spend.'
         ]
       },
       roiCalculations: {
@@ -1343,8 +1338,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Future-proofed AI governance framework for Finance.'
         ],
         successStories: [
-          'AI accuracy increased significantly on the BlackLine platform.',
-          'Faster scaling of strategic AI use-cases.'
+          '🚧 Work in Progress: Case studies being validated.'
         ]
       },
       roiCalculations: {
@@ -1402,8 +1396,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Enabled autonomous execution of repetitive close steps.'
         ],
         successStories: [
-          'Reduction in manual data prep for reporting leads.',
-          'AI accuracy increased significantly on the BlackLine platform.'
+          '🚧 Work in Progress: Case studies being validated.'
         ]
       }
     }
