@@ -484,7 +484,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-6 md:p-8 text-center">
                    <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 md:mb-6 border border-white/20 group-hover:bg-blue-500 group-hover:text-black transition-all shadow-xl"><LayoutGrid size={24} /></div>
-                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight uppercase italic">Explore Drivers</h3>
+                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">Explore Drivers</h3>
                    <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest group-hover:text-blue-400 transition-colors">Strategic Framework Map</p>
                 </div>
              </div>
@@ -654,12 +654,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-red-500/50 transition-all gap-8">
                       <div>
                           <div className="text-red-500 font-black text-4xl mb-4">01</div>
-                          <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Align on Strategic Priorities</h3>
-                          {/* UPDATED: Subtext */}
-                          <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">
+                          <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-8">Align on Strategic Priorities</h3>
+                          {/* UPDATED: Visual First */}
+                          <div className="mb-8">
+                             <PainPulseGrid items={["Unlocking Strategic Capacity", "M&A Fueled Revenue Growth", "Reliance on Institutional Heroics", "Data Blindness"]} />
+                          </div>
+                          {/* UPDATED: Text Last, Smaller Font */}
+                          <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-8 leading-relaxed">
                             Stop selling 'process improvements' and start solving board-level problems. Frame the manual status quo as an active anchor dragging down their specific growth, M&A, or margin goals.
                           </p>
-                          <PainPulseGrid items={["Unlocking Strategic Capacity", "M&A Fueled Revenue Growth", "Reliance on Institutional Heroics", "Data Blindness"]} />
                       </div>
                   </div>
               </div>
@@ -668,12 +671,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-blue-500/50 transition-all gap-8">
                       <div>
                           <div className="text-blue-500 font-black text-4xl mb-4">02</div>
-                          <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Discover Challenges</h3>
-                          {/* UPDATED: Subtext */}
-                          <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">
+                          <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-8">Discover Challenges</h3>
+                          {/* UPDATED: Visual First */}
+                          <div className="mb-8">
+                             <SpotlightCards items={["How long does your close take?", "Do you trust the numbers on Day 1?", "What is the cost of attrition?"]} />
+                          </div>
+                          {/* UPDATED: Text Last, Smaller Font */}
+                          <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-8 leading-relaxed">
                             Move beyond technical requirements. Uncover the 'Cost of Inertia'—the specific, compounding daily friction that makes 'doing nothing' the most expensive decision they can make.
                           </p>
-                          <SpotlightCards items={["How long does your close take?", "Do you trust the numbers on Day 1?", "What is the cost of attrition?"]} />
                       </div>
                    </div>
               </div>
@@ -682,12 +688,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-blackline-yellow/50 transition-all gap-6">
                       <div>
                           <div className="text-blackline-yellow font-black text-4xl mb-4">03</div>
-                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Connect Capabilities to Benefits</h3>
-                          {/* UPDATED: Subtext */}
-                          <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">
-                             Build the bridge. Don't just list features; demonstrate the mechanical linkage between a platform capability (e.g., Auto-Matching) and the specific outcome they crave (e.g., Speed).
+                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-8">Connect Capabilities to Benefits</h3>
+                          {/* UPDATED: Visual First */}
+                          <div className="mb-8">
+                             <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
+                          </div>
+                          {/* UPDATED: Text Last, Smaller Font */}
+                          <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-6 leading-relaxed">
+                             Build the bridge. Move from <strong>Features</strong> to <strong>Benefits</strong>. Demonstrate the mechanical linkage between a platform capability (e.g., Auto-Matching) and the specific outcome they crave (e.g., Speed).
                           </p>
-                          <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
                       </div>
                    </div>
               </div>
@@ -696,17 +705,19 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-green-500/50 transition-all gap-6">
                       <div>
                           <div className="text-green-500 font-black text-4xl mb-4">04</div>
-                          <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter mb-2 leading-tight">Align on Value & Validate Business Case Logic</h3>
-                          {/* UPDATED: Subtext */}
-                          <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">
-                             The 'Handshake Phase.' Co-author the math with the customer. Agree on the formulas and inputs <em>before</em> calculating the result to ensure the business case is bulletproof and owned by them.
+                          <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter mb-8 leading-tight">Align on Value & Validate Business Case Logic</h3>
+                          {/* UPDATED: Visual First */}
+                          <div className="mb-8">
+                             <LogicFlow metrics={[
+                                { statement: "Scale Without Headcount", context: "MECHANISM: EFFICIENCY × GROWTH" }, 
+                                { statement: "Fund Growth Internally", context: "MECHANISM: CASH VELOCITY × WACC" }, 
+                                { statement: "Insulate the P&L from Risk", context: "MECHANISM: RISK PROBABILITY × IMPACT" }
+                              ]} />
+                          </div>
+                          {/* UPDATED: Text Last, Smaller Font */}
+                          <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-6 leading-relaxed">
+                             Translate <strong>Benefits</strong> into <strong>Economic Value</strong>. Co-author the mechanism with the customer (e.g., Efficiency × Growth) before calculating the result.
                           </p>
-                          {/* UPDATED: Value Statement + Directional Logic (No Formulas) */}
-                          <LogicFlow metrics={[
-                            { statement: "Scale Without Headcount", context: "Logic: Efficiency × Growth" }, 
-                            { statement: "Fund Growth Internally", context: "Logic: Cash Velocity × Cost of Capital" }, 
-                            { statement: "Insulate the P&L from Risk", context: "Logic: Risk Probability × Impact" }
-                          ]} />
                       </div>
                    </div>
               </div>
@@ -715,17 +726,17 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-purple-500/50 transition-all gap-6">
                       <div>
                           <div className="text-purple-500 font-black text-4xl mb-4">05</div>
-                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Quantify the Impact</h3>
-                          {/* UPDATED: Subtext */}
-                          <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">
-                             The Output. Translate the agreed logic into a defensible financial projection. Deliver a CFO-ready asset that clearly articulates P&L impact, cash flow velocity, and risk avoidance.
-                          </p>
-                          {/* UPDATED: Larger, Centered "Projected Benefit" Box */}
-                          <div className="bg-zinc-800 p-8 rounded-2xl text-center border border-zinc-700 mx-auto w-full max-w-sm shadow-2xl">
+                          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-8">Quantify the Impact</h3>
+                          {/* UPDATED: Visual First */}
+                          <div className="bg-zinc-800 p-8 rounded-2xl text-center border border-zinc-700 mx-auto w-full max-w-sm shadow-2xl mb-8">
                               <Coins className="text-blackline-yellow mx-auto mb-4 w-10 h-10" />
                               <span className="text-white font-black text-4xl tracking-tighter block mb-2">$2.5M</span>
                               <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Projected Benefit</p>
                           </div>
+                          {/* UPDATED: Text Last, Smaller Font */}
+                          <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-6 leading-relaxed">
+                             The Output. Translate the agreed logic into a defensible financial projection. Deliver a CFO-ready asset that clearly articulates P&L impact, cash flow velocity, and risk avoidance.
+                          </p>
                       </div>
                    </div>
               </div>
@@ -992,15 +1003,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
            </div>
 
-            <div className="bg-zinc-900/30 border border-zinc-800 p-8 md:p-12 rounded-[2rem] relative flex flex-col justify-center text-center mt-12">
-               <div className="flex items-center justify-center gap-4 mb-8">
-                 <BookOpen className="text-zinc-500 w-6 h-6" />
-                 <h4 className="text-zinc-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]">Appendix</h4>
-               </div>
-               
-               <p className="text-zinc-600 font-medium italic">Additional resources to be added.</p>
-            </div>
-
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
               <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
               <PovSwitcher />
@@ -1049,7 +1051,7 @@ const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, 
      <div>
        <div className={`w-16 h-16 rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-8 font-black text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
        <h4 className="text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
-       <p className={`text-${color} text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
+       <p className={`text-${color} text-xs font-black uppercase tracking-[0.2em] mb-6`}>{subtitle}</p>
        <div className="mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit"><span className="text-sm font-mono text-zinc-200 flex items-center gap-2">{formula}</span></div>
      </div>
      <p className="text-2xl text-zinc-100 leading-relaxed font-light whitespace-pre-line">{desc}</p>
