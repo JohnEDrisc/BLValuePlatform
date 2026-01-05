@@ -290,13 +290,13 @@ Tone: Highly strategic and quantified.
 
 const FULL_SKO_PERSONAS = {
   executive: [
-    { role: 'CEO', icon: 'Target', nightmare: 'Missed earnings guidance due to failed acquisition.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
+    { role: 'CEO', icon: 'Target', nightmare: 'Missed earnings guidance due to failed a acquisition.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
     { role: 'CFO', icon: 'TrendingUp', nightmare: 'Defaulting on debt covenants due to a Financial Statement Restatement.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
     { role: 'CIO', icon: 'Cpu', nightmare: 'Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
   ],
   operational: [
-    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Block revenue growth due to unscalable processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
+    { role: 'Shared Service Leader', icon: 'Globe', nightmare: 'Blocking revenue growth due to unscalable processes.', aspiration: 'Touchless volume scaling and standardized global operating models.' },
     { role: 'Accounting Manager', icon: 'Users', nightmare: 'Burned out team focused on manual tasks and error correction.', aspiration: 'Empowered team focusing on strategic variance investigation over data entry.' },
     { role: 'Accountant', icon: 'User', nightmare: 'Logging in at 7 AM to manually download bank PDFs and match line-by-line.', aspiration: 'Upskilling into business partnering and high-impact forecasting.' }
   ]
@@ -604,14 +604,14 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Reduced reliance on high-cost temp and contractor labor.'
         ],
         successStories: [
-          'Retention rates improved significantly year-over-year.',
+         // 'Retention rates improved significantly year-over-year.'
           'TechFlow finance engagement scores outperformed company average.'
         ]
       },
       roiCalculations: {
         executive: [
           { label: 'Replacement Reduction', category: 'Economic', formula: ['Turnover Rate', '×', '1.5x Salary'], desc: 'Avoiding the extreme cost of hiring and training.' },
-          { label: 'Recruiting Fee Savings', category: 'Direct', formula: ['Hires', '×', 'Agency Fee'], desc: 'Direct saving on 25% agency fees via internal career mobility.' }
+          { label: 'Recruiting Fee Savings', category: 'Direct', formula: ['Hires', '×', 'Agency Fee'], desc: 'Direct saving on agency fees via internal career mobility.' }
         ],
         operational: [
           { label: 'Temp Labor Reduction', category: 'Direct', formula: ['Hours', '×', 'Contractor Rate'], desc: 'Eliminating peak-cycle contractor spend.' },
@@ -658,7 +658,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Efficiency Gains',
         metrics: [
           'Improvement in overall team daily productivity.',
-          'Digitized process documentation for 100% continuity.',
+          'Digitized process documentation for Enhanced continuity.',
           'Standardized global training curriculums for all levels.',
           'Improved job satisfaction and work-life balance metrics.'
         ],
@@ -722,7 +722,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         metrics: [
           'Accelerated synergy value across the portfolio.',
           'Reduced integration-specific labor and consultant costs.',
-          'Immediate 100% control coverage for newly acquired assets.',
+          'Immediate control coverage for newly acquired assets.',
           'Minimized integration execution risk in high-growth deals.'
         ],
         successStories: [
@@ -783,8 +783,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Elimination of manual intercompany spreadsheet hell.'
         ],
         successStories: [
-          'Zurich achieved Month 1 visibility for new acquisitions.',
-          'Applied Day 1 controls to global acquisitions simultaneously.'
+          'Zurich achieved Month 1 visibility for new acquisitions.'
+         // 'Applied Day 1 controls to global acquisitions simultaneously.'
         ]
       }
     }
@@ -906,8 +906,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Total visibility into drivers of variance across regions.'
         ],
         successStories: [
-          'Domino\'s shifted staff from processing to strategic analysis.',
-          'Higher job satisfaction scores in post-impl surveys.'
+          'Domino\'s shifted staff from processing to strategic analysis.'
+         // 'Higher job satisfaction scores in post-impl surveys.'
         ]
       }
     }
@@ -1028,8 +1028,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Significant improvement in data reliability scores.'
         ],
         successStories: [
-          'Hershey achieved faster generation of board packages.',
-          'Direct audit reliance on system-generated flux reports.'
+          'Hershey achieved faster generation of board packages.'
+         // 'Direct audit reliance on system-generated flux reports.'
         ]
       }
     }
@@ -1215,8 +1215,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Total elimination of manual spreadsheet-based control risk.'
         ],
         successStories: [
-          'eBay had zero audit findings across complex global entities.',
-          'Valuation premium for reliable reporting.'
+          'eBay had zero audit findings across complex global entities.'
+        //  'Valuation premium for reliable reporting.'
         ]
       },
       roiCalculations: {
@@ -1276,8 +1276,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Automated "Continuous Audit" status for all legal entities.'
         ],
         successStories: [
-          'eBay achieved 100% automated SOX evidence collection.',
-          'Reduction in audit support time for leads.'
+          'eBay achieved 100% automated SOX evidence collection.'
+       //   'Reduction in audit support time for leads.'
         ]
       }
     }
