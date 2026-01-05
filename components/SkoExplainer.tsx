@@ -654,7 +654,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="text-green-500 font-black text-4xl mb-4">04</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Justify Value</h3>
                           <p className="text-green-400 text-sm font-black uppercase tracking-widest mb-6">Build Logic</p>
-                          <LogicFlow metrics={["Manual Hours", "FTE Capacity", "Strategic ROI"]} />
+                          <LogicFlow metrics={["Labor Efficiency", "DSO Reduction ", "Reduced Cost of Compliance"]} />
                       </div>
                       {/* UPDATED: Larger Text Size (text-xl) */}
                       <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Co-author the business case logic. Secure agreement on the 'mechanics of improvement' before a single ROI number is calculated.</p>
@@ -751,7 +751,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 </div>
               )}
 
-              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
+              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-10">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
            </div>
 
            {/* PHASE 2 & 3 */}
@@ -885,7 +885,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               {/* REORDERED: Customer Outcomes SECOND */}
               <div className="w-full">
                   {/* UPDATED: Double Big Text (text-2xl) + Brighter color (text-zinc-300) */}
-                  <p className="text-zinc-300 text-2xl font-black uppercase tracking-widest mb-8">Validated Customer Outcomes</p>
+                  <p className="text-zinc-300 text-2xl font-black uppercase tracking-widest mb-12"> Customer Outcomes</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {pov?.justifyValue?.successStories?.map((story: string, i: number) => {
                           const isLastItem = i === (pov.justifyValue.successStories?.length || 0) - 1;
@@ -896,7 +896,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                                   <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 shrink-0 mb-2">
                                       <Trophy size={24} />
                                   </div>
-                                  <p className="text-white text-xl font-medium leading-relaxed">{story}</p>
+                                <p className="text-white text-2xl md:text-3xl font-medium leading-relaxed">{story}</p>
                               </div>
                           );
                       })}
