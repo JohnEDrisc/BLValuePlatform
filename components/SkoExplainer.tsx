@@ -272,12 +272,22 @@ const DecisionVisual = () => (
 
 const PainPulseGrid = ({ items }: { items: string[] }) => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto max-w-3xl">
-        {items.map((item, idx) => (
-            <div key={idx} className="bg-red-950/10 border border-red-900/30 p-6 rounded-2xl flex flex-col items-center justify-center gap-3 group hover:bg-red-900/20 transition-all text-center h-full">
-                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse shrink-0"></div>
-                <p className="text-white text-lg font-bold group-hover:text-red-200">{item}</p>
-            </div>
-        ))}
+        {items.map((item, idx) => {
+            // Logic to style the first 2 items as "Gain/Aspiration" and last 2 as "Pain/Nightmare"
+            const isGain = idx < 2; 
+            const borderColor = isGain ? 'border-green-900/30' : 'border-red-900/30';
+            const bgColor = isGain ? 'bg-green-950/10' : 'bg-red-950/10';
+            const dotColor = isGain ? 'bg-green-500' : 'bg-red-500';
+            const hoverText = isGain ? 'group-hover:text-green-200' : 'group-hover:text-red-200';
+            const hoverBg = isGain ? 'hover:bg-green-900/20' : 'hover:bg-red-900/20';
+
+            return (
+                <div key={idx} className={`${bgColor} border ${borderColor} p-6 rounded-2xl flex flex-col items-center justify-center gap-3 group ${hoverBg} transition-all text-center h-full`}>
+                    <div className={`w-3 h-3 ${dotColor} rounded-full animate-pulse shrink-0`}></div>
+                    <p className={`text-white text-lg font-bold ${hoverText}`}>{item}</p>
+                </div>
+            );
+        })}
     </div>
 );
 
@@ -616,8 +626,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Create Value</h3>
                           {/* UPDATED: Changed text to "Strategic Hook" */}
                           <p className="text-red-400 text-base font-black uppercase tracking-widest mb-6">Strategic Hook</p>
-                          {/* UPDATED: Balanced Narrative - Added "Unlocking Strategic Capacity" */}
-                          <PainPulseGrid items={["Reliance on Institutional Heroics", "Capacity Constraints on Growth", "Data Blindness at Period End", "Unlocking Strategic Capacity"]} />
+                          {/* UPDATED: Balanced Narrative - 2 Aspirations (First), 2 Nightmares (Second) */}
+                          <PainPulseGrid items={["Unlocking Strategic Capacity", "M&A Fueled Revenue Growth", "Reliance on Institutional Heroics", "Data Blindness"]} />
                       </div>
                       {/* UPDATED: Larger Text Size (text-xl) */}
                       <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Shift the dialogue from 'process improvements' to 'strategic imperatives.' <strong>Expose</strong> that the current manual state is an active threat to their growth goals.</p>
@@ -643,7 +653,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <div className="text-blackline-yellow font-black text-4xl mb-4">03</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Deliver Value</h3>
                           <p className="text-blackline-yellow text-sm font-black uppercase tracking-widest mb-6">Map Outcomes</p>
-                          <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
+                          {/* UPDATED: Explicit Linkage between Capability and Benefit */}
+                          <CapabilityStack items={["Unified Data → Trust", "Auto-Matching → Speed", "Controls → Compliance"]} />
                       </div>
                       {/* UPDATED: Larger Text Size (text-xl) */}
                       <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
