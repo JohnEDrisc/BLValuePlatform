@@ -92,19 +92,25 @@ const SafeIcon = ({ name, className }: { name: string; className?: string }) => 
 
 const FunnelVisual = () => (
   <div className="flex flex-col items-center justify-center w-full py-8">
-    <div className="flex flex-col md:flex-row items-center gap-6 w-full max-w-5xl">
-       <div className="flex-1 flex flex-col gap-3 w-full text-center relative">
+    <div className="flex flex-col md:flex-row items-start gap-6 w-full max-w-5xl">
+       {/* Left Column: Growth Factors */}
+       <div className="flex-1 flex flex-col gap-3 w-full text-center relative mt-8 md:mt-0">
           <div className="absolute -top-8 left-0 w-full text-center text-green-500 text-xs font-black uppercase tracking-widest mb-2">Growth Factors</div>
           <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200 border border-green-900/30">Transaction Volume</div>
           <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200 border border-green-900/30">New Entities</div>
           <div className="bg-zinc-800 p-4 rounded-lg text-lg font-bold text-zinc-200 border border-green-900/30">Data Sources</div>
        </div>
-       <div className="relative z-10 bg-gradient-to-r from-red-900/50 to-red-600/50 p-8 rounded-2xl border border-red-500/30 flex flex-col items-center justify-center shrink-0 w-full md:w-64 shadow-[0_0_30px_rgba(220,38,38,0.2)]">
+       
+       {/* Center Column: Blocker */}
+       <div className="relative z-10 bg-gradient-to-r from-red-900/50 to-red-600/50 p-8 rounded-2xl border border-red-500/30 flex flex-col items-center justify-center shrink-0 w-full md:w-64 shadow-[0_0_30px_rgba(220,38,38,0.2)] self-center">
           <AlertTriangle className="text-red-500 mb-3 w-10 h-10" />
           <span className="text-xs font-black uppercase text-red-400 tracking-widest mb-1">PROCESS BLOCKER</span>
           <p className="text-xl font-bold text-white leading-tight text-center">Manual Matching</p>
        </div>
-       <div className="flex-1 flex flex-col gap-3 w-full text-center opacity-80">
+       
+       {/* Right Column: Consequences */}
+       <div className="flex-1 flex flex-col gap-3 w-full text-center opacity-80 relative mt-8 md:mt-0">
+          <div className="absolute -top-8 left-0 w-full text-center text-red-500 text-xs font-black uppercase tracking-widest mb-2">Consequences</div>
           <div className="bg-zinc-800 border border-zinc-600 p-4 rounded-lg text-lg font-bold text-zinc-300">Delay</div>
           <div className="bg-zinc-800 border border-zinc-600 p-4 rounded-lg text-lg font-bold text-zinc-300">Risk</div>
        </div>
@@ -516,7 +522,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                       <div className="text-right">
                         <p className="text-black font-black text-xl tracking-tight">Kathryn Mikells</p>
                         <p className="text-black text-sm font-bold">CFO, ExxonMobil</p>
-                        <p className="text-zinc-500 text-xs font-medium mt-1">Earnings Call for Q1 2025, May 2, 2025</p>
+                        <p className="text-zinc-400 text-lg font-bold mt-2">Earnings Call for Q1 2025, May 2, 2025</p>
                       </div>
                   </div>
 
@@ -625,11 +631,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <h2 className="text-4xl md:text-9xl font-black text-white uppercase italic tracking-tighter mb-12">Meet the <span className="text-blackline-yellow">Stakeholders</span></h2>
            <div className="space-y-16 md:space-y-24 text-left">
              <div>
-                 <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center gap-6">Strategic Executive Tier <div className="h-px bg-zinc-800 flex-grow"></div></h3>
+                 <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center justify-center gap-6">Strategic Executive Tier <div className="h-px bg-zinc-800 w-24"></div></h3>
                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-10">{personas.executive?.map((p: any, idx: number) => (<SimplePersonaCard key={idx} role={p.role} icon={p.icon} nightmare={p.nightmare} aspiration={p.aspiration} />))}</div>
              </div>
              <div>
-                 <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center gap-6">Tactical Operational Tier <div className="h-px bg-zinc-800 flex-grow"></div></h3>
+                 <h3 className="text-xs md:text-sm font-black text-zinc-500 uppercase tracking-[0.6em] mb-8 md:mb-12 flex items-center justify-center gap-6">Tactical Operational Tier <div className="h-px bg-zinc-800 w-24"></div></h3>
                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">{personas.operational?.map((p: any, idx: number) => (<SimplePersonaCard key={idx} role={p.role} icon={p.icon} nightmare={p.nightmare} aspiration={p.aspiration} />))}</div>
              </div>
            </div>
@@ -650,9 +656,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase italic tracking-tighter mb-20">The Teaching <span className="text-blackline-yellow">System</span></h2>
            
            {/* REPLACED LARGE FRAMEWORK BOXES WITH NEW VISUAL COMPONENTS */}
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-left">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-10 text-center">
               <div className="col-span-1 md:col-span-3">
-                  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-red-500/50 transition-all gap-8">
+                  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col items-center text-center justify-between hover:border-red-500/50 transition-all gap-8">
                       <div>
                           <div className="text-red-500 font-black text-4xl mb-4">01</div>
                           <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-8">Align on Strategic Priorities</h3>
@@ -669,7 +675,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
               
               <div className="col-span-1 md:col-span-3">
-                   <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-blue-500/50 transition-all gap-8">
+                   <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col items-center text-center justify-between hover:border-blue-500/50 transition-all gap-8">
                       <div>
                           <div className="text-blue-500 font-black text-4xl mb-4">02</div>
                           <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-8">Discover Challenges</h3>
@@ -686,7 +692,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
               
               <div className="col-span-1 md:col-span-2">
-                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-blackline-yellow/50 transition-all gap-6">
+                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col items-center text-center justify-between hover:border-blackline-yellow/50 transition-all gap-6">
                       <div>
                           <div className="text-blackline-yellow font-black text-4xl mb-4">03</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-8">Connect Capabilities to Benefits</h3>
@@ -703,7 +709,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
               
               <div className="col-span-1 md:col-span-2">
-                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-green-500/50 transition-all gap-6">
+                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col items-center text-center justify-between hover:border-green-500/50 transition-all gap-6">
                       <div>
                           <div className="text-green-500 font-black text-4xl mb-4">04</div>
                           <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter mb-8 leading-tight">Align on Value & Validate Business Case Logic</h3>
@@ -724,7 +730,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
               
               <div className="col-span-1 md:col-span-2">
-                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-purple-500/50 transition-all gap-6">
+                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col items-center text-center justify-between hover:border-purple-500/50 transition-all gap-6">
                       <div>
                           <div className="text-purple-500 font-black text-4xl mb-4">05</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-8">Quantify the Impact</h3>
@@ -797,6 +803,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
                 <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 01: Align on Strategic Priorities</h4>
               </div>
+              
+              {/* UPDATED: Hardcoded "Big Face Text" */}
               <h5 className="text-3xl md:text-8xl font-black text-white mb-10 uppercase italic tracking-tighter leading-[0.9]">The Cost of Inaction</h5>
               
               <div className="w-full flex justify-center mb-8">
@@ -920,6 +928,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 04: Align on Value & Validate Logic</h4>
               </div>
               
+              {/* UPDATED: New Hyper Big Text Label */}
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">
                 Validating the Financial Impact
               </h5>
