@@ -678,7 +678,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           </div>
                           {/* UPDATED: Text Last, Smaller Font */}
                           <p className="text-white font-medium text-lg mt-auto border-t border-zinc-800 pt-8 leading-relaxed">
-                            Move beyond technical requirements. Uncover the 'Cost of Inertia'—the specific, compounding daily friction that makes 'doing nothing' the most expensive decision they can make.
+                            Move beyond technical requirements. Uncover the 'Cost of Inertia'— the compounding daily friction that makes 'doing nothing' the most expensive decision they can make.
                           </p>
                       </div>
                    </div>
