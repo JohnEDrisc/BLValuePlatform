@@ -1010,3 +1010,80 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
       </div>
     );
   }
+
+  // --- MISSING 'letsgo_bva' VIEW RESTORED AND UPDATED ---
+  if (viewMode === 'letsgo_bva') {
+    return (
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-4 animate-fade-in relative">
+          <button onClick={() => setViewMode('landing')} className="absolute top-6 right-6 text-gray-500 hover:text-white"><X size={32}/></button>
+          <div className="max-w-4xl w-full">
+              <div className="inline-flex items-center gap-3 mb-8 px-4 py-2 rounded-full bg-blackline-yellow/10 border border-blackline-yellow/30 text-blackline-yellow text-sm font-bold uppercase tracking-widest">
+                  <Rocket size={16} />
+                  <span>Activation Phase</span>
+              </div>
+              <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter italic uppercase">
+                  Ready to <span className="text-blackline-yellow">Go Get?</span>
+              </h1>
+              <p className="text-xl md:text-3xl text-zinc-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
+                  More enablement coming in Q1.
+              </p>
+          </div>
+      </div>
+    )
+  }
+
+  return <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white"><h1 className="text-2xl font-bold mb-4">Content Not Found</h1><button onClick={onClose} className="px-6 py-2 bg-zinc-800 rounded-lg">Return to Home</button></div>;
+};
+
+const SimplePersonaCard: React.FC<{ role: string, icon: string, nightmare: string, aspiration: string }> = ({ role, icon, nightmare, aspiration }) => {
+  return (
+    <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] hover:border-zinc-500 transition-all flex flex-col h-full group shadow-xl">
+       <div className="flex items-center gap-6 mb-8"><div className="p-4 bg-black rounded-2xl border border-zinc-800 group-hover:bg-blackline-yellow group-hover:text-black transition-all shrink-0"><SafeIcon name={icon} className="w-9 h-9" /></div><h4 className="text-white font-black text-2xl uppercase tracking-wider leading-tight">{role}</h4></div>
+       <div className="space-y-8 flex-grow"><div className="space-y-3"><p className="text-[10px] font-black text-green-500 uppercase tracking-[0.4em] flex items-center gap-3"><Stars size={16} /> Aspiration</p><p className="text-lg text-zinc-100 leading-relaxed font-bold">"{aspiration}"</p></div><div className="space-y-3"><p className="text-[10px] font-black text-red-500 uppercase tracking-[0.4em] flex items-center gap-3"><Ghost size={16} /> Nightmare</p><p className="text-lg text-zinc-100 leading-relaxed font-bold italic">"{nightmare}"</p></div></div>
+    </div>
+  );
+};
+
+const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, subtitle: string, formula: string, desc: string }> = ({ step, color, title, subtitle, formula, desc }) => (
+  <div className="bg-zinc-900 border border-zinc-800 p-14 rounded-[3.5rem] flex flex-col justify-between hover:border-zinc-500 shadow-xl group h-full gap-6">
+     <div>
+       <div className={`w-16 h-16 rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-8 font-black text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
+       <h4 className="text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
+       <p className={`text-${color} text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
+       <div className="mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit"><span className="text-sm font-mono text-zinc-200 flex items-center gap-2">{formula}</span></div>
+     </div>
+     <p className="text-2xl text-zinc-100 leading-relaxed font-light whitespace-pre-line">{desc}</p>
+  </div>
+);
+
+const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => void }> = ({ driver, onSelect }) => {
+   return (
+      <div className="group relative w-full rounded-[2rem] overflow-hidden border border-zinc-800 transition-all duration-500 hover:-translate-y-2 shadow-2xl bg-zinc-900 h-full">
+         <div className="absolute inset-0 z-0">
+            <img src={DRIVER_IMAGES[driver.id] || DRIVER_IMAGES.process} alt={driver.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-30 group-hover:opacity-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+         </div>
+         {/* UPDATED: Center Alignment & Text Size */}
+         <div className="relative z-10 p-6 md:p-8 flex flex-col items-center text-center h-full">
+            <div className="flex items-center justify-center mb-6"><div className="w-12 h-12 bg-zinc-900/80 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-zinc-700 group-hover:border-blackline-yellow transition-colors shrink-0"><SafeIcon name={driver.icon} className="w-6 h-6" /></div></div>
+            <h3 className="text-xl md:text-2xl font-black text-white mb-4 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">{driver.title}</h3>
+            <button onClick={() => onSelect(driver.id)} className="w-full py-3 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blackline-yellow hover:text-black hover:border-blackline-yellow transition-all flex items-center justify-center gap-2 mt-auto"><HelpCircle size={14} /> Explain Driver</button>
+         </div>
+      </div>
+   );
+};
+
+const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ title, subtitle }) => (
+    <div className="flex flex-col items-center text-center gap-2 mb-2"><h3 className="text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-4 italic text-center leading-tight"><div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div></h3><p className="text-sm font-bold text-zinc-200 uppercase tracking-widest px-2">{subtitle}</p></div>
+);
+
+const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
+  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
+     <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
+     <div className="text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
+     <h3 className="text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
+     <p className={`text-${color} text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
+     <div className="h-px bg-zinc-800 w-full mb-6"></div>
+     <p className="text-zinc-100 leading-relaxed text-lg font-medium">{desc}</p>
+  </div>
+);
