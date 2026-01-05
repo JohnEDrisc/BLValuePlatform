@@ -48,7 +48,7 @@ import {
   Lightbulb, 
   Activity, 
   ShieldCheck, 
-  DollarSign,
+  DollarSign, 
   BookOpen
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
@@ -310,7 +310,7 @@ const CapabilityStack = ({ items }: { items: string[] }) => (
                 </span>
             </div>
         ))}
-        <div className="text-center text-[10px] font-black uppercase text-zinc-400 tracking-widest mb-1">BlackLine Platform</div>
+        <div className="text-center text-[10px] font-black uppercase text-zinc-400 tracking-widest mb-1">Tech Stack Foundation</div>
     </div>
 );
 
@@ -367,7 +367,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  // UPDATED: Scroll to Phase 1, but conditional check will be added in the caller
+  // UPDATED: Scroll to Phase 1 (Universal Logic)
   const scrollToPhase1 = () => {
       if (phase1Ref.current) {
           phase1Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -652,9 +652,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                       <div>
                           <div className="text-blackline-yellow font-black text-4xl mb-4">03</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Deliver Value</h3>
-                          <p className="text-blackline-yellow text-sm font-black uppercase tracking-widest mb-6">Map Outcomes</p>
-                          {/* UPDATED: Explicit Linkage between Capability and Benefit */}
-                          <CapabilityStack items={["Unified Data → Trust", "Auto-Matching → Speed", "Controls → Compliance"]} />
+                          <p className="text-blackline-yellow text-sm font-black uppercase tracking-widest mb-6">Connect Capabilities</p>
+                          {/* UPDATED: CapabilityStack using clean data */}
+                          <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
                       </div>
                       {/* UPDATED: Larger Text Size (text-xl) */}
                       <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
@@ -666,7 +666,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                       <div>
                           <div className="text-green-500 font-black text-4xl mb-4">04</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Justify Value</h3>
-                          <p className="text-green-400 text-sm font-black uppercase tracking-widest mb-6">Build Logic</p>
+                          <p className="text-green-400 text-sm font-black uppercase tracking-widest mb-6">Align & Validate</p>
                           <LogicFlow metrics={["Labor Efficiency", "DSO Reduction ", "Reduced Cost of Compliance"]} />
                       </div>
                       {/* UPDATED: Larger Text Size (text-xl) */}
@@ -679,7 +679,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                       <div>
                           <div className="text-purple-500 font-black text-4xl mb-4">05</div>
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Quantify Value</h3>
-                          <p className="text-purple-400 text-sm font-black uppercase tracking-widest mb-6">Calculate ROI</p>
+                          <p className="text-purple-400 text-sm font-black uppercase tracking-widest mb-6">Realize Financials</p>
                           {/* UPDATED: Added mx-auto to center the box horizontally */}
                           <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700 mx-auto">
                               <Coins className="text-blackline-yellow mx-auto mb-2" />
@@ -711,9 +711,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
 
     const PovSwitcher = () => (
       <div className="bg-zinc-900 p-2 rounded-3xl inline-flex flex-col md:flex-row border border-zinc-800 shadow-[0_0_60px_rgba(0,0,0,1)]">
-        {/* UPDATED: Buttons now use CONDITIONAL scrollToPhase1 logic (mobile only) */}
-        <button onClick={() => { setActivePov('executive'); if (window.innerWidth < 768) setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
-        <button onClick={() => { setActivePov('operational'); if (window.innerWidth < 768) setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
+        {/* UPDATED: Buttons now use UNIVERSAL scrollToPhase1 logic */}
+        <button onClick={() => { setActivePov('executive'); setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'executive' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Executive</button>
+        <button onClick={() => { setActivePov('operational'); setTimeout(scrollToPhase1, 50); setPhase3Focus('capabilities'); }} className={`px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] transition-all ${activePov === 'operational' ? 'bg-blackline-yellow text-black scale-105' : 'text-zinc-400'}`}>Operational</button>
       </div>
     );
 
@@ -871,8 +871,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                 <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 04: Justify Value</h4>
               </div>
-              {/* UPDATED: "The Metrics That Drive Impact" */}
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">The Outcomes That Drive Impact</h5>
+              
+              {/* UPDATED: DYNAMIC TITLE - Pulls from constants.ts "Validate the Logic" */}
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">
+                {pov?.justifyValue?.title || "The Metrics That Drive Impact"}
+              </h5>
               
               {activeDriver.id === 'trust' || activeDriver.id === 'compliance' ? (
                 <div className="mb-12"><HouseFireVisual /></div>
@@ -957,7 +960,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
            </div>
 
-           
+           {/* ADDED: Strategic Sources & Appendix Section */}
+            <div className="bg-zinc-900/30 border border-zinc-800 p-8 md:p-12 rounded-[2rem] relative flex flex-col justify-center text-center mt-12">
+               <div className="flex items-center justify-center gap-4 mb-8">
+                 <BookOpen className="text-zinc-500 w-6 h-6" />
+                 <h4 className="text-zinc-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]">Appendix</h4>
+               </div>
+               
+               <p className="text-zinc-600 font-medium italic">Additional resources to be added.</p>
+            </div>
 
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
               <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
