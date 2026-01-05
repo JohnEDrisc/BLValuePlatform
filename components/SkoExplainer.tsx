@@ -509,8 +509,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
             <div className="text-center">
-               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Strategic Validation</div>
-               <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
+             <div className="inline-flex items-center gap-3 px-8 py-3 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-xl font-bold uppercase tracking-widest mb-10">Strategic Validation</div>   
+              <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
                   
                   {/* TOP ROW: Customer Since (UPSIZED) + CFO Info */}
@@ -552,8 +552,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             </div>
             <div className="h-px bg-zinc-800 w-full opacity-50"></div>
             <div className="text-center pb-20">
-               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Leadership Keynote</div>
-               <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
+                <div className="inline-flex items-center gap-3 px-8 py-3 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-xl font-bold uppercase tracking-widest mb-10">Leadership Keynote</div>           
+              <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
                  Hear from BL execs on <br />the <span className="text-blackline-yellow">real value of BlackLine</span>
                </h2>
                
