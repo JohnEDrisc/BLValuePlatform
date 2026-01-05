@@ -341,15 +341,19 @@ const CapabilityStack = ({ items }: { items: string[] }) => {
   );
 };
 
-const LogicFlow = ({ metrics }: { metrics: string[] }) => (
+// UPDATED: Shows Value Statement AND Directional Logic Formula
+const LogicFlow = ({ metrics }: { metrics: { statement: string, context: string }[] }) => (
     <div className="flex flex-col gap-4 w-full">
-        {metrics.map((metric, idx) => (
-            <div key={idx} className="flex items-center gap-4">
-                <div className="w-8 h-8 rounded-full bg-green-900/30 border border-green-700 flex items-center justify-center text-green-500 font-bold text-xs shrink-0">
+        {metrics.map((item, idx) => (
+            <div key={idx} className="flex items-start gap-4">
+                <div className="w-8 h-8 rounded-full bg-green-900/30 border border-green-700 flex items-center justify-center text-green-500 font-bold text-xs shrink-0 mt-2">
                     {idx + 1}
                 </div>
-                <div className="flex-1 bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-                    <p className="text-white font-medium text-lg">{metric}</p>
+                <div className="flex-1 bg-zinc-900 border border-zinc-800 p-4 rounded-xl flex flex-col gap-1">
+                    <p className="text-white font-bold text-lg leading-tight">{item.statement}</p>
+                    <p className="text-zinc-400 font-mono text-xs uppercase tracking-wide flex items-center gap-2">
+                       <Calculator size={10} className="text-green-500" /> {item.context}
+                    </p>
                 </div>
             </div>
         ))}
@@ -480,7 +484,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-6 md:p-8 text-center">
                    <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-4 md:mb-6 border border-white/20 group-hover:bg-blue-500 group-hover:text-black transition-all shadow-xl"><LayoutGrid size={24} /></div>
-                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight uppercase italic">Explore Drivers</h3>
+                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">Explore Drivers</h3>
                    <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest group-hover:text-blue-400 transition-colors">Strategic Framework Map</p>
                 </div>
              </div>
@@ -650,12 +654,13 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-red-500/50 transition-all gap-8">
                       <div>
                           <div className="text-red-500 font-black text-4xl mb-4">01</div>
-                          {/* UPDATED: New Phase Name */}
                           <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Align on Strategic Priorities</h3>
-                          <p className="text-red-400 text-base font-black uppercase tracking-widest mb-6">Strategic Hook</p>
+                          {/* UPDATED: Subtext */}
+                          <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">
+                            Stop selling 'process improvements' and start solving board-level problems. Frame the manual status quo as an active anchor dragging down their specific growth, M&A, or margin goals.
+                          </p>
                           <PainPulseGrid items={["Unlocking Strategic Capacity", "M&A Fueled Revenue Growth", "Reliance on Institutional Heroics", "Data Blindness"]} />
                       </div>
-                      <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Shift the dialogue from 'process improvements' to 'strategic imperatives.' <strong>Expose</strong> that the current manual state is an active threat to their growth goals.</p>
                   </div>
               </div>
               
@@ -663,12 +668,13 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[3rem] h-full flex flex-col justify-between hover:border-blue-500/50 transition-all gap-8">
                       <div>
                           <div className="text-blue-500 font-black text-4xl mb-4">02</div>
-                          {/* UPDATED: New Phase Name */}
                           <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Discover Challenges</h3>
-                          <p className="text-blue-400 text-base font-black uppercase tracking-widest mb-6">Identify Customer Challenges</p>
+                          {/* UPDATED: Subtext */}
+                          <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">
+                            Move beyond technical requirements. Uncover the 'Cost of Inertia'—the specific, compounding daily friction that makes 'doing nothing' the most expensive decision they can make.
+                          </p>
                           <SpotlightCards items={["How long does your close take?", "Do you trust the numbers on Day 1?", "What is the cost of attrition?"]} />
                       </div>
-                      <p className="text-white font-medium text-xl mt-8 border-t border-zinc-800 pt-4 leading-relaxed">Deep discovery to uncover the hidden costs of status quo inertia. Validate the specific pains that make change urgent.</p>
                    </div>
               </div>
               
@@ -676,12 +682,13 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-blackline-yellow/50 transition-all gap-6">
                       <div>
                           <div className="text-blackline-yellow font-black text-4xl mb-4">03</div>
-                          {/* UPDATED: New Phase Name */}
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Connect Capabilities to Benefits</h3>
-                          <p className="text-blackline-yellow text-sm font-black uppercase tracking-widest mb-6">Map Outcomes</p>
+                          {/* UPDATED: Subtext */}
+                          <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">
+                             Build the bridge. Don't just list features; demonstrate the mechanical linkage between a platform capability (e.g., Auto-Matching) and the specific outcome they crave (e.g., Speed).
+                          </p>
                           <CapabilityStack items={["Unified Data", "Auto-Matching", "Controls"]} />
                       </div>
-                      <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Connect the dots between BlackLine capabilities and the customer's specific desired business outcomes.</p>
                    </div>
               </div>
               
@@ -689,12 +696,18 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-green-500/50 transition-all gap-6">
                       <div>
                           <div className="text-green-500 font-black text-4xl mb-4">04</div>
-                          {/* UPDATED: New Phase Name - Sized for length */}
                           <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter mb-2 leading-tight">Align on Value & Validate Business Case Logic</h3>
-                          <p className="text-green-400 text-sm font-black uppercase tracking-widest mb-6">Build Logic</p>
-                          <LogicFlow metrics={["Labor Efficiency", "DSO Reduction ", "Reduced Cost of Compliance"]} />
+                          {/* UPDATED: Subtext */}
+                          <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">
+                             The 'Handshake Phase.' Co-author the math with the customer. Agree on the formulas and inputs <em>before</em> calculating the result to ensure the business case is bulletproof and owned by them.
+                          </p>
+                          {/* UPDATED: Value Statement + Directional Logic (No Formulas) */}
+                          <LogicFlow metrics={[
+                            { statement: "Scale Without Headcount", context: "Logic: Efficiency × Growth" }, 
+                            { statement: "Fund Growth Internally", context: "Logic: Cash Velocity × Cost of Capital" }, 
+                            { statement: "Insulate the P&L from Risk", context: "Logic: Risk Probability × Impact" }
+                          ]} />
                       </div>
-                      <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Co-author the business case logic. Secure agreement on the 'mechanics of improvement' before a single ROI number is calculated.</p>
                    </div>
               </div>
               
@@ -702,16 +715,18 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                    <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[3rem] h-full flex flex-col justify-between hover:border-purple-500/50 transition-all gap-6">
                       <div>
                           <div className="text-purple-500 font-black text-4xl mb-4">05</div>
-                          {/* UPDATED: New Phase Name */}
                           <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Quantify the Impact</h3>
-                          <p className="text-purple-400 text-sm font-black uppercase tracking-widest mb-6">Calculate ROI</p>
-                          <div className="bg-zinc-800 p-4 rounded-xl text-center border border-zinc-700 mx-auto">
-                              <Coins className="text-blackline-yellow mx-auto mb-2" />
-                              <span className="text-white font-mono text-xl">$2.5M</span>
-                              <p className="text-[10px] text-zinc-300 uppercase mt-1">Projected Benefit</p>
+                          {/* UPDATED: Subtext */}
+                          <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">
+                             The Output. Translate the agreed logic into a defensible financial projection. Deliver a CFO-ready asset that clearly articulates P&L impact, cash flow velocity, and risk avoidance.
+                          </p>
+                          {/* UPDATED: Larger, Centered "Projected Benefit" Box */}
+                          <div className="bg-zinc-800 p-8 rounded-2xl text-center border border-zinc-700 mx-auto w-full max-w-sm shadow-2xl">
+                              <Coins className="text-blackline-yellow mx-auto mb-4 w-10 h-10" />
+                              <span className="text-white font-black text-4xl tracking-tighter block mb-2">$2.5M</span>
+                              <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Projected Benefit</p>
                           </div>
                       </div>
-                      <p className="text-white font-medium text-xl mt-4 border-t border-zinc-800 pt-4 leading-relaxed">Translate agreed logic into a defensible financial model. Project hard P&L impact and other economic benefits that the CFO can validate and defend.</p>
                    </div>
               </div>
            </div>
@@ -768,10 +783,11 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <div ref={phase1Ref} className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
               <div className="flex items-center justify-center gap-4 mb-8">
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                {/* UPDATED: New Header */}
                 <h4 className="text-red-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 01: Align on Strategic Priorities</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-10 uppercase italic tracking-tighter leading-[0.9]">{pov?.createValue?.title}</h5>
+              
+              {/* UPDATED: Hardcoded "Big Face Text" */}
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-10 uppercase italic tracking-tighter leading-[0.9]">The Cost of Inaction</h5>
               
               <div className="w-full flex justify-center mb-8">
                  {renderDriverVisual(activeDriver.id)}
@@ -786,11 +802,10 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-10">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
            </div>
 
-           {/* PHASE 2 & 3 */}
+           {/* PHASE 2: DISCOVER CHALLENGES */}
            <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                {/* UPDATED: New Header */}
                 <h4 className="text-blue-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 02: Discover Challenges</h4>
               </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov?.captureValue?.title}</h5>
@@ -802,10 +817,9 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               
               <div className="flex items-center justify-center gap-4 mb-8">
                 <div className="w-3 h-3 bg-blackline-yellow rounded-full animate-pulse"></div>
-                {/* UPDATED: New Header */}
                 <h4 className="text-blackline-yellow font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 03: Connect Capabilities to Benefits</h4>
               </div>
-              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">{pov?.deliverValue?.title}</h5>
+              <h5 className="text-3xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter leading-[0.9]">Capabilities That Deliver</h5>
 
               <div className="flex justify-center mb-12">
                  <div className="bg-zinc-950 p-2 rounded-full border border-zinc-800 inline-flex gap-2">
@@ -848,7 +862,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                                 ? 'bg-zinc-900 border-zinc-500 text-white text-xl hover:scale-105' 
                                 : 'bg-transparent border-zinc-800 text-zinc-300 text-sm'}`}>
                               <div className={`rounded-full transition-all ${phase3Focus === 'capabilities' ? 'w-3 h-3 bg-blackline-yellow' : 'w-2 h-2 bg-zinc-700'}`}></div>
-                              {/* Render Feature in bold, Benefit in lighter font if present */}
                               {benefit ? (
                                 <span>
                                   {feature} <span className="text-zinc-500 font-normal px-1">→</span> <span className="text-blackline-yellow font-normal italic">{benefit}</span>
@@ -894,12 +907,12 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                {/* UPDATED: New Header */}
                 <h4 className="text-green-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 04: Align on Value & Validate Logic</h4>
               </div>
               
+              {/* UPDATED: New Hyper Big Text Label */}
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">
-                {pov?.justifyValue?.title || "The Metrics That Drive Impact"}
+                Validating the Financial Impact
               </h5>
               
               {activeDriver.id === 'trust' || activeDriver.id === 'compliance' ? (
@@ -947,7 +960,6 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 md:p-28 rounded-[2rem] shadow-2xl relative flex flex-col justify-center text-center">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                {/* UPDATED: New Header */}
                 <h4 className="text-purple-500 font-black text-xs md:text-lg uppercase tracking-[0.3em]">Phase 05: Quantify the Impact</h4>
               </div>
               <h5 className="text-3xl md:text-8xl font-black text-white mb-6 uppercase italic tracking-tighter leading-[0.9]">ROI & Realization</h5>
@@ -980,15 +992,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
            </div>
 
-            <div className="bg-zinc-900/30 border border-zinc-800 p-8 md:p-12 rounded-[2rem] relative flex flex-col justify-center text-center mt-12">
-               <div className="flex items-center justify-center gap-4 mb-8">
-                 <BookOpen className="text-zinc-500 w-6 h-6" />
-                 <h4 className="text-zinc-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]">Appendix</h4>
-               </div>
-               
-               <p className="text-zinc-600 font-medium italic">Additional resources to be added.</p>
-            </div>
-
+      
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
               <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
               <PovSwitcher />
@@ -998,80 +1002,3 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
       </div>
     );
   }
-
-  // --- MISSING 'letsgo_bva' VIEW RESTORED AND UPDATED ---
-  if (viewMode === 'letsgo_bva') {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-4 animate-fade-in relative">
-          <button onClick={() => setViewMode('landing')} className="absolute top-6 right-6 text-gray-500 hover:text-white"><X size={32}/></button>
-          <div className="max-w-4xl w-full">
-              <div className="inline-flex items-center gap-3 mb-8 px-4 py-2 rounded-full bg-blackline-yellow/10 border border-blackline-yellow/30 text-blackline-yellow text-sm font-bold uppercase tracking-widest">
-                  <Rocket size={16} />
-                  <span>Activation Phase</span>
-              </div>
-              <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter italic uppercase">
-                  Ready to <span className="text-blackline-yellow">Go Get?</span>
-              </h1>
-              <p className="text-xl md:text-3xl text-zinc-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
-                  More enablement coming in Q1.
-              </p>
-          </div>
-      </div>
-    )
-  }
-
-  return <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white"><h1 className="text-2xl font-bold mb-4">Content Not Found</h1><button onClick={onClose} className="px-6 py-2 bg-zinc-800 rounded-lg">Return to Home</button></div>;
-};
-
-const SimplePersonaCard: React.FC<{ role: string, icon: string, nightmare: string, aspiration: string }> = ({ role, icon, nightmare, aspiration }) => {
-  return (
-    <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] hover:border-zinc-500 transition-all flex flex-col h-full group shadow-xl">
-       <div className="flex items-center gap-6 mb-8"><div className="p-4 bg-black rounded-2xl border border-zinc-800 group-hover:bg-blackline-yellow group-hover:text-black transition-all shrink-0"><SafeIcon name={icon} className="w-9 h-9" /></div><h4 className="text-white font-black text-2xl uppercase tracking-wider leading-tight">{role}</h4></div>
-       <div className="space-y-8 flex-grow"><div className="space-y-3"><p className="text-[10px] font-black text-green-500 uppercase tracking-[0.4em] flex items-center gap-3"><Stars size={16} /> Aspiration</p><p className="text-lg text-zinc-100 leading-relaxed font-bold">"{aspiration}"</p></div><div className="space-y-3"><p className="text-[10px] font-black text-red-500 uppercase tracking-[0.4em] flex items-center gap-3"><Ghost size={16} /> Nightmare</p><p className="text-lg text-zinc-100 leading-relaxed font-bold italic">"{nightmare}"</p></div></div>
-    </div>
-  );
-};
-
-const LargeFrameworkBox: React.FC<{ step: string, color: string, title: string, subtitle: string, formula: string, desc: string }> = ({ step, color, title, subtitle, formula, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-14 rounded-[3.5rem] flex flex-col justify-between hover:border-zinc-500 shadow-xl group h-full gap-6">
-     <div>
-       <div className={`w-16 h-16 rounded-[1.2rem] bg-${color}/20 text-${color} flex items-center justify-center mb-8 font-black text-3xl group-hover:scale-110 transition-transform shadow-lg shrink-0`}>{step}</div>
-       <h4 className="text-3xl font-black uppercase text-white mb-1 tracking-widest italic">{title}</h4>
-       <p className={`text-${color} text-xs font-black uppercase tracking-[0.3em] mb-4`}>{subtitle}</p>
-       <div className="mb-8 py-2 px-4 bg-black/40 rounded-lg border border-zinc-800 inline-block w-fit"><span className="text-sm font-mono text-zinc-200 flex items-center gap-2">{formula}</span></div>
-     </div>
-     <p className="text-2xl text-zinc-100 leading-relaxed font-light whitespace-pre-line">{desc}</p>
-  </div>
-);
-
-const DriverCardHorizontal: React.FC<{ driver: SkoDriverDetail, onSelect: (id: string) => void }> = ({ driver, onSelect }) => {
-   return (
-      <div className="group relative w-full rounded-[2rem] overflow-hidden border border-zinc-800 transition-all duration-500 hover:-translate-y-2 shadow-2xl bg-zinc-900 h-full">
-         <div className="absolute inset-0 z-0">
-            <img src={DRIVER_IMAGES[driver.id] || DRIVER_IMAGES.process} alt={driver.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-30 group-hover:opacity-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-         </div>
-         {/* UPDATED: Mobile padding reduced to p-6, Title reduced to text-xl */}
-         <div className="relative z-10 p-6 md:p-8 flex flex-col text-left h-full">
-            <div className="flex items-start justify-between mb-4"><div className="w-12 h-12 bg-zinc-900/80 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-zinc-700 group-hover:border-blackline-yellow transition-colors shrink-0"><SafeIcon name={driver.icon} className="w-6 h-6" /></div></div>
-            <h3 className="text-xl md:text-2xl font-black text-white mb-2 group-hover:text-blackline-yellow transition-colors leading-tight uppercase italic tracking-tighter">{driver.title}</h3>
-            <button onClick={() => onSelect(driver.id)} className="w-full py-3 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blackline-yellow hover:text-black hover:border-blackline-yellow transition-all flex items-center justify-center gap-2 mt-auto"><HelpCircle size={14} /> Explain Driver</button>
-         </div>
-      </div>
-   );
-};
-
-const GridSectionHeader: React.FC<{ title: string, subtitle: string }> = ({ title, subtitle }) => (
-    <div className="flex flex-col items-center text-center gap-2 mb-2"><h3 className="text-xl font-black text-white uppercase tracking-[0.2em] flex items-center gap-4 italic text-center leading-tight"><div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div>{title}<div className="hidden md:block h-1 w-8 bg-blackline-yellow shrink-0"></div></h3><p className="text-sm font-bold text-zinc-200 uppercase tracking-widest px-2">{subtitle}</p></div>
-);
-
-const PhaseCard: React.FC<{ step: string, title: string, label: string, color: string, desc: string }> = ({ step, title, label, color, desc }) => (
-  <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[2.5rem] relative overflow-hidden group hover:border-zinc-700 transition-all text-left">
-     <div className={`absolute top-0 left-0 w-2 h-full bg-${color}`}></div>
-     <div className="text-8xl font-black opacity-[0.03] absolute top-2 right-6 pointer-events-none group-hover:opacity-[0.07]">{step}</div>
-     <h3 className="text-3xl font-black text-white mb-4 uppercase italic tracking-tighter max-w-2xl">{title}</h3>
-     <p className={`text-${color} text-xs font-black uppercase tracking-[0.2em] mb-6`}>{label}</p>
-     <div className="h-px bg-zinc-800 w-full mb-6"></div>
-     <p className="text-zinc-100 leading-relaxed text-lg font-medium">{desc}</p>
-  </div>
-);
