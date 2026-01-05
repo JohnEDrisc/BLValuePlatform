@@ -817,7 +817,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 </div>
               )}
 
-              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-10">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
+              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-large font-black text-zinc-100 uppercase tracking-[0.4em] mb-10">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
            </div>
 
            {/* PHASE 2: DISCOVER CHALLENGES */}
@@ -1011,7 +1011,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            </div>
 
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
-              <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
+              <span className="text-[20px] font-black text-zinc-100 uppercase tracking-[0.4em]">Switch Perspective</span>
               <PovSwitcher />
            </div>
         </div>
