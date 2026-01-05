@@ -290,7 +290,7 @@ Tone: Highly strategic and quantified.
 
 const FULL_SKO_PERSONAS = {
   executive: [
-    { role: 'CEO', icon: 'Target', nightmare: 'Missed earnings guidance due to failed a acquisition.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
+    { role: 'CEO', icon: 'Target', nightmare: 'Missed earnings guidance due to a failed acquisition.', aspiration: 'Driving valuation through predictable, efficient growth strategies.' },
     { role: 'CFO', icon: 'TrendingUp', nightmare: 'Defaulting on debt covenants due to a Financial Statement Restatement.', aspiration: 'Maximizing Free Cash Flow velocity to fund aggressive M&A and transformative R&D.' },
     { role: 'CAO', icon: 'ShieldCheck', nightmare: 'Unexplained balance sheet variances leading to a high-profile audit failure.', aspiration: 'A clean, reconciled balance sheet providing absolute certainty to the Board.' },
     { role: 'CIO', icon: 'Cpu', nightmare: 'Fragmented and fragile legacy systems driving non-strategic fire fighting.', aspiration: 'Delivering reliable scalable AI solutions to the business.' }
