@@ -992,7 +992,15 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
               </div>
            </div>
 
-      
+            <div className="bg-zinc-900/30 border border-zinc-800 p-8 md:p-12 rounded-[2rem] relative flex flex-col justify-center text-center mt-12">
+               <div className="flex items-center justify-center gap-4 mb-8">
+                 <BookOpen className="text-zinc-500 w-6 h-6" />
+                 <h4 className="text-zinc-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]">Appendix</h4>
+               </div>
+               
+               <p className="text-zinc-600 font-medium italic">Additional resources to be added.</p>
+            </div>
+
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
               <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
               <PovSwitcher />
