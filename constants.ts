@@ -355,7 +355,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Controlling rise in external audit fees via self-service audit.',
+         'Significant Full-Time Employee hours released.',
           'Earnings Per Share improvement via Operating Expenses reduction.',
           'Zero-headcount scaling for future geographic expansion.',
           'Reduction in reporting cycle variance and rework.'
@@ -415,7 +415,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'Efficiency Gains',
         metrics: [
-          'Significant Full-Time Employee hours released.',
+          
           'Elimination of redundant effort in bank matching.',
           //comment out overtime 'Reduction in close-related overtime for staff.',
           'Instant visibility into global entity status for regional leads.'
@@ -485,8 +485,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         successStories: [
           //'McKesson released significant cash flow per $1B revenue.',
-          'Kindred achieved reduction in bad debt write-offs.',
-          'Cash Conversion Cycle improvement relative to industry average.'
+          'Kindred achieved reduction in bad debt write-offs.'
+          //'Cash Conversion Cycle improvement relative to industry average.'
         ]
       },
       roiCalculations: {
@@ -585,7 +585,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Strategic Capability',
         capabilities: [
-          'Consumer-Grade User Experience for professionals.',
+          'Modern User Experience for Digital Native professionals.',
           'Remote/Hybrid Close Enablement for talent flexibility.',
           'Value-added Career Paths focusing on business strategy.',
           'Intelligent load balancing across global finance teams.'
@@ -600,9 +600,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Recruitment savings per senior management hire.',
+          'Recruitment savings for new hires.',
           'Preservation of critical institutional process knowledge.',
-          'Significantly improved eNPS scores across the Finance org.',
+          'Significantly improved Employee Net Promoter Scores across the Finance org.',
           'Reduced reliance on high-cost temp and contractor labor.'
         ],
         successStories: [
@@ -635,7 +635,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       captureValue: {
         title: 'Discovery Questions',
         questions: [
-          'Does your team work more than 2 weekends a month during close?',
+          'Does your team work weekends during the month end close?',
           'How long does it take to train a new hire on your manuals?',
           'What is the #1 complaint in your team engagement surveys?',
           'Do your analysts feel they are "learning" or "just processing"?'
@@ -766,8 +766,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Tactical Capability',
         capabilities: [
+          'No code Chart of Accounts Mapping.',
           'ERP-Agnostic Reconciliations for any target system.',
-          'AI-supported Automated Chart of Accounts Mapping Agents.',
           'Unified Integration Dashboard for project teams.',
           'Standardized journal workflows for newly acquired entities.'
         ],
@@ -782,7 +782,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Efficiency Gains',
         metrics: [
           'Reduction in integration labor requirements for acquired entities.',
-          '100% control coverage on Day 1 for aqurired assets.',
+          'Enhanced control coverage on Day 1 for aqurired assets.',
           'Standardized global training curriculums for all levels on financial close.',
           'Elimination of manual intercompany spreadsheet hell.'
         ],
@@ -844,24 +844,24 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'The Metrics That Drive Impact',
         metrics: [
-          'Direct ROI from previously stalled innovation initiatives.',
+          'Unlock ROI from previously stalled innovation initiatives.',
           'Avoidance of third-party strategy consultant fees.',
-          'Acceleration of new market product launches worldwide.',
-          'Total reduction in "Data Janitorial" labor org-wide.'
+          'Acceleration of new market product launches worldwide.'
+        //  'Total reduction in "Data Janitorial" labor org-wide.'
         ],
         successStories: [
           'Domino\'s reduced quarterly analyst call prep time.',
-          'Significant senior staff reallocated to strategic growth.',
-          'Accelerated delivery of strategic data projects.'
+          'Exxon had Significant senior staff reallocated to strategic growth.',
+           'Exxon Accelerated delivery of strategic data projects.'
         ]
       },
       roiCalculations: {
         executive: [
-          { label: 'Strategic Capacity', category: 'Economic', formula: ['Senior Salary', '×', '30% Reallocation'], desc: 'Applying brainpower to high-growth ROI tasks.' },
+          { label: 'Strategic Capacity', category: 'Economic', formula: ['Senior Salary', '×', 'x% Reallocation'], desc: 'Applying brainpower to high-growth ROI tasks.' },
           { label: 'Market Entry Speed', category: 'Economic', formula: ['Revenue / Mo', '×', 'Months Saved'], desc: 'Value of accelerated time-to-market for new regions.' }
         ],
         operational: [
-          { label: 'Ad-hoc Redux', category: 'Direct', formula: ['Analyst Count', '×', 'Request Hours'], desc: 'Value of self-service reporting for business leads.' },
+          { label: 'Ad-hoc Query Efficency', category: 'Direct', formula: ['Analyst Count', '×', 'Request Hours'], desc: 'Value of self-service reporting for business leads.' },
           { label: 'Analysis Delta', category: 'Economic', formula: ['Hours Thinking', 'vs', 'Hours Ticking'], desc: 'Quantifying the shift from low-value to high-value brainpower.' }
         ]
       }
@@ -881,7 +881,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Discovery Questions',
         questions: [
           'What % of work is thinking vs. low-level data prep?',
-          'Do you have time to explain Why numbers moved in Day 3?',
+          'Do you have time to explain Why numbers moved by Day 3?',
           'How many "last minute requests" can you handle in close?',
           'Are your business partners getting the "So What" from you?'
         ]
@@ -891,7 +891,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         capabilities: [
           'Unified Close Management Platform with live analytics.',
           'One-Click Analytical Dashboards for business units.',
-          'Automated Variance Analysis identifying outliers early.',
+          'AI Drivern Variance Analysis identifying outliers early.',
           'Natural language querying for instant data retrieval.'
         ],
         performanceStats: [
@@ -974,8 +974,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         successStories: [
           'Hershey significantly accelerated reporting cycles.',
-          'Reduction in quarterly prep time.',
-          'Enabled Intra-Month course corrections for Operating Expense spend.'
+          //'Reduction in quarterly prep time.',
+          'BlackLine Enabled Intra-Month course corrections for Operating Expense spend.'
         ]
       },
       roiCalculations: {
@@ -1027,7 +1027,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       justifyValue: {
         title: 'Efficiency Gains',
         metrics: [
-          'Shifted to 100% proactive analysis of business data.',
+          //'Accelerated proactive analysis of business data.',
           'Elimination of rework from conflicting data sources.',
           'Zero manual cleaning; analysis starts on Day 1.',
           'Significant improvement in data reliability scores.'
@@ -1066,7 +1066,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       captureValue: {
         title: 'Probing Questions',
         questions: [
-          'How are you preparing for rigorous transparency rules?',
+          'How are you preparing for ESG transparency rules?',
           'Can you guarantee 100% control coverage across transactions?',
           'How much do you spend on compliance consultants annually?',
           'How many "un-monitored" entities are in your portfolio?'
@@ -1096,9 +1096,9 @@ export const SKO_DATA: SkoDriverDetail[] = [
           'Total reduction in internal control testing labor costs.'
         ],
         successStories: [
-          'Coca-Cola achieved  ROI via reduction in audit fees.',
+          'Coca-Cola achieved  ROI via reduction in audit fees.'
           //'Estimated fine avoidance for global firms.',
-          'Navigated global regulatory shifts with zero rework.'
+          // 'avigated global regulatory shifts with zero rework.'
         ]
       },
       roiCalculations: {
@@ -1106,7 +1106,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
           //          { label: 'Audit Fee Reduction', category: 'Direct', formula: ['Audit Fee', '×', 'Reduction %'], desc: 'Control againstthird-party assurance cost increases.' },
 
           { label: 'Audit Fee Increase Avoidance', category: 'Direct', formula: ['Audit Fees held flat'], desc: 'Control against third-party assurance cost increases.' },
-          //{ label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
+          { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
         ],
         operational: [
           { label: 'Evidence Gathering', category: 'Direct', formula: ['Entities', '×', 'Hours Saved'], desc: 'Automating the SOX evidence gathering drill.' },
@@ -1144,8 +1144,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         ],
         performanceStats: [
           'Real-time "Audit-Ready" state maintained all year.',
-          'Elimination of manual testing for standard controls.',
           'Automated data connection and evidence logging.',
+          'Elimination of manual testing for standard controls.',
           'Instant exception alerts.'
         ]
       },
@@ -1228,8 +1228,8 @@ export const SKO_DATA: SkoDriverDetail[] = [
         executive: [
           { label: 'Market Cap Drop Insurance', category: 'Economic', formula: ['Market Cap', '×', '10% drop', '×', '1% probability', '×', '20% BL Impact'], desc: 'BL\'s Controls provide insurance to financial disasters.' },
           { label: 'Remediation Avoidance', category: 'Economic', formula: ['Remediation Cost'], desc: 'Avoided cost of consultants and contractors to fix control failures.' },
-          { label: 'Debt Financing Risk', category: 'Economic', formula: ['Loan Value', '×', 'Rate Spread'], desc: 'Mitigating interest rate hikes due to material weakness/reporting risk.' },
-          { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
+          { label: 'Debt Financing Risk', category: 'Economic', formula: ['Loan Value', '×', 'Rate Spread'], desc: 'Mitigating interest rate hikes due to material weakness/reporting risk.' }
+  //        { label: 'Fine Avoidance Value', category: 'Economic', formula: ['Average Fine', '×', 'Risk Probability'], desc: 'Quantifying the economic value of non-compliance risk mitigation.' }
         ],
         operational: [
           // { label: 'SOX Labor Redux', category: 'Direct', formula: ['Controls', '×', 'Testing Time'], desc: 'Eliminating manual testing for 70% of scope.' },
@@ -1252,7 +1252,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
         title: 'Discovery Questions',
         questions: [
           'How many hours does your team spend gathering auditor data?',
-          'Can you trace balance sheet numbers back to source in <1 min?',
+          'How long does it take to trace a Balance sheet amount back to the underlying transactions?',
           'How many control failures were identified in the last cycle?',
           'Are auditors onsite for weeks or using a portal interface?'
         ]
@@ -1381,7 +1381,7 @@ export const SKO_DATA: SkoDriverDetail[] = [
       deliverValue: {
         title: 'Tactical Capability',
         capabilities: [
-          'Automatic Suggestion of matches for transactional processing.',
+          'AI Supported Automatic Suggestion of matches for transactional processing.',
           'Predictive Accounting Agents identifying flux outliers.',
           'Natural language querying for non-technical users.',
           'AI-assisted account reconciliation research agents.'
