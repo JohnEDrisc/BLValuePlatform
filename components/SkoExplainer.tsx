@@ -1031,7 +1031,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <span>Activation Phase</span>
               </div>
               <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter italic uppercase">
-                  Ready to <span className="text-blackline-yellow">Go Get?</span>
+                  Ready to <span className="text-blackline-yellow">GoGet?</span>
               </h1>
               <p className="text-xl md:text-3xl text-zinc-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
                   More enablement coming in Q1.
