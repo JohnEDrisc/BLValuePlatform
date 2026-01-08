@@ -380,8 +380,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
   // Ref for Phase 1 section to support smart scrolling
   const phase1Ref = useRef<HTMLDivElement>(null);
   
-  // Video Player State
-  const [showVideo, setShowVideo] = useState(false);
+  // Video Player State - UPDATED to handle multiple videos
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const sortedDrivers = useMemo(() => {
     if (!GLOBAL_SKO_DATA || !Array.isArray(GLOBAL_SKO_DATA)) return [];
@@ -509,8 +509,8 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
          </div>
          <div className="max-w-5xl mx-auto w-full px-4 md:px-6 flex flex-col gap-24 md:gap-32 pt-12 md:pt-20">
             <div className="text-center">
-             <div className="inline-flex items-center gap-3 px-8 py-3 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-xl font-bold uppercase tracking-widest mb-10">Strategic Validation</div>   
-              <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
+               <div className="inline-flex items-center gap-3 px-8 py-3 bg-blackline-yellow/20 text-blackline-yellow rounded-full text-xl font-bold uppercase tracking-widest mb-10">Strategic Validation</div>
+               <h2 className="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-12">The Voice of <span className="text-blackline-yellow">ExxonMobil's CFO</span></h2>
                <div className="bg-white text-black p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden text-left flex flex-col h-full">
                   
                   {/* TOP ROW: Customer Since (UPSIZED) + CFO Info */}
@@ -552,14 +552,12 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
             </div>
             <div className="h-px bg-zinc-800 w-full opacity-50"></div>
             <div className="text-center pb-20">
-                <div className="inline-flex items-center gap-3 px-8 py-3 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-xl font-bold uppercase tracking-widest mb-10">Leadership Keynote</div>           
-              <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">
-                 Hear from BL execs on <br />the <span className="text-blackline-yellow">real value of BlackLine</span>
-               </h2>
+               <div className="inline-flex items-center gap-3 px-8 py-3 bg-blackline-yellow/10 text-blackline-yellow rounded-full text-xl font-bold uppercase tracking-widest mb-10">Leadership Keynote</div>
+               <h2 className="text-4xl md:text-6xl font-bold text-white italic tracking-tighter mb-8">Executive Overview from SKO</h2>
                
-               {/* Video Container */}
+               {/* Main Video Container */}
                <div className="w-full aspect-video mb-12 rounded-[3rem] overflow-hidden shadow-2xl border-2 border-zinc-800 relative bg-zinc-900">
-                  {showVideo ? (
+                  {activeVideo === 'main' ? (
                     <iframe 
                       className="w-full h-full"
                       src="https://www.youtube.com/embed/sFReEiNEGQY?autoplay=1&modestbranding=1&rel=0" 
@@ -569,7 +567,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                     ></iframe>
                   ) : (
                     <div 
-                      onClick={() => setShowVideo(true)} 
+                      onClick={() => setActiveVideo('main')} 
                       className="w-full h-full relative flex flex-col items-center justify-center group cursor-pointer hover:border-blackline-yellow/50 transition-all duration-500"
                     >
                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
@@ -578,10 +576,94 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                           <Play size={32} fill="currentColor" />
                        </div>
                        <div className="absolute bottom-10 left-10 text-left z-10">
-                          <p className="text-white font-bold text-2xl italic tracking-tight">Executive Leadership Team</p>
+                          <p className="text-white font-bold text-2xl italic tracking-tight">Executive Leadership Team's Overview from SKO</p>
                        </div>
                     </div>
                   )}
+                </div>
+
+                {/* Three Videos Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                    {/* CFO Video */}
+                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-2 border-zinc-800 relative bg-zinc-900 group">
+                        {activeVideo === 'cfo' ? (
+                            <iframe 
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/ppuXOi_XvaI?autoplay=1&modestbranding=1&rel=0" 
+                                title="BlackLine CFO"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        ) : (
+                            <div 
+                                onClick={() => setActiveVideo('cfo')} 
+                                className="w-full h-full relative flex flex-col items-center justify-center cursor-pointer hover:border-blackline-yellow/50 transition-all duration-500"
+                            >
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                                <div className="relative z-10 w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:bg-blackline-yellow group-hover:text-black transition-all">
+                                    <Play size={24} fill="currentColor" />
+                                </div>
+                                <div className="absolute bottom-6 left-6 text-left z-10">
+                                    <p className="text-white font-bold text-lg italic tracking-tight">Hear from BlackLine's CFO</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* CAO Video */}
+                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-2 border-zinc-800 relative bg-zinc-900 group">
+                        {activeVideo === 'cao' ? (
+                            <iframe 
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/YB2cfVCWeKs?autoplay=1&modestbranding=1&rel=0" 
+                                title="BlackLine CAO"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        ) : (
+                            <div 
+                                onClick={() => setActiveVideo('cao')} 
+                                className="w-full h-full relative flex flex-col items-center justify-center cursor-pointer hover:border-blackline-yellow/50 transition-all duration-500"
+                            >
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                                <div className="relative z-10 w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:bg-blackline-yellow group-hover:text-black transition-all">
+                                    <Play size={24} fill="currentColor" />
+                                </div>
+                                <div className="absolute bottom-6 left-6 text-left z-10">
+                                    <p className="text-white font-bold text-lg italic tracking-tight">Hear from BlackLine's CAO</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* CIO Video */}
+                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-2 border-zinc-800 relative bg-zinc-900 group">
+                        {activeVideo === 'cio' ? (
+                            <iframe 
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/xwP5v0qC48M?autoplay=1&modestbranding=1&rel=0" 
+                                title="BlackLine CIO"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        ) : (
+                            <div 
+                                onClick={() => setActiveVideo('cio')} 
+                                className="w-full h-full relative flex flex-col items-center justify-center cursor-pointer hover:border-blackline-yellow/50 transition-all duration-500"
+                            >
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                                <div className="relative z-10 w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:bg-blackline-yellow group-hover:text-black transition-all">
+                                    <Play size={24} fill="currentColor" />
+                                </div>
+                                <div className="absolute bottom-6 left-6 text-left z-10">
+                                    <p className="text-white font-bold text-lg italic tracking-tight">Hear from BlackLine's CIO</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
          </div>
@@ -817,7 +899,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                 </div>
               )}
 
-              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-large font-black text-zinc-100 uppercase tracking-[0.4em] mb-10">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
+              <div className="pt-12 border-t border-zinc-800/50 text-center"><p className="text-xs font-black text-zinc-500 uppercase tracking-[0.4em] mb-10">Strategic Focus Point</p><p className="text-2xl md:text-4xl text-white font-medium italic leading-relaxed">"{pov?.createValue?.focus}"</p></div>
            </div>
 
            {/* PHASE 2: DISCOVER CHALLENGES */}
@@ -1011,7 +1093,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
            </div>
 
            <div className="flex flex-col items-center gap-8 pt-10 border-t border-zinc-800/50 mt-16">
-              <span className="text-[20px] font-black text-zinc-100 uppercase tracking-[0.4em]">Switch Perspective</span>
+              <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Switch Perspective</span>
               <PovSwitcher />
            </div>
         </div>
@@ -1031,7 +1113,7 @@ export const SkoExplainer: React.FC<SkoExplainerProps> = ({ onClose, t }) => {
                   <span>Activation Phase</span>
               </div>
               <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter italic uppercase">
-                  Ready to <span className="text-blackline-yellow">GoGet?</span>
+                  Ready to <span className="text-blackline-yellow">Go Get?</span>
               </h1>
               <p className="text-xl md:text-3xl text-zinc-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
                   More enablement coming in Q1.
